@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/sql/oracle
+END
+act.sql
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/sql/oracle/act.sql
+END
+quartz_oracle.sql
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/sql/oracle/quartz_oracle.sql
+END
+rm_orgauth.oracle.sql
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/sql/oracle/rm_orgauth.oracle.sql
+END
+rm_base.oracle.sql
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/sql/oracle/rm_base.oracle.sql
+END
+rm_system.oracle.sql
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/sql/oracle/rm_system.oracle.sql
+END
+rm_quartz.oracle.sql
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/sql/oracle/rm_quartz.oracle.sql
+END

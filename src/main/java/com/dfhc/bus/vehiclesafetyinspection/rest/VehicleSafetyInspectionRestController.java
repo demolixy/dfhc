@@ -1,0 +1,538 @@
+/**
+ * 软件著作权：东方汇创
+ *
+ * 系统名称：  中煤陕西榆林能源化工产品销售智能管理系统
+ *
+ * 文件名称：  VehicleSafetyInspectionRestController.java
+ *
+ * 功能描述：  车辆安全检查 rest controller
+ * 
+ * 版本历史：
+ * 
+ * 2017-01-04   1.0.0版 （龙色波）（创建文件）
+ */
+package com.dfhc.bus.vehiclesafetyinspection.rest;
+
+import java.net.URI;
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.Valid;
+import javax.validation.Validator;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.quickbundle.base.web.page.RmPageVo;
+import org.quickbundle.project.RmGlobalReference;
+import org.quickbundle.project.RmProjectHelper;
+import org.quickbundle.project.login.RmUserVo;
+import org.quickbundle.third.spring.http.RmResponseEntityFactory;
+import org.quickbundle.tools.helper.RmJspHelper;
+import org.quickbundle.tools.helper.RmPopulateHelper;
+import org.quickbundle.tools.helper.RmVoHelper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import com.dfhc.ISystemConstant;
+import com.dfhc.base.securityindex.service.SecurityIndexService;
+import com.dfhc.base.securityindex.vo.SecurityIndexVo;
+import com.dfhc.bus.ladingbill.service.LadingBillService;
+import com.dfhc.bus.ladingbill.vo.LadingBillVo;
+import com.dfhc.bus.securityitemresult.service.SecurityItemResultService;
+import com.dfhc.bus.securityitemresult.vo.SecurityItemResultVo;
+import com.dfhc.bus.vehiclesafetyinspection.IVehicleSafetyInspectionConstants;
+import com.dfhc.bus.vehiclesafetyinspection.service.VehicleSafetyInspectionService;
+import com.dfhc.bus.vehiclesafetyinspection.vo.VehicleSafetyInspectionVo;
+import com.dfhc.bus.vehiclesafetyinspection.web.VehicleSafetyInspectionController;
+import com.dfhc.util.DateUtil;
+import com.dfhc.util.StringHelper;
+
+/**
+ * list                 GET     /api/vehiclesafetyinspection
+ * get                  GET     /api/vehiclesafetyinspection/{id}
+ * insert action        POST    /api/vehiclesafetyinspection
+ * update action        PUT     /api/vehiclesafetyinspection/{id}
+ * delete action        DELETE  /api/vehiclesafetyinspection/{id}
+ * delete multi action  POST    /api/vehiclesafetyinspection/delete
+ * batch insert update  POST    /api/vehiclesafetyinspection/batch
+ */
+
+/**
+ * 车辆安全检查rest controller
+ * 
+ * @author 龙色波
+ * @see 参见的类
+ */
+@Controller
+@RequestMapping(value = "/api/vehiclesafetyinspection")
+public class VehicleSafetyInspectionRestController implements
+		IVehicleSafetyInspectionConstants {
+	@Autowired
+	SecurityItemResultService securityItemResultService;
+	
+	@Autowired
+	private VehicleSafetyInspectionService vehicleSafetyInspectionService;
+
+	@Autowired
+	private LadingBillService ladingBillService;
+
+	@Autowired
+	private SecurityIndexService securityIndexService;
+
+	@Autowired
+	private Validator validator;
+
+	/**
+	 * 获取多条记录
+	 * 
+	 * @param request
+	 *            http请求对象
+	 * @return 返回结果map
+	 */
+	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Map<String, Object> list(HttpServletRequest request) {
+		Map<String, Object> searchPara = VehicleSafetyInspectionController
+				.getQueryCondition(request); // 从request中获得查询条件
+		RmPageVo pageVo = RmJspHelper.transctPageVo(request,
+				vehicleSafetyInspectionService.getCount(searchPara));
+		String orderStr = RmJspHelper.getOrderStr(request); // 得到排序信息
+		List<VehicleSafetyInspectionVo> beans = vehicleSafetyInspectionService
+				.list(searchPara, orderStr, pageVo.getStartIndex(),
+						pageVo.getPageSize()); // 按条件查询全部,带排序
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put(RM_JSON_TOTAL_COUNT, pageVo.getRecordCount());
+		result.put(REQUEST_BEANS, beans);
+		return result;
+	}
+
+	/**
+	 * 获得单条记录
+	 * 
+	 * @param id
+	 *            主键id
+	 * @return
+	 */
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<?> get(@PathVariable("id") String id) {
+		VehicleSafetyInspectionVo task = vehicleSafetyInspectionService.get(id);
+		if (task == null) {
+			return new ResponseEntity<VehicleSafetyInspectionVo>(
+					HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<VehicleSafetyInspectionVo>(task,
+				HttpStatus.OK);
+	}
+
+	/**
+	 * 插入单条记录，使用服务端管理的ID号
+	 * 
+	 * @param vo
+	 *            值对象
+	 * @param uriBuilder
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<?> insert(@RequestBody VehicleSafetyInspectionVo vo,
+			UriComponentsBuilder uriBuilder) {
+		// 调用JSR303 Bean Validator进行校验，如果出错返回含400错误码及json格式的错误信息.
+		Set<ConstraintViolation<VehicleSafetyInspectionVo>> failures = validator
+				.validate(vo);
+		if (!failures.isEmpty()) {
+			return RmResponseEntityFactory.build(failures,
+					HttpStatus.BAD_REQUEST);
+		}
+		vehicleSafetyInspectionService.insert(vo);
+		// 按照Restful风格约定，创建指向新任务的url, 也可以直接返回id或对象.
+		String id = vo.getId();
+		URI uri = uriBuilder.path("/api/vehiclesafetyinspection/" + id).build()
+				.toUri();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setLocation(uri);
+		return new ResponseEntity<HttpHeaders>(headers, HttpStatus.CREATED);
+	}
+
+	/**
+	 * 修改单条记录
+	 * 
+	 * @param vo
+	 * @return
+	 */
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> update(@RequestBody VehicleSafetyInspectionVo vo) {
+		// 调用JSR303 Bean Validator进行校验，如果出错返回含400错误码及json格式的错误信息.
+		Set<ConstraintViolation<VehicleSafetyInspectionVo>> failures = validator
+				.validate(vo);
+		if (!failures.isEmpty()) {
+			return RmResponseEntityFactory.build(failures,
+					HttpStatus.BAD_REQUEST);
+		}
+		// 保存
+		vehicleSafetyInspectionService.update(vo);
+		// 按Restful约定，返回204状态码, 无内容. 也可以返回200状态码.
+		return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
+	}
+
+	/**
+	 * 删除单条记录
+	 * 
+	 * @param id
+	 *            主键id
+	 */
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void delete(@PathVariable("id") String id) {
+		vehicleSafetyInspectionService.delete(id);
+	}
+
+	/**
+	 * 删除单条记录
+	 * 
+	 * @param id
+	 *            主键id
+	 */
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	@ResponseBody
+	public int delete(HttpServletRequest request) {
+		String[] ids = RmJspHelper.getArrayFromRequest(request, REQUEST_IDS); // 从request获取多条记录id
+		if (ids != null && ids.length != 0) {
+			return vehicleSafetyInspectionService.delete(ids); // 删除多条记录
+		}
+		return 0;
+	}
+
+	/**
+	 * 批量保存，没有主键的insert，有主键的update
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "batch", method = RequestMethod.POST)
+	public ResponseEntity<Map<String, int[]>> batchInsertUpdate(
+			HttpServletRequest request) {
+		List<VehicleSafetyInspectionVo> lvo = RmPopulateHelper.populateAjax(
+				VehicleSafetyInspectionVo.class, request);
+		for (VehicleSafetyInspectionVo vo : lvo) {
+			if (vo.getId() != null) {
+				RmVoHelper.markModifyStamp(request, vo);
+			} else {
+				RmVoHelper.markCreateStamp(request, vo);
+			}
+		}
+		int[] sum_insert_update = vehicleSafetyInspectionService
+				.insertUpdateBatch(lvo
+						.toArray(new VehicleSafetyInspectionVo[0]));
+		Map<String, int[]> result = new HashMap<String, int[]>();
+		result.put(EXECUTE_ROW_COUNT, sum_insert_update);
+
+		return new ResponseEntity<Map<String, int[]>>(result, HttpStatus.OK);
+	}
+
+	/**
+	 * 车辆检查信息展示
+	 * 
+	 * @param request
+	 * @param checkCarId
+	 * @return
+	 */
+	@RequestMapping(value = "getCheckInfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Map<String, Object> getCheckInfo(
+			HttpServletRequest request,
+			@RequestParam(value = "checkCarId", required = true) String checkCarId) {
+		return vehicleSafetyInspectionService.getCheckInfo(request, checkCarId);
+	}
+
+	/**
+	 * 新增车辆安全检查信息
+	 * 
+	 * @param request
+	 * @param vo
+	 * @return
+	 */
+	// @RequestMapping(value="carCheck", method=RequestMethod.POST,
+	// produces=MediaType.APPLICATION_JSON_VALUE)
+	// @ResponseBody
+	// public Map<String, Object> carCheck(HttpServletRequest request, @Valid
+	// VehicleSafetyInspectionVo vo){
+	//
+	// return vehicleSafetyInspectionService.insertVo(request, vo);
+	// }
+
+	@RequestMapping(value = "gotoSecurity")
+	public String gotoSecurity(
+			HttpServletRequest request,
+			@RequestParam(value = "id", required = true) String id,
+			@RequestParam(value = "checkType", required = true) String checkType,
+			RedirectAttributes attributes, Model model) {
+		RmUserVo userVo = RmProjectHelper.getRmUserVo(request);
+
+		if (userVo == null) {
+			return "redirect:/jsp/android/login.jsp";
+		}
+		if (!ISystemConstant.DICTIONARY_USER_TYPE_3.equals(userVo
+				.getUser_type())) {
+			request.getSession().invalidate();
+			return "redirect:/jsp/android/login.jsp";
+		}
+
+		LadingBillVo ladingBillVo = ladingBillService.get(id);
+		Map<String, Object> searchPara = new HashMap<String, Object>();
+		String check = checkTypeConvert(checkType);
+		searchPara.put("checkType", check);
+		// 检查，根据检查类型获取安检指标
+		List<SecurityIndexVo> securityIndexs = securityIndexService.list(
+				searchPara, "");
+
+		Date sqlDate = DateUtil.toSqlDate(DateUtil.addDays(DateUtil
+				.getNowDate(), Integer.valueOf(RmGlobalReference.get(
+				ISystemConstant.DICTIONARY_DEFAULT_TIME,
+				ISystemConstant.DICTIONARY_DEFAULT_DELIVERY_END_TIME))));
+
+		if (sqlDate.compareTo(ladingBillVo.getEstimatedLoadingTime()) < 0) {
+			attributes.addFlashAttribute("errMsg", "该提货单已过期!");
+			return "/api/loadingnotice/security";
+		}
+		model.addAttribute(REQUEST_BEAN, ladingBillVo);
+		model.addAttribute("securityIndexs", securityIndexs);
+		model.addAttribute("checkType", check);
+		return "/android/beforeFillCheck";
+	}
+
+	// 安全检查类型转换
+	private String checkTypeConvert(String checkType) {
+		String result = "";
+		if (!StringHelper.isEmpty(checkType))
+			if (checkType.equals("10"))
+				result = "01";
+			else if (checkType.equals("11"))
+				result = "02";
+			else if (checkType.equals("12"))
+				result = "03";
+		return result;
+	}
+
+	/**
+	 * 新增安全检查
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "insertVo", method = RequestMethod.POST)
+	public String insertVo(HttpServletRequest request,
+			@Valid VehicleSafetyInspectionVo vo) {
+
+		RmUserVo userVo = RmProjectHelper.getRmUserVo(request);
+
+		if (userVo == null) {
+			return "redirect:/jsp/android/login.jsp";
+		}
+
+		// 判断是否已检查
+		Map<String, Object> variable = new HashMap<String, Object>();
+
+		variable.put("ladingBillId", vo.getLadingBillId());
+		variable.put("delete_flag", ISystemConstant.DICTIONARY_RM_YES_NOT_0);
+
+		List<VehicleSafetyInspectionVo> list = vehicleSafetyInspectionService
+				.list(variable, null);
+
+		if (!CollectionUtils.isEmpty(list)) {
+			return "redirect:/api/loadingnotice/security?operation="
+					+ ISystemConstant.DICTIONARY_OPERATION_07;
+		}
+
+		if (!ISystemConstant.DICTIONARY_RM_YES_NOT_1.equals(vo
+				.getNormalVehicleBrake())) {
+			vo.setNormalVehicleBrake(ISystemConstant.DICTIONARY_RM_YES_NOT_0);
+		}
+		if (!ISystemConstant.DICTIONARY_RM_YES_NOT_1.equals(vo
+				.getFireExtinguisher())) {
+			vo.setFireExtinguisher(ISystemConstant.DICTIONARY_RM_YES_NOT_0);
+		}
+		if (!ISystemConstant.DICTIONARY_RM_YES_NOT_1.equals(vo.getFlashHider())) {
+			vo.setFlashHider(ISystemConstant.DICTIONARY_RM_YES_NOT_0);
+		}
+		if (!ISystemConstant.DICTIONARY_RM_YES_NOT_1.equals(vo
+				.getDriverLicensePass())) {
+			vo.setDriverLicensePass(ISystemConstant.DICTIONARY_RM_YES_NOT_0);
+		}
+		if (!ISystemConstant.DICTIONARY_RM_YES_NOT_1.equals(vo
+				.getIsConsistentOriOil())) {
+			vo.setIsConsistentOriOil(ISystemConstant.DICTIONARY_RM_YES_NOT_0);
+		}
+		if (!ISystemConstant.DICTIONARY_RM_YES_NOT_1.equals(vo.getBrakeWell())) {
+			vo.setBrakeWell(ISystemConstant.DICTIONARY_RM_YES_NOT_0);
+		}
+		if (!ISystemConstant.DICTIONARY_RM_YES_NOT_1.equals(vo
+				.getDangerousQualifiedEscort())) {
+			vo.setDangerousQualifiedEscort(ISystemConstant.DICTIONARY_RM_YES_NOT_0);
+		}
+		if (!ISystemConstant.DICTIONARY_RM_YES_NOT_1.equals(vo
+				.getStaticGroundingZone())) {
+			vo.setStaticGroundingZone(ISystemConstant.DICTIONARY_RM_YES_NOT_0);
+		}
+		if (!ISystemConstant.DICTIONARY_RM_YES_NOT_1.equals(vo
+				.getDangerousTransCertificate())) {
+			vo.setDangerousTransCertificate(ISystemConstant.DICTIONARY_RM_YES_NOT_0);
+		}
+		if (!ISystemConstant.DICTIONARY_RM_YES_NOT_1.equals(vo
+				.getPressureGaugeLevelGauge())) {
+			vo.setPressureGaugeLevelGauge(ISystemConstant.DICTIONARY_RM_YES_NOT_0);
+		}
+		if (!ISystemConstant.DICTIONARY_RM_YES_NOT_1.equals(vo
+				.getPressureVesselCalibration())) {
+			vo.setPressureVesselCalibration(ISystemConstant.DICTIONARY_RM_YES_NOT_0);
+		}
+		if (!ISystemConstant.DICTIONARY_RM_YES_NOT_1.equals(vo.getGps())) {
+			vo.setGps(ISystemConstant.DICTIONARY_RM_YES_NOT_0);
+		}
+		if (!ISystemConstant.DICTIONARY_RM_YES_NOT_1.equals(vo
+				.getWithoutFireworks())) {
+			vo.setWithoutFireworks(ISystemConstant.DICTIONARY_RM_YES_NOT_0);
+		}
+		if (!ISystemConstant.DICTIONARY_RM_YES_NOT_1.equals(vo
+				.getSafetyValveIsGood())) {
+			vo.setSafetyValveIsGood(ISystemConstant.DICTIONARY_RM_YES_NOT_0);
+		}
+		if (!ISystemConstant.DICTIONARY_RM_YES_NOT_1.equals(vo.getStatus())) {
+			vo.setStatus(ISystemConstant.DICTIONARY_RM_YES_NOT_0);
+		}
+		vo.setFirstCheckMan(userVo.getName());
+		// vo.setCheckMan(userVo.getName());
+		vo.setFirstcheckTime(DateUtil.getNowTimestamp());
+		vehicleSafetyInspectionService.insertVo(request, vo); // 插入单条记录
+		// 插入BUS_VEHICLE_SAFETY_INSPECTION表后，插BUS_SECURITY_ITEM_RESULT表
+		String vsisId = getVehicleSafetyInspectionId(vo.getLadingBillId());
+		SecurityItemResultVo[] results = getSecurityItemResult(request, vsisId);
+
+		return "redirect:/api/loadingnotice/security";
+	}
+
+	/**
+	 * 
+	 * @param ladingBillId
+	 * @return
+	 */
+	private String getVehicleSafetyInspectionId(String ladingBillId) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("ladingBillId", ladingBillId);
+		VehicleSafetyInspectionVo vsiv = vehicleSafetyInspectionService.getVo(
+				params, false);
+		return vsiv.getId();
+	}
+
+	/**
+	 * 根据form表单提交的值，封装为SecurityItemResultVo list对象
+	 * 
+	 * @param request
+	 * @return List<SecurityItemResultVo>
+	 */
+	private SecurityItemResultVo[] getSecurityItemResult(
+			HttpServletRequest request, String id) {
+		SecurityItemResultVo[] securityItemResultVos = new SecurityItemResultVo[25] ;
+		String checkType = request.getParameter("checkType");
+		String[] checkType01 = { "TrailerNumber", "MaxFilling",
+				"RegistrationAgreement", "RegistrationCertificate", "TankLevelGauge",
+				"SafetyAccessories", "SpareParts", "ValveDevice",
+				"NoLeakage", "LicensePlateNumber", "FillingMedium",
+				"EmptyQuality", "CraneTubeSafety", "FirstTestRecord",
+				"CompleteDocuments", "MarkClearlyVisible", "TankIntact",
+				"TankEffective", "CuttingDevice", "TankBlasting",
+				"TankTemperature", "ResidualPressure"};//checkType="01"
+		String[] checkType02={"SitePatrol","ReliablePlacement",
+				"Raffinate","DesignatedPost","TechnicalSpecifications","Certificated",
+				"Destination","AirMixedMedium","GoodSafetyInterlock","FluentFlow",
+				"CranePipeNoLeakage","NoOverload"				};//checkType="02"
+		String[] checkType03={"FiveMinutes","CraneTube","OffState",
+				"MeetRequirements","InterfaceWithoutLeakage","EmergencyShutOffDevice","GoodDevice",
+				"GroundingWireIntact","ResidualFluidDrainage","CompleteSeparation","TankPressureAfterFilling",
+				"HeavyVehicleWeight","FillingVolume",
+		};//checkType="03"
+		SecurityItemResultVo  securityItemResultVo ;
+		Map<String,Object> params = new HashMap<String,Object>();
+		if ("01".equals(checkType)) {
+			for(int i=0;i<checkType01.length;i++){
+				params.put("checkResultCtrlName", checkType01[i]);
+				params.put("checkType", checkType);
+				securityItemResultVo = new SecurityItemResultVo();
+				securityItemResultVo.setVehicleSafetyInspectionId(id);
+				//设置检查项 ，需要根据控件名称查询vo,然后获取检查项
+				securityItemResultVo.setCheckItem(securityItemResultService.getVo(params, false).getCheckItem());
+				securityItemResultVo.setCheckType(checkType);
+				securityItemResultVo.setCheckResult(request.getParameter(checkType01[i]));
+				securityItemResultVos[i]=securityItemResultVo;
+			}
+		}
+		if ("02.".equals(checkType)) {
+			for(int i=0;i<checkType02.length;i++){
+				securityItemResultVo = new SecurityItemResultVo();
+				securityItemResultVo.setVehicleSafetyInspectionId(id);
+				securityItemResultVo.setCheckType(checkType);
+				securityItemResultVo.setCheckResult(request.getParameter(checkType02[i]));
+				securityItemResultVos[i]=securityItemResultVo;
+			}
+		}
+		if ("03.".equals(checkType)) {
+			for(int i=0;i<checkType03.length;i++){
+				securityItemResultVo = new SecurityItemResultVo();
+				securityItemResultVo.setVehicleSafetyInspectionId(id);
+				securityItemResultVo.setCheckType(checkType);
+				securityItemResultVo.setCheckResult(request.getParameter(checkType03[i]));
+				securityItemResultVos[i]=securityItemResultVo;
+			}
+		}
+		return securityItemResultVos;
+	}
+
+	/**
+	 * 安全检查查看
+	 * 
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "safeCheck")
+	public String safeCheck(
+			HttpServletRequest request,
+			Model model,
+			@RequestParam(value = "ladingBillId", required = true) String ladingBillId) {
+		Map<String, Object> variable = new HashMap<String, Object>();
+
+		variable.put("ladingBillId", ladingBillId);
+		variable.put("delete_flag", ISystemConstant.DICTIONARY_RM_YES_NOT_0);
+		variable.put("ladingInfo", "ladingInfo");
+
+		List<VehicleSafetyInspectionVo> list = vehicleSafetyInspectionService
+				.list(variable, null);
+
+		if (CollectionUtils.isEmpty(list)) {
+			return "redirect:/api/loadingnotice/security?operation="
+					+ ISystemConstant.DICTIONARY_OPERATION_07;
+		}
+
+		model.addAttribute(REQUEST_BEAN, list.get(0));
+
+		return "/android/securityInfo";
+	}
+}

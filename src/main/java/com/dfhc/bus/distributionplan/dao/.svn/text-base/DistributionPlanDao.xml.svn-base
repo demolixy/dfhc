@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dfhc.bus.distributionplan.dao.DistributionPlanDao">
+  <!-- 共享的where语句，如有冲突或特殊情况，请另写 -->
+  <sql id="where">
+   <trim prefix="where" prefixOverrides="and|or">  
+      <if test="id != null and id != ''">
+        and BUS_DISTRIBUTION_PLAN.ID = #{id}
+      </if>
+      <if test="planCode != null and planCode != ''">
+        and BUS_DISTRIBUTION_PLAN.PLAN_CODE = #{planCode}
+      </if>
+      <if test="planDistributionDate != null and planDistributionDate != ''">
+        and to_char(BUS_DISTRIBUTION_PLAN.PLAN_DISTRIBUTION_DATE,'YYYY-MM-DD') = #{planDistributionDate}
+      </if>
+      <if test="sendCarPlanImage != null and sendCarPlanImage != ''">
+        and BUS_DISTRIBUTION_PLAN.SEND_CAR_PLAN_IMAGE = #{sendCarPlanImage}
+      </if>
+      <if test="remark != null and remark != ''">
+        and BUS_DISTRIBUTION_PLAN.REMARK LIKE '%${remark}%'
+      </if>
+      <if test="delete_flag != null and delete_flag != ''">
+        and nvl(BUS_DISTRIBUTION_PLAN.DELETE_FLAG,'0') = #{delete_flag}
+      </if>
+      </trim>
+  </sql>
+
+  <insert id="insert" parameterType="com.dfhc.bus.distributionplan.vo.DistributionPlanVo">
+    insert into BUS_DISTRIBUTION_PLAN (
+      USABLE_STATUS, CREATE_TIME, CREATE_IP, CREATE_USER_ID, 
+      CREATE_USER_NAME, MODIFY_TIME, MODIFY_IP, MODIFY_USER_ID, 
+      MODIFY_USER_NAME, DELETE_TIME, DELETE_IP, DELETE_FLAG, 
+      DELETE_USER_ID, DELETE_USER_NAME, ORDER_CODE, ATTRIBUTE1, 
+      ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, 
+      ID ,
+      PLAN_CODE ,
+      PLAN_DISTRIBUTION_DATE ,
+      SEND_CAR_PLAN_IMAGE ,
+      REMARK 
+      )
+    values ( 
+     #{usable_status,jdbcType=VARCHAR},#{create_time,jdbcType=TIMESTAMP},#{create_ip,jdbcType=VARCHAR},#{create_user_id,jdbcType=VARCHAR},#{create_user_name,jdbcType=VARCHAR},#{modify_time,jdbcType=TIMESTAMP},#{modify_ip,jdbcType=VARCHAR},#{modify_user_id,jdbcType=VARCHAR},#{modify_user_name,jdbcType=VARCHAR},#{delete_time,jdbcType=TIMESTAMP},#{delete_ip,jdbcType=VARCHAR},#{delete_flag,jdbcType=VARCHAR},#{delete_user_id,jdbcType=VARCHAR},#{delete_user_name,jdbcType=VARCHAR},#{order_code,jdbcType=VARCHAR},#{attribute1,jdbcType=VARCHAR},#{attribute2,jdbcType=VARCHAR},#{attribute3,jdbcType=VARCHAR},#{attribute4,jdbcType=VARCHAR},#{attribute5,jdbcType=VARCHAR},
+	#{id,jdbcType=CHAR},
+	#{planCode,jdbcType=VARCHAR},
+	#{planDistributionDate,jdbcType=TIMESTAMP},
+	#{sendCarPlanImage,jdbcType=VARCHAR},
+	#{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+    
+  <delete id="delete" parameterType="int">
+    delete from BUS_DISTRIBUTION_PLAN where ID=#{id}
+  </delete>
+  
+  <delete id="deleteMulti" parameterType="int">
+    delete from BUS_DISTRIBUTION_PLAN where ID in 
+    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">  
+      #{item}   
+    </foreach>
+  </delete>
+
+  <update id="update" parameterType="com.dfhc.bus.distributionplan.vo.DistributionPlanVo">
+    update BUS_DISTRIBUTION_PLAN 
+    <trim prefix="SET" suffixOverrides=",">  
+		<if test="usable_status != null and usable_status != ''">
+		     USABLE_STATUS=#{usable_status,jdbcType=VARCHAR},
+		</if>
+		<if test="create_time != null and create_time != ''">
+		 CREATE_TIME=#{create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="create_ip != null and create_ip != ''">
+		 CREATE_IP=#{create_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="create_user_id != null and create_user_id != ''">
+		 CREATE_USER_ID=#{create_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="create_user_name != null and create_user_name != ''">
+		   CREATE_USER_NAME=#{create_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_time != null and modify_time != ''">
+		 MODIFY_TIME=#{modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="modify_ip != null and modify_ip != ''">
+		 MODIFY_IP=#{modify_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_user_id != null and modify_user_id != ''">
+		 MODIFY_USER_ID=#{modify_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_user_name != null and modify_user_name != ''">
+		   MODIFY_USER_NAME=#{modify_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_time != null and delete_time != ''">
+		 DELETE_TIME=#{delete_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="delete_ip != null and delete_ip != ''">
+		 DELETE_IP=#{delete_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_flag != null and delete_flag != ''">
+		 DELETE_FLAG=#{delete_flag,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_user_id != null and delete_user_id != ''">
+		   DELETE_USER_ID=#{delete_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_user_name != null and delete_user_name != ''">
+		 DELETE_USER_NAME=#{delete_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="order_code != null and order_code != ''">
+		 ORDER_CODE=#{order_code,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute1 != null and attribute1 != ''">
+		 ATTRIBUTE1=#{attribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute2 != null and attribute2 != ''">
+		 ATTRIBUTE2=#{attribute2,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute3 != null and attribute3 != ''">
+		 ATTRIBUTE3=#{attribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute4 != null and attribute4 != ''">
+		 ATTRIBUTE4=#{attribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute5 != null and attribute5 != ''">
+		 ATTRIBUTE5=#{attribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="id!=null and id!= ''">
+		ID=#{id,jdbcType=CHAR},
+		</if>
+		<if test="planCode!=null and planCode!= ''">
+		PLAN_CODE=#{planCode,jdbcType=VARCHAR},
+		</if>
+		<if test="planDistributionDate!=null and planDistributionDate!= ''">
+		PLAN_DISTRIBUTION_DATE=#{planDistributionDate,jdbcType=TIMESTAMP},
+		</if>
+		<if test="sendCarPlanImage!=null and sendCarPlanImage!= ''">
+		SEND_CAR_PLAN_IMAGE=#{sendCarPlanImage,jdbcType=VARCHAR},
+		</if>
+		<if test="remark!=null and remark!= ''">
+		REMARK=#{remark,jdbcType=VARCHAR},
+		</if>
+     </trim> 
+    where ID=#{id}
+  </update>
+
+  <select id="get" parameterType="string" resultType="com.dfhc.bus.distributionplan.vo.DistributionPlanVo">
+    select  
+      BUS_DISTRIBUTION_PLAN.USABLE_STATUS, BUS_DISTRIBUTION_PLAN.CREATE_TIME, BUS_DISTRIBUTION_PLAN.CREATE_IP, BUS_DISTRIBUTION_PLAN.CREATE_USER_ID, 
+      BUS_DISTRIBUTION_PLAN.CREATE_USER_NAME, BUS_DISTRIBUTION_PLAN.MODIFY_TIME, BUS_DISTRIBUTION_PLAN.MODIFY_IP, BUS_DISTRIBUTION_PLAN.MODIFY_USER_ID, 
+      BUS_DISTRIBUTION_PLAN.MODIFY_USER_NAME, BUS_DISTRIBUTION_PLAN.DELETE_TIME, BUS_DISTRIBUTION_PLAN.DELETE_IP, BUS_DISTRIBUTION_PLAN.DELETE_FLAG, 
+      BUS_DISTRIBUTION_PLAN.DELETE_USER_ID, BUS_DISTRIBUTION_PLAN.DELETE_USER_NAME, BUS_DISTRIBUTION_PLAN.ORDER_CODE, BUS_DISTRIBUTION_PLAN.ATTRIBUTE1, 
+      BUS_DISTRIBUTION_PLAN.ATTRIBUTE2, BUS_DISTRIBUTION_PLAN.ATTRIBUTE3, BUS_DISTRIBUTION_PLAN.ATTRIBUTE4, BUS_DISTRIBUTION_PLAN.ATTRIBUTE5, 
+      BUS_DISTRIBUTION_PLAN.ID as id,	
+      BUS_DISTRIBUTION_PLAN.PLAN_CODE as planCode,	
+      BUS_DISTRIBUTION_PLAN.PLAN_DISTRIBUTION_DATE as planDistributionDate,	
+      BUS_DISTRIBUTION_PLAN.SEND_CAR_PLAN_IMAGE as sendCarPlanImage,	
+      BUS_DISTRIBUTION_PLAN.REMARK as remark	
+    from BUS_DISTRIBUTION_PLAN 
+    where BUS_DISTRIBUTION_PLAN.ID=#{id}
+  </select>
+
+  <select id="getCount" parameterType="map" resultType="int" useCache="true">
+    select count(BUS_DISTRIBUTION_PLAN.ID) from BUS_DISTRIBUTION_PLAN
+    <include refid="where"/>    
+  </select>
+  
+  <select id="list" parameterType="map" resultType="com.dfhc.bus.distributionplan.vo.DistributionPlanVo">
+    select 
+     BUS_DISTRIBUTION_PLAN.ID as id,	
+     BUS_DISTRIBUTION_PLAN.PLAN_CODE as planCode,	
+     BUS_DISTRIBUTION_PLAN.PLAN_DISTRIBUTION_DATE as planDistributionDate,	
+     BUS_DISTRIBUTION_PLAN.SEND_CAR_PLAN_IMAGE as sendCarPlanImage,	
+     BUS_DISTRIBUTION_PLAN.REMARK as remark	
+    from BUS_DISTRIBUTION_PLAN
+    <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+  
+  <select id="listAllColumn" parameterType="map" resultType="com.dfhc.bus.distributionplan.vo.DistributionPlanVo">
+    select 
+      BUS_DISTRIBUTION_PLAN.USABLE_STATUS, BUS_DISTRIBUTION_PLAN.CREATE_TIME, BUS_DISTRIBUTION_PLAN.CREATE_IP, BUS_DISTRIBUTION_PLAN.CREATE_USER_ID, 
+      BUS_DISTRIBUTION_PLAN.CREATE_USER_NAME, BUS_DISTRIBUTION_PLAN.MODIFY_TIME, BUS_DISTRIBUTION_PLAN.MODIFY_IP, BUS_DISTRIBUTION_PLAN.MODIFY_USER_ID, 
+      BUS_DISTRIBUTION_PLAN.MODIFY_USER_NAME, BUS_DISTRIBUTION_PLAN.DELETE_TIME, BUS_DISTRIBUTION_PLAN.DELETE_IP, BUS_DISTRIBUTION_PLAN.DELETE_FLAG, 
+      BUS_DISTRIBUTION_PLAN.DELETE_USER_ID, BUS_DISTRIBUTION_PLAN.DELETE_USER_NAME, BUS_DISTRIBUTION_PLAN.ORDER_CODE, BUS_DISTRIBUTION_PLAN.ATTRIBUTE1, 
+     BUS_DISTRIBUTION_PLAN.ATTRIBUTE2, BUS_DISTRIBUTION_PLAN.ATTRIBUTE3, BUS_DISTRIBUTION_PLAN.ATTRIBUTE4, BUS_DISTRIBUTION_PLAN.ATTRIBUTE5, 
+     BUS_DISTRIBUTION_PLAN.ID as id,	
+     BUS_DISTRIBUTION_PLAN.PLAN_CODE as planCode,	
+     BUS_DISTRIBUTION_PLAN.PLAN_DISTRIBUTION_DATE as planDistributionDate,	
+     BUS_DISTRIBUTION_PLAN.SEND_CAR_PLAN_IMAGE as sendCarPlanImage,	
+     BUS_DISTRIBUTION_PLAN.REMARK as remark	
+    from BUS_DISTRIBUTION_PLAN
+    <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+
+  <select id="search" parameterType="map" resultType="com.dfhc.bus.distributionplan.vo.DistributionPlanVo">
+    select 
+      BUS_DISTRIBUTION_PLAN.USABLE_STATUS, BUS_DISTRIBUTION_PLAN.CREATE_TIME, BUS_DISTRIBUTION_PLAN.CREATE_IP, BUS_DISTRIBUTION_PLAN.CREATE_USER_ID, 
+      BUS_DISTRIBUTION_PLAN.CREATE_USER_NAME, BUS_DISTRIBUTION_PLAN.MODIFY_TIME, BUS_DISTRIBUTION_PLAN.MODIFY_IP, BUS_DISTRIBUTION_PLAN.MODIFY_USER_ID, 
+      BUS_DISTRIBUTION_PLAN.MODIFY_USER_NAME, BUS_DISTRIBUTION_PLAN.DELETE_TIME, BUS_DISTRIBUTION_PLAN.DELETE_IP, BUS_DISTRIBUTION_PLAN.DELETE_FLAG, 
+      BUS_DISTRIBUTION_PLAN.DELETE_USER_ID, BUS_DISTRIBUTION_PLAN.DELETE_USER_NAME, BUS_DISTRIBUTION_PLAN.ORDER_CODE, BUS_DISTRIBUTION_PLAN.ATTRIBUTE1, 
+      BUS_DISTRIBUTION_PLAN.ATTRIBUTE2, BUS_DISTRIBUTION_PLAN.ATTRIBUTE3, BUS_DISTRIBUTION_PLAN.ATTRIBUTE4, BUS_DISTRIBUTION_PLAN.ATTRIBUTE5, 
+     BUS_DISTRIBUTION_PLAN.ID as id,	
+     BUS_DISTRIBUTION_PLAN.PLAN_CODE as planCode,	
+     BUS_DISTRIBUTION_PLAN.PLAN_DISTRIBUTION_DATE as planDistributionDate,	
+     BUS_DISTRIBUTION_PLAN.SEND_CAR_PLAN_IMAGE as sendCarPlanImage,	
+     BUS_DISTRIBUTION_PLAN.REMARK as remark	
+    from BUS_DISTRIBUTION_PLAN
+     <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+ <!-- 批量更新 -->
+  <update id="updateBatch" parameterType="ArrayList">
+     begin
+     <foreach collection="list" item="item" index="index" separator=";" > 
+     update BUS_DISTRIBUTION_PLAN 
+    <set>  
+		<if test="item.usable_status != null and item.usable_status != ''">
+		     USABLE_STATUS=#{item.usable_status,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_time != null and item.create_time != ''">
+		 CREATE_TIME=#{item.create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.create_ip != null and item.create_ip != ''">
+		 CREATE_IP=#{item.create_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_user_id != null and item.create_user_id != ''">
+		 CREATE_USER_ID=#{item.create_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_user_name != null and item.create_user_name != ''">
+		   CREATE_USER_NAME=#{item.create_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_time != null and item.modify_time != ''">
+		 MODIFY_TIME=#{item.modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.modify_ip != null and item.modify_ip != ''">
+		 MODIFY_IP=#{item.modify_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_user_id != null and item.modify_user_id != ''">
+		 MODIFY_USER_ID=#{item.modify_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_user_name != null and item.modify_user_name != ''">
+		   MODIFY_USER_NAME=#{item.modify_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_time != null and item.delete_time != ''">
+		 DELETE_TIME=#{item.delete_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.delete_ip != null and item.delete_ip != ''">
+		 DELETE_IP=#{item.delete_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_flag != null and item.delete_flag != ''">
+		 DELETE_FLAG=#{item.delete_flag,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_user_id != null and item.delete_user_id != ''">
+		   DELETE_USER_ID=#{item.delete_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_user_name != null and item.delete_user_name != ''">
+		 DELETE_USER_NAME=#{item.delete_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.order_code != null and item.order_code != ''">
+		 ORDER_CODE=#{item.order_code,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute1 != null and item.attribute1 != ''">
+		 ATTRIBUTE1=#{item.attribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute2 != null and item.attribute2 != ''">
+		 ATTRIBUTE2=#{item.attribute2,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute3 != null and item.attribute3 != ''">
+		 ATTRIBUTE3=#{item.attribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute4 != null and item.attribute4 != ''">
+		 ATTRIBUTE4=#{item.attribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute5 != null and item.attribute5 != ''">
+		 ATTRIBUTE5=#{item.attribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="item.id!=null and item.id!= ''">
+		ID=#{item.id,jdbcType=CHAR},
+		</if>
+		<if test="item.planCode!=null and item.planCode!= ''">
+		PLAN_CODE=#{item.planCode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.planDistributionDate!=null and item.planDistributionDate!= ''">
+		PLAN_DISTRIBUTION_DATE=#{item.planDistributionDate,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.sendCarPlanImage!=null and item.sendCarPlanImage!= ''">
+		SEND_CAR_PLAN_IMAGE=#{item.sendCarPlanImage,jdbcType=VARCHAR},
+		</if>
+		<if test="item.remark!=null and item.remark!= ''">
+		REMARK=#{item.remark,jdbcType=VARCHAR},
+		</if>
+     </set> 
+    where ID=#{item.id}
+   </foreach>
+   ;end;
+   </update>
+   <!--批量插入-->
+ <insert id="insertBatch" parameterType="ArrayList">
+     insert into BUS_DISTRIBUTION_PLAN (
+      USABLE_STATUS, CREATE_TIME, CREATE_IP, CREATE_USER_ID, 
+      CREATE_USER_NAME, MODIFY_TIME, MODIFY_IP, MODIFY_USER_ID, 
+      MODIFY_USER_NAME, DELETE_TIME, DELETE_IP, DELETE_FLAG, 
+      DELETE_USER_ID, DELETE_USER_NAME, ORDER_CODE, ATTRIBUTE1, 
+      ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, 
+      ID ,
+      PLAN_CODE ,
+      PLAN_DISTRIBUTION_DATE ,
+      SEND_CAR_PLAN_IMAGE ,
+      REMARK 
+      )    
+    <foreach collection="list" item="item" index="index" separator="union all" > 
+    select  
+   #{item.usable_status,jdbcType=VARCHAR},#{item.create_time,jdbcType=TIMESTAMP},#{item.create_ip,jdbcType=VARCHAR},#{item.create_user_id,jdbcType=VARCHAR},#{item.create_user_name,jdbcType=VARCHAR},#{item.modify_time,jdbcType=TIMESTAMP},#{item.modify_ip,jdbcType=VARCHAR},#{item.modify_user_id,jdbcType=VARCHAR},#{item.modify_user_name,jdbcType=VARCHAR},#{item.delete_time,jdbcType=TIMESTAMP},#{item.delete_ip,jdbcType=VARCHAR},#{item.delete_flag,jdbcType=VARCHAR},#{item.delete_user_id,jdbcType=VARCHAR},#{item.delete_user_name,jdbcType=VARCHAR},#{item.order_code,jdbcType=VARCHAR},#{item.attribute1,jdbcType=VARCHAR},#{item.attribute2,jdbcType=VARCHAR},#{item.attribute3,jdbcType=VARCHAR},#{item.attribute4,jdbcType=VARCHAR},#{item.attribute5,jdbcType=VARCHAR},
+	#{item.id,jdbcType=CHAR},
+	#{item.planCode,jdbcType=VARCHAR},
+	#{item.planDistributionDate,jdbcType=TIMESTAMP},
+	#{item.sendCarPlanImage,jdbcType=VARCHAR},
+	#{item.remark,jdbcType=VARCHAR}
+     from dual
+    </foreach>
+  </insert>	
+</mapper>

@@ -1,0 +1,800 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dfhc.bus.order.dao.OrderDao">
+  <!-- 共享的where语句，如有冲突或特殊情况，请另写 -->
+  <sql id="where">
+   <trim prefix="where" prefixOverrides="and|or">  
+      <if test="id != null and id != ''">
+        and BUS_ORDER.ID = #{id}
+      </if>
+      <if test="status != null and status != ''">
+        and BUS_ORDER.STATUS = #{status}
+      </if>
+      <if test="statuss != null and statuss != ''">
+        and BUS_ORDER.STATUS in (${statuss})
+      </if>
+      <if test="notStatuss != null and notStatuss != ''">
+        and BUS_ORDER.STATUS   not in (${notStatuss})
+      </if>
+      <if test="orderNum != null and orderNum != ''">
+        and BUS_ORDER.ORDER_NUM = #{orderNum}
+      </if>
+      <if test="customerId != null and customerId != ''">
+        and BUS_ORDER.CUSTOMER_ID = #{customerId}
+      </if>
+      <if test="customerName != null and customerName != ''">
+        and BUS_ORDER.CUSTOMER_NAME LIKE  '%${customerName}%'
+      </if>
+      <if test="deliveryStartDate != null and deliveryStartDate != ''">
+        and to_char(BUS_ORDER.DELIVERY_START_DATE,'YYYY-MM-DD') = #{deliveryStartDate}
+      </if>
+      <if test="deliveryEndDate != null and deliveryEndDate != ''">
+        and to_char(BUS_ORDER.DELIVERY_END_DATE,'YYYY-MM-DD') = #{deliveryEndDate}
+      </if>
+      <if test="deliveryEndDateIsMin != null and deliveryEndDateIsMin != ''">
+        and to_char(BUS_ORDER.DELIVERY_END_DATE,'YYYY-MM-DD')  &lt;	#{deliveryEndDateIsMin}
+      </if>
+      <if test="amountMoney != null and amountMoney != ''">
+        and BUS_ORDER.AMOUNT_MONEY = #{amountMoney}
+      </if>
+      <if test="plannedSurplus != null and plannedSurplus != ''">
+        and BUS_ORDER.PLANNED_SURPLUS = #{plannedSurplus}
+      </if>
+      <if test="actualLoadingAmount != null and actualLoadingAmount != ''">
+        and BUS_ORDER.ACTUAL_LOADING_AMOUNT = #{actualLoadingAmount}
+      </if>
+      <if test="actualSurplusAmount != null and actualSurplusAmount != ''">
+        and BUS_ORDER.ACTUAL_SURPLUS_AMOUNT = #{actualSurplusAmount}
+      </if>
+      <if test="shipMode != null and shipMode != ''">
+        and BUS_ORDER.SHIP_MODE = #{shipMode}
+      </if>
+      <if test="shipModeCode != null and shipModeCode != ''">
+        and BUS_ORDER.SHIP_MODE_CODE = #{shipModeCode}
+      </if>
+      <if test="receivingUnitId != null and receivingUnitId != ''">
+        and BUS_ORDER.RECEIVING_UNIT_ID = #{receivingUnitId}
+      </if>
+      <if test="receivingUnit != null and receivingUnit != ''">
+        and BUS_ORDER.RECEIVING_UNIT = #{receivingUnit}
+      </if>
+      <if test="province != null and province != ''">
+        and BUS_ORDER.PROVINCE = #{province}
+      </if>
+      <if test="provinceId != null and provinceId != ''">
+        and BUS_ORDER.PROVINCE_ID = #{provinceId}
+      </if>
+      <if test="city != null and city != ''">
+        and BUS_ORDER.CITY = #{city}
+      </if>
+      <if test="cityId != null and cityId != ''">
+        and BUS_ORDER.CITY_ID = #{cityId}
+      </if>
+      <if test="address != null and address != ''">
+        and BUS_ORDER.ADDRESS = #{address}
+      </if>
+      <if test="orderAttachment != null and orderAttachment != ''">
+        and BUS_ORDER.ORDER_ATTACHMENT = #{orderAttachment}
+      </if>
+      <if test="shipperCode != null and shipperCode != ''">
+        and BUS_ORDER.SHIPPER_CODE = #{shipperCode}
+      </if>
+      <if test="attorneyLetter != null and attorneyLetter != ''">
+        and BUS_ORDER.ATTORNEY_LETTER = #{attorneyLetter}
+      </if>
+      <if test="placeOrderTime != null and placeOrderTime != ''">
+        and to_char(BUS_ORDER.PLACE_ORDER_TIME,'YYYY-MM-DD') = #{placeOrderTime}
+      </if>
+      <if test="inputPerson != null and inputPerson != ''">
+        and BUS_ORDER.INPUT_PERSON  LIKE  '%${inputPerson}%'
+      </if>
+      <if test="inputPersonId != null and inputPersonId != ''">
+        and BUS_ORDER.INPUT_PERSON_ID = #{inputPersonId}
+      </if>
+      <if test="auditPersonId != null and auditPersonId != ''">
+        and BUS_ORDER.AUDIT_PERSON_ID = #{auditPersonId}
+      </if>
+      <if test="weighingBillId != null and weighingBillId != ''">
+        and BUS_WEIGHING_BILL.ID = #{weighingBillId}
+      </if>
+      <if test="loadingBillId != null and loadingBillId != ''">
+        and BUS_LOADING_NOTICE.ID = #{loadingBillId}
+      </if>
+      <if test="auditPerson != null and auditPerson != ''">
+        and BUS_ORDER.AUDIT_PERSON LIKE  '%${auditPerson}%'
+      </if>
+      <if test="auditTime != null and auditTime != ''">
+        and to_char(BUS_ORDER.AUDIT_TIME,'YYYY-MM-DD') = #{auditTime}
+      </if>
+      <if test="delete_flag != null and delete_flag != ''">
+        and nvl(BUS_ORDER.DELETE_FLAG,'0') = #{delete_flag}
+      </if>
+      </trim>
+  </sql>
+
+  <insert id="insert" parameterType="com.dfhc.bus.order.vo.OrderVo">
+    insert into BUS_ORDER (
+      USABLE_STATUS, CREATE_TIME, CREATE_IP, CREATE_USER_ID, 
+      CREATE_USER_NAME, MODIFY_TIME, MODIFY_IP, MODIFY_USER_ID, 
+      MODIFY_USER_NAME, DELETE_TIME, DELETE_IP, DELETE_FLAG, 
+      DELETE_USER_ID, DELETE_USER_NAME, ORDER_CODE, ATTRIBUTE1, 
+      ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, 
+      ID ,
+      ORDER_NUM ,
+      CUSTOMER_ID ,
+      CUSTOMER_NAME ,
+      DELIVERY_START_DATE ,
+      DELIVERY_END_DATE ,
+      AMOUNT_MONEY ,
+      PLANNED_SURPLUS ,
+      ACTUAL_LOADING_AMOUNT ,
+      ACTUAL_SURPLUS_AMOUNT ,
+      SHIP_MODE ,
+      SHIP_MODE_CODE ,
+      RECEIVING_UNIT_ID ,
+      RECEIVING_UNIT ,
+      PROVINCE ,
+      PROVINCE_ID ,
+      CITY ,
+      CITY_ID ,
+      ADDRESS ,
+      ORDER_ATTACHMENT ,
+      SHIPPER_CODE ,
+      ATTORNEY_LETTER ,
+      PLACE_ORDER_TIME ,
+      INPUT_PERSON ,
+      INPUT_PERSON_ID ,
+      AUDIT_PERSON_ID ,
+      AUDIT_PERSON ,
+      AUDIT_TIME ,
+      STATUS
+      )
+    values ( 
+     #{usable_status,jdbcType=VARCHAR},#{create_time,jdbcType=TIMESTAMP},#{create_ip,jdbcType=VARCHAR},#{create_user_id,jdbcType=VARCHAR},#{create_user_name,jdbcType=VARCHAR},#{modify_time,jdbcType=TIMESTAMP},#{modify_ip,jdbcType=VARCHAR},#{modify_user_id,jdbcType=VARCHAR},#{modify_user_name,jdbcType=VARCHAR},#{delete_time,jdbcType=TIMESTAMP},#{delete_ip,jdbcType=VARCHAR},#{delete_flag,jdbcType=VARCHAR},#{delete_user_id,jdbcType=VARCHAR},#{delete_user_name,jdbcType=VARCHAR},#{order_code,jdbcType=VARCHAR},#{attribute1,jdbcType=VARCHAR},#{attribute2,jdbcType=VARCHAR},#{attribute3,jdbcType=VARCHAR},#{attribute4,jdbcType=VARCHAR},#{attribute5,jdbcType=VARCHAR},
+	#{id,jdbcType=CHAR},
+	#{orderNum,jdbcType=VARCHAR},
+	#{customerId,jdbcType=NUMERIC},
+	#{customerName,jdbcType=VARCHAR},
+	#{deliveryStartDate,jdbcType=TIMESTAMP},
+	#{deliveryEndDate,jdbcType=TIMESTAMP},
+	#{amountMoney,jdbcType=DECIMAL},
+	#{plannedSurplus,jdbcType=DECIMAL},
+	#{actualLoadingAmount,jdbcType=DECIMAL},
+	#{actualSurplusAmount,jdbcType=DECIMAL},
+	#{shipMode,jdbcType=VARCHAR},
+	#{shipModeCode,jdbcType=VARCHAR},
+	#{receivingUnitId,jdbcType=CHAR},
+	#{receivingUnit,jdbcType=VARCHAR},
+	#{province,jdbcType=VARCHAR},
+	#{provinceId,jdbcType=VARCHAR},
+	#{city,jdbcType=VARCHAR},
+	#{cityId,jdbcType=VARCHAR},
+	#{address,jdbcType=VARCHAR},
+	#{orderAttachment,jdbcType=VARCHAR},
+	#{shipperCode,jdbcType=VARCHAR},
+	#{attorneyLetter,jdbcType=VARCHAR},
+	#{placeOrderTime,jdbcType=TIMESTAMP},
+	#{inputPerson,jdbcType=VARCHAR},
+	#{inputPersonId,jdbcType=NUMERIC},
+	#{auditPersonId,jdbcType=NUMERIC},
+	#{auditPerson,jdbcType=VARCHAR},
+	#{auditTime,jdbcType=TIMESTAMP},
+	#{status,jdbcType=VARCHAR}
+      )
+  </insert>
+    
+  <delete id="delete" parameterType="int">
+    delete from BUS_ORDER where ID=#{id}
+  </delete>
+  
+  <delete id="deleteMulti" parameterType="int">
+    delete from BUS_ORDER where ID in 
+    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">  
+      #{item}   
+    </foreach>
+  </delete>
+
+  <update id="update" parameterType="com.dfhc.bus.order.vo.OrderVo">
+    update BUS_ORDER 
+    <trim prefix="SET" suffixOverrides=",">  
+		<if test="usable_status != null and usable_status != ''">
+		     USABLE_STATUS=#{usable_status,jdbcType=VARCHAR},
+		</if>
+		<if test="create_time != null and create_time != ''">
+		 CREATE_TIME=#{create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="create_ip != null and create_ip != ''">
+		 CREATE_IP=#{create_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="create_user_id != null and create_user_id != ''">
+		 CREATE_USER_ID=#{create_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="create_user_name != null and create_user_name != ''">
+		   CREATE_USER_NAME=#{create_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_time != null and modify_time != ''">
+		 MODIFY_TIME=#{modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="modify_ip != null and modify_ip != ''">
+		 MODIFY_IP=#{modify_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_user_id != null and modify_user_id != ''">
+		 MODIFY_USER_ID=#{modify_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_user_name != null and modify_user_name != ''">
+		   MODIFY_USER_NAME=#{modify_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_time != null and delete_time != ''">
+		 DELETE_TIME=#{delete_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="delete_ip != null and delete_ip != ''">
+		 DELETE_IP=#{delete_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_flag != null and delete_flag != ''">
+		 DELETE_FLAG=#{delete_flag,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_user_id != null and delete_user_id != ''">
+		   DELETE_USER_ID=#{delete_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_user_name != null and delete_user_name != ''">
+		 DELETE_USER_NAME=#{delete_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="order_code != null and order_code != ''">
+		 ORDER_CODE=#{order_code,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute1 != null and attribute1 != ''">
+		 ATTRIBUTE1=#{attribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute2 != null and attribute2 != ''">
+		 ATTRIBUTE2=#{attribute2,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute3 != null and attribute3 != ''">
+		 ATTRIBUTE3=#{attribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute4 != null and attribute4 != ''">
+		 ATTRIBUTE4=#{attribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute5 != null and attribute5 != ''">
+		 ATTRIBUTE5=#{attribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="id!=null and id!= ''">
+		ID=#{id,jdbcType=CHAR},
+		</if>
+		<if test="orderNum!=null and orderNum!= ''">
+		ORDER_NUM=#{orderNum,jdbcType=VARCHAR},
+		</if>
+		<if test="customerId!=null and customerId!= ''">
+		CUSTOMER_ID=#{customerId,jdbcType=NUMERIC},
+		</if>
+		<if test="customerName!=null and customerName!= ''">
+		CUSTOMER_NAME=#{customerName,jdbcType=VARCHAR},
+		</if>
+		<if test="deliveryStartDate!=null and deliveryStartDate!= ''">
+		DELIVERY_START_DATE=#{deliveryStartDate,jdbcType=TIMESTAMP},
+		</if>
+		<if test="deliveryEndDate!=null and deliveryEndDate!= ''">
+		DELIVERY_END_DATE=#{deliveryEndDate,jdbcType=TIMESTAMP},
+		</if>
+		<if test="plannedSurplus!=null and plannedSurplus!= ''">
+		PLANNED_SURPLUS=#{plannedSurplus,jdbcType=DECIMAL},
+		</if>
+		<if test="actualLoadingAmount!=null and actualLoadingAmount!= ''">
+		ACTUAL_LOADING_AMOUNT=#{actualLoadingAmount,jdbcType=DECIMAL},
+		</if>
+		<if test="actualSurplusAmount!=null and actualSurplusAmount!= ''">
+		ACTUAL_SURPLUS_AMOUNT=#{actualSurplusAmount,jdbcType=DECIMAL},
+		</if>
+		<if test="amountMoney!=null and amountMoney!= ''">
+		AMOUNT_MONEY=#{amountMoney,jdbcType=DECIMAL},
+		</if>
+		<if test="shipMode!=null and shipMode!= ''">
+		SHIP_MODE=#{shipMode,jdbcType=VARCHAR},
+		</if>
+		<if test="shipModeCode!=null and shipModeCode!= ''">
+		SHIP_MODE_CODE=#{shipModeCode,jdbcType=VARCHAR},
+		</if>
+		<if test="receivingUnitId!=null and receivingUnitId!= ''">
+		RECEIVING_UNIT_ID=#{receivingUnitId,jdbcType=CHAR},
+		</if>
+		<if test="receivingUnit!=null and receivingUnit!= ''">
+		RECEIVING_UNIT=#{receivingUnit,jdbcType=VARCHAR},
+		</if>
+		<if test="province!=null and province!= ''">
+		PROVINCE=#{province,jdbcType=VARCHAR},
+		</if>
+		<if test="provinceId!=null and provinceId!= ''">
+		PROVINCE_ID=#{provinceId,jdbcType=VARCHAR},
+		</if>
+		<if test="city!=null and city!= ''">
+		CITY=#{city,jdbcType=VARCHAR},
+		</if>
+		<if test="cityId!=null and cityId!= ''">
+		CITY_ID=#{cityId,jdbcType=VARCHAR},
+		</if>
+		<if test="address!=null and address!= ''">
+		ADDRESS=#{address,jdbcType=VARCHAR},
+		</if>
+		<if test="orderAttachment!=null and orderAttachment!= ''">
+		ORDER_ATTACHMENT=#{orderAttachment,jdbcType=VARCHAR},
+		</if>
+		<if test="shipperCode!=null and shipperCode!= ''">
+		SHIPPER_CODE=#{shipperCode,jdbcType=VARCHAR},
+		</if>
+		<if test="attorneyLetter!=null and attorneyLetter!= ''">
+		ATTORNEY_LETTER=#{attorneyLetter,jdbcType=VARCHAR},
+		</if>
+		<if test="placeOrderTime!=null and placeOrderTime!= ''">
+		PLACE_ORDER_TIME=#{placeOrderTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="inputPerson!=null and inputPerson!= ''">
+		INPUT_PERSON=#{inputPerson,jdbcType=VARCHAR},
+		</if>
+		<if test="inputPersonId!=null and inputPersonId!= ''">
+		INPUT_PERSON_ID=#{inputPersonId,jdbcType=NUMERIC},
+		</if>
+		<if test="auditPersonId!=null and auditPersonId!= ''">
+		AUDIT_PERSON_ID=#{auditPersonId,jdbcType=NUMERIC},
+		</if>
+		<if test="auditPerson!=null and auditPerson!= ''">
+		AUDIT_PERSON=#{auditPerson,jdbcType=VARCHAR},
+		</if>
+		<if test="auditTime!=null and auditTime!= ''">
+		AUDIT_TIME=#{auditTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="status!=null and status!= ''">
+		STATUS=#{status,jdbcType=VARCHAR},
+		</if>
+     </trim> 
+    where ID=#{id}
+  </update>
+
+  <select id="get" parameterType="string" resultType="com.dfhc.bus.order.vo.OrderVo">
+    select  
+      BUS_ORDER.USABLE_STATUS, BUS_ORDER.CREATE_TIME, BUS_ORDER.CREATE_IP, BUS_ORDER.CREATE_USER_ID, 
+      BUS_ORDER.CREATE_USER_NAME, BUS_ORDER.MODIFY_TIME, BUS_ORDER.MODIFY_IP, BUS_ORDER.MODIFY_USER_ID, 
+      BUS_ORDER.MODIFY_USER_NAME, BUS_ORDER.DELETE_TIME, BUS_ORDER.DELETE_IP, BUS_ORDER.DELETE_FLAG, 
+      BUS_ORDER.DELETE_USER_ID, BUS_ORDER.DELETE_USER_NAME, BUS_ORDER.ORDER_CODE, BUS_ORDER.ATTRIBUTE1, 
+      BUS_ORDER.ATTRIBUTE2, BUS_ORDER.ATTRIBUTE3, BUS_ORDER.ATTRIBUTE4, BUS_ORDER.ATTRIBUTE5, 
+      BUS_ORDER.ID as id,	
+      BUS_ORDER.ORDER_NUM as orderNum,	
+      BUS_ORDER.CUSTOMER_ID as customerId,	
+      BUS_ORDER.CUSTOMER_NAME as customerName,	
+      BUS_ORDER.DELIVERY_START_DATE as deliveryStartDate,	
+      BUS_ORDER.DELIVERY_END_DATE as deliveryEndDate,	
+      BUS_ORDER.AMOUNT_MONEY as amountMoney,	
+      BUS_ORDER.PLANNED_SURPLUS as plannedSurplus,	
+      BUS_ORDER.ACTUAL_LOADING_AMOUNT as actualLoadingAmount,	
+      BUS_ORDER.ACTUAL_SURPLUS_AMOUNT as actualSurplusAmount,	
+      BUS_ORDER.SHIP_MODE as shipMode,	
+      BUS_ORDER.SHIP_MODE_CODE as shipModeCode,	
+      BUS_ORDER.RECEIVING_UNIT_ID as receivingUnitId,	
+      BUS_ORDER.RECEIVING_UNIT as receivingUnit,	
+      BUS_ORDER.PROVINCE as province,	
+      BUS_ORDER.PROVINCE_ID as provinceId,	
+      BUS_ORDER.CITY as city,	
+      BUS_ORDER.CITY_ID as cityId,	
+      BUS_ORDER.ADDRESS as address,	
+      BUS_ORDER.ORDER_ATTACHMENT as orderAttachment,	
+      BUS_ORDER.SHIPPER_CODE as shipperCode,	
+      BUS_ORDER.ATTORNEY_LETTER as attorneyLetter,	
+      BUS_ORDER.PLACE_ORDER_TIME as placeOrderTime,	
+      BUS_ORDER.INPUT_PERSON as inputPerson,	
+      BUS_ORDER.INPUT_PERSON_ID as inputPersonId,	
+      BUS_ORDER.AUDIT_PERSON_ID as auditPersonId,	
+      BUS_ORDER.AUDIT_PERSON as auditPerson,	
+      BUS_ORDER.STATUS as status,	
+      BUS_ORDER.AUDIT_TIME as auditTime	
+    from BUS_ORDER 
+    where BUS_ORDER.ID=#{id}
+  </select>
+
+  <select id="getCount" parameterType="map" resultType="int" useCache="true">
+    select count(BUS_ORDER.ID) from BUS_ORDER
+    
+      <!-- 销售订单管理菜单     关联子表 查出产品名称   总车辆 -->
+     <if test="saleOrderManager != null and saleOrderManager != ''">
+		left join  (
+			select ORDER_ID as orderId,
+				wm_concat(PRODUCT_NAME) as listProductName ,
+				SUM(CAR_NUM) as carSum ,
+				SUM(REMARK_VOLUME)  as  remarkVolumeSum
+			from  BUS_ORDER_PRODUCT_DETAIL  where nvl(BUS_ORDER_PRODUCT_DETAIL.DELETE_FLAG,'0') =0
+			group by ORDER_ID
+		) productDetail on productDetail.orderId=BUS_ORDER.ID
+     </if>
+     <if test="loadingNoticeOrder != null and loadingNoticeOrder != ''">
+    	inner join BUS_LADING_BILL on BUS_LADING_BILL.ORDER_PLAN_ID = BUS_ORDER.ID
+    	inner join BUS_LOADING_NOTICE on BUS_LOADING_NOTICE.LADING_BILL_ID = BUS_LADING_BILL.ID
+    </if>
+    <include refid="where"/>    
+  </select>
+  
+  <select id="list" parameterType="map" resultType="com.dfhc.bus.order.vo.OrderVo">
+    select 
+     BUS_ORDER.ID as id,	
+     BUS_ORDER.ORDER_NUM as orderNum,	
+     BUS_ORDER.CUSTOMER_ID as customerId,	
+     BUS_ORDER.CUSTOMER_NAME as customerName,	
+     BUS_ORDER.DELIVERY_START_DATE as deliveryStartDate,	
+     BUS_ORDER.DELIVERY_END_DATE as deliveryEndDate,	
+     BUS_ORDER.AMOUNT_MONEY as amountMoney,	
+      BUS_ORDER.PLANNED_SURPLUS as plannedSurplus,	
+      BUS_ORDER.ACTUAL_LOADING_AMOUNT as actualLoadingAmount,	
+      BUS_ORDER.ACTUAL_SURPLUS_AMOUNT as actualSurplusAmount,	
+     BUS_ORDER.SHIP_MODE as shipMode,	
+     BUS_ORDER.SHIP_MODE_CODE as shipModeCode,	
+     BUS_ORDER.RECEIVING_UNIT_ID as receivingUnitId,	
+     BUS_ORDER.RECEIVING_UNIT as receivingUnit,	
+     BUS_ORDER.PROVINCE as province,	
+     BUS_ORDER.PROVINCE_ID as provinceId,	
+     BUS_ORDER.CITY as city,	
+     BUS_ORDER.CITY_ID as cityId,	
+     BUS_ORDER.ADDRESS as address,	
+     BUS_ORDER.ORDER_ATTACHMENT as orderAttachment,	
+     BUS_ORDER.SHIPPER_CODE as shipperCode,	
+     BUS_ORDER.ATTORNEY_LETTER as attorneyLetter,	
+     BUS_ORDER.PLACE_ORDER_TIME as placeOrderTime,	
+     BUS_ORDER.INPUT_PERSON as inputPerson,	
+     BUS_ORDER.INPUT_PERSON_ID as inputPersonId,	
+     BUS_ORDER.AUDIT_PERSON_ID as auditPersonId,	
+     BUS_ORDER.AUDIT_PERSON as auditPerson,	
+     BUS_ORDER.STATUS as status,
+      <if test="loadingNoticeOrder != null and loadingNoticeOrder != ''">
+      BUS_LADING_BILL.PRODUCT_UNIT_PRICE as productUnitPrice,
+      </if>	
+	<if test="weighingBillOrder != null and weighingBillOrder != ''">
+	BUS_LADING_BILL.PRODUCT_UNIT_PRICE as productUnitPrice,
+	</if>
+     <!-- 销售订单管理菜单     关联子表 查出产品名称   总车辆 -->
+     <if test="saleOrderManager != null and saleOrderManager != ''">
+	     productDetail.listProductName  as listProductName,
+	     productDetail.carSum  as carSum,
+	     productDetail.remarkVolumeSum  as  remarkVolumeSum,
+     </if>
+     
+     BUS_ORDER.AUDIT_TIME as auditTime	
+    from BUS_ORDER
+    
+     <!-- 销售订单管理菜单     关联子表 查出产品名称   总车辆 -->
+     <if test="saleOrderManager != null and saleOrderManager != ''">
+		left join  (
+			select ORDER_ID as orderId,
+				wm_concat(PRODUCT_NAME) as listProductName ,
+				SUM(CAR_NUM) as carSum  ,
+				SUM(REMARK_VOLUME)  as  remarkVolumeSum
+			from  BUS_ORDER_PRODUCT_DETAIL   where nvl(BUS_ORDER_PRODUCT_DETAIL.DELETE_FLAG,'0') =0
+			group by ORDER_ID
+		) productDetail on productDetail.orderId=BUS_ORDER.ID
+     </if>
+    <if test="weighingBillOrder != null and weighingBillOrder != ''">
+    	inner join BUS_LADING_BILL on BUS_LADING_BILL.ORDER_PLAN_ID = BUS_ORDER.ID
+    	inner join BUS_WEIGHING_BILL on BUS_WEIGHING_BILL.LADING_BILL_ID = BUS_LADING_BILL.ID
+    </if>
+    <if test="loadingNoticeOrder != null and loadingNoticeOrder != ''">
+    	inner join BUS_LADING_BILL on BUS_LADING_BILL.ORDER_PLAN_ID = BUS_ORDER.ID
+    	inner join BUS_LOADING_NOTICE on BUS_LOADING_NOTICE.LADING_BILL_ID = BUS_LADING_BILL.ID
+    </if>
+    <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+  
+  <select id="listAllColumn" parameterType="map" resultType="com.dfhc.bus.order.vo.OrderVo">
+    select 
+      BUS_ORDER.USABLE_STATUS, BUS_ORDER.CREATE_TIME, BUS_ORDER.CREATE_IP, BUS_ORDER.CREATE_USER_ID, 
+      BUS_ORDER.CREATE_USER_NAME, BUS_ORDER.MODIFY_TIME, BUS_ORDER.MODIFY_IP, BUS_ORDER.MODIFY_USER_ID, 
+      BUS_ORDER.MODIFY_USER_NAME, BUS_ORDER.DELETE_TIME, BUS_ORDER.DELETE_IP, BUS_ORDER.DELETE_FLAG, 
+      BUS_ORDER.DELETE_USER_ID, BUS_ORDER.DELETE_USER_NAME, BUS_ORDER.ORDER_CODE, BUS_ORDER.ATTRIBUTE1, 
+     BUS_ORDER.ATTRIBUTE2, BUS_ORDER.ATTRIBUTE3, BUS_ORDER.ATTRIBUTE4, BUS_ORDER.ATTRIBUTE5, 
+     BUS_ORDER.ID as id,	
+     BUS_ORDER.ORDER_NUM as orderNum,	
+     BUS_ORDER.CUSTOMER_ID as customerId,	
+     BUS_ORDER.CUSTOMER_NAME as customerName,	
+     BUS_ORDER.DELIVERY_START_DATE as deliveryStartDate,	
+     BUS_ORDER.DELIVERY_END_DATE as deliveryEndDate,	
+     BUS_ORDER.AMOUNT_MONEY as amountMoney,	
+      BUS_ORDER.PLANNED_SURPLUS as plannedSurplus,	
+      BUS_ORDER.ACTUAL_LOADING_AMOUNT as actualLoadingAmount,	
+      BUS_ORDER.ACTUAL_SURPLUS_AMOUNT as actualSurplusAmount,	
+     BUS_ORDER.SHIP_MODE as shipMode,	
+     BUS_ORDER.SHIP_MODE_CODE as shipModeCode,	
+     BUS_ORDER.RECEIVING_UNIT_ID as receivingUnitId,	
+     BUS_ORDER.RECEIVING_UNIT as receivingUnit,	
+     BUS_ORDER.PROVINCE as province,	
+     BUS_ORDER.PROVINCE_ID as provinceId,	
+     BUS_ORDER.CITY as city,	
+     BUS_ORDER.CITY_ID as cityId,	
+     BUS_ORDER.ADDRESS as address,	
+     BUS_ORDER.ORDER_ATTACHMENT as orderAttachment,	
+     BUS_ORDER.SHIPPER_CODE as shipperCode,	
+     BUS_ORDER.ATTORNEY_LETTER as attorneyLetter,	
+     BUS_ORDER.PLACE_ORDER_TIME as placeOrderTime,	
+     BUS_ORDER.INPUT_PERSON as inputPerson,	
+     BUS_ORDER.INPUT_PERSON_ID as inputPersonId,	
+     BUS_ORDER.AUDIT_PERSON_ID as auditPersonId,	
+     BUS_ORDER.AUDIT_PERSON as auditPerson,	
+     BUS_ORDER.STATUS as status,	
+     BUS_ORDER.AUDIT_TIME as auditTime	
+    from BUS_ORDER
+    <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+
+  <select id="search" parameterType="map" resultType="com.dfhc.bus.order.vo.OrderVo">
+    select 
+      BUS_ORDER.USABLE_STATUS, BUS_ORDER.CREATE_TIME, BUS_ORDER.CREATE_IP, BUS_ORDER.CREATE_USER_ID, 
+      BUS_ORDER.CREATE_USER_NAME, BUS_ORDER.MODIFY_TIME, BUS_ORDER.MODIFY_IP, BUS_ORDER.MODIFY_USER_ID, 
+      BUS_ORDER.MODIFY_USER_NAME, BUS_ORDER.DELETE_TIME, BUS_ORDER.DELETE_IP, BUS_ORDER.DELETE_FLAG, 
+      BUS_ORDER.DELETE_USER_ID, BUS_ORDER.DELETE_USER_NAME, BUS_ORDER.ORDER_CODE, BUS_ORDER.ATTRIBUTE1, 
+      BUS_ORDER.ATTRIBUTE2, BUS_ORDER.ATTRIBUTE3, BUS_ORDER.ATTRIBUTE4, BUS_ORDER.ATTRIBUTE5, 
+     BUS_ORDER.ID as id,	
+     BUS_ORDER.ORDER_NUM as orderNum,	
+     BUS_ORDER.CUSTOMER_ID as customerId,	
+     BUS_ORDER.CUSTOMER_NAME as customerName,	
+     BUS_ORDER.DELIVERY_START_DATE as deliveryStartDate,	
+     BUS_ORDER.DELIVERY_END_DATE as deliveryEndDate,	
+     BUS_ORDER.AMOUNT_MONEY as amountMoney,	
+      BUS_ORDER.PLANNED_SURPLUS as plannedSurplus,	
+      BUS_ORDER.ACTUAL_LOADING_AMOUNT as actualLoadingAmount,	
+      BUS_ORDER.ACTUAL_SURPLUS_AMOUNT as actualSurplusAmount,	
+     BUS_ORDER.SHIP_MODE as shipMode,	
+     BUS_ORDER.SHIP_MODE_CODE as shipModeCode,	
+     BUS_ORDER.RECEIVING_UNIT_ID as receivingUnitId,	
+     BUS_ORDER.RECEIVING_UNIT as receivingUnit,	
+     BUS_ORDER.PROVINCE as province,	
+     BUS_ORDER.PROVINCE_ID as provinceId,	
+     BUS_ORDER.CITY as city,	
+     BUS_ORDER.CITY_ID as cityId,	
+     BUS_ORDER.ADDRESS as address,	
+     BUS_ORDER.ORDER_ATTACHMENT as orderAttachment,	
+     BUS_ORDER.SHIPPER_CODE as shipperCode,	
+     BUS_ORDER.ATTORNEY_LETTER as attorneyLetter,	
+     BUS_ORDER.PLACE_ORDER_TIME as placeOrderTime,	
+     BUS_ORDER.INPUT_PERSON as inputPerson,	
+     BUS_ORDER.INPUT_PERSON_ID as inputPersonId,	
+     BUS_ORDER.AUDIT_PERSON_ID as auditPersonId,	
+     BUS_ORDER.AUDIT_PERSON as auditPerson,	
+     BUS_ORDER.STATUS as status,	
+     BUS_ORDER.AUDIT_TIME as auditTime	
+    from BUS_ORDER
+     <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+ <!-- 批量更新 -->
+  <update id="updateBatch" parameterType="ArrayList">
+     begin
+     <foreach collection="list" item="item" index="index" separator=";" > 
+     update BUS_ORDER 
+    <set>  
+		<if test="item.usable_status != null and item.usable_status != ''">
+		     USABLE_STATUS=#{item.usable_status,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_time != null and item.create_time != ''">
+		 CREATE_TIME=#{item.create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.create_ip != null and item.create_ip != ''">
+		 CREATE_IP=#{item.create_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_user_id != null and item.create_user_id != ''">
+		 CREATE_USER_ID=#{item.create_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_user_name != null and item.create_user_name != ''">
+		   CREATE_USER_NAME=#{item.create_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_time != null and item.modify_time != ''">
+		 MODIFY_TIME=#{item.modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.modify_ip != null and item.modify_ip != ''">
+		 MODIFY_IP=#{item.modify_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_user_id != null and item.modify_user_id != ''">
+		 MODIFY_USER_ID=#{item.modify_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_user_name != null and item.modify_user_name != ''">
+		   MODIFY_USER_NAME=#{item.modify_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_time != null and item.delete_time != ''">
+		 DELETE_TIME=#{item.delete_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.delete_ip != null and item.delete_ip != ''">
+		 DELETE_IP=#{item.delete_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_flag != null and item.delete_flag != ''">
+		 DELETE_FLAG=#{item.delete_flag,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_user_id != null and item.delete_user_id != ''">
+		   DELETE_USER_ID=#{item.delete_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_user_name != null and item.delete_user_name != ''">
+		 DELETE_USER_NAME=#{item.delete_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.order_code != null and item.order_code != ''">
+		 ORDER_CODE=#{item.order_code,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute1 != null and item.attribute1 != ''">
+		 ATTRIBUTE1=#{item.attribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute2 != null and item.attribute2 != ''">
+		 ATTRIBUTE2=#{item.attribute2,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute3 != null and item.attribute3 != ''">
+		 ATTRIBUTE3=#{item.attribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute4 != null and item.attribute4 != ''">
+		 ATTRIBUTE4=#{item.attribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute5 != null and item.attribute5 != ''">
+		 ATTRIBUTE5=#{item.attribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="item.id!=null and item.id!= ''">
+		ID=#{item.id,jdbcType=CHAR},
+		</if>
+		<if test="item.orderNum!=null and item.orderNum!= ''">
+		ORDER_NUM=#{item.orderNum,jdbcType=VARCHAR},
+		</if>
+		<if test="item.customerId!=null and item.customerId!= ''">
+		CUSTOMER_ID=#{item.customerId,jdbcType=NUMERIC},
+		</if>
+		<if test="item.customerName!=null and item.customerName!= ''">
+		CUSTOMER_NAME=#{item.customerName,jdbcType=VARCHAR},
+		</if>
+		<if test="item.deliveryStartDate!=null and item.deliveryStartDate!= ''">
+		DELIVERY_START_DATE=#{item.deliveryStartDate,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.deliveryEndDate!=null and item.deliveryEndDate!= ''">
+		DELIVERY_END_DATE=#{item.deliveryEndDate,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.amountMoney!=null and item.amountMoney!= ''">
+		AMOUNT_MONEY=#{item.amountMoney,jdbcType=DECIMAL},
+		</if>
+		<if test="item.plannedSurplus!=null and item.plannedSurplus!= ''">
+		PLANNED_SURPLUS=#{item.plannedSurplus,jdbcType=DECIMAL},
+		</if>
+		<if test="item.actualLoadingAmount!=null and item.actualLoadingAmount!= ''">
+		ACTUAL_LOADING_AMOUNT=#{item.actualLoadingAmount,jdbcType=DECIMAL},
+		</if>
+		<if test="item.actualSurplusAmount!=null and item.actualSurplusAmount!= ''">
+		ACTUAL_SURPLUS_AMOUNT=#{item.actualSurplusAmount,jdbcType=DECIMAL},
+		</if>
+		<if test="item.shipMode!=null and item.shipMode!= ''">
+		SHIP_MODE=#{item.shipMode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.shipModeCode!=null and item.shipModeCode!= ''">
+		SHIP_MODE_CODE=#{item.shipModeCode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.receivingUnitId!=null and item.receivingUnitId!= ''">
+		RECEIVING_UNIT_ID=#{item.receivingUnitId,jdbcType=CHAR},
+		</if>
+		<if test="item.receivingUnit!=null and item.receivingUnit!= ''">
+		RECEIVING_UNIT=#{item.receivingUnit,jdbcType=VARCHAR},
+		</if>
+		<if test="item.province!=null and item.province!= ''">
+		PROVINCE=#{item.province,jdbcType=VARCHAR},
+		</if>
+		<if test="item.provinceId!=null and item.provinceId!= ''">
+		PROVINCE_ID=#{item.provinceId,jdbcType=VARCHAR},
+		</if>
+		<if test="item.city!=null and item.city!= ''">
+		CITY=#{item.city,jdbcType=VARCHAR},
+		</if>
+		<if test="item.cityId!=null and item.cityId!= ''">
+		CITY_ID=#{item.cityId,jdbcType=VARCHAR},
+		</if>
+		<if test="item.address!=null and item.address!= ''">
+		ADDRESS=#{item.address,jdbcType=VARCHAR},
+		</if>
+		<if test="item.orderAttachment!=null and item.orderAttachment!= ''">
+		ORDER_ATTACHMENT=#{item.orderAttachment,jdbcType=VARCHAR},
+		</if>
+		<if test="item.shipperCode!=null and item.shipperCode!= ''">
+		SHIPPER_CODE=#{item.shipperCode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attorneyLetter!=null and item.attorneyLetter!= ''">
+		ATTORNEY_LETTER=#{item.attorneyLetter,jdbcType=VARCHAR},
+		</if>
+		<if test="item.placeOrderTime!=null and item.placeOrderTime!= ''">
+		PLACE_ORDER_TIME=#{item.placeOrderTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.inputPerson!=null and item.inputPerson!= ''">
+		INPUT_PERSON=#{item.inputPerson,jdbcType=VARCHAR},
+		</if>
+		<if test="item.inputPersonId!=null and item.inputPersonId!= ''">
+		INPUT_PERSON_ID=#{item.inputPersonId,jdbcType=NUMERIC},
+		</if>
+		<if test="item.auditPersonId!=null and item.auditPersonId!= ''">
+		AUDIT_PERSON_ID=#{item.auditPersonId,jdbcType=NUMERIC},
+		</if>
+		<if test="item.auditPerson!=null and item.auditPerson!= ''">
+		AUDIT_PERSON=#{item.auditPerson,jdbcType=VARCHAR},
+		</if>
+		<if test="item.auditTime!=null and item.auditTime!= ''">
+		AUDIT_TIME=#{item.auditTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.status!=null and item.status!= ''">
+		STATUS=#{item.status,jdbcType=VARCHAR},
+		</if>
+     </set> 
+    where ID=#{item.id}
+   </foreach>
+   ;end;
+   </update>
+   <!--批量插入-->
+ <insert id="insertBatch" parameterType="ArrayList">
+     insert into BUS_ORDER (
+      USABLE_STATUS, CREATE_TIME, CREATE_IP, CREATE_USER_ID, 
+      CREATE_USER_NAME, MODIFY_TIME, MODIFY_IP, MODIFY_USER_ID, 
+      MODIFY_USER_NAME, DELETE_TIME, DELETE_IP, DELETE_FLAG, 
+      DELETE_USER_ID, DELETE_USER_NAME, ORDER_CODE, ATTRIBUTE1, 
+      ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, 
+      ID ,
+      ORDER_NUM ,
+      CUSTOMER_ID ,
+      CUSTOMER_NAME ,
+      DELIVERY_START_DATE ,
+      DELIVERY_END_DATE ,
+      AMOUNT_MONEY ,
+      PLANNED_SURPLUS ,
+      ACTUAL_LOADING_AMOUNT ,
+      ACTUAL_SURPLUS_AMOUNT ,
+      SHIP_MODE ,
+      SHIP_MODE_CODE ,
+      RECEIVING_UNIT_ID ,
+      RECEIVING_UNIT ,
+      PROVINCE ,
+      PROVINCE_ID ,
+      CITY ,
+      CITY_ID ,
+      ADDRESS ,
+      ORDER_ATTACHMENT ,
+      SHIPPER_CODE ,
+      ATTORNEY_LETTER ,
+      PLACE_ORDER_TIME ,
+      INPUT_PERSON ,
+      INPUT_PERSON_ID ,
+      AUDIT_PERSON_ID ,
+      AUDIT_PERSON ,
+      STATUS,
+      AUDIT_TIME 
+      )    
+    <foreach collection="list" item="item" index="index" separator="union all" > 
+    select  
+   #{item.usable_status,jdbcType=VARCHAR},#{item.create_time,jdbcType=TIMESTAMP},#{item.create_ip,jdbcType=VARCHAR},#{item.create_user_id,jdbcType=VARCHAR},#{item.create_user_name,jdbcType=VARCHAR},#{item.modify_time,jdbcType=TIMESTAMP},#{item.modify_ip,jdbcType=VARCHAR},#{item.modify_user_id,jdbcType=VARCHAR},#{item.modify_user_name,jdbcType=VARCHAR},#{item.delete_time,jdbcType=TIMESTAMP},#{item.delete_ip,jdbcType=VARCHAR},#{item.delete_flag,jdbcType=VARCHAR},#{item.delete_user_id,jdbcType=VARCHAR},#{item.delete_user_name,jdbcType=VARCHAR},#{item.order_code,jdbcType=VARCHAR},#{item.attribute1,jdbcType=VARCHAR},#{item.attribute2,jdbcType=VARCHAR},#{item.attribute3,jdbcType=VARCHAR},#{item.attribute4,jdbcType=VARCHAR},#{item.attribute5,jdbcType=VARCHAR},
+	#{item.id,jdbcType=CHAR},
+	#{item.orderNum,jdbcType=VARCHAR},
+	#{item.customerId,jdbcType=NUMERIC},
+	#{item.customerName,jdbcType=VARCHAR},
+	#{item.deliveryStartDate,jdbcType=TIMESTAMP},
+	#{item.deliveryEndDate,jdbcType=TIMESTAMP},
+	#{item.amountMoney,jdbcType=DECIMAL},
+	#{item.plannedSurplus,jdbcType=DECIMAL},
+	#{item.actualLoadingAmount,jdbcType=DECIMAL},
+	#{item.actualSurplusAmount,jdbcType=DECIMAL},
+	#{item.shipMode,jdbcType=VARCHAR},
+	#{item.shipModeCode,jdbcType=VARCHAR},
+	#{item.receivingUnitId,jdbcType=CHAR},
+	#{item.receivingUnit,jdbcType=VARCHAR},
+	#{item.province,jdbcType=VARCHAR},
+	#{item.provinceId,jdbcType=VARCHAR},
+	#{item.city,jdbcType=VARCHAR},
+	#{item.cityId,jdbcType=VARCHAR},
+	#{item.address,jdbcType=VARCHAR},
+	#{item.orderAttachment,jdbcType=VARCHAR},
+	#{item.shipperCode,jdbcType=VARCHAR},
+	#{item.attorneyLetter,jdbcType=VARCHAR},
+	#{item.placeOrderTime,jdbcType=TIMESTAMP},
+	#{item.inputPerson,jdbcType=VARCHAR},
+	#{item.inputPersonId,jdbcType=NUMERIC},
+	#{item.auditPersonId,jdbcType=NUMERIC},
+	#{item.auditPerson,jdbcType=VARCHAR},
+	#{item.status,jdbcType=VARCHAR},
+	#{item.auditTime,jdbcType=TIMESTAMP}
+     from dual
+    </foreach>
+  </insert>	
+</mapper>

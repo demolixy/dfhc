@@ -1,0 +1,826 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dfhc.base.customer.dao.CustomerDao">
+  <!-- 共享的where语句，如有冲突或特殊情况，请另写 -->
+  <sql id="where">
+   <trim prefix="where" prefixOverrides="and|or">  
+      <if test="id != null and id != ''">
+        and BASE_CUSTOMER.ID = #{id}
+      </if>
+      <if test="notId != null and notId != ''">
+        and BASE_CUSTOMER.ID != #{notId}
+      </if>
+      <if test="userId != null and userId != ''">
+        and BASE_CUSTOMER.USER_ID = #{userId}
+      </if>
+      <if test="abbreviation != null and abbreviation != ''">
+        and BASE_CUSTOMER.ABBREVIATION = #{abbreviation}
+      </if>
+      <if test="indexCode != null and indexCode != ''">
+        and BASE_CUSTOMER.INDEX_CODE = #{indexCode}
+      </if>
+      <if test="regAddr != null and regAddr != ''">
+        and BASE_CUSTOMER.REG_ADDR = #{regAddr}
+      </if>
+      <if test="officeAddr != null and officeAddr != ''">
+        and BASE_CUSTOMER.OFFICE_ADDR = #{officeAddr}
+      </if>
+      <if test="postAddr != null and postAddr != ''">
+        and BASE_CUSTOMER.POST_ADDR = #{postAddr}
+      </if>
+      <if test="postCode != null and postCode != ''">
+        and BASE_CUSTOMER.POST_CODE = #{postCode}
+      </if>
+      <if test="fax != null and fax != ''">
+        and BASE_CUSTOMER.FAX = #{fax}
+      </if>
+      <if test="tel != null and tel != ''">
+        and BASE_CUSTOMER.TEL = #{tel}
+      </if>
+      <if test="provinceId != null and provinceId != ''">
+        and BASE_CUSTOMER.PROVINCE_ID = #{provinceId}
+      </if>
+      <if test="provinceIdName != null and provinceIdName != ''">
+        and BASE_CUSTOMER.PROVINCE_ID_NAME = #{provinceIdName}
+      </if>
+      <if test="cityId != null and cityId != ''">
+        and BASE_CUSTOMER.CITY_ID = #{cityId}
+      </if>
+      <if test="cityName != null and cityName != ''">
+        and BASE_CUSTOMER.CITY_NAME = #{cityName}
+      </if>
+      <if test="bank != null and bank != ''">
+        and BASE_CUSTOMER.BANK = #{bank}
+      </if>
+      <if test="accountName != null and accountName != ''">
+        and BASE_CUSTOMER.ACCOUNT_NAME = #{accountName}
+      </if>
+      <if test="taxNo != null and taxNo != ''">
+        and BASE_CUSTOMER.TAX_NO = #{taxNo}
+      </if>
+      <if test="legalPerson != null and legalPerson != ''">
+        and BASE_CUSTOMER.LEGAL_PERSON = #{legalPerson}
+      </if>
+      <if test="remark != null and remark != ''">
+        and BASE_CUSTOMER.REMARK = #{remark}
+      </if>
+      <if test="status != null and status != ''">
+        and BASE_CUSTOMER.STATUS = #{status}
+      </if>
+      <if test="regionId != null and regionId != ''">
+        and BASE_CUSTOMER.REGION_ID = #{regionId}
+      </if>
+      <if test="contacts != null and contacts != ''">
+        and BASE_CUSTOMER.CONTACTS = #{contacts}
+      </if>
+      <if test="contactPhone != null and contactPhone != ''">
+        and BASE_CUSTOMER.CONTACT_PHONE = #{contactPhone}
+      </if>
+      <if test="delete_flag != null and delete_flag != ''">
+        and nvl(BASE_CUSTOMER.DELETE_FLAG,'0') = #{delete_flag}
+      </if>
+      <if test="delete_flag2 != null and delete_flag2 != ''">
+        and nvl(ACC_CUSTOMER_AVAILABLE_AMOUNT.DELETE_FLAG,'0') = #{delete_flag2}
+      </if>
+       <if test="mainCode != null and mainCode != ''">
+        and BASE_CUSTOMER.MAIN_CODE = #{mainCode}
+      </if>
+      <if test="isByProduct != null and isByProduct != ''">
+        and BASE_CUSTOMER.IS_BY_PRODUCT = #{isByProduct}
+      </if>
+      <if test="isMainProduct != null and isMainProduct != ''">
+        and BASE_CUSTOMER.IS_MAIN_PRODUCT = #{isMainProduct}
+      </if>
+      </trim>
+  </sql>
+
+  <insert id="insert" parameterType="com.dfhc.base.customer.vo.CustomerVo">
+    insert into BASE_CUSTOMER (
+      USABLE_STATUS, CREATE_TIME, CREATE_IP, CREATE_USER_ID, 
+      CREATE_USER_NAME, MODIFY_TIME, MODIFY_IP, MODIFY_USER_ID, 
+      MODIFY_USER_NAME, DELETE_TIME, DELETE_IP, DELETE_FLAG, 
+      DELETE_USER_ID, DELETE_USER_NAME, ORDER_CODE, ATTRIBUTE1, 
+      ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, 
+      ID ,
+      USER_ID ,
+      ABBREVIATION ,
+      INDEX_CODE ,
+      REG_ADDR ,
+      OFFICE_ADDR ,
+      POST_ADDR ,
+      POST_CODE ,
+      FAX ,
+      TEL ,
+      PROVINCE_ID ,
+      PROVINCE_ID_NAME ,
+      CITY_ID ,
+      CITY_NAME ,
+      BANK ,
+      ACCOUNT_NAME ,
+      TAX_NO ,
+      LEGAL_PERSON ,
+      REMARK ,
+      STATUS ,
+      REGION_ID ,
+      CONTACTS ,
+      CONTACT_PHONE,
+      MAIN_CODE ,
+      IS_BY_PRODUCT ,
+      IS_MAIN_PRODUCT
+      )
+    values ( 
+     #{usable_status,jdbcType=VARCHAR},#{create_time,jdbcType=TIMESTAMP},#{create_ip,jdbcType=VARCHAR},#{create_user_id,jdbcType=VARCHAR},#{create_user_name,jdbcType=VARCHAR},#{modify_time,jdbcType=TIMESTAMP},#{modify_ip,jdbcType=VARCHAR},#{modify_user_id,jdbcType=VARCHAR},#{modify_user_name,jdbcType=VARCHAR},#{delete_time,jdbcType=TIMESTAMP},#{delete_ip,jdbcType=VARCHAR},#{delete_flag,jdbcType=VARCHAR},#{delete_user_id,jdbcType=VARCHAR},#{delete_user_name,jdbcType=VARCHAR},#{order_code,jdbcType=VARCHAR},#{attribute1,jdbcType=VARCHAR},#{attribute2,jdbcType=VARCHAR},#{attribute3,jdbcType=VARCHAR},#{attribute4,jdbcType=VARCHAR},#{attribute5,jdbcType=VARCHAR},
+	#{id,jdbcType=CHAR},
+	#{userId,jdbcType=NUMERIC},
+	#{abbreviation,jdbcType=VARCHAR},
+	#{indexCode,jdbcType=VARCHAR},
+	#{regAddr,jdbcType=VARCHAR},
+	#{officeAddr,jdbcType=VARCHAR},
+	#{postAddr,jdbcType=VARCHAR},
+	#{postCode,jdbcType=VARCHAR},
+	#{fax,jdbcType=VARCHAR},
+	#{tel,jdbcType=VARCHAR},
+	#{provinceId,jdbcType=NUMERIC},
+	#{provinceIdName,jdbcType=VARCHAR},
+	#{cityId,jdbcType=NUMERIC},
+	#{cityName,jdbcType=VARCHAR},
+	#{bank,jdbcType=VARCHAR},
+	#{accountName,jdbcType=VARCHAR},
+	#{taxNo,jdbcType=VARCHAR},
+	#{legalPerson,jdbcType=VARCHAR},
+	#{remark,jdbcType=VARCHAR},
+	#{status,jdbcType=CHAR},
+	#{regionId,jdbcType=CHAR},
+	#{contacts,jdbcType=VARCHAR},
+	#{contactPhone,jdbcType=VARCHAR},
+	#{mainCode,jdbcType=VARCHAR} ,
+	#{isByProduct,jdbcType=CHAR} ,
+	#{isMainProduct,jdbcType=CHAR}
+      )
+  </insert>
+    
+  <delete id="delete" parameterType="int">
+    delete from BASE_CUSTOMER where ID=#{id}
+  </delete>
+  
+  <delete id="deleteMulti" parameterType="int">
+    delete from BASE_CUSTOMER where ID in 
+    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">  
+      #{item}   
+    </foreach>
+  </delete>
+
+  <update id="update" parameterType="com.dfhc.base.customer.vo.CustomerVo">
+    update BASE_CUSTOMER 
+    <trim prefix="SET" suffixOverrides=",">  
+		<if test="usable_status != null and usable_status != ''">
+		     USABLE_STATUS=#{usable_status,jdbcType=VARCHAR},
+		</if>
+		<if test="create_time != null and create_time != ''">
+		 CREATE_TIME=#{create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="create_ip != null and create_ip != ''">
+		 CREATE_IP=#{create_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="create_user_id != null and create_user_id != ''">
+		 CREATE_USER_ID=#{create_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="create_user_name != null and create_user_name != ''">
+		   CREATE_USER_NAME=#{create_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_time != null and modify_time != ''">
+		 MODIFY_TIME=#{modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="modify_ip != null and modify_ip != ''">
+		 MODIFY_IP=#{modify_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_user_id != null and modify_user_id != ''">
+		 MODIFY_USER_ID=#{modify_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_user_name != null and modify_user_name != ''">
+		   MODIFY_USER_NAME=#{modify_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_time != null and delete_time != ''">
+		 DELETE_TIME=#{delete_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="delete_ip != null and delete_ip != ''">
+		 DELETE_IP=#{delete_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_flag != null and delete_flag != ''">
+		 DELETE_FLAG=#{delete_flag,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_user_id != null and delete_user_id != ''">
+		   DELETE_USER_ID=#{delete_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_user_name != null and delete_user_name != ''">
+		 DELETE_USER_NAME=#{delete_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="order_code != null and order_code != ''">
+		 ORDER_CODE=#{order_code,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute1 != null and attribute1 != ''">
+		 ATTRIBUTE1=#{attribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute2 != null and attribute2 != ''">
+		 ATTRIBUTE2=#{attribute2,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute3 != null and attribute3 != ''">
+		 ATTRIBUTE3=#{attribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute4 != null and attribute4 != ''">
+		 ATTRIBUTE4=#{attribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute5 != null and attribute5 != ''">
+		 ATTRIBUTE5=#{attribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="id!=null and id!= ''">
+		ID=#{id,jdbcType=CHAR},
+		</if>
+		<if test="userId!=null and userId!= ''">
+		USER_ID=#{userId,jdbcType=NUMERIC},
+		</if>
+		<if test="abbreviation!=null and abbreviation!= ''">
+		ABBREVIATION=#{abbreviation,jdbcType=VARCHAR},
+		</if>
+		<if test="indexCode!=null and indexCode!= ''">
+		INDEX_CODE=#{indexCode,jdbcType=VARCHAR},
+		</if>
+		<if test="regAddr!=null and regAddr!= ''">
+		REG_ADDR=#{regAddr,jdbcType=VARCHAR},
+		</if>
+		<if test="officeAddr!=null and officeAddr!= ''">
+		OFFICE_ADDR=#{officeAddr,jdbcType=VARCHAR},
+		</if>
+		<if test="postAddr!=null and postAddr!= ''">
+		POST_ADDR=#{postAddr,jdbcType=VARCHAR},
+		</if>
+		<if test="postCode!=null and postCode!= ''">
+		POST_CODE=#{postCode,jdbcType=VARCHAR},
+		</if>
+		<if test="fax!=null and fax!= ''">
+		FAX=#{fax,jdbcType=VARCHAR},
+		</if>
+		<if test="tel!=null and tel!= ''">
+		TEL=#{tel,jdbcType=VARCHAR},
+		</if>
+		<if test="provinceId!=null and provinceId!= ''">
+		PROVINCE_ID=#{provinceId,jdbcType=NUMERIC},
+		</if>
+		<if test="provinceIdName!=null and provinceIdName!= ''">
+		PROVINCE_ID_NAME=#{provinceIdName,jdbcType=VARCHAR},
+		</if>
+		<if test="cityId!=null and cityId!= ''">
+		CITY_ID=#{cityId,jdbcType=NUMERIC},
+		</if>
+		<if test="cityName!=null and cityName!= ''">
+		CITY_NAME=#{cityName,jdbcType=VARCHAR},
+		</if>
+		<if test="bank!=null and bank!= ''">
+		BANK=#{bank,jdbcType=VARCHAR},
+		</if>
+		<if test="accountName!=null and accountName!= ''">
+		ACCOUNT_NAME=#{accountName,jdbcType=VARCHAR},
+		</if>
+		<if test="taxNo!=null and taxNo!= ''">
+		TAX_NO=#{taxNo,jdbcType=VARCHAR},
+		</if>
+		<if test="legalPerson!=null and legalPerson!= ''">
+		LEGAL_PERSON=#{legalPerson,jdbcType=VARCHAR},
+		</if>
+		<if test="remark!=null and remark!= ''">
+		REMARK=#{remark,jdbcType=VARCHAR},
+		</if>
+		<if test="status!=null and status!= ''">
+		STATUS=#{status,jdbcType=CHAR},
+		</if>
+		<if test="regionId!=null and regionId!= ''">
+		REGION_ID=#{regionId,jdbcType=CHAR},
+		</if>
+		<if test="contacts!=null and contacts!= ''">
+		CONTACTS=#{contacts,jdbcType=VARCHAR},
+		</if>
+		<if test="contactPhone!=null and contactPhone!= ''">
+		CONTACT_PHONE=#{contactPhone,jdbcType=VARCHAR},
+		</if>
+		<if test="mainCode!=null and mainCode!= ''">
+		MAIN_CODE=#{mainCode,jdbcType=VARCHAR},
+		</if>
+		<if test="isByProduct !=null and isByProduct != ''">
+		IS_BY_PRODUCT=#{isByProduct,jdbcType=CHAR},
+		</if>
+		<if test="isMainProduct !=null and isMainProduct != ''">
+		IS_MAIN_PRODUCT=#{isMainProduct,jdbcType=VARCHAR},
+		</if>
+     </trim> 
+    where ID=#{id}
+  </update>
+
+  <select id="get" parameterType="string" resultType="com.dfhc.base.customer.vo.CustomerVo">
+    select  
+      BASE_CUSTOMER.USABLE_STATUS, BASE_CUSTOMER.CREATE_TIME, BASE_CUSTOMER.CREATE_IP, BASE_CUSTOMER.CREATE_USER_ID, 
+      BASE_CUSTOMER.CREATE_USER_NAME, BASE_CUSTOMER.MODIFY_TIME, BASE_CUSTOMER.MODIFY_IP, BASE_CUSTOMER.MODIFY_USER_ID, 
+      BASE_CUSTOMER.MODIFY_USER_NAME, BASE_CUSTOMER.DELETE_TIME, BASE_CUSTOMER.DELETE_IP, BASE_CUSTOMER.DELETE_FLAG, 
+      BASE_CUSTOMER.DELETE_USER_ID, BASE_CUSTOMER.DELETE_USER_NAME, BASE_CUSTOMER.ORDER_CODE, BASE_CUSTOMER.ATTRIBUTE1, 
+      BASE_CUSTOMER.ATTRIBUTE2, BASE_CUSTOMER.ATTRIBUTE3, BASE_CUSTOMER.ATTRIBUTE4, BASE_CUSTOMER.ATTRIBUTE5, 
+      BASE_CUSTOMER.ID as id,	
+      BASE_CUSTOMER.USER_ID as userId,	
+      BASE_CUSTOMER.ABBREVIATION as abbreviation,	
+      BASE_CUSTOMER.INDEX_CODE as indexCode,	
+      BASE_CUSTOMER.REG_ADDR as regAddr,	
+      BASE_CUSTOMER.OFFICE_ADDR as officeAddr,	
+      BASE_CUSTOMER.POST_ADDR as postAddr,	
+      BASE_CUSTOMER.POST_CODE as postCode,	
+      BASE_CUSTOMER.FAX as fax,	
+      BASE_CUSTOMER.TEL as tel,	
+      BASE_CUSTOMER.PROVINCE_ID as provinceId,	
+      BASE_CUSTOMER.PROVINCE_ID_NAME as provinceIdName,	
+      BASE_CUSTOMER.CITY_ID as cityId,	
+      BASE_CUSTOMER.CITY_NAME as cityName,	
+      BASE_CUSTOMER.BANK as bank,	
+      BASE_CUSTOMER.ACCOUNT_NAME as accountName,	
+      BASE_CUSTOMER.TAX_NO as taxNo,	
+      BASE_CUSTOMER.LEGAL_PERSON as legalPerson,	
+      BASE_CUSTOMER.REMARK as remark,	
+      BASE_CUSTOMER.STATUS as status,	
+      BASE_CUSTOMER.REGION_ID as regionId,	
+      BASE_CUSTOMER.CONTACTS as contacts,	
+      BASE_CUSTOMER.CONTACT_PHONE as contactPhone,
+      BASE_CUSTOMER.MAIN_CODE as mainCode,
+      BASE_CUSTOMER.IS_BY_PRODUCT as isByProduct ,
+      BASE_CUSTOMER.IS_MAIN_PRODUCT as isMainProduct ,
+      rm_USER.login_id   as  userName,
+      rm_USER.email as email , 
+      rm_USER.password as password
+    from BASE_CUSTOMER 
+    
+    left join rm_USER on  rm_user.id=BASE_CUSTOMER.USER_ID
+    where BASE_CUSTOMER.ID=#{id}
+  </select>
+  <select id="getCustomerVoByUserId" parameterType="string" resultType="com.dfhc.base.customer.vo.CustomerVo">
+    select  
+      BASE_CUSTOMER.USABLE_STATUS, BASE_CUSTOMER.CREATE_TIME, BASE_CUSTOMER.CREATE_IP, BASE_CUSTOMER.CREATE_USER_ID, 
+      BASE_CUSTOMER.CREATE_USER_NAME, BASE_CUSTOMER.MODIFY_TIME, BASE_CUSTOMER.MODIFY_IP, BASE_CUSTOMER.MODIFY_USER_ID, 
+      BASE_CUSTOMER.MODIFY_USER_NAME, BASE_CUSTOMER.DELETE_TIME, BASE_CUSTOMER.DELETE_IP, BASE_CUSTOMER.DELETE_FLAG, 
+      BASE_CUSTOMER.DELETE_USER_ID, BASE_CUSTOMER.DELETE_USER_NAME, BASE_CUSTOMER.ORDER_CODE, BASE_CUSTOMER.ATTRIBUTE1, 
+      BASE_CUSTOMER.ATTRIBUTE2, BASE_CUSTOMER.ATTRIBUTE3, BASE_CUSTOMER.ATTRIBUTE4, BASE_CUSTOMER.ATTRIBUTE5, 
+      BASE_CUSTOMER.ID as id,	
+      BASE_CUSTOMER.USER_ID as userId,	
+      BASE_CUSTOMER.ABBREVIATION as abbreviation,	
+      BASE_CUSTOMER.INDEX_CODE as indexCode,	
+      BASE_CUSTOMER.REG_ADDR as regAddr,	
+      BASE_CUSTOMER.OFFICE_ADDR as officeAddr,	
+      BASE_CUSTOMER.POST_ADDR as postAddr,	
+      BASE_CUSTOMER.POST_CODE as postCode,	
+      BASE_CUSTOMER.FAX as fax,	
+      BASE_CUSTOMER.TEL as tel,	
+      BASE_CUSTOMER.PROVINCE_ID as provinceId,	
+      BASE_CUSTOMER.PROVINCE_ID_NAME as provinceIdName,	
+      BASE_CUSTOMER.CITY_ID as cityId,	
+      BASE_CUSTOMER.CITY_NAME as cityName,	
+      BASE_CUSTOMER.BANK as bank,	
+      BASE_CUSTOMER.ACCOUNT_NAME as accountName,	
+      BASE_CUSTOMER.TAX_NO as taxNo,	
+      BASE_CUSTOMER.LEGAL_PERSON as legalPerson,	
+      BASE_CUSTOMER.REMARK as remark,	
+      BASE_CUSTOMER.STATUS as status,	
+      BASE_CUSTOMER.REGION_ID as regionId,	
+      BASE_CUSTOMER.CONTACTS as contacts,	
+      BASE_CUSTOMER.CONTACT_PHONE as contactPhone ,	
+      BASE_CUSTOMER.MAIN_CODE as mainCode,	
+      BASE_CUSTOMER.IS_BY_PRODUCT as isByProduct ,
+      BASE_CUSTOMER.IS_MAIN_PRODUCT as isMainProduct
+    from BASE_CUSTOMER 
+    where BASE_CUSTOMER.USER_ID=#{userId}
+  </select>
+
+  <select id="getCount" parameterType="map" resultType="int" useCache="true">
+    select count(BASE_CUSTOMER.ID) from BASE_CUSTOMER
+    <if test="customerFinance != null and customerFinance != ''">
+		inner join ACC_CUSTOMER_AVAILABLE_AMOUNT on ACC_CUSTOMER_AVAILABLE_AMOUNT.CUSTOMER_ID = BASE_CUSTOMER.USER_ID
+		left join 
+			(
+				select ACC_CREDIT_MANAGER.CUSTOMER_ID as customerId, ACC_CREDIT_MANAGER.LINE_OF_CREDIT as lineOfCredit from ACC_CREDIT_MANAGER 
+				<trim prefix="where" prefixOverrides="and|or">
+				
+				 	<if test="financeIsStatus != null and financeIsStatus != ''">
+				        and ACC_CREDIT_MANAGER.IS_STATUS = #{financeIsStatus}
+				      </if>
+				 
+					 <if test="delete_flag3 != null and delete_flag3 != ''">
+				        and nvl(ACC_CREDIT_MANAGER.DELETE_FLAG,'0') = #{delete_flag3}
+				      </if>
+				</trim>
+			) credit on  credit.customerId = ACC_CUSTOMER_AVAILABLE_AMOUNT.CUSTOMER_ID
+		
+	</if>
+    <include refid="where"/>    
+  </select>
+  
+  <select id="list" parameterType="map" resultType="com.dfhc.base.customer.vo.CustomerVo">
+    select 
+     BASE_CUSTOMER.ID as id,	
+     BASE_CUSTOMER.USER_ID as userId,	
+     BASE_CUSTOMER.ABBREVIATION as abbreviation,	
+     BASE_CUSTOMER.INDEX_CODE as indexCode,	
+     BASE_CUSTOMER.REG_ADDR as regAddr,	
+     BASE_CUSTOMER.OFFICE_ADDR as officeAddr,	
+     BASE_CUSTOMER.POST_ADDR as postAddr,	
+     BASE_CUSTOMER.POST_CODE as postCode,	
+     BASE_CUSTOMER.FAX as fax,	
+     BASE_CUSTOMER.TEL as tel,	
+     BASE_CUSTOMER.PROVINCE_ID as provinceId,	
+     BASE_CUSTOMER.PROVINCE_ID_NAME as provinceIdName,	
+     BASE_CUSTOMER.CITY_ID as cityId,	
+     BASE_CUSTOMER.CITY_NAME as cityName,	
+     BASE_CUSTOMER.BANK as bank,	
+     BASE_CUSTOMER.ACCOUNT_NAME as accountName,	
+     BASE_CUSTOMER.TAX_NO as taxNo,	
+     BASE_CUSTOMER.LEGAL_PERSON as legalPerson,	
+     BASE_CUSTOMER.REMARK as remark,	
+     BASE_CUSTOMER.STATUS as status,	
+     BASE_CUSTOMER.REGION_ID as regionId,	
+     BASE_CUSTOMER.CONTACTS as contacts,	
+     BASE_CUSTOMER.CONTACT_PHONE as contactPhone,
+     BASE_CUSTOMER.MAIN_CODE as mainCode ,
+     BASE_CUSTOMER.IS_BY_PRODUCT as isByProduct ,
+	 <if test="customerFinance != null and customerFinance != ''">
+	 nvl(credit.lineOfCredit, 0)+nvl(ACC_CUSTOMER_AVAILABLE_AMOUNT.AVAILABLE_CREDIT, 0)	as amount,
+	 nvl(credit.lineOfCredit, 0)+nvl(ACC_CUSTOMER_AVAILABLE_AMOUNT.AVAILABLE_CREDIT, 0)	as amount2,
+	 </if>
+     <if test="customerManager != null and customerManager != ''">
+     RM_USER.NAME as name ,
+     </if>
+     BASE_CUSTOMER.IS_MAIN_PRODUCT as isMainProduct
+   	
+    from BASE_CUSTOMER
+
+    <if test="customerManager != null and customerManager != ''">
+   left join RM_USER on BASE_CUSTOMER.USER_ID=RM_USER.ID
+ </if>
+	<if test="customerFinance != null and customerFinance != ''">
+		inner join ACC_CUSTOMER_AVAILABLE_AMOUNT on ACC_CUSTOMER_AVAILABLE_AMOUNT.CUSTOMER_ID = BASE_CUSTOMER.USER_ID
+		left join 
+			(
+				select ACC_CREDIT_MANAGER.CUSTOMER_ID as customerId, ACC_CREDIT_MANAGER.LINE_OF_CREDIT as lineOfCredit from ACC_CREDIT_MANAGER 
+				<trim prefix="where" prefixOverrides="and|or">
+				
+				 	<if test="financeIsStatus != null and financeIsStatus != ''">
+				        and ACC_CREDIT_MANAGER.IS_STATUS = #{financeIsStatus}
+				      </if>
+				 
+					 <if test="delete_flag3 != null and delete_flag3 != ''">
+				        and nvl(ACC_CREDIT_MANAGER.DELETE_FLAG,'0') = #{delete_flag3}
+				      </if>
+				</trim>
+			) credit on  credit.customerId = ACC_CUSTOMER_AVAILABLE_AMOUNT.CUSTOMER_ID
+		
+	</if>
+    <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+  
+  <select id="listAllColumn" parameterType="map" resultType="com.dfhc.base.customer.vo.CustomerVo">
+    select 
+      BASE_CUSTOMER.USABLE_STATUS, BASE_CUSTOMER.CREATE_TIME, BASE_CUSTOMER.CREATE_IP, BASE_CUSTOMER.CREATE_USER_ID, 
+      BASE_CUSTOMER.CREATE_USER_NAME, BASE_CUSTOMER.MODIFY_TIME, BASE_CUSTOMER.MODIFY_IP, BASE_CUSTOMER.MODIFY_USER_ID, 
+      BASE_CUSTOMER.MODIFY_USER_NAME, BASE_CUSTOMER.DELETE_TIME, BASE_CUSTOMER.DELETE_IP, BASE_CUSTOMER.DELETE_FLAG, 
+      BASE_CUSTOMER.DELETE_USER_ID, BASE_CUSTOMER.DELETE_USER_NAME, BASE_CUSTOMER.ORDER_CODE, BASE_CUSTOMER.ATTRIBUTE1, 
+     BASE_CUSTOMER.ATTRIBUTE2, BASE_CUSTOMER.ATTRIBUTE3, BASE_CUSTOMER.ATTRIBUTE4, BASE_CUSTOMER.ATTRIBUTE5, 
+     BASE_CUSTOMER.ID as id,	
+     BASE_CUSTOMER.USER_ID as userId,	
+     BASE_CUSTOMER.ABBREVIATION as abbreviation,	
+     BASE_CUSTOMER.INDEX_CODE as indexCode,	
+     BASE_CUSTOMER.REG_ADDR as regAddr,	
+     BASE_CUSTOMER.OFFICE_ADDR as officeAddr,	
+     BASE_CUSTOMER.POST_ADDR as postAddr,	
+     BASE_CUSTOMER.POST_CODE as postCode,	
+     BASE_CUSTOMER.FAX as fax,	
+     BASE_CUSTOMER.TEL as tel,	
+     BASE_CUSTOMER.PROVINCE_ID as provinceId,	
+     BASE_CUSTOMER.PROVINCE_ID_NAME as provinceIdName,	
+     BASE_CUSTOMER.CITY_ID as cityId,	
+     BASE_CUSTOMER.CITY_NAME as cityName,	
+     BASE_CUSTOMER.BANK as bank,	
+     BASE_CUSTOMER.ACCOUNT_NAME as accountName,	
+     BASE_CUSTOMER.TAX_NO as taxNo,	
+     BASE_CUSTOMER.LEGAL_PERSON as legalPerson,	
+     BASE_CUSTOMER.REMARK as remark,	
+     BASE_CUSTOMER.STATUS as status,	
+     BASE_CUSTOMER.REGION_ID as regionId,	
+     BASE_CUSTOMER.CONTACTS as contacts,	
+     BASE_CUSTOMER.CONTACT_PHONE as contactPhone,
+     BASE_CUSTOMER.MAIN_CODE as mainCode	,
+      BASE_CUSTOMER.IS_BY_PRODUCT as isByProduct,
+     BASE_CUSTOMER.IS_MAIN_PRODUCT as isMainProduct
+    from BASE_CUSTOMER
+    <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+
+  <select id="search" parameterType="map" resultType="com.dfhc.base.customer.vo.CustomerVo">
+    select 
+      BASE_CUSTOMER.USABLE_STATUS, BASE_CUSTOMER.CREATE_TIME, BASE_CUSTOMER.CREATE_IP, BASE_CUSTOMER.CREATE_USER_ID, 
+      BASE_CUSTOMER.CREATE_USER_NAME, BASE_CUSTOMER.MODIFY_TIME, BASE_CUSTOMER.MODIFY_IP, BASE_CUSTOMER.MODIFY_USER_ID, 
+      BASE_CUSTOMER.MODIFY_USER_NAME, BASE_CUSTOMER.DELETE_TIME, BASE_CUSTOMER.DELETE_IP, BASE_CUSTOMER.DELETE_FLAG, 
+      BASE_CUSTOMER.DELETE_USER_ID, BASE_CUSTOMER.DELETE_USER_NAME, BASE_CUSTOMER.ORDER_CODE, BASE_CUSTOMER.ATTRIBUTE1, 
+      BASE_CUSTOMER.ATTRIBUTE2, BASE_CUSTOMER.ATTRIBUTE3, BASE_CUSTOMER.ATTRIBUTE4, BASE_CUSTOMER.ATTRIBUTE5, 
+     BASE_CUSTOMER.ID as id,	
+     BASE_CUSTOMER.USER_ID as userId,	
+     BASE_CUSTOMER.ABBREVIATION as abbreviation,	
+     BASE_CUSTOMER.INDEX_CODE as indexCode,	
+     BASE_CUSTOMER.REG_ADDR as regAddr,	
+     BASE_CUSTOMER.OFFICE_ADDR as officeAddr,	
+     BASE_CUSTOMER.POST_ADDR as postAddr,	
+     BASE_CUSTOMER.POST_CODE as postCode,	
+     BASE_CUSTOMER.FAX as fax,	
+     BASE_CUSTOMER.TEL as tel,	
+     BASE_CUSTOMER.PROVINCE_ID as provinceId,	
+     BASE_CUSTOMER.PROVINCE_ID_NAME as provinceIdName,	
+     BASE_CUSTOMER.CITY_ID as cityId,	
+     BASE_CUSTOMER.CITY_NAME as cityName,	
+     BASE_CUSTOMER.BANK as bank,	
+     BASE_CUSTOMER.ACCOUNT_NAME as accountName,	
+     BASE_CUSTOMER.TAX_NO as taxNo,	
+     BASE_CUSTOMER.LEGAL_PERSON as legalPerson,	
+     BASE_CUSTOMER.REMARK as remark,	
+     BASE_CUSTOMER.STATUS as status,	
+     BASE_CUSTOMER.REGION_ID as regionId,	
+     BASE_CUSTOMER.CONTACTS as contacts,	
+     BASE_CUSTOMER.CONTACT_PHONE as contactPhone,
+     BASE_CUSTOMER.MAIN_CODE as mainCode	,
+      BASE_CUSTOMER.IS_BY_PRODUCT as isByProduct,
+     BASE_CUSTOMER.IS_MAIN_PRODUCT as isMainProduct
+    from BASE_CUSTOMER
+     <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+ <!-- 批量更新 -->
+  <update id="updateBatch" parameterType="ArrayList">
+     begin
+     <foreach collection="list" item="item" index="index" separator=";" > 
+     update BASE_CUSTOMER 
+    <set>  
+		<if test="item.usable_status != null and item.usable_status != ''">
+		     USABLE_STATUS=#{item.usable_status,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_time != null and item.create_time != ''">
+		 CREATE_TIME=#{item.create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.create_ip != null and item.create_ip != ''">
+		 CREATE_IP=#{item.create_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_user_id != null and item.create_user_id != ''">
+		 CREATE_USER_ID=#{item.create_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_user_name != null and item.create_user_name != ''">
+		   CREATE_USER_NAME=#{item.create_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_time != null and item.modify_time != ''">
+		 MODIFY_TIME=#{item.modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.modify_ip != null and item.modify_ip != ''">
+		 MODIFY_IP=#{item.modify_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_user_id != null and item.modify_user_id != ''">
+		 MODIFY_USER_ID=#{item.modify_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_user_name != null and item.modify_user_name != ''">
+		   MODIFY_USER_NAME=#{item.modify_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_time != null and item.delete_time != ''">
+		 DELETE_TIME=#{item.delete_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.delete_ip != null and item.delete_ip != ''">
+		 DELETE_IP=#{item.delete_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_flag != null and item.delete_flag != ''">
+		 DELETE_FLAG=#{item.delete_flag,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_user_id != null and item.delete_user_id != ''">
+		   DELETE_USER_ID=#{item.delete_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_user_name != null and item.delete_user_name != ''">
+		 DELETE_USER_NAME=#{item.delete_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.order_code != null and item.order_code != ''">
+		 ORDER_CODE=#{item.order_code,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute1 != null and item.attribute1 != ''">
+		 ATTRIBUTE1=#{item.attribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute2 != null and item.attribute2 != ''">
+		 ATTRIBUTE2=#{item.attribute2,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute3 != null and item.attribute3 != ''">
+		 ATTRIBUTE3=#{item.attribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute4 != null and item.attribute4 != ''">
+		 ATTRIBUTE4=#{item.attribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute5 != null and item.attribute5 != ''">
+		 ATTRIBUTE5=#{item.attribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="item.id!=null and item.id!= ''">
+		ID=#{item.id,jdbcType=CHAR},
+		</if>
+		<if test="item.userId!=null and item.userId!= ''">
+		USER_ID=#{item.userId,jdbcType=NUMERIC},
+		</if>
+		<if test="item.abbreviation!=null and item.abbreviation!= ''">
+		ABBREVIATION=#{item.abbreviation,jdbcType=VARCHAR},
+		</if>
+		<if test="item.indexCode!=null and item.indexCode!= ''">
+		INDEX_CODE=#{item.indexCode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.regAddr!=null and item.regAddr!= ''">
+		REG_ADDR=#{item.regAddr,jdbcType=VARCHAR},
+		</if>
+		<if test="item.officeAddr!=null and item.officeAddr!= ''">
+		OFFICE_ADDR=#{item.officeAddr,jdbcType=VARCHAR},
+		</if>
+		<if test="item.postAddr!=null and item.postAddr!= ''">
+		POST_ADDR=#{item.postAddr,jdbcType=VARCHAR},
+		</if>
+		<if test="item.postCode!=null and item.postCode!= ''">
+		POST_CODE=#{item.postCode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.fax!=null and item.fax!= ''">
+		FAX=#{item.fax,jdbcType=VARCHAR},
+		</if>
+		<if test="item.tel!=null and item.tel!= ''">
+		TEL=#{item.tel,jdbcType=VARCHAR},
+		</if>
+		<if test="item.provinceId!=null and item.provinceId!= ''">
+		PROVINCE_ID=#{item.provinceId,jdbcType=NUMERIC},
+		</if>
+		<if test="item.provinceIdName!=null and item.provinceIdName!= ''">
+		PROVINCE_ID_NAME=#{item.provinceIdName,jdbcType=VARCHAR},
+		</if>
+		<if test="item.cityId!=null and item.cityId!= ''">
+		CITY_ID=#{item.cityId,jdbcType=NUMERIC},
+		</if>
+		<if test="item.cityName!=null and item.cityName!= ''">
+		CITY_NAME=#{item.cityName,jdbcType=VARCHAR},
+		</if>
+		<if test="item.bank!=null and item.bank!= ''">
+		BANK=#{item.bank,jdbcType=VARCHAR},
+		</if>
+		<if test="item.accountName!=null and item.accountName!= ''">
+		ACCOUNT_NAME=#{item.accountName,jdbcType=VARCHAR},
+		</if>
+		<if test="item.taxNo!=null and item.taxNo!= ''">
+		TAX_NO=#{item.taxNo,jdbcType=VARCHAR},
+		</if>
+		<if test="item.legalPerson!=null and item.legalPerson!= ''">
+		LEGAL_PERSON=#{item.legalPerson,jdbcType=VARCHAR},
+		</if>
+		<if test="item.remark!=null and item.remark!= ''">
+		REMARK=#{item.remark,jdbcType=VARCHAR},
+		</if>
+		<if test="item.status!=null and item.status!= ''">
+		STATUS=#{item.status,jdbcType=CHAR},
+		</if>
+		<if test="item.regionId!=null and item.regionId!= ''">
+		REGION_ID=#{item.regionId,jdbcType=CHAR},
+		</if>
+		<if test="item.contacts!=null and item.contacts!= ''">
+		CONTACTS=#{item.contacts,jdbcType=VARCHAR},
+		</if>
+		<if test="item.contactPhone!=null and item.contactPhone!= ''">
+		CONTACT_PHONE=#{item.contactPhone,jdbcType=VARCHAR},
+		</if>
+		<if test="item.mainCode != null and item.mainCode != ''">
+		 MAIN_CODE=#{item.mainCode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.isByProduct!=null and item.isByProduct!= ''">
+		IS_BY_PRODUCT=#{item.isByProduct,jdbcType=CHAR},
+		</if>
+		<if test="item.isMainProduct != null and item.isMainProduct != ''">
+		 IS_MAIN_PRODUCT=#{item.isMainProduct,jdbcType=CHAR},
+		</if>
+     </set> 
+    where ID=#{item.id}
+   </foreach>
+   ;end;
+   </update>
+   <!--批量插入-->
+ <insert id="insertBatch" parameterType="ArrayList">
+     insert into BASE_CUSTOMER (
+      USABLE_STATUS, CREATE_TIME, CREATE_IP, CREATE_USER_ID, 
+      CREATE_USER_NAME, MODIFY_TIME, MODIFY_IP, MODIFY_USER_ID, 
+      MODIFY_USER_NAME, DELETE_TIME, DELETE_IP, DELETE_FLAG, 
+      DELETE_USER_ID, DELETE_USER_NAME, ORDER_CODE, ATTRIBUTE1, 
+      ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, 
+      ID ,
+      USER_ID ,
+      ABBREVIATION ,
+      INDEX_CODE ,
+      REG_ADDR ,
+      OFFICE_ADDR ,
+      POST_ADDR ,
+      POST_CODE ,
+      FAX ,
+      TEL ,
+      PROVINCE_ID ,
+      PROVINCE_ID_NAME ,
+      CITY_ID ,
+      CITY_NAME ,
+      BANK ,
+      ACCOUNT_NAME ,
+      TAX_NO ,
+      LEGAL_PERSON ,
+      REMARK ,
+      STATUS ,
+      REGION_ID ,
+      CONTACTS ,
+      CONTACT_PHONE,
+      MAIN_CODE ,
+      IS_BY_PRODUCT ,
+      IS_MAIN_PRODUCT
+      )    
+    <foreach collection="list" item="item" index="index" separator="union all" > 
+    select  
+   #{item.usable_status,jdbcType=VARCHAR},#{item.create_time,jdbcType=TIMESTAMP},#{item.create_ip,jdbcType=VARCHAR},#{item.create_user_id,jdbcType=VARCHAR},#{item.create_user_name,jdbcType=VARCHAR},#{item.modify_time,jdbcType=TIMESTAMP},#{item.modify_ip,jdbcType=VARCHAR},#{item.modify_user_id,jdbcType=VARCHAR},#{item.modify_user_name,jdbcType=VARCHAR},#{item.delete_time,jdbcType=TIMESTAMP},#{item.delete_ip,jdbcType=VARCHAR},#{item.delete_flag,jdbcType=VARCHAR},#{item.delete_user_id,jdbcType=VARCHAR},#{item.delete_user_name,jdbcType=VARCHAR},#{item.order_code,jdbcType=VARCHAR},#{item.attribute1,jdbcType=VARCHAR},#{item.attribute2,jdbcType=VARCHAR},#{item.attribute3,jdbcType=VARCHAR},#{item.attribute4,jdbcType=VARCHAR},#{item.attribute5,jdbcType=VARCHAR},
+	#{item.id,jdbcType=CHAR},
+	#{item.userId,jdbcType=NUMERIC},
+	#{item.abbreviation,jdbcType=VARCHAR},
+	#{item.indexCode,jdbcType=VARCHAR},
+	#{item.regAddr,jdbcType=VARCHAR},
+	#{item.officeAddr,jdbcType=VARCHAR},
+	#{item.postAddr,jdbcType=VARCHAR},
+	#{item.postCode,jdbcType=VARCHAR},
+	#{item.fax,jdbcType=VARCHAR},
+	#{item.tel,jdbcType=VARCHAR},
+	#{item.provinceId,jdbcType=NUMERIC},
+	#{item.provinceIdName,jdbcType=VARCHAR},
+	#{item.cityId,jdbcType=NUMERIC},
+	#{item.cityName,jdbcType=VARCHAR},
+	#{item.bank,jdbcType=VARCHAR},
+	#{item.accountName,jdbcType=VARCHAR},
+	#{item.taxNo,jdbcType=VARCHAR},
+	#{item.legalPerson,jdbcType=VARCHAR},
+	#{item.remark,jdbcType=VARCHAR},
+	#{item.status,jdbcType=CHAR},
+	#{item.regionId,jdbcType=CHAR},
+	#{item.contacts,jdbcType=VARCHAR},
+	#{item.contactPhone,jdbcType=VARCHAR},
+	#{item.mainCode,jdbcType=VARCHAR},
+	#{item.isByProduct,jdbcType=CHAR},
+	#{item.isMainProduct,jdbcType=CHAR}
+     from dual
+    </foreach>
+  </insert>
+   <select id="getI" parameterType="map" resultType="com.dfhc.base.customer.vo.CustomerVo">
+    select 
+      BASE_CUSTOMER.USABLE_STATUS, BASE_CUSTOMER.CREATE_TIME, BASE_CUSTOMER.CREATE_IP, BASE_CUSTOMER.CREATE_USER_ID, 
+      BASE_CUSTOMER.CREATE_USER_NAME, BASE_CUSTOMER.MODIFY_TIME, BASE_CUSTOMER.MODIFY_IP, BASE_CUSTOMER.MODIFY_USER_ID, 
+      BASE_CUSTOMER.MODIFY_USER_NAME, BASE_CUSTOMER.DELETE_TIME, BASE_CUSTOMER.DELETE_IP, BASE_CUSTOMER.DELETE_FLAG, 
+      BASE_CUSTOMER.DELETE_USER_ID, BASE_CUSTOMER.DELETE_USER_NAME, BASE_CUSTOMER.ORDER_CODE, BASE_CUSTOMER.ATTRIBUTE1, 
+      BASE_CUSTOMER.ATTRIBUTE2, BASE_CUSTOMER.ATTRIBUTE3, BASE_CUSTOMER.ATTRIBUTE4, BASE_CUSTOMER.ATTRIBUTE5, 
+     BASE_CUSTOMER.ID as id,	
+     BASE_CUSTOMER.USER_ID as userId,	
+     BASE_CUSTOMER.ABBREVIATION as abbreviation,	
+     BASE_CUSTOMER.INDEX_CODE as indexCode,	
+     BASE_CUSTOMER.REG_ADDR as regAddr,	
+     BASE_CUSTOMER.OFFICE_ADDR as officeAddr,	
+     BASE_CUSTOMER.POST_ADDR as postAddr,	
+     BASE_CUSTOMER.POST_CODE as postCode,	
+     BASE_CUSTOMER.FAX as fax,	
+     BASE_CUSTOMER.TEL as tel,	
+     BASE_CUSTOMER.PROVINCE_ID as provinceId,	
+     BASE_CUSTOMER.PROVINCE_ID_NAME as provinceIdName,	
+     BASE_CUSTOMER.CITY_ID as cityId,	
+     BASE_CUSTOMER.CITY_NAME as cityName,	
+     BASE_CUSTOMER.BANK as bank,	
+     BASE_CUSTOMER.ACCOUNT_NAME as accountName,	
+     BASE_CUSTOMER.TAX_NO as taxNo,	
+     BASE_CUSTOMER.LEGAL_PERSON as legalPerson,	
+     BASE_CUSTOMER.REMARK as remark,	
+     BASE_CUSTOMER.STATUS as status,	
+     BASE_CUSTOMER.REGION_ID as regionId,	
+     BASE_CUSTOMER.CONTACTS as contacts,	
+     BASE_CUSTOMER.CONTACT_PHONE as contactPhone,
+     BASE_CUSTOMER.MAIN_CODE as mainCode	,
+      BASE_CUSTOMER.IS_BY_PRODUCT as isByProduct,
+      
+       RM_USER.NAME as name,
+       
+     BASE_CUSTOMER.IS_MAIN_PRODUCT as isMainProduct
+     
+    from BASE_CUSTOMER
+    
+    inner join RM_USER on BASE_CUSTOMER.USER_ID=RM_USER.ID
+    
+     <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>	
+</mapper>

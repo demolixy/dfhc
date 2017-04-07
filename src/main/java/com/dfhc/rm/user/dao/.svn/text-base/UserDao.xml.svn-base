@@ -1,0 +1,695 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dfhc.rm.user.dao.UserDao">
+  <!-- 共享的where语句，如有冲突或特殊情况，请另写 -->
+  <sql id="where">
+   <trim prefix="where" prefixOverrides="and|or">  
+      <if test="id != null and id != ''">
+        and RM_USER.ID = #{id}
+      </if>
+      <if test="name != null and name != ''">
+        and RM_USER.NAME = #{name}
+      </if>
+      <if test="lockStatus != null and lockStatus != ''">
+        and RM_USER.LOCK_STATUS = #{lockStatus}
+      </if>
+      <if test="loginId != null and loginId != ''">
+        and RM_USER.LOGIN_ID = #{loginId}
+      </if>
+      <if test="password != null and password != ''">
+        and RM_USER.PASSWORD = #{password}
+      </if>
+      <if test="authenType != null and authenType != ''">
+        and RM_USER.AUTHEN_TYPE = #{authenType}
+      </if>
+      <if test="organizationId != null and organizationId != ''">
+        and RM_USER.ORGANIZATION_ID = #{organizationId}
+      </if>
+      <if test="employeeId != null and employeeId != ''">
+        and RM_USER.EMPLOYEE_ID = #{employeeId}
+      </if>
+      <if test="email != null and email != ''">
+        and RM_USER.EMAIL = #{email}
+      </if>
+      <if test="adminType != null and adminType != ''">
+        and RM_USER.ADMIN_TYPE = #{adminType}
+      </if>
+      <if test="description != null and description != ''">
+        and RM_USER.DESCRIPTION = #{description}
+      </if>
+      <if test="agentStatus != null and agentStatus != ''">
+        and RM_USER.AGENT_STATUS = #{agentStatus}
+      </if>
+      <if test="loginStatus != null and loginStatus != ''">
+        and RM_USER.LOGIN_STATUS = #{loginStatus}
+      </if>
+      <if test="lastLoginDate != null and lastLoginDate != ''">
+        and to_char(RM_USER.LAST_LOGIN_DATE,'YYYY-MM-DD') = #{lastLoginDate}
+      </if>
+      <if test="lastLoginIp != null and lastLoginIp != ''">
+        and RM_USER.LAST_LOGIN_IP = #{lastLoginIp}
+      </if>
+      <if test="loginSum != null and loginSum != ''">
+        and RM_USER.LOGIN_SUM = #{loginSum}
+      </if>
+      <if test="lastCustomCss != null and lastCustomCss != ''">
+        and RM_USER.LAST_CUSTOM_CSS = #{lastCustomCss}
+      </if>
+      <if test="isAffix != null and isAffix != ''">
+        and RM_USER.IS_AFFIX = #{isAffix}
+      </if>
+      <if test="functionPermission != null and functionPermission != ''">
+        and RM_USER.FUNCTION_PERMISSION = #{functionPermission}
+      </if>
+      <if test="dataPermission != null and dataPermission != ''">
+        and RM_USER.DATA_PERMISSION = #{dataPermission}
+      </if>
+      <if test="custom1 != null and custom1 != ''">
+        and RM_USER.CUSTOM1 = #{custom1}
+      </if>
+      <if test="custom2 != null and custom2 != ''">
+        and RM_USER.CUSTOM2 = #{custom2}
+      </if>
+      <if test="custom3 != null and custom3 != ''">
+        and RM_USER.CUSTOM3 = #{custom3}
+      </if>
+      <if test="custom4 != null and custom4 != ''">
+        and RM_USER.CUSTOM4 = #{custom4}
+      </if>
+      <if test="custom5 != null and custom5 != ''">
+        and RM_USER.CUSTOM5 = #{custom5}
+      </if>
+      <if test="customXml != null and customXml != ''">
+        and RM_USER.CUSTOM_XML = #{customXml}
+      </if>
+      <if test="userType != null and userType != ''">
+        and RM_USER.USER_TYPE = #{userType}
+      </if>
+  
+      </trim>
+  </sql>
+
+  <insert id="insert" parameterType="com.dfhc.rm.user.vo.UserVo">
+    insert into RM_USER (
+      USABLE_STATUS, CREATE_TIME, CREATE_IP, CREATE_USER_ID, 
+      CREATE_USER_NAME, MODIFY_TIME, MODIFY_IP, MODIFY_USER_ID, 
+      MODIFY_USER_NAME, DELETE_TIME, DELETE_IP, DELETE_FLAG, 
+      DELETE_USER_ID, DELETE_USER_NAME, ORDER_CODE, ATTRIBUTE1, 
+      ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, 
+      ID ,
+      NAME ,
+      LOCK_STATUS ,
+      LOGIN_ID ,
+      PASSWORD ,
+      AUTHEN_TYPE ,
+      ORGANIZATION_ID ,
+      EMPLOYEE_ID ,
+      EMAIL ,
+      ADMIN_TYPE ,
+      DESCRIPTION ,
+      AGENT_STATUS ,
+      LOGIN_STATUS ,
+      LAST_LOGIN_DATE ,
+      LAST_LOGIN_IP ,
+      LOGIN_SUM ,
+      LAST_CUSTOM_CSS ,
+      IS_AFFIX ,
+      FUNCTION_PERMISSION ,
+      DATA_PERMISSION ,
+      CUSTOM1 ,
+      CUSTOM2 ,
+      CUSTOM3 ,
+      CUSTOM4 ,
+      CUSTOM5 ,
+      CUSTOM_XML ,
+      USER_TYPE 
+      )
+    values ( 
+     #{usable_status,jdbcType=VARCHAR},#{create_time,jdbcType=TIMESTAMP},#{create_ip,jdbcType=VARCHAR},#{create_user_id,jdbcType=VARCHAR},#{create_user_name,jdbcType=VARCHAR},#{modify_time,jdbcType=TIMESTAMP},#{modify_ip,jdbcType=VARCHAR},#{modify_user_id,jdbcType=VARCHAR},#{modify_user_name,jdbcType=VARCHAR},#{delete_time,jdbcType=TIMESTAMP},#{delete_ip,jdbcType=VARCHAR},#{delete_flag,jdbcType=VARCHAR},#{delete_user_id,jdbcType=VARCHAR},#{delete_user_name,jdbcType=VARCHAR},#{order_code,jdbcType=VARCHAR},#{attribute1,jdbcType=VARCHAR},#{attribute2,jdbcType=VARCHAR},#{attribute3,jdbcType=VARCHAR},#{attribute4,jdbcType=VARCHAR},#{attribute5,jdbcType=VARCHAR},
+	#{id,jdbcType=NUMERIC},
+	#{name,jdbcType=VARCHAR},
+	#{lockStatus,jdbcType=CHAR},
+	#{loginId,jdbcType=VARCHAR},
+	#{password,jdbcType=VARCHAR},
+	#{authenType,jdbcType=VARCHAR},
+	#{organizationId,jdbcType=VARCHAR},
+	#{employeeId,jdbcType=VARCHAR},
+	#{email,jdbcType=VARCHAR},
+	#{adminType,jdbcType=VARCHAR},
+	#{description,jdbcType=VARCHAR},
+	#{agentStatus,jdbcType=CHAR},
+	#{loginStatus,jdbcType=CHAR},
+	#{lastLoginDate,jdbcType=TIMESTAMP},
+	#{lastLoginIp,jdbcType=VARCHAR},
+	#{loginSum,jdbcType=INTEGER},
+	#{lastCustomCss,jdbcType=VARCHAR},
+	#{isAffix,jdbcType=CHAR},
+	#{functionPermission,jdbcType=VARCHAR},
+	#{dataPermission,jdbcType=VARCHAR},
+	#{custom1,jdbcType=VARCHAR},
+	#{custom2,jdbcType=VARCHAR},
+	#{custom3,jdbcType=VARCHAR},
+	#{custom4,jdbcType=VARCHAR},
+	#{custom5,jdbcType=VARCHAR},
+	#{customXml,jdbcType=VARCHAR},
+	#{userType,jdbcType=CHAR}
+      )
+  </insert>
+    
+  <delete id="delete" parameterType="int">
+    delete from RM_USER where ID=#{id}
+  </delete>
+  
+  <delete id="deleteMulti" parameterType="int">
+    delete from RM_USER where ID in 
+    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">  
+      #{item}   
+    </foreach>
+  </delete>
+
+  <update id="update" parameterType="com.dfhc.rm.user.vo.UserVo">
+    update RM_USER 
+    <trim prefix="SET" suffixOverrides=",">  
+		<if test="usable_status != null and usable_status != ''">
+		     USABLE_STATUS=#{usable_status,jdbcType=VARCHAR},
+		</if>
+		<if test="create_time != null and create_time != ''">
+		 CREATE_TIME=#{create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="create_ip != null and create_ip != ''">
+		 CREATE_IP=#{create_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="create_user_id != null and create_user_id != ''">
+		 CREATE_USER_ID=#{create_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="create_user_name != null and create_user_name != ''">
+		   CREATE_USER_NAME=#{create_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_time != null and modify_time != ''">
+		 MODIFY_TIME=#{modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="modify_ip != null and modify_ip != ''">
+		 MODIFY_IP=#{modify_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_user_id != null and modify_user_id != ''">
+		 MODIFY_USER_ID=#{modify_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_user_name != null and modify_user_name != ''">
+		   MODIFY_USER_NAME=#{modify_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_time != null and delete_time != ''">
+		 DELETE_TIME=#{delete_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="delete_ip != null and delete_ip != ''">
+		 DELETE_IP=#{delete_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_flag != null and delete_flag != ''">
+		 DELETE_FLAG=#{delete_flag,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_user_id != null and delete_user_id != ''">
+		   DELETE_USER_ID=#{delete_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_user_name != null and delete_user_name != ''">
+		 DELETE_USER_NAME=#{delete_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="order_code != null and order_code != ''">
+		 ORDER_CODE=#{order_code,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute1 != null and attribute1 != ''">
+		 ATTRIBUTE1=#{attribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute2 != null and attribute2 != ''">
+		 ATTRIBUTE2=#{attribute2,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute3 != null and attribute3 != ''">
+		 ATTRIBUTE3=#{attribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute4 != null and attribute4 != ''">
+		 ATTRIBUTE4=#{attribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute5 != null and attribute5 != ''">
+		 ATTRIBUTE5=#{attribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="id!=null and id!= ''">
+		ID=#{id,jdbcType=NUMERIC},
+		</if>
+		<if test="name!=null and name!= ''">
+		NAME=#{name,jdbcType=VARCHAR},
+		</if>
+		<if test="lockStatus!=null and lockStatus!= ''">
+		LOCK_STATUS=#{lockStatus,jdbcType=CHAR},
+		</if>
+		<if test="loginId!=null and loginId!= ''">
+		LOGIN_ID=#{loginId,jdbcType=VARCHAR},
+		</if>
+		<if test="password!=null and password!= ''">
+		PASSWORD=#{password,jdbcType=VARCHAR},
+		</if>
+		<if test="authenType!=null and authenType!= ''">
+		AUTHEN_TYPE=#{authenType,jdbcType=VARCHAR},
+		</if>
+		<if test="organizationId!=null and organizationId!= ''">
+		ORGANIZATION_ID=#{organizationId,jdbcType=VARCHAR},
+		</if>
+		<if test="employeeId!=null and employeeId!= ''">
+		EMPLOYEE_ID=#{employeeId,jdbcType=VARCHAR},
+		</if>
+		<if test="email!=null and email!= ''">
+		EMAIL=#{email,jdbcType=VARCHAR},
+		</if>
+		<if test="adminType!=null and adminType!= ''">
+		ADMIN_TYPE=#{adminType,jdbcType=VARCHAR},
+		</if>
+		<if test="description!=null and description!= ''">
+		DESCRIPTION=#{description,jdbcType=VARCHAR},
+		</if>
+		<if test="agentStatus!=null and agentStatus!= ''">
+		AGENT_STATUS=#{agentStatus,jdbcType=CHAR},
+		</if>
+		<if test="loginStatus!=null and loginStatus!= ''">
+		LOGIN_STATUS=#{loginStatus,jdbcType=CHAR},
+		</if>
+		<if test="lastLoginDate!=null and lastLoginDate!= ''">
+		LAST_LOGIN_DATE=#{lastLoginDate,jdbcType=TIMESTAMP},
+		</if>
+		<if test="lastLoginIp!=null and lastLoginIp!= ''">
+		LAST_LOGIN_IP=#{lastLoginIp,jdbcType=VARCHAR},
+		</if>
+		<if test="loginSum!=null and loginSum!= ''">
+		LOGIN_SUM=#{loginSum,jdbcType=INTEGER},
+		</if>
+		<if test="lastCustomCss!=null and lastCustomCss!= ''">
+		LAST_CUSTOM_CSS=#{lastCustomCss,jdbcType=VARCHAR},
+		</if>
+		<if test="isAffix!=null and isAffix!= ''">
+		IS_AFFIX=#{isAffix,jdbcType=CHAR},
+		</if>
+		<if test="functionPermission!=null and functionPermission!= ''">
+		FUNCTION_PERMISSION=#{functionPermission,jdbcType=VARCHAR},
+		</if>
+		<if test="dataPermission!=null and dataPermission!= ''">
+		DATA_PERMISSION=#{dataPermission,jdbcType=VARCHAR},
+		</if>
+		<if test="custom1!=null and custom1!= ''">
+		CUSTOM1=#{custom1,jdbcType=VARCHAR},
+		</if>
+		<if test="custom2!=null and custom2!= ''">
+		CUSTOM2=#{custom2,jdbcType=VARCHAR},
+		</if>
+		<if test="custom3!=null and custom3!= ''">
+		CUSTOM3=#{custom3,jdbcType=VARCHAR},
+		</if>
+		<if test="custom4!=null and custom4!= ''">
+		CUSTOM4=#{custom4,jdbcType=VARCHAR},
+		</if>
+		<if test="custom5!=null and custom5!= ''">
+		CUSTOM5=#{custom5,jdbcType=VARCHAR},
+		</if>
+		<if test="customXml!=null and customXml!= ''">
+		CUSTOM_XML=#{customXml,jdbcType=VARCHAR},
+		</if>
+		<if test="userType!=null and userType!= ''">
+		USER_TYPE=#{userType,jdbcType=CHAR},
+		</if>
+     </trim> 
+    where ID=#{id}
+  </update>
+
+  <select id="get" parameterType="string" resultType="com.dfhc.rm.user.vo.UserVo">
+    select  
+      RM_USER.ID as id,	
+      RM_USER.NAME as name,	
+      RM_USER.LOCK_STATUS as lockStatus,	
+      RM_USER.LOGIN_ID as loginId,	
+      RM_USER.PASSWORD as password,	
+      RM_USER.AUTHEN_TYPE as authenType,	
+      RM_USER.ORGANIZATION_ID as organizationId,	
+      RM_USER.EMPLOYEE_ID as employeeId,	
+      RM_USER.EMAIL as email,	
+      RM_USER.ADMIN_TYPE as adminType,	
+      RM_USER.DESCRIPTION as description,	
+      RM_USER.AGENT_STATUS as agentStatus,	
+      RM_USER.LOGIN_STATUS as loginStatus,	
+      RM_USER.LAST_LOGIN_DATE as lastLoginDate,	
+      RM_USER.LAST_LOGIN_IP as lastLoginIp,	
+      RM_USER.LOGIN_SUM as loginSum,	
+      RM_USER.LAST_CUSTOM_CSS as lastCustomCss,	
+      RM_USER.IS_AFFIX as isAffix,	
+      RM_USER.FUNCTION_PERMISSION as functionPermission,	
+      RM_USER.DATA_PERMISSION as dataPermission,	
+      RM_USER.CUSTOM1 as custom1,	
+      RM_USER.CUSTOM2 as custom2,	
+      RM_USER.CUSTOM3 as custom3,	
+      RM_USER.CUSTOM4 as custom4,	
+      RM_USER.CUSTOM5 as custom5,	
+      RM_USER.CUSTOM_XML as customXml,	
+      RM_USER.USER_TYPE as userType	
+    from RM_USER 
+    where RM_USER.ID=#{id}
+  </select>
+
+  <select id="getCount" parameterType="map" resultType="int" useCache="true">
+    select count(RM_USER.ID) from RM_USER
+    <include refid="where"/>    
+  </select>
+  
+  <select id="list" parameterType="map" resultType="com.dfhc.rm.user.vo.UserVo">
+    select 
+     RM_USER.ID as id,	
+     RM_USER.NAME as name,	
+     RM_USER.LOCK_STATUS as lockStatus,	
+     RM_USER.LOGIN_ID as loginId,	
+     RM_USER.PASSWORD as password,	
+     RM_USER.AUTHEN_TYPE as authenType,	
+     RM_USER.ORGANIZATION_ID as organizationId,	
+     RM_USER.EMPLOYEE_ID as employeeId,	
+     RM_USER.EMAIL as email,	
+     RM_USER.ADMIN_TYPE as adminType,	
+     RM_USER.DESCRIPTION as description,	
+     RM_USER.AGENT_STATUS as agentStatus,	
+     RM_USER.LOGIN_STATUS as loginStatus,	
+     RM_USER.LAST_LOGIN_DATE as lastLoginDate,	
+     RM_USER.LAST_LOGIN_IP as lastLoginIp,	
+     RM_USER.LOGIN_SUM as loginSum,	
+     RM_USER.LAST_CUSTOM_CSS as lastCustomCss,	
+     RM_USER.IS_AFFIX as isAffix,	
+     RM_USER.FUNCTION_PERMISSION as functionPermission,	
+     RM_USER.DATA_PERMISSION as dataPermission,	
+     RM_USER.CUSTOM1 as custom1,	
+     RM_USER.CUSTOM2 as custom2,	
+     RM_USER.CUSTOM3 as custom3,	
+     RM_USER.CUSTOM4 as custom4,	
+     RM_USER.CUSTOM5 as custom5,	
+     RM_USER.CUSTOM_XML as customXml,	
+     RM_USER.USER_TYPE as userType	
+    from RM_USER
+    <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+  
+  <select id="listAllColumn" parameterType="map" resultType="com.dfhc.rm.user.vo.UserVo">
+    select 
+      RM_USER.USABLE_STATUS, RM_USER.CREATE_TIME, RM_USER.CREATE_IP, RM_USER.CREATE_USER_ID, 
+      RM_USER.CREATE_USER_NAME, RM_USER.MODIFY_TIME, RM_USER.MODIFY_IP, RM_USER.MODIFY_USER_ID, 
+      RM_USER.MODIFY_USER_NAME, RM_USER.DELETE_TIME, RM_USER.DELETE_IP, RM_USER.DELETE_FLAG, 
+      RM_USER.DELETE_USER_ID, RM_USER.DELETE_USER_NAME, RM_USER.ORDER_CODE, RM_USER.ATTRIBUTE1, 
+     RM_USER.ATTRIBUTE2, RM_USER.ATTRIBUTE3, RM_USER.ATTRIBUTE4, RM_USER.ATTRIBUTE5, 
+     RM_USER.ID as id,	
+     RM_USER.NAME as name,	
+     RM_USER.LOCK_STATUS as lockStatus,	
+     RM_USER.LOGIN_ID as loginId,	
+     RM_USER.PASSWORD as password,	
+     RM_USER.AUTHEN_TYPE as authenType,	
+     RM_USER.ORGANIZATION_ID as organizationId,	
+     RM_USER.EMPLOYEE_ID as employeeId,	
+     RM_USER.EMAIL as email,	
+     RM_USER.ADMIN_TYPE as adminType,	
+     RM_USER.DESCRIPTION as description,	
+     RM_USER.AGENT_STATUS as agentStatus,	
+     RM_USER.LOGIN_STATUS as loginStatus,	
+     RM_USER.LAST_LOGIN_DATE as lastLoginDate,	
+     RM_USER.LAST_LOGIN_IP as lastLoginIp,	
+     RM_USER.LOGIN_SUM as loginSum,	
+     RM_USER.LAST_CUSTOM_CSS as lastCustomCss,	
+     RM_USER.IS_AFFIX as isAffix,	
+     RM_USER.FUNCTION_PERMISSION as functionPermission,	
+     RM_USER.DATA_PERMISSION as dataPermission,	
+     RM_USER.CUSTOM1 as custom1,	
+     RM_USER.CUSTOM2 as custom2,	
+     RM_USER.CUSTOM3 as custom3,	
+     RM_USER.CUSTOM4 as custom4,	
+     RM_USER.CUSTOM5 as custom5,	
+     RM_USER.CUSTOM_XML as customXml,	
+     RM_USER.USER_TYPE as userType	
+    from RM_USER
+    <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+
+  <select id="search" parameterType="map" resultType="com.dfhc.rm.user.vo.UserVo">
+    select 
+      RM_USER.USABLE_STATUS, RM_USER.CREATE_TIME, RM_USER.CREATE_IP, RM_USER.CREATE_USER_ID, 
+      RM_USER.CREATE_USER_NAME, RM_USER.MODIFY_TIME, RM_USER.MODIFY_IP, RM_USER.MODIFY_USER_ID, 
+      RM_USER.MODIFY_USER_NAME, RM_USER.DELETE_TIME, RM_USER.DELETE_IP, RM_USER.DELETE_FLAG, 
+      RM_USER.DELETE_USER_ID, RM_USER.DELETE_USER_NAME, RM_USER.ORDER_CODE, RM_USER.ATTRIBUTE1, 
+      RM_USER.ATTRIBUTE2, RM_USER.ATTRIBUTE3, RM_USER.ATTRIBUTE4, RM_USER.ATTRIBUTE5, 
+     RM_USER.ID as id,	
+     RM_USER.NAME as name,	
+     RM_USER.LOCK_STATUS as lockStatus,	
+     RM_USER.LOGIN_ID as loginId,	
+     RM_USER.PASSWORD as password,	
+     RM_USER.AUTHEN_TYPE as authenType,	
+     RM_USER.ORGANIZATION_ID as organizationId,	
+     RM_USER.EMPLOYEE_ID as employeeId,	
+     RM_USER.EMAIL as email,	
+     RM_USER.ADMIN_TYPE as adminType,	
+     RM_USER.DESCRIPTION as description,	
+     RM_USER.AGENT_STATUS as agentStatus,	
+     RM_USER.LOGIN_STATUS as loginStatus,	
+     RM_USER.LAST_LOGIN_DATE as lastLoginDate,	
+     RM_USER.LAST_LOGIN_IP as lastLoginIp,	
+     RM_USER.LOGIN_SUM as loginSum,	
+     RM_USER.LAST_CUSTOM_CSS as lastCustomCss,	
+     RM_USER.IS_AFFIX as isAffix,	
+     RM_USER.FUNCTION_PERMISSION as functionPermission,	
+     RM_USER.DATA_PERMISSION as dataPermission,	
+     RM_USER.CUSTOM1 as custom1,	
+     RM_USER.CUSTOM2 as custom2,	
+     RM_USER.CUSTOM3 as custom3,	
+     RM_USER.CUSTOM4 as custom4,	
+     RM_USER.CUSTOM5 as custom5,	
+     RM_USER.CUSTOM_XML as customXml,	
+     RM_USER.USER_TYPE as userType	
+    from RM_USER
+     <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+ <!-- 批量更新 -->
+  <update id="updateBatch" parameterType="ArrayList">
+     begin
+     <foreach collection="list" item="item" index="index" separator=";" > 
+     update RM_USER 
+    <set>  
+		<if test="item.usable_status != null and item.usable_status != ''">
+		     USABLE_STATUS=#{item.usable_status,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_time != null and item.create_time != ''">
+		 CREATE_TIME=#{item.create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.create_ip != null and item.create_ip != ''">
+		 CREATE_IP=#{item.create_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_user_id != null and item.create_user_id != ''">
+		 CREATE_USER_ID=#{item.create_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_user_name != null and item.create_user_name != ''">
+		   CREATE_USER_NAME=#{item.create_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_time != null and item.modify_time != ''">
+		 MODIFY_TIME=#{item.modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.modify_ip != null and item.modify_ip != ''">
+		 MODIFY_IP=#{item.modify_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_user_id != null and item.modify_user_id != ''">
+		 MODIFY_USER_ID=#{item.modify_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_user_name != null and item.modify_user_name != ''">
+		   MODIFY_USER_NAME=#{item.modify_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_time != null and item.delete_time != ''">
+		 DELETE_TIME=#{item.delete_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.delete_ip != null and item.delete_ip != ''">
+		 DELETE_IP=#{item.delete_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_flag != null and item.delete_flag != ''">
+		 DELETE_FLAG=#{item.delete_flag,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_user_id != null and item.delete_user_id != ''">
+		   DELETE_USER_ID=#{item.delete_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_user_name != null and item.delete_user_name != ''">
+		 DELETE_USER_NAME=#{item.delete_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.order_code != null and item.order_code != ''">
+		 ORDER_CODE=#{item.order_code,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute1 != null and item.attribute1 != ''">
+		 ATTRIBUTE1=#{item.attribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute2 != null and item.attribute2 != ''">
+		 ATTRIBUTE2=#{item.attribute2,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute3 != null and item.attribute3 != ''">
+		 ATTRIBUTE3=#{item.attribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute4 != null and item.attribute4 != ''">
+		 ATTRIBUTE4=#{item.attribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute5 != null and item.attribute5 != ''">
+		 ATTRIBUTE5=#{item.attribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="item.id!=null and item.id!= ''">
+		ID=#{item.id,jdbcType=NUMERIC},
+		</if>
+		<if test="item.name!=null and item.name!= ''">
+		NAME=#{item.name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.lockStatus!=null and item.lockStatus!= ''">
+		LOCK_STATUS=#{item.lockStatus,jdbcType=CHAR},
+		</if>
+		<if test="item.loginId!=null and item.loginId!= ''">
+		LOGIN_ID=#{item.loginId,jdbcType=VARCHAR},
+		</if>
+		<if test="item.password!=null and item.password!= ''">
+		PASSWORD=#{item.password,jdbcType=VARCHAR},
+		</if>
+		<if test="item.authenType!=null and item.authenType!= ''">
+		AUTHEN_TYPE=#{item.authenType,jdbcType=VARCHAR},
+		</if>
+		<if test="item.organizationId!=null and item.organizationId!= ''">
+		ORGANIZATION_ID=#{item.organizationId,jdbcType=VARCHAR},
+		</if>
+		<if test="item.employeeId!=null and item.employeeId!= ''">
+		EMPLOYEE_ID=#{item.employeeId,jdbcType=VARCHAR},
+		</if>
+		<if test="item.email!=null and item.email!= ''">
+		EMAIL=#{item.email,jdbcType=VARCHAR},
+		</if>
+		<if test="item.adminType!=null and item.adminType!= ''">
+		ADMIN_TYPE=#{item.adminType,jdbcType=VARCHAR},
+		</if>
+		<if test="item.description!=null and item.description!= ''">
+		DESCRIPTION=#{item.description,jdbcType=VARCHAR},
+		</if>
+		<if test="item.agentStatus!=null and item.agentStatus!= ''">
+		AGENT_STATUS=#{item.agentStatus,jdbcType=CHAR},
+		</if>
+		<if test="item.loginStatus!=null and item.loginStatus!= ''">
+		LOGIN_STATUS=#{item.loginStatus,jdbcType=CHAR},
+		</if>
+		<if test="item.lastLoginDate!=null and item.lastLoginDate!= ''">
+		LAST_LOGIN_DATE=#{item.lastLoginDate,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.lastLoginIp!=null and item.lastLoginIp!= ''">
+		LAST_LOGIN_IP=#{item.lastLoginIp,jdbcType=VARCHAR},
+		</if>
+		<if test="item.loginSum!=null and item.loginSum!= ''">
+		LOGIN_SUM=#{item.loginSum,jdbcType=INTEGER},
+		</if>
+		<if test="item.lastCustomCss!=null and item.lastCustomCss!= ''">
+		LAST_CUSTOM_CSS=#{item.lastCustomCss,jdbcType=VARCHAR},
+		</if>
+		<if test="item.isAffix!=null and item.isAffix!= ''">
+		IS_AFFIX=#{item.isAffix,jdbcType=CHAR},
+		</if>
+		<if test="item.functionPermission!=null and item.functionPermission!= ''">
+		FUNCTION_PERMISSION=#{item.functionPermission,jdbcType=VARCHAR},
+		</if>
+		<if test="item.dataPermission!=null and item.dataPermission!= ''">
+		DATA_PERMISSION=#{item.dataPermission,jdbcType=VARCHAR},
+		</if>
+		<if test="item.custom1!=null and item.custom1!= ''">
+		CUSTOM1=#{item.custom1,jdbcType=VARCHAR},
+		</if>
+		<if test="item.custom2!=null and item.custom2!= ''">
+		CUSTOM2=#{item.custom2,jdbcType=VARCHAR},
+		</if>
+		<if test="item.custom3!=null and item.custom3!= ''">
+		CUSTOM3=#{item.custom3,jdbcType=VARCHAR},
+		</if>
+		<if test="item.custom4!=null and item.custom4!= ''">
+		CUSTOM4=#{item.custom4,jdbcType=VARCHAR},
+		</if>
+		<if test="item.custom5!=null and item.custom5!= ''">
+		CUSTOM5=#{item.custom5,jdbcType=VARCHAR},
+		</if>
+		<if test="item.customXml!=null and item.customXml!= ''">
+		CUSTOM_XML=#{item.customXml,jdbcType=VARCHAR},
+		</if>
+		<if test="item.userType!=null and item.userType!= ''">
+		USER_TYPE=#{item.userType,jdbcType=CHAR},
+		</if>
+     </set> 
+    where ID=#{item.id}
+   </foreach>
+   ;end;
+   </update>
+   <!--批量插入-->
+ <insert id="insertBatch" parameterType="ArrayList">
+     insert into RM_USER (
+      USABLE_STATUS, CREATE_TIME, CREATE_IP, CREATE_USER_ID, 
+      CREATE_USER_NAME, MODIFY_TIME, MODIFY_IP, MODIFY_USER_ID, 
+      MODIFY_USER_NAME, DELETE_TIME, DELETE_IP, DELETE_FLAG, 
+      DELETE_USER_ID, DELETE_USER_NAME, ORDER_CODE, ATTRIBUTE1, 
+      ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, 
+      ID ,
+      NAME ,
+      LOCK_STATUS ,
+      LOGIN_ID ,
+      PASSWORD ,
+      AUTHEN_TYPE ,
+      ORGANIZATION_ID ,
+      EMPLOYEE_ID ,
+      EMAIL ,
+      ADMIN_TYPE ,
+      DESCRIPTION ,
+      AGENT_STATUS ,
+      LOGIN_STATUS ,
+      LAST_LOGIN_DATE ,
+      LAST_LOGIN_IP ,
+      LOGIN_SUM ,
+      LAST_CUSTOM_CSS ,
+      IS_AFFIX ,
+      FUNCTION_PERMISSION ,
+      DATA_PERMISSION ,
+      CUSTOM1 ,
+      CUSTOM2 ,
+      CUSTOM3 ,
+      CUSTOM4 ,
+      CUSTOM5 ,
+      CUSTOM_XML ,
+      USER_TYPE 
+      )    
+    <foreach collection="list" item="item" index="index" separator="union all" > 
+    select  
+   #{item.usable_status,jdbcType=VARCHAR},#{item.create_time,jdbcType=TIMESTAMP},#{item.create_ip,jdbcType=VARCHAR},#{item.create_user_id,jdbcType=VARCHAR},#{item.create_user_name,jdbcType=VARCHAR},#{item.modify_time,jdbcType=TIMESTAMP},#{item.modify_ip,jdbcType=VARCHAR},#{item.modify_user_id,jdbcType=VARCHAR},#{item.modify_user_name,jdbcType=VARCHAR},#{item.delete_time,jdbcType=TIMESTAMP},#{item.delete_ip,jdbcType=VARCHAR},#{item.delete_flag,jdbcType=VARCHAR},#{item.delete_user_id,jdbcType=VARCHAR},#{item.delete_user_name,jdbcType=VARCHAR},#{item.order_code,jdbcType=VARCHAR},#{item.attribute1,jdbcType=VARCHAR},#{item.attribute2,jdbcType=VARCHAR},#{item.attribute3,jdbcType=VARCHAR},#{item.attribute4,jdbcType=VARCHAR},#{item.attribute5,jdbcType=VARCHAR},
+	#{item.id,jdbcType=NUMERIC},
+	#{item.name,jdbcType=VARCHAR},
+	#{item.lockStatus,jdbcType=CHAR},
+	#{item.loginId,jdbcType=VARCHAR},
+	#{item.password,jdbcType=VARCHAR},
+	#{item.authenType,jdbcType=VARCHAR},
+	#{item.organizationId,jdbcType=VARCHAR},
+	#{item.employeeId,jdbcType=VARCHAR},
+	#{item.email,jdbcType=VARCHAR},
+	#{item.adminType,jdbcType=VARCHAR},
+	#{item.description,jdbcType=VARCHAR},
+	#{item.agentStatus,jdbcType=CHAR},
+	#{item.loginStatus,jdbcType=CHAR},
+	#{item.lastLoginDate,jdbcType=TIMESTAMP},
+	#{item.lastLoginIp,jdbcType=VARCHAR},
+	#{item.loginSum,jdbcType=INTEGER},
+	#{item.lastCustomCss,jdbcType=VARCHAR},
+	#{item.isAffix,jdbcType=CHAR},
+	#{item.functionPermission,jdbcType=VARCHAR},
+	#{item.dataPermission,jdbcType=VARCHAR},
+	#{item.custom1,jdbcType=VARCHAR},
+	#{item.custom2,jdbcType=VARCHAR},
+	#{item.custom3,jdbcType=VARCHAR},
+	#{item.custom4,jdbcType=VARCHAR},
+	#{item.custom5,jdbcType=VARCHAR},
+	#{item.customXml,jdbcType=VARCHAR},
+	#{item.userType,jdbcType=CHAR}
+     from dual
+    </foreach>
+  </insert>	
+</mapper>

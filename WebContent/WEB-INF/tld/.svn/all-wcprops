@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/tld
+END
+c.tld
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/tld/c.tld
+END
+struts-layout.tld
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/tld/struts-layout.tld
+END
+struts-logic.tld
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/tld/struts-logic.tld
+END
+struts-html.tld
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/tld/struts-html.tld
+END
+struts-bean.tld
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/tld/struts-bean.tld
+END
+struts-nested.tld
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/tld/struts-nested.tld
+END

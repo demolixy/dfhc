@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RmIdFactory 
+	xmlns="http://www.quickbundle.org/schema" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.quickbundle.org/schema http://www.quickbundle.org/schema/id.xsd">
+
+    <!--系统中所有表的主键生成规则-->
+    <!-- table_name排重的xpath表达式 //table[@table_name=following::table/@table_name]/@table_name -->
+    
+	<!--generateFromHere-->
+
+	<!-- orgauth begin -->
+	<table table_code="2028" table_name="RM_PARTY_ROLE" id_name="ID" wrapper_class="org.quickbundle.base.beans.idwrapper.NumberIncrementWrapper"/>
+	<table table_code="2024" table_name="RM_AUTHORIZE" id_name="ID"/>
+	<table table_code="2018" table_name="RM_AUTHORIZE_RESOURCE" id_name="ID"/>
+	<table table_code="2017" table_name="RM_AUTHORIZE_RESOURCE_RECORD" id_name="ID"/>
+	<table table_code="2014" table_name="RM_FUNCTION_NODE" id_name="ID"/>
+	<table table_code="2011" table_name="RM_PARTY" id_name="ID"/>
+	<table table_code="2010" table_name="RM_PARTY_RELATION" id_name="ID"/>
+	<table table_code="2009" table_name="RM_PARTY_TYPE_RELATION_RULE" id_name="ID"/>
+	<table table_code="2008" table_name="RM_PARTY_TYPE" id_name="ID"/>
+	<table table_code="2007" table_name="RM_PARTY_VIEW" id_name="ID"/>
+	<table table_code="2006" table_name="RM_ROLE" id_name="ID"/>
+	<table table_code="2005" table_name="RM_USER_ONLINE_RECORD" id_name="ID"/>
+	<table table_code="2004" table_name="RM_USER" id_name="ID"/>
+	<!-- orgauth end -->
+
+	<!-- quartz begin -->
+	<table table_code="1001" table_name="RM_SCHEDULER_EVENT" id_name="ID"/>
+	<!-- quartz end -->
+	
+	<!-- system begin -->
+	<table table_code="1001" table_name="RM_LOG_TYPE" id_name="ID"/>
+	<table table_code="1001" table_name="RM_LOG" id_name="ID"/>
+	<table table_code="1001" table_name="RM_LOCK" id_name="ID"/>
+	<table table_code="1001" table_name="RM_SYSTEM_PARAMETER" id_name="ID"/>
+	<table table_code="2051" table_name="RM_NOTICE" id_name="ID"/>
+	<!-- system end -->
+
+	<table table_code="2003" table_name="RM_AFFIX" id_name="ID"/>
+	<table table_code="2002" table_name="RM_CODE_DATA" id_name="ID"/>
+	<table table_code="2001" table_name="RM_CODE_TYPE" id_name="ID"/>
+
+	
+	<table table_code="3001" table_name="RM_MESSAGE" id_name="ID"/>
+	<table table_code="3002" table_name="RM_MESSAGE_RECEIVER" id_name="ID"/>
+<!--附件子表信息-->
+<table table_code="4001" table_name="business_attachment_child" id_name="ID"/>
+<!--用户表-->
+<table table_code="4002" table_name="rm_user" id_name="ID"/>
+<!--附件表-->
+<table table_code="4003" table_name="business_accessories_list" id_name="ID"/>
+<!--客户关联银行卡换卡记录-->
+<table table_code="4004" table_name="base_bank_card_record" id_name="ID"/>
+<!--合同版本管理-->
+<table table_code="4005" table_name="business_contract" id_name="ID"/>
+<!--理财经理调岗管理-->
+<table table_code="4006" table_name="base_wealth_manage_post" id_name="ID"/>
+<!--客户关联银行记录-->
+<table table_code="4007" table_name="base_customer_bank_cards" id_name="ID"/>
+<!--分配明细-->
+<table table_code="4008" table_name="base_distribution_detail" id_name="ID"/>
+<!--客户重新分配功能-->
+<table table_code="4009" table_name="base_distribution_client" id_name="ID"/>
+<!--理财经理离职管理-->
+<table table_code="4010" table_name="base_wealth_managers_leave" id_name="ID"/>
+<!--人员管理-->
+<table table_code="4011" table_name="base_employees" id_name="ID"/>
+<!--财务付款管理-->
+<table table_code="4012" table_name="business_financial_payment" id_name="ID"/>
+<!--收益管理-->
+<table table_code="4013" table_name="business_earnings" id_name="ID"/>
+<!--订单管理-->
+<table table_code="4014" table_name="business_orders" id_name="ID"/>
+<!--产品信息披露-->
+<table table_code="4015" table_name="business_product_disclosure" id_name="ID"/>
+<!--产品定义-->
+<table table_code="4016" table_name="business_product" id_name="ID"/>
+<!--客户沟通记录-->
+<table table_code="4017" table_name="base_communication_record" id_name="ID"/>
+<!--客户基本信息-->
+<table table_code="4018" table_name="base_customer" id_name="ID"/>
+</RmIdFactory>

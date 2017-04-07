@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/dfhc2016/!svn/ver/2427/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/util
+END
+MD5Util.java
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svn/dfhc2016/!svn/ver/987/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/util/MD5Util.java
+END
+DateUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/dfhc2016/!svn/ver/2303/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/util/DateUtil.java
+END
+StringHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/svn/dfhc2016/!svn/ver/1064/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/util/StringHelper.java
+END
+ListSortUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/svn/dfhc2016/!svn/ver/964/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/util/ListSortUtil.java
+END
+MapUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/util/MapUtil.java
+END
+ImageUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/svn/dfhc2016/!svn/ver/1728/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/util/ImageUtil.java
+END
+PinyinUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/svn/dfhc2016/!svn/ver/1310/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/util/PinyinUtil.java
+END
+IDCard.java
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svn/dfhc2016/!svn/ver/1079/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/util/IDCard.java
+END
+TemplateHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/util/TemplateHelper.java
+END
+TemplateHelperException.java
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/util/TemplateHelperException.java
+END
+FileOperateHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svn/dfhc2016/!svn/ver/2427/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/util/FileOperateHelper.java
+END
+HttpClientUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svn/dfhc2016/!svn/ver/1351/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/util/HttpClientUtil.java
+END
+PatternUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/svn/dfhc2016/!svn/ver/1728/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/util/PatternUtil.java
+END
+ConvertHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/util/ConvertHelper.java
+END

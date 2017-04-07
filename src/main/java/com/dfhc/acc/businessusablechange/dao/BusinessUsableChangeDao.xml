@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dfhc.acc.businessusablechange.dao.BusinessUsableChangeDao">
+  <!-- 共享的where语句，如有冲突或特殊情况，请另写 -->
+  <sql id="where">
+   <trim prefix="where" prefixOverrides="and|or">  
+      <if test="id != null and id != ''">
+        and ACC_BUSINESS_USABLE_CHANGE.ID = #{id}
+      </if>
+      <if test="businessType != null and businessType != ''">
+        and ACC_BUSINESS_USABLE_CHANGE.BUSINESS_TYPE = #{businessType}
+      </if>
+      <if test="businessAvailabilityId != null and businessAvailabilityId != ''">
+        and ACC_BUSINESS_USABLE_CHANGE.BUSINESS_AVAILABILITY_ID = #{businessAvailabilityId}
+      </if>
+      <if test="customerId != null and customerId != ''">
+        and ACC_BUSINESS_USABLE_CHANGE.CUSTOMER_ID = #{customerId}
+      </if>
+      <if test="customerName != null and customerName != ''">
+        and ACC_BUSINESS_USABLE_CHANGE.CUSTOMER_NAME = #{customerName}
+      </if>
+      <if test="oldAvailableCredit != null and oldAvailableCredit != ''">
+        and ACC_BUSINESS_USABLE_CHANGE.OLD_AVAILABLE_CREDIT = #{oldAvailableCredit}
+      </if>
+      <if test="availableCreditChange != null and availableCreditChange != ''">
+        and ACC_BUSINESS_USABLE_CHANGE.AVAILABLE_CREDIT_CHANGE = #{availableCreditChange}
+      </if>
+      <if test="oldFreezingAmount != null and oldFreezingAmount != ''">
+        and ACC_BUSINESS_USABLE_CHANGE.OLD_FREEZING_AMOUNT = #{oldFreezingAmount}
+      </if>
+      <if test="freezingAccrual != null and freezingAccrual != ''">
+        and ACC_BUSINESS_USABLE_CHANGE.FREEZING_ACCRUAL = #{freezingAccrual}
+      </if>
+      <if test="nowAvailableCredit != null and nowAvailableCredit != ''">
+        and ACC_BUSINESS_USABLE_CHANGE.NOW_AVAILABLE_CREDIT = #{nowAvailableCredit}
+      </if>
+      <if test="digest != null and digest != ''">
+        and ACC_BUSINESS_USABLE_CHANGE.DIGEST = #{digest}
+      </if>
+      <if test="amountDirection != null and amountDirection != ''">
+        and ACC_BUSINESS_USABLE_CHANGE.AMOUNT_DIRECTION = #{amountDirection}
+      </if>
+      <if test="nowFreezingAmount != null and nowFreezingAmount != ''">
+        and ACC_BUSINESS_USABLE_CHANGE.NOW_FREEZING_AMOUNT = #{nowFreezingAmount}
+      </if>
+      <if test="relevanceBillsId != null and relevanceBillsId != ''">
+        and ACC_BUSINESS_USABLE_CHANGE.RELEVANCE_BILLS_ID = #{relevanceBillsId}
+      </if>
+      <if test="signature != null and signature != ''">
+        and ACC_BUSINESS_USABLE_CHANGE.SIGNATURE = #{signature}
+      </if>
+      <if test="delete_flag != null and delete_flag != ''">
+        and nvl(ACC_BUSINESS_USABLE_CHANGE.DELETE_FLAG,'0') = #{delete_flag}
+      </if>
+      </trim>
+  </sql>
+
+  <insert id="insert" parameterType="com.dfhc.acc.businessusablechange.vo.BusinessUsableChangeVo">
+    insert into ACC_BUSINESS_USABLE_CHANGE (
+      USABLE_STATUS, CREATE_TIME, CREATE_IP, CREATE_USER_ID, 
+      CREATE_USER_NAME, MODIFY_TIME, MODIFY_IP, MODIFY_USER_ID, 
+      MODIFY_USER_NAME, DELETE_TIME, DELETE_IP, DELETE_FLAG, 
+      DELETE_USER_ID, DELETE_USER_NAME, ORDER_CODE, ATTRIBUTE1, 
+      ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, 
+      ID ,
+      BUSINESS_TYPE ,
+      BUSINESS_AVAILABILITY_ID ,
+      CUSTOMER_ID ,
+      CUSTOMER_NAME ,
+      OLD_AVAILABLE_CREDIT ,
+      AVAILABLE_CREDIT_CHANGE ,
+      OLD_FREEZING_AMOUNT ,
+      FREEZING_ACCRUAL ,
+      NOW_AVAILABLE_CREDIT ,
+      DIGEST ,
+      AMOUNT_DIRECTION ,
+      NOW_FREEZING_AMOUNT ,
+      RELEVANCE_BILLS_ID ,
+      SIGNATURE 
+      )
+    values ( 
+     #{usable_status,jdbcType=VARCHAR},#{create_time,jdbcType=TIMESTAMP},#{create_ip,jdbcType=VARCHAR},#{create_user_id,jdbcType=VARCHAR},#{create_user_name,jdbcType=VARCHAR},#{modify_time,jdbcType=TIMESTAMP},#{modify_ip,jdbcType=VARCHAR},#{modify_user_id,jdbcType=VARCHAR},#{modify_user_name,jdbcType=VARCHAR},#{delete_time,jdbcType=TIMESTAMP},#{delete_ip,jdbcType=VARCHAR},#{delete_flag,jdbcType=VARCHAR},#{delete_user_id,jdbcType=VARCHAR},#{delete_user_name,jdbcType=VARCHAR},#{order_code,jdbcType=VARCHAR},#{attribute1,jdbcType=VARCHAR},#{attribute2,jdbcType=VARCHAR},#{attribute3,jdbcType=VARCHAR},#{attribute4,jdbcType=VARCHAR},#{attribute5,jdbcType=VARCHAR},
+	#{id,jdbcType=CHAR},
+	#{businessType,jdbcType=CHAR},
+	#{businessAvailabilityId,jdbcType=CHAR},
+	#{customerId,jdbcType=NUMERIC},
+	#{customerName,jdbcType=VARCHAR},
+	#{oldAvailableCredit,jdbcType=DECIMAL},
+	#{availableCreditChange,jdbcType=DECIMAL},
+	#{oldFreezingAmount,jdbcType=DECIMAL},
+	#{freezingAccrual,jdbcType=DECIMAL},
+	#{nowAvailableCredit,jdbcType=DECIMAL},
+	#{digest,jdbcType=VARCHAR},
+	#{amountDirection,jdbcType=CHAR},
+	#{nowFreezingAmount,jdbcType=DECIMAL},
+	#{relevanceBillsId,jdbcType=CHAR},
+	#{signature,jdbcType=CHAR}
+      )
+  </insert>
+    
+  <delete id="delete" parameterType="int">
+    delete from ACC_BUSINESS_USABLE_CHANGE where ID=#{id}
+  </delete>
+  
+  <delete id="deleteMulti" parameterType="int">
+    delete from ACC_BUSINESS_USABLE_CHANGE where ID in 
+    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">  
+      #{item}   
+    </foreach>
+  </delete>
+
+  <update id="update" parameterType="com.dfhc.acc.businessusablechange.vo.BusinessUsableChangeVo">
+    update ACC_BUSINESS_USABLE_CHANGE 
+    <trim prefix="SET" suffixOverrides=",">  
+		<if test="usable_status != null and usable_status != ''">
+		     USABLE_STATUS=#{usable_status,jdbcType=VARCHAR},
+		</if>
+		<if test="create_time != null and create_time != ''">
+		 CREATE_TIME=#{create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="create_ip != null and create_ip != ''">
+		 CREATE_IP=#{create_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="create_user_id != null and create_user_id != ''">
+		 CREATE_USER_ID=#{create_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="create_user_name != null and create_user_name != ''">
+		   CREATE_USER_NAME=#{create_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_time != null and modify_time != ''">
+		 MODIFY_TIME=#{modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="modify_ip != null and modify_ip != ''">
+		 MODIFY_IP=#{modify_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_user_id != null and modify_user_id != ''">
+		 MODIFY_USER_ID=#{modify_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_user_name != null and modify_user_name != ''">
+		   MODIFY_USER_NAME=#{modify_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_time != null and delete_time != ''">
+		 DELETE_TIME=#{delete_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="delete_ip != null and delete_ip != ''">
+		 DELETE_IP=#{delete_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_flag != null and delete_flag != ''">
+		 DELETE_FLAG=#{delete_flag,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_user_id != null and delete_user_id != ''">
+		   DELETE_USER_ID=#{delete_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_user_name != null and delete_user_name != ''">
+		 DELETE_USER_NAME=#{delete_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="order_code != null and order_code != ''">
+		 ORDER_CODE=#{order_code,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute1 != null and attribute1 != ''">
+		 ATTRIBUTE1=#{attribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute2 != null and attribute2 != ''">
+		 ATTRIBUTE2=#{attribute2,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute3 != null and attribute3 != ''">
+		 ATTRIBUTE3=#{attribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute4 != null and attribute4 != ''">
+		 ATTRIBUTE4=#{attribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute5 != null and attribute5 != ''">
+		 ATTRIBUTE5=#{attribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="id!=null and id!= ''">
+		ID=#{id,jdbcType=CHAR},
+		</if>
+		<if test="businessType!=null and businessType!= ''">
+		BUSINESS_TYPE=#{businessType,jdbcType=CHAR},
+		</if>
+		<if test="businessAvailabilityId!=null and businessAvailabilityId!= ''">
+		BUSINESS_AVAILABILITY_ID=#{businessAvailabilityId,jdbcType=CHAR},
+		</if>
+		<if test="customerId!=null and customerId!= ''">
+		CUSTOMER_ID=#{customerId,jdbcType=NUMERIC},
+		</if>
+		<if test="customerName!=null and customerName!= ''">
+		CUSTOMER_NAME=#{customerName,jdbcType=VARCHAR},
+		</if>
+		<if test="oldAvailableCredit!=null and oldAvailableCredit!= ''">
+		OLD_AVAILABLE_CREDIT=#{oldAvailableCredit,jdbcType=DECIMAL},
+		</if>
+		<if test="availableCreditChange!=null and availableCreditChange!= ''">
+		AVAILABLE_CREDIT_CHANGE=#{availableCreditChange,jdbcType=DECIMAL},
+		</if>
+		<if test="oldFreezingAmount!=null and oldFreezingAmount!= ''">
+		OLD_FREEZING_AMOUNT=#{oldFreezingAmount,jdbcType=DECIMAL},
+		</if>
+		<if test="freezingAccrual!=null and freezingAccrual!= ''">
+		FREEZING_ACCRUAL=#{freezingAccrual,jdbcType=DECIMAL},
+		</if>
+		<if test="nowAvailableCredit!=null and nowAvailableCredit!= ''">
+		NOW_AVAILABLE_CREDIT=#{nowAvailableCredit,jdbcType=DECIMAL},
+		</if>
+		<if test="digest!=null and digest!= ''">
+		DIGEST=#{digest,jdbcType=VARCHAR},
+		</if>
+		<if test="amountDirection!=null and amountDirection!= ''">
+		AMOUNT_DIRECTION=#{amountDirection,jdbcType=CHAR},
+		</if>
+		<if test="nowFreezingAmount!=null and nowFreezingAmount!= ''">
+		NOW_FREEZING_AMOUNT=#{nowFreezingAmount,jdbcType=DECIMAL},
+		</if>
+		<if test="relevanceBillsId!=null and relevanceBillsId!= ''">
+		RELEVANCE_BILLS_ID=#{relevanceBillsId,jdbcType=CHAR},
+		</if>
+		<if test="signature!=null and signature!= ''">
+		SIGNATURE=#{signature,jdbcType=CHAR},
+		</if>
+     </trim> 
+    where ID=#{id}
+  </update>
+
+  <select id="get" parameterType="string" resultType="com.dfhc.acc.businessusablechange.vo.BusinessUsableChangeVo">
+    select  
+      ACC_BUSINESS_USABLE_CHANGE.USABLE_STATUS, ACC_BUSINESS_USABLE_CHANGE.CREATE_TIME, ACC_BUSINESS_USABLE_CHANGE.CREATE_IP, ACC_BUSINESS_USABLE_CHANGE.CREATE_USER_ID, 
+      ACC_BUSINESS_USABLE_CHANGE.CREATE_USER_NAME, ACC_BUSINESS_USABLE_CHANGE.MODIFY_TIME, ACC_BUSINESS_USABLE_CHANGE.MODIFY_IP, ACC_BUSINESS_USABLE_CHANGE.MODIFY_USER_ID, 
+      ACC_BUSINESS_USABLE_CHANGE.MODIFY_USER_NAME, ACC_BUSINESS_USABLE_CHANGE.DELETE_TIME, ACC_BUSINESS_USABLE_CHANGE.DELETE_IP, ACC_BUSINESS_USABLE_CHANGE.DELETE_FLAG, 
+      ACC_BUSINESS_USABLE_CHANGE.DELETE_USER_ID, ACC_BUSINESS_USABLE_CHANGE.DELETE_USER_NAME, ACC_BUSINESS_USABLE_CHANGE.ORDER_CODE, ACC_BUSINESS_USABLE_CHANGE.ATTRIBUTE1, 
+      ACC_BUSINESS_USABLE_CHANGE.ATTRIBUTE2, ACC_BUSINESS_USABLE_CHANGE.ATTRIBUTE3, ACC_BUSINESS_USABLE_CHANGE.ATTRIBUTE4, ACC_BUSINESS_USABLE_CHANGE.ATTRIBUTE5, 
+      ACC_BUSINESS_USABLE_CHANGE.ID as id,	
+      ACC_BUSINESS_USABLE_CHANGE.BUSINESS_TYPE as businessType,	
+      ACC_BUSINESS_USABLE_CHANGE.BUSINESS_AVAILABILITY_ID as businessAvailabilityId,	
+      ACC_BUSINESS_USABLE_CHANGE.CUSTOMER_ID as customerId,	
+      ACC_BUSINESS_USABLE_CHANGE.CUSTOMER_NAME as customerName,	
+      ACC_BUSINESS_USABLE_CHANGE.OLD_AVAILABLE_CREDIT as oldAvailableCredit,	
+      ACC_BUSINESS_USABLE_CHANGE.AVAILABLE_CREDIT_CHANGE as availableCreditChange,	
+      ACC_BUSINESS_USABLE_CHANGE.OLD_FREEZING_AMOUNT as oldFreezingAmount,	
+      ACC_BUSINESS_USABLE_CHANGE.FREEZING_ACCRUAL as freezingAccrual,	
+      ACC_BUSINESS_USABLE_CHANGE.NOW_AVAILABLE_CREDIT as nowAvailableCredit,	
+      ACC_BUSINESS_USABLE_CHANGE.DIGEST as digest,	
+      ACC_BUSINESS_USABLE_CHANGE.AMOUNT_DIRECTION as amountDirection,	
+      ACC_BUSINESS_USABLE_CHANGE.NOW_FREEZING_AMOUNT as nowFreezingAmount,	
+      ACC_BUSINESS_USABLE_CHANGE.RELEVANCE_BILLS_ID as relevanceBillsId,	
+      ACC_BUSINESS_USABLE_CHANGE.SIGNATURE as signature	
+    from ACC_BUSINESS_USABLE_CHANGE 
+    where ACC_BUSINESS_USABLE_CHANGE.ID=#{id}
+  </select>
+
+  <select id="getCount" parameterType="map" resultType="int" useCache="true">
+    select count(ACC_BUSINESS_USABLE_CHANGE.ID) from ACC_BUSINESS_USABLE_CHANGE
+    <include refid="where"/>    
+  </select>
+  
+  <select id="list" parameterType="map" resultType="com.dfhc.acc.businessusablechange.vo.BusinessUsableChangeVo">
+    select 
+     ACC_BUSINESS_USABLE_CHANGE.ID as id,	
+     ACC_BUSINESS_USABLE_CHANGE.BUSINESS_TYPE as businessType,	
+     ACC_BUSINESS_USABLE_CHANGE.BUSINESS_AVAILABILITY_ID as businessAvailabilityId,	
+     ACC_BUSINESS_USABLE_CHANGE.CUSTOMER_ID as customerId,	
+     ACC_BUSINESS_USABLE_CHANGE.CUSTOMER_NAME as customerName,	
+     ACC_BUSINESS_USABLE_CHANGE.OLD_AVAILABLE_CREDIT as oldAvailableCredit,	
+     ACC_BUSINESS_USABLE_CHANGE.AVAILABLE_CREDIT_CHANGE as availableCreditChange,	
+     ACC_BUSINESS_USABLE_CHANGE.OLD_FREEZING_AMOUNT as oldFreezingAmount,	
+     ACC_BUSINESS_USABLE_CHANGE.FREEZING_ACCRUAL as freezingAccrual,	
+     ACC_BUSINESS_USABLE_CHANGE.NOW_AVAILABLE_CREDIT as nowAvailableCredit,	
+     ACC_BUSINESS_USABLE_CHANGE.DIGEST as digest,	
+     ACC_BUSINESS_USABLE_CHANGE.AMOUNT_DIRECTION as amountDirection,	
+     ACC_BUSINESS_USABLE_CHANGE.NOW_FREEZING_AMOUNT as nowFreezingAmount,	
+     ACC_BUSINESS_USABLE_CHANGE.RELEVANCE_BILLS_ID as relevanceBillsId,	
+     ACC_BUSINESS_USABLE_CHANGE.SIGNATURE as signature	
+    from ACC_BUSINESS_USABLE_CHANGE
+    <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+  
+  <select id="listAllColumn" parameterType="map" resultType="com.dfhc.acc.businessusablechange.vo.BusinessUsableChangeVo">
+    select 
+      ACC_BUSINESS_USABLE_CHANGE.USABLE_STATUS, ACC_BUSINESS_USABLE_CHANGE.CREATE_TIME, ACC_BUSINESS_USABLE_CHANGE.CREATE_IP, ACC_BUSINESS_USABLE_CHANGE.CREATE_USER_ID, 
+      ACC_BUSINESS_USABLE_CHANGE.CREATE_USER_NAME, ACC_BUSINESS_USABLE_CHANGE.MODIFY_TIME, ACC_BUSINESS_USABLE_CHANGE.MODIFY_IP, ACC_BUSINESS_USABLE_CHANGE.MODIFY_USER_ID, 
+      ACC_BUSINESS_USABLE_CHANGE.MODIFY_USER_NAME, ACC_BUSINESS_USABLE_CHANGE.DELETE_TIME, ACC_BUSINESS_USABLE_CHANGE.DELETE_IP, ACC_BUSINESS_USABLE_CHANGE.DELETE_FLAG, 
+      ACC_BUSINESS_USABLE_CHANGE.DELETE_USER_ID, ACC_BUSINESS_USABLE_CHANGE.DELETE_USER_NAME, ACC_BUSINESS_USABLE_CHANGE.ORDER_CODE, ACC_BUSINESS_USABLE_CHANGE.ATTRIBUTE1, 
+     ACC_BUSINESS_USABLE_CHANGE.ATTRIBUTE2, ACC_BUSINESS_USABLE_CHANGE.ATTRIBUTE3, ACC_BUSINESS_USABLE_CHANGE.ATTRIBUTE4, ACC_BUSINESS_USABLE_CHANGE.ATTRIBUTE5, 
+     ACC_BUSINESS_USABLE_CHANGE.ID as id,	
+     ACC_BUSINESS_USABLE_CHANGE.BUSINESS_TYPE as businessType,	
+     ACC_BUSINESS_USABLE_CHANGE.BUSINESS_AVAILABILITY_ID as businessAvailabilityId,	
+     ACC_BUSINESS_USABLE_CHANGE.CUSTOMER_ID as customerId,	
+     ACC_BUSINESS_USABLE_CHANGE.CUSTOMER_NAME as customerName,	
+     ACC_BUSINESS_USABLE_CHANGE.OLD_AVAILABLE_CREDIT as oldAvailableCredit,	
+     ACC_BUSINESS_USABLE_CHANGE.AVAILABLE_CREDIT_CHANGE as availableCreditChange,	
+     ACC_BUSINESS_USABLE_CHANGE.OLD_FREEZING_AMOUNT as oldFreezingAmount,	
+     ACC_BUSINESS_USABLE_CHANGE.FREEZING_ACCRUAL as freezingAccrual,	
+     ACC_BUSINESS_USABLE_CHANGE.NOW_AVAILABLE_CREDIT as nowAvailableCredit,	
+     ACC_BUSINESS_USABLE_CHANGE.DIGEST as digest,	
+     ACC_BUSINESS_USABLE_CHANGE.AMOUNT_DIRECTION as amountDirection,	
+     ACC_BUSINESS_USABLE_CHANGE.NOW_FREEZING_AMOUNT as nowFreezingAmount,	
+     ACC_BUSINESS_USABLE_CHANGE.RELEVANCE_BILLS_ID as relevanceBillsId,	
+     ACC_BUSINESS_USABLE_CHANGE.SIGNATURE as signature	
+    from ACC_BUSINESS_USABLE_CHANGE
+    <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+
+  <select id="search" parameterType="map" resultType="com.dfhc.acc.businessusablechange.vo.BusinessUsableChangeVo">
+    select 
+      ACC_BUSINESS_USABLE_CHANGE.USABLE_STATUS, ACC_BUSINESS_USABLE_CHANGE.CREATE_TIME, ACC_BUSINESS_USABLE_CHANGE.CREATE_IP, ACC_BUSINESS_USABLE_CHANGE.CREATE_USER_ID, 
+      ACC_BUSINESS_USABLE_CHANGE.CREATE_USER_NAME, ACC_BUSINESS_USABLE_CHANGE.MODIFY_TIME, ACC_BUSINESS_USABLE_CHANGE.MODIFY_IP, ACC_BUSINESS_USABLE_CHANGE.MODIFY_USER_ID, 
+      ACC_BUSINESS_USABLE_CHANGE.MODIFY_USER_NAME, ACC_BUSINESS_USABLE_CHANGE.DELETE_TIME, ACC_BUSINESS_USABLE_CHANGE.DELETE_IP, ACC_BUSINESS_USABLE_CHANGE.DELETE_FLAG, 
+      ACC_BUSINESS_USABLE_CHANGE.DELETE_USER_ID, ACC_BUSINESS_USABLE_CHANGE.DELETE_USER_NAME, ACC_BUSINESS_USABLE_CHANGE.ORDER_CODE, ACC_BUSINESS_USABLE_CHANGE.ATTRIBUTE1, 
+      ACC_BUSINESS_USABLE_CHANGE.ATTRIBUTE2, ACC_BUSINESS_USABLE_CHANGE.ATTRIBUTE3, ACC_BUSINESS_USABLE_CHANGE.ATTRIBUTE4, ACC_BUSINESS_USABLE_CHANGE.ATTRIBUTE5, 
+     ACC_BUSINESS_USABLE_CHANGE.ID as id,	
+     ACC_BUSINESS_USABLE_CHANGE.BUSINESS_TYPE as businessType,	
+     ACC_BUSINESS_USABLE_CHANGE.BUSINESS_AVAILABILITY_ID as businessAvailabilityId,	
+     ACC_BUSINESS_USABLE_CHANGE.CUSTOMER_ID as customerId,	
+     ACC_BUSINESS_USABLE_CHANGE.CUSTOMER_NAME as customerName,	
+     ACC_BUSINESS_USABLE_CHANGE.OLD_AVAILABLE_CREDIT as oldAvailableCredit,	
+     ACC_BUSINESS_USABLE_CHANGE.AVAILABLE_CREDIT_CHANGE as availableCreditChange,	
+     ACC_BUSINESS_USABLE_CHANGE.OLD_FREEZING_AMOUNT as oldFreezingAmount,	
+     ACC_BUSINESS_USABLE_CHANGE.FREEZING_ACCRUAL as freezingAccrual,	
+     ACC_BUSINESS_USABLE_CHANGE.NOW_AVAILABLE_CREDIT as nowAvailableCredit,	
+     ACC_BUSINESS_USABLE_CHANGE.DIGEST as digest,	
+     ACC_BUSINESS_USABLE_CHANGE.AMOUNT_DIRECTION as amountDirection,	
+     ACC_BUSINESS_USABLE_CHANGE.NOW_FREEZING_AMOUNT as nowFreezingAmount,	
+     ACC_BUSINESS_USABLE_CHANGE.RELEVANCE_BILLS_ID as relevanceBillsId,	
+     ACC_BUSINESS_USABLE_CHANGE.SIGNATURE as signature	
+    from ACC_BUSINESS_USABLE_CHANGE
+     <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+ <!-- 批量更新 -->
+  <update id="updateBatch" parameterType="ArrayList">
+     begin
+     <foreach collection="list" item="item" index="index" separator=";" > 
+     update ACC_BUSINESS_USABLE_CHANGE 
+    <set>  
+		<if test="item.usable_status != null and item.usable_status != ''">
+		     USABLE_STATUS=#{item.usable_status,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_time != null and item.create_time != ''">
+		 CREATE_TIME=#{item.create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.create_ip != null and item.create_ip != ''">
+		 CREATE_IP=#{item.create_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_user_id != null and item.create_user_id != ''">
+		 CREATE_USER_ID=#{item.create_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_user_name != null and item.create_user_name != ''">
+		   CREATE_USER_NAME=#{item.create_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_time != null and item.modify_time != ''">
+		 MODIFY_TIME=#{item.modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.modify_ip != null and item.modify_ip != ''">
+		 MODIFY_IP=#{item.modify_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_user_id != null and item.modify_user_id != ''">
+		 MODIFY_USER_ID=#{item.modify_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_user_name != null and item.modify_user_name != ''">
+		   MODIFY_USER_NAME=#{item.modify_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_time != null and item.delete_time != ''">
+		 DELETE_TIME=#{item.delete_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.delete_ip != null and item.delete_ip != ''">
+		 DELETE_IP=#{item.delete_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_flag != null and item.delete_flag != ''">
+		 DELETE_FLAG=#{item.delete_flag,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_user_id != null and item.delete_user_id != ''">
+		   DELETE_USER_ID=#{item.delete_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_user_name != null and item.delete_user_name != ''">
+		 DELETE_USER_NAME=#{item.delete_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.order_code != null and item.order_code != ''">
+		 ORDER_CODE=#{item.order_code,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute1 != null and item.attribute1 != ''">
+		 ATTRIBUTE1=#{item.attribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute2 != null and item.attribute2 != ''">
+		 ATTRIBUTE2=#{item.attribute2,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute3 != null and item.attribute3 != ''">
+		 ATTRIBUTE3=#{item.attribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute4 != null and item.attribute4 != ''">
+		 ATTRIBUTE4=#{item.attribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute5 != null and item.attribute5 != ''">
+		 ATTRIBUTE5=#{item.attribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="item.id!=null and item.id!= ''">
+		ID=#{item.id,jdbcType=CHAR},
+		</if>
+		<if test="item.businessType!=null and item.businessType!= ''">
+		BUSINESS_TYPE=#{item.businessType,jdbcType=CHAR},
+		</if>
+		<if test="item.businessAvailabilityId!=null and item.businessAvailabilityId!= ''">
+		BUSINESS_AVAILABILITY_ID=#{item.businessAvailabilityId,jdbcType=CHAR},
+		</if>
+		<if test="item.customerId!=null and item.customerId!= ''">
+		CUSTOMER_ID=#{item.customerId,jdbcType=NUMERIC},
+		</if>
+		<if test="item.customerName!=null and item.customerName!= ''">
+		CUSTOMER_NAME=#{item.customerName,jdbcType=VARCHAR},
+		</if>
+		<if test="item.oldAvailableCredit!=null and item.oldAvailableCredit!= ''">
+		OLD_AVAILABLE_CREDIT=#{item.oldAvailableCredit,jdbcType=DECIMAL},
+		</if>
+		<if test="item.availableCreditChange!=null and item.availableCreditChange!= ''">
+		AVAILABLE_CREDIT_CHANGE=#{item.availableCreditChange,jdbcType=DECIMAL},
+		</if>
+		<if test="item.oldFreezingAmount!=null and item.oldFreezingAmount!= ''">
+		OLD_FREEZING_AMOUNT=#{item.oldFreezingAmount,jdbcType=DECIMAL},
+		</if>
+		<if test="item.freezingAccrual!=null and item.freezingAccrual!= ''">
+		FREEZING_ACCRUAL=#{item.freezingAccrual,jdbcType=DECIMAL},
+		</if>
+		<if test="item.nowAvailableCredit!=null and item.nowAvailableCredit!= ''">
+		NOW_AVAILABLE_CREDIT=#{item.nowAvailableCredit,jdbcType=DECIMAL},
+		</if>
+		<if test="item.digest!=null and item.digest!= ''">
+		DIGEST=#{item.digest,jdbcType=VARCHAR},
+		</if>
+		<if test="item.amountDirection!=null and item.amountDirection!= ''">
+		AMOUNT_DIRECTION=#{item.amountDirection,jdbcType=CHAR},
+		</if>
+		<if test="item.nowFreezingAmount!=null and item.nowFreezingAmount!= ''">
+		NOW_FREEZING_AMOUNT=#{item.nowFreezingAmount,jdbcType=DECIMAL},
+		</if>
+		<if test="item.relevanceBillsId!=null and item.relevanceBillsId!= ''">
+		RELEVANCE_BILLS_ID=#{item.relevanceBillsId,jdbcType=CHAR},
+		</if>
+		<if test="item.signature!=null and item.signature!= ''">
+		SIGNATURE=#{item.signature,jdbcType=CHAR},
+		</if>
+     </set> 
+    where ID=#{item.id}
+   </foreach>
+   ;end;
+   </update>
+   <!--批量插入-->
+ <insert id="insertBatch" parameterType="ArrayList">
+     insert into ACC_BUSINESS_USABLE_CHANGE (
+      USABLE_STATUS, CREATE_TIME, CREATE_IP, CREATE_USER_ID, 
+      CREATE_USER_NAME, MODIFY_TIME, MODIFY_IP, MODIFY_USER_ID, 
+      MODIFY_USER_NAME, DELETE_TIME, DELETE_IP, DELETE_FLAG, 
+      DELETE_USER_ID, DELETE_USER_NAME, ORDER_CODE, ATTRIBUTE1, 
+      ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, 
+      ID ,
+      BUSINESS_TYPE ,
+      BUSINESS_AVAILABILITY_ID ,
+      CUSTOMER_ID ,
+      CUSTOMER_NAME ,
+      OLD_AVAILABLE_CREDIT ,
+      AVAILABLE_CREDIT_CHANGE ,
+      OLD_FREEZING_AMOUNT ,
+      FREEZING_ACCRUAL ,
+      NOW_AVAILABLE_CREDIT ,
+      DIGEST ,
+      AMOUNT_DIRECTION ,
+      NOW_FREEZING_AMOUNT ,
+      RELEVANCE_BILLS_ID ,
+      SIGNATURE 
+      )    
+    <foreach collection="list" item="item" index="index" separator="union all" > 
+    select  
+   #{item.usable_status,jdbcType=VARCHAR},#{item.create_time,jdbcType=TIMESTAMP},#{item.create_ip,jdbcType=VARCHAR},#{item.create_user_id,jdbcType=VARCHAR},#{item.create_user_name,jdbcType=VARCHAR},#{item.modify_time,jdbcType=TIMESTAMP},#{item.modify_ip,jdbcType=VARCHAR},#{item.modify_user_id,jdbcType=VARCHAR},#{item.modify_user_name,jdbcType=VARCHAR},#{item.delete_time,jdbcType=TIMESTAMP},#{item.delete_ip,jdbcType=VARCHAR},#{item.delete_flag,jdbcType=VARCHAR},#{item.delete_user_id,jdbcType=VARCHAR},#{item.delete_user_name,jdbcType=VARCHAR},#{item.order_code,jdbcType=VARCHAR},#{item.attribute1,jdbcType=VARCHAR},#{item.attribute2,jdbcType=VARCHAR},#{item.attribute3,jdbcType=VARCHAR},#{item.attribute4,jdbcType=VARCHAR},#{item.attribute5,jdbcType=VARCHAR},
+	#{item.id,jdbcType=CHAR},
+	#{item.businessType,jdbcType=CHAR},
+	#{item.businessAvailabilityId,jdbcType=CHAR},
+	#{item.customerId,jdbcType=NUMERIC},
+	#{item.customerName,jdbcType=VARCHAR},
+	#{item.oldAvailableCredit,jdbcType=DECIMAL},
+	#{item.availableCreditChange,jdbcType=DECIMAL},
+	#{item.oldFreezingAmount,jdbcType=DECIMAL},
+	#{item.freezingAccrual,jdbcType=DECIMAL},
+	#{item.nowAvailableCredit,jdbcType=DECIMAL},
+	#{item.digest,jdbcType=VARCHAR},
+	#{item.amountDirection,jdbcType=CHAR},
+	#{item.nowFreezingAmount,jdbcType=DECIMAL},
+	#{item.relevanceBillsId,jdbcType=CHAR},
+	#{item.signature,jdbcType=CHAR}
+     from dual
+    </foreach>
+  </insert>	
+</mapper>

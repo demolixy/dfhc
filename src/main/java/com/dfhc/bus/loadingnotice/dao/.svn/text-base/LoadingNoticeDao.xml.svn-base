@@ -1,0 +1,880 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dfhc.bus.loadingnotice.dao.LoadingNoticeDao">
+  <!-- 共享的where语句，如有冲突或特殊情况，请另写 -->
+  <sql id="where">
+   <trim prefix="where" prefixOverrides="and|or">  
+      <if test="id != null and id != ''">
+        and BUS_LOADING_NOTICE.ID = #{id}
+      </if>
+      <if test="ladingBillId != null and ladingBillId != ''">
+        and BUS_LOADING_NOTICE.LADING_BILL_ID = #{ladingBillId}
+      </if>
+      <if test="ladingBillCode != null and ladingBillCode != ''">
+        and BUS_LOADING_NOTICE.LADING_BILL_CODE = #{ladingBillCode}
+      </if>
+      <if test="jobTime != null and jobTime != ''">
+        and to_char(BUS_LOADING_NOTICE.JOB_TIME,'YYYY-MM-DD') = #{jobTime}
+      </if>
+      <if test="dispatchTime != null and dispatchTime != ''">
+        and to_char(BUS_LOADING_NOTICE.DISPATCH_TIME,'YYYY-MM-DD') = #{dispatchTime}
+      </if>
+      <if test="licensePlate != null and licensePlate != ''">
+        and BUS_LOADING_NOTICE.LICENSE_PLATE = #{licensePlate}
+      </if>
+      <if test="productId != null and productId != ''">
+        and BUS_LOADING_NOTICE.PRODUCT_ID = #{productId}
+      </if>
+      <if test="productName != null and productName != ''">
+        and BUS_LOADING_NOTICE.PRODUCT_NAME = #{productName}
+      </if>
+      <if test="productModelNumber != null and productModelNumber != ''">
+        and BUS_LOADING_NOTICE.PRODUCT_MODEL_NUMBER = #{productModelNumber}
+      </if>
+      <if test="productBatchNumber != null and productBatchNumber != ''">
+        and BUS_LOADING_NOTICE.PRODUCT_BATCH_NUMBER = #{productBatchNumber}
+      </if>
+      <if test="productLevel != null and productLevel != ''">
+        and BUS_LOADING_NOTICE.PRODUCT_LEVEL = #{productLevel}
+      </if>
+      <if test="productLevelId != null and productLevelId != ''">
+        and BUS_LOADING_NOTICE.PRODUCT_LEVEL_ID = #{productLevelId}
+      </if>
+      <if test="num != null and num != ''">
+        and BUS_LOADING_NOTICE.NUM = #{num}
+      </if>
+      <if test="gateNum != null and gateNum != ''">
+        and BUS_LOADING_NOTICE.GATE_NUM = #{gateNum}
+      </if>
+      <if test="positionNum != null and positionNum != ''">
+        and BUS_LOADING_NOTICE.POSITION_NUM = #{positionNum}
+      </if>
+      <if test="toneNum != null and toneNum != ''">
+        and BUS_LOADING_NOTICE.TONE_NUM = #{toneNum}
+      </if>
+      <if test="storemanId != null and storemanId != ''">
+        and BUS_LOADING_NOTICE.STOREMAN_ID = #{storemanId}
+      </if>
+      <if test="storeman != null and storeman != ''">
+        and BUS_LOADING_NOTICE.STOREMAN = #{storeman}
+      </if>
+      <if test="forkliftMonitorId != null and forkliftMonitorId != ''">
+        and BUS_LOADING_NOTICE.FORKLIFT_MONITOR_ID = #{forkliftMonitorId}
+      </if>
+      <if test="forkliftMonitor != null and forkliftMonitor != ''">
+        and BUS_LOADING_NOTICE.FORKLIFT_MONITOR = #{forkliftMonitor}
+      </if>
+      <if test="operationSupervisorId != null and operationSupervisorId != ''">
+        and BUS_LOADING_NOTICE.OPERATION_SUPERVISOR_ID = #{operationSupervisorId}
+      </if>
+      <if test="operationSupervisor != null and operationSupervisor != ''">
+        and BUS_LOADING_NOTICE.OPERATION_SUPERVISOR = #{operationSupervisor}
+      </if>
+      <if test="status != null and status != ''">
+        and BUS_LOADING_NOTICE.STATUS = #{status}
+      </if>
+      <if test="statuss != null and statuss != ''">
+        and BUS_LOADING_NOTICE.STATUS in (${statuss})
+      </if>
+      <if test="printDate != null and printDate != ''">
+        and to_char(BUS_LOADING_NOTICE.PRINT_DATE,'YYYY-MM-DD') = #{printDate}
+      </if>
+      <if test="forkliftTruckIsConfirm != null and forkliftTruckIsConfirm != ''">
+        and nvl(BUS_LOADING_NOTICE.FORKLIFT_TRUCK_IS_CONFIRM, '0') = #{forkliftTruckIsConfirm}
+      </if>
+      <if test="supervisorIsConfirm != null and supervisorIsConfirm != ''">
+        and nvl(BUS_LOADING_NOTICE.SUPERVISOR_IS_CONFIRM, '0') = #{supervisorIsConfirm}
+      </if>
+      <if test="forkliftTruckConfirmTime != null and forkliftTruckConfirmTime != ''">
+        and to_char(BUS_LOADING_NOTICE.FORKLIFT_TRUCK_CONFIRM_TIME,'YYYY-MM-DD') = #{forkliftTruckConfirmTime}
+      </if>
+      <if test="myToBeLoadingBill != null and myToBeLoadingBill != ''">
+        <![CDATA[
+        	and BUS_LOADING_NOTICE.FORKLIFT_TRUCK_CONFIRM_TIME <> ''
+        ]]>
+      </if>
+      <if test="supervisorConfirmTime != null and supervisorConfirmTime != ''">
+        and to_char(BUS_LOADING_NOTICE.SUPERVISOR_CONFIRM_TIME,'YYYY-MM-DD') = #{supervisorConfirmTime}
+      </if>
+      <if test="truckInputBreakBagNum != null and truckInputBreakBagNum != ''">
+        and BUS_LOADING_NOTICE.TRUCK_INPUT_BREAK_BAG_NUM = #{truckInputBreakBagNum}
+      </if>
+      <if test="supervisorInputBreakBagNum != null and supervisorInputBreakBagNum != ''">
+        and BUS_LOADING_NOTICE.SUPERVISOR_INPUT_BREAK_BAG_NUM = #{supervisorInputBreakBagNum}
+      </if>
+      <if test="actualDeliveryNumber != null and actualDeliveryNumber != ''">
+        and BUS_LOADING_NOTICE.ACTUAL_DELIVERY_NUMBER = #{actualDeliveryNumber}
+      </if>
+      <if test="isNeedWeigh != null and isNeedWeigh != ''">
+        and BUS_LOADING_NOTICE.IS_NEED_WEIGH = #{isNeedWeigh}
+      </if>
+      <if test="completionConfirm != null and completionConfirm != ''">
+        and BUS_LOADING_NOTICE.FORKLIFT_TRUCK_CONFIRM_TIME != NULL and BUS_LOADING_NOTICE.SUPERVISOR_CONFIRM_TIME !=NULL
+      </if>
+      <if test="delete_flag != null and delete_flag != ''">
+        and nvl(BUS_LOADING_NOTICE.DELETE_FLAG,'0') = #{delete_flag}
+      </if>
+      <if test="checkStatus != null and checkStatus != ''">
+        and BUS_VEHICLE_SAFETY_INSPECTION.STATUS = #{checkStatus}
+      </if>
+      <if test="rowDate != null and rowDate != ''">
+        and to_char(BUS_ROW_NUMBER.ROW_DATE,'YYYY-MM-DD') = #{rowDate}
+      </if>
+      <if test="notCheckStatus != null and notCheckStatus != ''">
+        <![CDATA[
+        	and BUS_VEHICLE_SAFETY_INSPECTION.STATUS <> #{notCheckStatus}
+        ]]>
+      </if>
+      </trim>
+  </sql>
+
+  <insert id="insert" parameterType="com.dfhc.bus.loadingnotice.vo.LoadingNoticeVo">
+    insert into BUS_LOADING_NOTICE (
+      USABLE_STATUS, CREATE_TIME, CREATE_IP, CREATE_USER_ID, 
+      CREATE_USER_NAME, MODIFY_TIME, MODIFY_IP, MODIFY_USER_ID, 
+      MODIFY_USER_NAME, DELETE_TIME, DELETE_IP, DELETE_FLAG, 
+      DELETE_USER_ID, DELETE_USER_NAME, ORDER_CODE, ATTRIBUTE1, 
+      ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, 
+      ID ,
+      LADING_BILL_ID ,
+      LADING_BILL_CODE ,
+      JOB_TIME ,
+      DISPATCH_TIME ,
+      LICENSE_PLATE ,
+      PRODUCT_ID ,
+      PRODUCT_NAME ,
+      PRODUCT_MODEL_NUMBER ,
+      PRODUCT_BATCH_NUMBER ,
+      PRODUCT_LEVEL ,
+      PRODUCT_LEVEL_ID ,
+      NUM ,
+      GATE_NUM ,
+      POSITION_NUM ,
+      TONE_NUM ,
+      STOREMAN_ID ,
+      STOREMAN ,
+      FORKLIFT_MONITOR_ID ,
+      FORKLIFT_MONITOR ,
+      OPERATION_SUPERVISOR_ID ,
+      OPERATION_SUPERVISOR ,
+      STATUS ,
+      PRINT_DATE ,
+      FORKLIFT_TRUCK_IS_CONFIRM ,
+      SUPERVISOR_IS_CONFIRM ,
+      FORKLIFT_TRUCK_CONFIRM_TIME ,
+      SUPERVISOR_CONFIRM_TIME ,
+      TRUCK_INPUT_BREAK_BAG_NUM ,
+      SUPERVISOR_INPUT_BREAK_BAG_NUM ,
+      ACTUAL_DELIVERY_NUMBER ,
+      IS_NEED_WEIGH 
+      )
+    values ( 
+     #{usable_status,jdbcType=VARCHAR},#{create_time,jdbcType=TIMESTAMP},#{create_ip,jdbcType=VARCHAR},#{create_user_id,jdbcType=VARCHAR},#{create_user_name,jdbcType=VARCHAR},#{modify_time,jdbcType=TIMESTAMP},#{modify_ip,jdbcType=VARCHAR},#{modify_user_id,jdbcType=VARCHAR},#{modify_user_name,jdbcType=VARCHAR},#{delete_time,jdbcType=TIMESTAMP},#{delete_ip,jdbcType=VARCHAR},#{delete_flag,jdbcType=VARCHAR},#{delete_user_id,jdbcType=VARCHAR},#{delete_user_name,jdbcType=VARCHAR},#{order_code,jdbcType=VARCHAR},#{attribute1,jdbcType=VARCHAR},#{attribute2,jdbcType=VARCHAR},#{attribute3,jdbcType=VARCHAR},#{attribute4,jdbcType=VARCHAR},#{attribute5,jdbcType=VARCHAR},
+	#{id,jdbcType=CHAR},
+	#{ladingBillId,jdbcType=CHAR},
+	#{ladingBillCode,jdbcType=VARCHAR},
+	#{jobTime,jdbcType=TIMESTAMP},
+	#{dispatchTime,jdbcType=TIMESTAMP},
+	#{licensePlate,jdbcType=VARCHAR},
+	#{productId,jdbcType=CHAR},
+	#{productName,jdbcType=VARCHAR},
+	#{productModelNumber,jdbcType=VARCHAR},
+	#{productBatchNumber,jdbcType=VARCHAR},
+	#{productLevel,jdbcType=VARCHAR},
+	#{productLevelId,jdbcType=CHAR},
+	#{num,jdbcType=NUMERIC},
+	#{gateNum,jdbcType=VARCHAR},
+	#{positionNum,jdbcType=VARCHAR},
+	#{toneNum,jdbcType=NUMERIC},
+	#{storemanId,jdbcType=NUMERIC},
+	#{storeman,jdbcType=VARCHAR},
+	#{forkliftMonitorId,jdbcType=NUMERIC},
+	#{forkliftMonitor,jdbcType=VARCHAR},
+	#{operationSupervisorId,jdbcType=NUMERIC},
+	#{operationSupervisor,jdbcType=VARCHAR},
+	#{status,jdbcType=CHAR},
+	#{printDate,jdbcType=TIMESTAMP},
+	#{forkliftTruckIsConfirm,jdbcType=CHAR},
+	#{supervisorIsConfirm,jdbcType=CHAR},
+	#{forkliftTruckConfirmTime,jdbcType=TIMESTAMP},
+	#{supervisorConfirmTime,jdbcType=TIMESTAMP},
+	#{truckInputBreakBagNum,jdbcType=NUMERIC},
+	#{supervisorInputBreakBagNum,jdbcType=NUMERIC},
+	#{actualDeliveryNumber,jdbcType=NUMERIC},
+	#{isNeedWeigh,jdbcType=CHAR}
+      )
+  </insert>
+    
+  <delete id="delete" parameterType="int">
+    delete from BUS_LOADING_NOTICE where ID=#{id}
+  </delete>
+  
+  <delete id="deleteMulti" parameterType="int">
+    delete from BUS_LOADING_NOTICE where ID in 
+    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">  
+      #{item}   
+    </foreach>
+  </delete>
+
+  <update id="update" parameterType="com.dfhc.bus.loadingnotice.vo.LoadingNoticeVo">
+    update BUS_LOADING_NOTICE 
+    <trim prefix="SET" suffixOverrides=",">  
+		<if test="usable_status != null and usable_status != ''">
+		     USABLE_STATUS=#{usable_status,jdbcType=VARCHAR},
+		</if>
+		<if test="create_time != null and create_time != ''">
+		 CREATE_TIME=#{create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="create_ip != null and create_ip != ''">
+		 CREATE_IP=#{create_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="create_user_id != null and create_user_id != ''">
+		 CREATE_USER_ID=#{create_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="create_user_name != null and create_user_name != ''">
+		   CREATE_USER_NAME=#{create_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_time != null and modify_time != ''">
+		 MODIFY_TIME=#{modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="modify_ip != null and modify_ip != ''">
+		 MODIFY_IP=#{modify_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_user_id != null and modify_user_id != ''">
+		 MODIFY_USER_ID=#{modify_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_user_name != null and modify_user_name != ''">
+		   MODIFY_USER_NAME=#{modify_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_time != null and delete_time != ''">
+		 DELETE_TIME=#{delete_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="delete_ip != null and delete_ip != ''">
+		 DELETE_IP=#{delete_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_flag != null and delete_flag != ''">
+		 DELETE_FLAG=#{delete_flag,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_user_id != null and delete_user_id != ''">
+		   DELETE_USER_ID=#{delete_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_user_name != null and delete_user_name != ''">
+		 DELETE_USER_NAME=#{delete_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="order_code != null and order_code != ''">
+		 ORDER_CODE=#{order_code,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute1 != null and attribute1 != ''">
+		 ATTRIBUTE1=#{attribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute2 != null and attribute2 != ''">
+		 ATTRIBUTE2=#{attribute2,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute3 != null and attribute3 != ''">
+		 ATTRIBUTE3=#{attribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute4 != null and attribute4 != ''">
+		 ATTRIBUTE4=#{attribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute5 != null and attribute5 != ''">
+		 ATTRIBUTE5=#{attribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="id!=null and id!= ''">
+		ID=#{id,jdbcType=CHAR},
+		</if>
+		<if test="ladingBillId!=null and ladingBillId!= ''">
+		LADING_BILL_ID=#{ladingBillId,jdbcType=CHAR},
+		</if>
+		<if test="ladingBillCode!=null and ladingBillCode!= ''">
+		LADING_BILL_CODE=#{ladingBillCode,jdbcType=VARCHAR},
+		</if>
+		<if test="jobTime!=null and jobTime!= ''">
+		JOB_TIME=#{jobTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="dispatchTime!=null and dispatchTime!= ''">
+		DISPATCH_TIME=#{dispatchTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="licensePlate!=null and licensePlate!= ''">
+		LICENSE_PLATE=#{licensePlate,jdbcType=VARCHAR},
+		</if>
+		<if test="productId!=null and productId!= ''">
+		PRODUCT_ID=#{productId,jdbcType=CHAR},
+		</if>
+		<if test="productName!=null and productName!= ''">
+		PRODUCT_NAME=#{productName,jdbcType=VARCHAR},
+		</if>
+		<if test="productModelNumber!=null and productModelNumber!= ''">
+		PRODUCT_MODEL_NUMBER=#{productModelNumber,jdbcType=VARCHAR},
+		</if>
+		<if test="productBatchNumber!=null and productBatchNumber!= ''">
+		PRODUCT_BATCH_NUMBER=#{productBatchNumber,jdbcType=VARCHAR},
+		</if>
+		<if test="productLevel!=null and productLevel!= ''">
+		PRODUCT_LEVEL=#{productLevel,jdbcType=VARCHAR},
+		</if>
+		<if test="productLevelId!=null and productLevelId!= ''">
+		PRODUCT_LEVEL_ID=#{productLevelId,jdbcType=CHAR},
+		</if>
+		<if test="num!=null and num!= ''">
+		NUM=#{num,jdbcType=NUMERIC},
+		</if>
+		<if test="gateNum!=null and gateNum!= ''">
+		GATE_NUM=#{gateNum,jdbcType=VARCHAR},
+		</if>
+		<if test="positionNum!=null and positionNum!= ''">
+		POSITION_NUM=#{positionNum,jdbcType=VARCHAR},
+		</if>
+		<if test="toneNum!=null and toneNum!= ''">
+		TONE_NUM=#{toneNum,jdbcType=NUMERIC},
+		</if>
+		<if test="storemanId!=null and storemanId!= ''">
+		STOREMAN_ID=#{storemanId,jdbcType=NUMERIC},
+		</if>
+		<if test="storeman!=null and storeman!= ''">
+		STOREMAN=#{storeman,jdbcType=VARCHAR},
+		</if>
+		<if test="forkliftMonitorId!=null and forkliftMonitorId!= ''">
+		FORKLIFT_MONITOR_ID=#{forkliftMonitorId,jdbcType=NUMERIC},
+		</if>
+		<if test="forkliftMonitor!=null and forkliftMonitor!= ''">
+		FORKLIFT_MONITOR=#{forkliftMonitor,jdbcType=VARCHAR},
+		</if>
+		<if test="operationSupervisorId!=null and operationSupervisorId!= ''">
+		OPERATION_SUPERVISOR_ID=#{operationSupervisorId,jdbcType=NUMERIC},
+		</if>
+		<if test="operationSupervisor!=null and operationSupervisor!= ''">
+		OPERATION_SUPERVISOR=#{operationSupervisor,jdbcType=VARCHAR},
+		</if>
+		<if test="status!=null and status!= ''">
+		STATUS=#{status,jdbcType=CHAR},
+		</if>
+		<if test="printDate!=null and printDate!= ''">
+		PRINT_DATE=#{printDate,jdbcType=TIMESTAMP},
+		</if>
+		<if test="forkliftTruckIsConfirm!=null and forkliftTruckIsConfirm!= ''">
+		FORKLIFT_TRUCK_IS_CONFIRM=#{forkliftTruckIsConfirm,jdbcType=CHAR},
+		</if>
+		<if test="supervisorIsConfirm!=null and supervisorIsConfirm!= ''">
+		SUPERVISOR_IS_CONFIRM=#{supervisorIsConfirm,jdbcType=CHAR},
+		</if>
+		<if test="forkliftTruckConfirmTime!=null and forkliftTruckConfirmTime!= ''">
+		FORKLIFT_TRUCK_CONFIRM_TIME=#{forkliftTruckConfirmTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="supervisorConfirmTime!=null and supervisorConfirmTime!= ''">
+		SUPERVISOR_CONFIRM_TIME=#{supervisorConfirmTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="truckInputBreakBagNum!=null and truckInputBreakBagNum!= ''">
+		TRUCK_INPUT_BREAK_BAG_NUM=#{truckInputBreakBagNum,jdbcType=NUMERIC},
+		</if>
+		<if test="supervisorInputBreakBagNum!=null and supervisorInputBreakBagNum!= ''">
+		SUPERVISOR_INPUT_BREAK_BAG_NUM=#{supervisorInputBreakBagNum,jdbcType=NUMERIC},
+		</if>
+		<if test="actualDeliveryNumber!=null and actualDeliveryNumber!= ''">
+		ACTUAL_DELIVERY_NUMBER=#{actualDeliveryNumber,jdbcType=NUMERIC},
+		</if>
+		<if test="isNeedWeigh!=null and isNeedWeigh!= ''">
+		IS_NEED_WEIGH=#{isNeedWeigh,jdbcType=CHAR},
+		</if>
+     </trim> 
+    where ID=#{id}
+  </update>
+
+  <select id="get" parameterType="string" resultType="com.dfhc.bus.loadingnotice.vo.LoadingNoticeVo">
+    select  
+      BUS_LOADING_NOTICE.USABLE_STATUS, BUS_LOADING_NOTICE.CREATE_TIME, BUS_LOADING_NOTICE.CREATE_IP, BUS_LOADING_NOTICE.CREATE_USER_ID, 
+      BUS_LOADING_NOTICE.CREATE_USER_NAME, BUS_LOADING_NOTICE.MODIFY_TIME, BUS_LOADING_NOTICE.MODIFY_IP, BUS_LOADING_NOTICE.MODIFY_USER_ID, 
+      BUS_LOADING_NOTICE.MODIFY_USER_NAME, BUS_LOADING_NOTICE.DELETE_TIME, BUS_LOADING_NOTICE.DELETE_IP, BUS_LOADING_NOTICE.DELETE_FLAG, 
+      BUS_LOADING_NOTICE.DELETE_USER_ID, BUS_LOADING_NOTICE.DELETE_USER_NAME, BUS_LOADING_NOTICE.ORDER_CODE, BUS_LOADING_NOTICE.ATTRIBUTE1, 
+      BUS_LOADING_NOTICE.ATTRIBUTE2, BUS_LOADING_NOTICE.ATTRIBUTE3, BUS_LOADING_NOTICE.ATTRIBUTE4, BUS_LOADING_NOTICE.ATTRIBUTE5, 
+      BUS_LOADING_NOTICE.ID as id,	
+      BUS_LOADING_NOTICE.LADING_BILL_ID as ladingBillId,	
+      BUS_LOADING_NOTICE.LADING_BILL_CODE as ladingBillCode,	
+      BUS_LOADING_NOTICE.JOB_TIME as jobTime,	
+      BUS_LOADING_NOTICE.DISPATCH_TIME as dispatchTime,	
+      BUS_LOADING_NOTICE.LICENSE_PLATE as licensePlate,	
+      BUS_LOADING_NOTICE.PRODUCT_ID as productId,	
+      BUS_LOADING_NOTICE.PRODUCT_NAME as productName,	
+      BUS_LOADING_NOTICE.PRODUCT_MODEL_NUMBER as productModelNumber,	
+      BUS_LOADING_NOTICE.PRODUCT_BATCH_NUMBER as productBatchNumber,	
+      BUS_LOADING_NOTICE.PRODUCT_LEVEL as productLevel,	
+      BUS_LOADING_NOTICE.PRODUCT_LEVEL_ID as productLevelId,	
+      BUS_LOADING_NOTICE.NUM as num,	
+      BUS_LOADING_NOTICE.GATE_NUM as gateNum,	
+      BUS_LOADING_NOTICE.POSITION_NUM as positionNum,	
+      BUS_LOADING_NOTICE.TONE_NUM as toneNum,	
+      BUS_LOADING_NOTICE.STOREMAN_ID as storemanId,	
+      BUS_LOADING_NOTICE.STOREMAN as storeman,	
+      BUS_LOADING_NOTICE.FORKLIFT_MONITOR_ID as forkliftMonitorId,	
+      BUS_LOADING_NOTICE.FORKLIFT_MONITOR as forkliftMonitor,	
+      BUS_LOADING_NOTICE.OPERATION_SUPERVISOR_ID as operationSupervisorId,	
+      BUS_LOADING_NOTICE.OPERATION_SUPERVISOR as operationSupervisor,	
+      BUS_LOADING_NOTICE.STATUS as status,	
+      BUS_LOADING_NOTICE.PRINT_DATE as printDate,	
+      BUS_LOADING_NOTICE.FORKLIFT_TRUCK_IS_CONFIRM as forkliftTruckIsConfirm,	
+      BUS_LOADING_NOTICE.SUPERVISOR_IS_CONFIRM as supervisorIsConfirm,	
+      BUS_LOADING_NOTICE.FORKLIFT_TRUCK_CONFIRM_TIME as forkliftTruckConfirmTime,	
+      BUS_LOADING_NOTICE.SUPERVISOR_CONFIRM_TIME as supervisorConfirmTime,	
+      BUS_LOADING_NOTICE.TRUCK_INPUT_BREAK_BAG_NUM as truckInputBreakBagNum,	
+      BUS_LOADING_NOTICE.SUPERVISOR_INPUT_BREAK_BAG_NUM as supervisorInputBreakBagNum,	
+      BUS_LOADING_NOTICE.ACTUAL_DELIVERY_NUMBER as actualDeliveryNumber,	
+      BUS_LOADING_NOTICE.IS_NEED_WEIGH as isNeedWeigh	
+    from BUS_LOADING_NOTICE 
+    where BUS_LOADING_NOTICE.ID=#{id}
+  </select>
+  <select id="getPrint" parameterType="string" resultType="com.dfhc.bus.loadingnotice.vo.LoadingNoticeVo">
+  	SELECT
+    BUS_PRODUCT_BATCH_NUMBER.PRODUCT_BATCH_NUMBER AS productBatchNumber,
+    BUS_PRODUCT_BATCH_NUMBER.NUM AS num,
+    BUS_PRODUCT_BATCH_NUMBER.POSITION_NUM AS positionNum
+FROM
+    BUS_LOADING_NOTICE
+JOIN
+    BUS_PRODUCT_BATCH_NUMBER
+ON
+    BUS_LOADING_NOTICE.ID=BUS_PRODUCT_BATCH_NUMBER.LOADING_NOTICE_ID
+WHERE BUS_LOADING_NOTICE.ID=#{id}
+  </select>
+  <select id="getForLock" parameterType="string" resultType="com.dfhc.bus.loadingnotice.vo.LoadingNoticeVo">
+    select  
+      BUS_LOADING_NOTICE.USABLE_STATUS, BUS_LOADING_NOTICE.CREATE_TIME, BUS_LOADING_NOTICE.CREATE_IP, BUS_LOADING_NOTICE.CREATE_USER_ID, 
+      BUS_LOADING_NOTICE.CREATE_USER_NAME, BUS_LOADING_NOTICE.MODIFY_TIME, BUS_LOADING_NOTICE.MODIFY_IP, BUS_LOADING_NOTICE.MODIFY_USER_ID, 
+      BUS_LOADING_NOTICE.MODIFY_USER_NAME, BUS_LOADING_NOTICE.DELETE_TIME, BUS_LOADING_NOTICE.DELETE_IP, BUS_LOADING_NOTICE.DELETE_FLAG, 
+      BUS_LOADING_NOTICE.DELETE_USER_ID, BUS_LOADING_NOTICE.DELETE_USER_NAME, BUS_LOADING_NOTICE.ORDER_CODE, BUS_LOADING_NOTICE.ATTRIBUTE1, 
+      BUS_LOADING_NOTICE.ATTRIBUTE2, BUS_LOADING_NOTICE.ATTRIBUTE3, BUS_LOADING_NOTICE.ATTRIBUTE4, BUS_LOADING_NOTICE.ATTRIBUTE5, 
+      BUS_LOADING_NOTICE.ID as id,	
+      BUS_LOADING_NOTICE.LADING_BILL_ID as ladingBillId,	
+      BUS_LOADING_NOTICE.LADING_BILL_CODE as ladingBillCode,	
+      BUS_LOADING_NOTICE.JOB_TIME as jobTime,	
+      BUS_LOADING_NOTICE.DISPATCH_TIME as dispatchTime,	
+      BUS_LOADING_NOTICE.LICENSE_PLATE as licensePlate,	
+      BUS_LOADING_NOTICE.PRODUCT_ID as productId,	
+      BUS_LOADING_NOTICE.PRODUCT_NAME as productName,	
+      BUS_LOADING_NOTICE.PRODUCT_MODEL_NUMBER as productModelNumber,	
+      BUS_LOADING_NOTICE.PRODUCT_BATCH_NUMBER as productBatchNumber,	
+      BUS_LOADING_NOTICE.PRODUCT_LEVEL as productLevel,	
+      BUS_LOADING_NOTICE.PRODUCT_LEVEL_ID as productLevelId,	
+      BUS_LOADING_NOTICE.NUM as num,	
+      BUS_LOADING_NOTICE.GATE_NUM as gateNum,	
+      BUS_LOADING_NOTICE.POSITION_NUM as positionNum,	
+      BUS_LOADING_NOTICE.TONE_NUM as toneNum,	
+      BUS_LOADING_NOTICE.STOREMAN_ID as storemanId,	
+      BUS_LOADING_NOTICE.STOREMAN as storeman,	
+      BUS_LOADING_NOTICE.FORKLIFT_MONITOR_ID as forkliftMonitorId,	
+      BUS_LOADING_NOTICE.FORKLIFT_MONITOR as forkliftMonitor,	
+      BUS_LOADING_NOTICE.OPERATION_SUPERVISOR_ID as operationSupervisorId,	
+      BUS_LOADING_NOTICE.OPERATION_SUPERVISOR as operationSupervisor,	
+      BUS_LOADING_NOTICE.STATUS as status,	
+      BUS_LOADING_NOTICE.PRINT_DATE as printDate,	
+      BUS_LOADING_NOTICE.FORKLIFT_TRUCK_IS_CONFIRM as forkliftTruckIsConfirm,	
+      BUS_LOADING_NOTICE.SUPERVISOR_IS_CONFIRM as supervisorIsConfirm,	
+      BUS_LOADING_NOTICE.FORKLIFT_TRUCK_CONFIRM_TIME as forkliftTruckConfirmTime,	
+      BUS_LOADING_NOTICE.SUPERVISOR_CONFIRM_TIME as supervisorConfirmTime,	
+      BUS_LOADING_NOTICE.TRUCK_INPUT_BREAK_BAG_NUM as truckInputBreakBagNum,	
+      BUS_LOADING_NOTICE.SUPERVISOR_INPUT_BREAK_BAG_NUM as supervisorInputBreakBagNum,	
+      BUS_LOADING_NOTICE.ACTUAL_DELIVERY_NUMBER as actualDeliveryNumber,	
+      BUS_LOADING_NOTICE.IS_NEED_WEIGH as isNeedWeigh	
+    from BUS_LOADING_NOTICE 
+    where BUS_LOADING_NOTICE.ID=#{id}
+    for update
+  </select>
+
+  <select id="getCount" parameterType="map" resultType="int" useCache="true">
+    select count(BUS_LOADING_NOTICE.ID) from BUS_LOADING_NOTICE
+    <include refid="where"/>    
+  </select>
+  
+  <select id="list" parameterType="map" resultType="com.dfhc.bus.loadingnotice.vo.LoadingNoticeVo">
+    select 
+     BUS_LOADING_NOTICE.ID as id,	
+     BUS_LOADING_NOTICE.LADING_BILL_ID as ladingBillId,	
+     BUS_LOADING_NOTICE.LADING_BILL_CODE as ladingBillCode,	
+     BUS_LOADING_NOTICE.JOB_TIME as jobTime,	
+     BUS_LOADING_NOTICE.DISPATCH_TIME as dispatchTime,	
+     BUS_LOADING_NOTICE.LICENSE_PLATE as licensePlate,	
+     BUS_LOADING_NOTICE.PRODUCT_ID as productId,	
+     BUS_LOADING_NOTICE.PRODUCT_NAME as productName,	
+     BUS_LOADING_NOTICE.PRODUCT_MODEL_NUMBER as productModelNumber,	
+     BUS_LOADING_NOTICE.PRODUCT_BATCH_NUMBER as productBatchNumber,	
+     BUS_LOADING_NOTICE.PRODUCT_LEVEL as productLevel,	
+     BUS_LOADING_NOTICE.PRODUCT_LEVEL_ID as productLevelId,	
+     BUS_LOADING_NOTICE.NUM as num,	
+     BUS_LOADING_NOTICE.GATE_NUM as gateNum,	
+     BUS_LOADING_NOTICE.POSITION_NUM as positionNum,	
+     BUS_LOADING_NOTICE.TONE_NUM as toneNum,	
+     BUS_LOADING_NOTICE.STOREMAN_ID as storemanId,	
+     BUS_LOADING_NOTICE.STOREMAN as storeman,	
+     BUS_LOADING_NOTICE.FORKLIFT_MONITOR_ID as forkliftMonitorId,	
+     BUS_LOADING_NOTICE.FORKLIFT_MONITOR as forkliftMonitor,	
+     BUS_LOADING_NOTICE.OPERATION_SUPERVISOR_ID as operationSupervisorId,	
+     BUS_LOADING_NOTICE.OPERATION_SUPERVISOR as operationSupervisor,	
+     BUS_LOADING_NOTICE.STATUS as status,	
+     BUS_LOADING_NOTICE.PRINT_DATE as printDate,	
+     BUS_LOADING_NOTICE.FORKLIFT_TRUCK_IS_CONFIRM as forkliftTruckIsConfirm,	
+     BUS_LOADING_NOTICE.SUPERVISOR_IS_CONFIRM as supervisorIsConfirm,	
+     BUS_LOADING_NOTICE.FORKLIFT_TRUCK_CONFIRM_TIME as forkliftTruckConfirmTime,	
+     BUS_LOADING_NOTICE.SUPERVISOR_CONFIRM_TIME as supervisorConfirmTime,	
+     BUS_LOADING_NOTICE.TRUCK_INPUT_BREAK_BAG_NUM as truckInputBreakBagNum,	
+     BUS_LOADING_NOTICE.SUPERVISOR_INPUT_BREAK_BAG_NUM as supervisorInputBreakBagNum,	
+     BUS_LOADING_NOTICE.ACTUAL_DELIVERY_NUMBER as actualDeliveryNumber,	
+     <if test="loadingLading != null and loadingLading != ''">
+     BUS_LADING_BILL.DRIVER_NAME as driverName,
+     BUS_LADING_BILL.PHONE_NUMBER as phoneNumber,
+     </if>
+     BUS_LOADING_NOTICE.IS_NEED_WEIGH as isNeedWeigh	
+    from BUS_LOADING_NOTICE
+    <if test="check != null and check != ''">
+    	inner join BUS_LADING_BILL on BUS_LADING_BILL.ID = BUS_LOADING_NOTICE.LADING_BILL_ID
+    	inner join BUS_VEHICLE_SAFETY_INSPECTION on BUS_VEHICLE_SAFETY_INSPECTION.LADING_BILL_ID = BUS_LADING_BILL.ID
+    </if>
+    <if test="rowNum != null and rowNum != ''">
+    	inner join BUS_ROW_NUMBER on BUS_ROW_NUMBER.LADING_BILL_ID = BUS_LADING_BILL.ID
+    </if>
+    
+    <if test="loadingLading != null and loadingLading != ''">
+    	inner join BUS_LADING_BILL on BUS_LADING_BILL.ID = BUS_LOADING_NOTICE.LADING_BILL_ID
+    </if>
+    <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+  
+  <select id="listAllColumn" parameterType="map" resultType="com.dfhc.bus.loadingnotice.vo.LoadingNoticeVo">
+    select 
+      BUS_LOADING_NOTICE.USABLE_STATUS, BUS_LOADING_NOTICE.CREATE_TIME, BUS_LOADING_NOTICE.CREATE_IP, BUS_LOADING_NOTICE.CREATE_USER_ID, 
+      BUS_LOADING_NOTICE.CREATE_USER_NAME, BUS_LOADING_NOTICE.MODIFY_TIME, BUS_LOADING_NOTICE.MODIFY_IP, BUS_LOADING_NOTICE.MODIFY_USER_ID, 
+      BUS_LOADING_NOTICE.MODIFY_USER_NAME, BUS_LOADING_NOTICE.DELETE_TIME, BUS_LOADING_NOTICE.DELETE_IP, BUS_LOADING_NOTICE.DELETE_FLAG, 
+      BUS_LOADING_NOTICE.DELETE_USER_ID, BUS_LOADING_NOTICE.DELETE_USER_NAME, BUS_LOADING_NOTICE.ORDER_CODE, BUS_LOADING_NOTICE.ATTRIBUTE1, 
+     BUS_LOADING_NOTICE.ATTRIBUTE2, BUS_LOADING_NOTICE.ATTRIBUTE3, BUS_LOADING_NOTICE.ATTRIBUTE4, BUS_LOADING_NOTICE.ATTRIBUTE5, 
+     BUS_LOADING_NOTICE.ID as id,	
+     BUS_LOADING_NOTICE.LADING_BILL_ID as ladingBillId,	
+     BUS_LOADING_NOTICE.LADING_BILL_CODE as ladingBillCode,	
+     BUS_LOADING_NOTICE.JOB_TIME as jobTime,	
+     BUS_LOADING_NOTICE.DISPATCH_TIME as dispatchTime,	
+     BUS_LOADING_NOTICE.LICENSE_PLATE as licensePlate,	
+     BUS_LOADING_NOTICE.PRODUCT_ID as productId,	
+     BUS_LOADING_NOTICE.PRODUCT_NAME as productName,	
+     BUS_LOADING_NOTICE.PRODUCT_MODEL_NUMBER as productModelNumber,	
+     BUS_LOADING_NOTICE.PRODUCT_BATCH_NUMBER as productBatchNumber,	
+     BUS_LOADING_NOTICE.PRODUCT_LEVEL as productLevel,	
+     BUS_LOADING_NOTICE.PRODUCT_LEVEL_ID as productLevelId,	
+     BUS_LOADING_NOTICE.NUM as num,	
+     BUS_LOADING_NOTICE.GATE_NUM as gateNum,	
+     BUS_LOADING_NOTICE.POSITION_NUM as positionNum,	
+     BUS_LOADING_NOTICE.TONE_NUM as toneNum,	
+     BUS_LOADING_NOTICE.STOREMAN_ID as storemanId,	
+     BUS_LOADING_NOTICE.STOREMAN as storeman,	
+     BUS_LOADING_NOTICE.FORKLIFT_MONITOR_ID as forkliftMonitorId,	
+     BUS_LOADING_NOTICE.FORKLIFT_MONITOR as forkliftMonitor,	
+     BUS_LOADING_NOTICE.OPERATION_SUPERVISOR_ID as operationSupervisorId,	
+     BUS_LOADING_NOTICE.OPERATION_SUPERVISOR as operationSupervisor,	
+     BUS_LOADING_NOTICE.STATUS as status,	
+     BUS_LOADING_NOTICE.PRINT_DATE as printDate,	
+     BUS_LOADING_NOTICE.FORKLIFT_TRUCK_IS_CONFIRM as forkliftTruckIsConfirm,	
+     BUS_LOADING_NOTICE.SUPERVISOR_IS_CONFIRM as supervisorIsConfirm,	
+     BUS_LOADING_NOTICE.FORKLIFT_TRUCK_CONFIRM_TIME as forkliftTruckConfirmTime,	
+     BUS_LOADING_NOTICE.SUPERVISOR_CONFIRM_TIME as supervisorConfirmTime,	
+     BUS_LOADING_NOTICE.TRUCK_INPUT_BREAK_BAG_NUM as truckInputBreakBagNum,	
+     BUS_LOADING_NOTICE.SUPERVISOR_INPUT_BREAK_BAG_NUM as supervisorInputBreakBagNum,	
+     BUS_LOADING_NOTICE.ACTUAL_DELIVERY_NUMBER as actualDeliveryNumber,	
+     BUS_LOADING_NOTICE.IS_NEED_WEIGH as isNeedWeigh	
+    from BUS_LOADING_NOTICE
+    <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+
+  <select id="search" parameterType="map" resultType="com.dfhc.bus.loadingnotice.vo.LoadingNoticeVo">
+    select 
+      BUS_LOADING_NOTICE.USABLE_STATUS, BUS_LOADING_NOTICE.CREATE_TIME, BUS_LOADING_NOTICE.CREATE_IP, BUS_LOADING_NOTICE.CREATE_USER_ID, 
+      BUS_LOADING_NOTICE.CREATE_USER_NAME, BUS_LOADING_NOTICE.MODIFY_TIME, BUS_LOADING_NOTICE.MODIFY_IP, BUS_LOADING_NOTICE.MODIFY_USER_ID, 
+      BUS_LOADING_NOTICE.MODIFY_USER_NAME, BUS_LOADING_NOTICE.DELETE_TIME, BUS_LOADING_NOTICE.DELETE_IP, BUS_LOADING_NOTICE.DELETE_FLAG, 
+      BUS_LOADING_NOTICE.DELETE_USER_ID, BUS_LOADING_NOTICE.DELETE_USER_NAME, BUS_LOADING_NOTICE.ORDER_CODE, BUS_LOADING_NOTICE.ATTRIBUTE1, 
+      BUS_LOADING_NOTICE.ATTRIBUTE2, BUS_LOADING_NOTICE.ATTRIBUTE3, BUS_LOADING_NOTICE.ATTRIBUTE4, BUS_LOADING_NOTICE.ATTRIBUTE5, 
+     BUS_LOADING_NOTICE.ID as id,	
+     BUS_LOADING_NOTICE.LADING_BILL_ID as ladingBillId,	
+     BUS_LOADING_NOTICE.LADING_BILL_CODE as ladingBillCode,	
+     BUS_LOADING_NOTICE.JOB_TIME as jobTime,	
+     BUS_LOADING_NOTICE.DISPATCH_TIME as dispatchTime,	
+     BUS_LOADING_NOTICE.LICENSE_PLATE as licensePlate,	
+     BUS_LOADING_NOTICE.PRODUCT_ID as productId,	
+     BUS_LOADING_NOTICE.PRODUCT_NAME as productName,	
+     BUS_LOADING_NOTICE.PRODUCT_MODEL_NUMBER as productModelNumber,	
+     BUS_LOADING_NOTICE.PRODUCT_BATCH_NUMBER as productBatchNumber,	
+     BUS_LOADING_NOTICE.PRODUCT_LEVEL as productLevel,	
+     BUS_LOADING_NOTICE.PRODUCT_LEVEL_ID as productLevelId,	
+     BUS_LOADING_NOTICE.NUM as num,	
+     BUS_LOADING_NOTICE.GATE_NUM as gateNum,	
+     BUS_LOADING_NOTICE.POSITION_NUM as positionNum,	
+     BUS_LOADING_NOTICE.TONE_NUM as toneNum,	
+     BUS_LOADING_NOTICE.STOREMAN_ID as storemanId,	
+     BUS_LOADING_NOTICE.STOREMAN as storeman,	
+     BUS_LOADING_NOTICE.FORKLIFT_MONITOR_ID as forkliftMonitorId,	
+     BUS_LOADING_NOTICE.FORKLIFT_MONITOR as forkliftMonitor,	
+     BUS_LOADING_NOTICE.OPERATION_SUPERVISOR_ID as operationSupervisorId,	
+     BUS_LOADING_NOTICE.OPERATION_SUPERVISOR as operationSupervisor,	
+     BUS_LOADING_NOTICE.STATUS as status,	
+     BUS_LOADING_NOTICE.PRINT_DATE as printDate,	
+     BUS_LOADING_NOTICE.FORKLIFT_TRUCK_IS_CONFIRM as forkliftTruckIsConfirm,	
+     BUS_LOADING_NOTICE.SUPERVISOR_IS_CONFIRM as supervisorIsConfirm,	
+     BUS_LOADING_NOTICE.FORKLIFT_TRUCK_CONFIRM_TIME as forkliftTruckConfirmTime,	
+     BUS_LOADING_NOTICE.SUPERVISOR_CONFIRM_TIME as supervisorConfirmTime,	
+     BUS_LOADING_NOTICE.TRUCK_INPUT_BREAK_BAG_NUM as truckInputBreakBagNum,	
+     BUS_LOADING_NOTICE.SUPERVISOR_INPUT_BREAK_BAG_NUM as supervisorInputBreakBagNum,	
+     BUS_LOADING_NOTICE.ACTUAL_DELIVERY_NUMBER as actualDeliveryNumber,	
+     BUS_LOADING_NOTICE.IS_NEED_WEIGH as isNeedWeigh	
+    from BUS_LOADING_NOTICE
+     <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+ <!-- 批量更新 -->
+  <update id="updateBatch" parameterType="ArrayList">
+     begin
+     <foreach collection="list" item="item" index="index" separator=";" > 
+     update BUS_LOADING_NOTICE 
+    <set>  
+		<if test="item.usable_status != null and item.usable_status != ''">
+		     USABLE_STATUS=#{item.usable_status,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_time != null and item.create_time != ''">
+		 CREATE_TIME=#{item.create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.create_ip != null and item.create_ip != ''">
+		 CREATE_IP=#{item.create_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_user_id != null and item.create_user_id != ''">
+		 CREATE_USER_ID=#{item.create_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_user_name != null and item.create_user_name != ''">
+		   CREATE_USER_NAME=#{item.create_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_time != null and item.modify_time != ''">
+		 MODIFY_TIME=#{item.modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.modify_ip != null and item.modify_ip != ''">
+		 MODIFY_IP=#{item.modify_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_user_id != null and item.modify_user_id != ''">
+		 MODIFY_USER_ID=#{item.modify_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_user_name != null and item.modify_user_name != ''">
+		   MODIFY_USER_NAME=#{item.modify_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_time != null and item.delete_time != ''">
+		 DELETE_TIME=#{item.delete_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.delete_ip != null and item.delete_ip != ''">
+		 DELETE_IP=#{item.delete_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_flag != null and item.delete_flag != ''">
+		 DELETE_FLAG=#{item.delete_flag,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_user_id != null and item.delete_user_id != ''">
+		   DELETE_USER_ID=#{item.delete_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_user_name != null and item.delete_user_name != ''">
+		 DELETE_USER_NAME=#{item.delete_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.order_code != null and item.order_code != ''">
+		 ORDER_CODE=#{item.order_code,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute1 != null and item.attribute1 != ''">
+		 ATTRIBUTE1=#{item.attribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute2 != null and item.attribute2 != ''">
+		 ATTRIBUTE2=#{item.attribute2,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute3 != null and item.attribute3 != ''">
+		 ATTRIBUTE3=#{item.attribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute4 != null and item.attribute4 != ''">
+		 ATTRIBUTE4=#{item.attribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute5 != null and item.attribute5 != ''">
+		 ATTRIBUTE5=#{item.attribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="item.id!=null and item.id!= ''">
+		ID=#{item.id,jdbcType=CHAR},
+		</if>
+		<if test="item.ladingBillId!=null and item.ladingBillId!= ''">
+		LADING_BILL_ID=#{item.ladingBillId,jdbcType=CHAR},
+		</if>
+		<if test="item.ladingBillCode!=null and item.ladingBillCode!= ''">
+		LADING_BILL_CODE=#{item.ladingBillCode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.jobTime!=null and item.jobTime!= ''">
+		JOB_TIME=#{item.jobTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.dispatchTime!=null and item.dispatchTime!= ''">
+		DISPATCH_TIME=#{item.dispatchTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.licensePlate!=null and item.licensePlate!= ''">
+		LICENSE_PLATE=#{item.licensePlate,jdbcType=VARCHAR},
+		</if>
+		<if test="item.productId!=null and item.productId!= ''">
+		PRODUCT_ID=#{item.productId,jdbcType=CHAR},
+		</if>
+		<if test="item.productName!=null and item.productName!= ''">
+		PRODUCT_NAME=#{item.productName,jdbcType=VARCHAR},
+		</if>
+		<if test="item.productModelNumber!=null and item.productModelNumber!= ''">
+		PRODUCT_MODEL_NUMBER=#{item.productModelNumber,jdbcType=VARCHAR},
+		</if>
+		<if test="item.productBatchNumber!=null and item.productBatchNumber!= ''">
+		PRODUCT_BATCH_NUMBER=#{item.productBatchNumber,jdbcType=VARCHAR},
+		</if>
+		<if test="item.productLevel!=null and item.productLevel!= ''">
+		PRODUCT_LEVEL=#{item.productLevel,jdbcType=VARCHAR},
+		</if>
+		<if test="item.productLevelId!=null and item.productLevelId!= ''">
+		PRODUCT_LEVEL_ID=#{item.productLevelId,jdbcType=CHAR},
+		</if>
+		<if test="item.num!=null and item.num!= ''">
+		NUM=#{item.num,jdbcType=NUMERIC},
+		</if>
+		<if test="item.gateNum!=null and item.gateNum!= ''">
+		GATE_NUM=#{item.gateNum,jdbcType=VARCHAR},
+		</if>
+		<if test="item.positionNum!=null and item.positionNum!= ''">
+		POSITION_NUM=#{item.positionNum,jdbcType=VARCHAR},
+		</if>
+		<if test="item.toneNum!=null and item.toneNum!= ''">
+		TONE_NUM=#{item.toneNum,jdbcType=NUMERIC},
+		</if>
+		<if test="item.storemanId!=null and item.storemanId!= ''">
+		STOREMAN_ID=#{item.storemanId,jdbcType=NUMERIC},
+		</if>
+		<if test="item.storeman!=null and item.storeman!= ''">
+		STOREMAN=#{item.storeman,jdbcType=VARCHAR},
+		</if>
+		<if test="item.forkliftMonitorId!=null and item.forkliftMonitorId!= ''">
+		FORKLIFT_MONITOR_ID=#{item.forkliftMonitorId,jdbcType=NUMERIC},
+		</if>
+		<if test="item.forkliftMonitor!=null and item.forkliftMonitor!= ''">
+		FORKLIFT_MONITOR=#{item.forkliftMonitor,jdbcType=VARCHAR},
+		</if>
+		<if test="item.operationSupervisorId!=null and item.operationSupervisorId!= ''">
+		OPERATION_SUPERVISOR_ID=#{item.operationSupervisorId,jdbcType=NUMERIC},
+		</if>
+		<if test="item.operationSupervisor!=null and item.operationSupervisor!= ''">
+		OPERATION_SUPERVISOR=#{item.operationSupervisor,jdbcType=VARCHAR},
+		</if>
+		<if test="item.status!=null and item.status!= ''">
+		STATUS=#{item.status,jdbcType=CHAR},
+		</if>
+		<if test="item.printDate!=null and item.printDate!= ''">
+		PRINT_DATE=#{item.printDate,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.forkliftTruckIsConfirm!=null and item.forkliftTruckIsConfirm!= ''">
+		FORKLIFT_TRUCK_IS_CONFIRM=#{item.forkliftTruckIsConfirm,jdbcType=CHAR},
+		</if>
+		<if test="item.supervisorIsConfirm!=null and item.supervisorIsConfirm!= ''">
+		SUPERVISOR_IS_CONFIRM=#{item.supervisorIsConfirm,jdbcType=CHAR},
+		</if>
+		<if test="item.forkliftTruckConfirmTime!=null and item.forkliftTruckConfirmTime!= ''">
+		FORKLIFT_TRUCK_CONFIRM_TIME=#{item.forkliftTruckConfirmTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.supervisorConfirmTime!=null and item.supervisorConfirmTime!= ''">
+		SUPERVISOR_CONFIRM_TIME=#{item.supervisorConfirmTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.truckInputBreakBagNum!=null and item.truckInputBreakBagNum!= ''">
+		TRUCK_INPUT_BREAK_BAG_NUM=#{item.truckInputBreakBagNum,jdbcType=NUMERIC},
+		</if>
+		<if test="item.supervisorInputBreakBagNum!=null and item.supervisorInputBreakBagNum!= ''">
+		SUPERVISOR_INPUT_BREAK_BAG_NUM=#{item.supervisorInputBreakBagNum,jdbcType=NUMERIC},
+		</if>
+		<if test="item.actualDeliveryNumber!=null and item.actualDeliveryNumber!= ''">
+		ACTUAL_DELIVERY_NUMBER=#{item.actualDeliveryNumber,jdbcType=NUMERIC},
+		</if>
+		<if test="item.isNeedWeigh!=null and item.isNeedWeigh!= ''">
+		IS_NEED_WEIGH=#{item.isNeedWeigh,jdbcType=CHAR},
+		</if>
+     </set> 
+    where ID=#{item.id}
+   </foreach>
+   ;end;
+   </update>
+   <!--批量插入-->
+ <insert id="insertBatch" parameterType="ArrayList">
+     insert into BUS_LOADING_NOTICE (
+      USABLE_STATUS, CREATE_TIME, CREATE_IP, CREATE_USER_ID, 
+      CREATE_USER_NAME, MODIFY_TIME, MODIFY_IP, MODIFY_USER_ID, 
+      MODIFY_USER_NAME, DELETE_TIME, DELETE_IP, DELETE_FLAG, 
+      DELETE_USER_ID, DELETE_USER_NAME, ORDER_CODE, ATTRIBUTE1, 
+      ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, 
+      ID ,
+      LADING_BILL_ID ,
+      LADING_BILL_CODE ,
+      JOB_TIME ,
+      DISPATCH_TIME ,
+      LICENSE_PLATE ,
+      PRODUCT_ID ,
+      PRODUCT_NAME ,
+      PRODUCT_MODEL_NUMBER ,
+      PRODUCT_BATCH_NUMBER ,
+      PRODUCT_LEVEL ,
+      PRODUCT_LEVEL_ID ,
+      NUM ,
+      GATE_NUM ,
+      POSITION_NUM ,
+      TONE_NUM ,
+      STOREMAN_ID ,
+      STOREMAN ,
+      FORKLIFT_MONITOR_ID ,
+      FORKLIFT_MONITOR ,
+      OPERATION_SUPERVISOR_ID ,
+      OPERATION_SUPERVISOR ,
+      STATUS ,
+      PRINT_DATE ,
+      FORKLIFT_TRUCK_IS_CONFIRM ,
+      SUPERVISOR_IS_CONFIRM ,
+      FORKLIFT_TRUCK_CONFIRM_TIME ,
+      SUPERVISOR_CONFIRM_TIME ,
+      TRUCK_INPUT_BREAK_BAG_NUM ,
+      SUPERVISOR_INPUT_BREAK_BAG_NUM ,
+      ACTUAL_DELIVERY_NUMBER ,
+      IS_NEED_WEIGH 
+      )    
+    <foreach collection="list" item="item" index="index" separator="union all" > 
+    select  
+   #{item.usable_status,jdbcType=VARCHAR},#{item.create_time,jdbcType=TIMESTAMP},#{item.create_ip,jdbcType=VARCHAR},#{item.create_user_id,jdbcType=VARCHAR},#{item.create_user_name,jdbcType=VARCHAR},#{item.modify_time,jdbcType=TIMESTAMP},#{item.modify_ip,jdbcType=VARCHAR},#{item.modify_user_id,jdbcType=VARCHAR},#{item.modify_user_name,jdbcType=VARCHAR},#{item.delete_time,jdbcType=TIMESTAMP},#{item.delete_ip,jdbcType=VARCHAR},#{item.delete_flag,jdbcType=VARCHAR},#{item.delete_user_id,jdbcType=VARCHAR},#{item.delete_user_name,jdbcType=VARCHAR},#{item.order_code,jdbcType=VARCHAR},#{item.attribute1,jdbcType=VARCHAR},#{item.attribute2,jdbcType=VARCHAR},#{item.attribute3,jdbcType=VARCHAR},#{item.attribute4,jdbcType=VARCHAR},#{item.attribute5,jdbcType=VARCHAR},
+	#{item.id,jdbcType=CHAR},
+	#{item.ladingBillId,jdbcType=CHAR},
+	#{item.ladingBillCode,jdbcType=VARCHAR},
+	#{item.jobTime,jdbcType=TIMESTAMP},
+	#{item.dispatchTime,jdbcType=TIMESTAMP},
+	#{item.licensePlate,jdbcType=VARCHAR},
+	#{item.productId,jdbcType=CHAR},
+	#{item.productName,jdbcType=VARCHAR},
+	#{item.productModelNumber,jdbcType=VARCHAR},
+	#{item.productBatchNumber,jdbcType=VARCHAR},
+	#{item.productLevel,jdbcType=VARCHAR},
+	#{item.productLevelId,jdbcType=CHAR},
+	#{item.num,jdbcType=NUMERIC},
+	#{item.gateNum,jdbcType=VARCHAR},
+	#{item.positionNum,jdbcType=VARCHAR},
+	#{item.toneNum,jdbcType=NUMERIC},
+	#{item.storemanId,jdbcType=NUMERIC},
+	#{item.storeman,jdbcType=VARCHAR},
+	#{item.forkliftMonitorId,jdbcType=NUMERIC},
+	#{item.forkliftMonitor,jdbcType=VARCHAR},
+	#{item.operationSupervisorId,jdbcType=NUMERIC},
+	#{item.operationSupervisor,jdbcType=VARCHAR},
+	#{item.status,jdbcType=CHAR},
+	#{item.printDate,jdbcType=TIMESTAMP},
+	#{item.forkliftTruckIsConfirm,jdbcType=CHAR},
+	#{item.supervisorIsConfirm,jdbcType=CHAR},
+	#{item.forkliftTruckConfirmTime,jdbcType=TIMESTAMP},
+	#{item.supervisorConfirmTime,jdbcType=TIMESTAMP},
+	#{item.truckInputBreakBagNum,jdbcType=NUMERIC},
+	#{item.supervisorInputBreakBagNum,jdbcType=NUMERIC},
+	#{item.actualDeliveryNumber,jdbcType=NUMERIC},
+	#{item.isNeedWeigh,jdbcType=CHAR}
+     from dual
+    </foreach>
+  </insert>	
+</mapper>

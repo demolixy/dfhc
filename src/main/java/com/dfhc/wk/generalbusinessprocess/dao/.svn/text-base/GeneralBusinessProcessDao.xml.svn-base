@@ -1,0 +1,1654 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dfhc.wk.generalbusinessprocess.dao.GeneralBusinessProcessDao">
+  <!-- 共享的where语句，如有冲突或特殊情况，请另写 -->
+  <sql id="where">
+   <trim prefix="where" prefixOverrides="and|or">  
+      <if test="id != null and id != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.ID = #{id}
+      </if>
+      <if test="procDefId != null and procDefId != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.PROC_DEF_ID = #{procDefId}
+      </if>
+      <if test="procInstId != null and procInstId != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.PROC_INST_ID = #{procInstId}
+      </if>
+      <if test="procName != null and procName != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.PROC_NAME = #{procName}
+      </if>
+      <if test="procKey != null and procKey != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.PROC_KEY = #{procKey}
+      </if>
+      <if test="initiator != null and initiator != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.INITIATOR = #{initiator}
+      </if>
+      <if test="initiatorId != null and initiatorId != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.INITIATOR_ID = #{initiatorId}
+      </if>
+      <if test="initiatorOrganizationDepartment != null and initiatorOrganizationDepartment != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.INITIATOR_ORGANIZATION_DEPARTMENT = #{initiatorOrganizationDepartment}
+      </if>
+      <if test="initiatorOrganizationId != null and initiatorOrganizationId != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.INITIATOR_ORGANIZATION_ID = #{initiatorOrganizationId}
+      </if>
+      <if test="initiatorTime != null and initiatorTime != ''">
+        and to_char(WK_GENERAL_BUSINESS_PROCESS.INITIATOR_TIME,'YYYY-MM-DD') = #{initiatorTime}
+      </if>
+      <if test="businessType != null and businessType != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_TYPE = #{businessType}
+      </if>
+      <if test="businessGroup != null and businessGroup != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_GROUP = #{businessGroup}
+      </if>
+      <if test="parentId != null and parentId != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.PARENT_ID = #{parentId}
+      </if>
+      <if test="businessAttribute70 != null and businessAttribute70 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE70 = #{businessAttribute70}
+      </if>
+      <if test="businessAttribute69 != null and businessAttribute69 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE69 = #{businessAttribute69}
+      </if>
+      <if test="businessAttribute68 != null and businessAttribute68 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE68 = #{businessAttribute68}
+      </if>
+      <if test="businessAttribute67 != null and businessAttribute67 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE67 = #{businessAttribute67}
+      </if>
+      <if test="businessAttribute66 != null and businessAttribute66 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE66 = #{businessAttribute66}
+      </if>
+      <if test="businessAttribute65 != null and businessAttribute65 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE65 = #{businessAttribute65}
+      </if>
+      <if test="businessAttribute64 != null and businessAttribute64 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE64 = #{businessAttribute64}
+      </if>
+      <if test="businessAttribute63 != null and businessAttribute63 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE63 = #{businessAttribute63}
+      </if>
+      <if test="businessAttribute62 != null and businessAttribute62 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE62 = #{businessAttribute62}
+      </if>
+      <if test="businessAttribute61 != null and businessAttribute61 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE61 = #{businessAttribute61}
+      </if>
+      <if test="businessAttribute60 != null and businessAttribute60 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE60 = #{businessAttribute60}
+      </if>
+      <if test="businessAttribute59 != null and businessAttribute59 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE59 = #{businessAttribute59}
+      </if>
+      <if test="businessAttribute58 != null and businessAttribute58 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE58 = #{businessAttribute58}
+      </if>
+      <if test="businessAttribute57 != null and businessAttribute57 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE57 = #{businessAttribute57}
+      </if>
+      <if test="businessAttribute56 != null and businessAttribute56 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE56 = #{businessAttribute56}
+      </if>
+      <if test="businessAttribute55 != null and businessAttribute55 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE55 = #{businessAttribute55}
+      </if>
+      <if test="businessAttribute54 != null and businessAttribute54 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE54 = #{businessAttribute54}
+      </if>
+      <if test="businessAttribute53 != null and businessAttribute53 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE53 = #{businessAttribute53}
+      </if>
+      <if test="businessAttribute52 != null and businessAttribute52 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE52 = #{businessAttribute52}
+      </if>
+      <if test="businessAttribute51 != null and businessAttribute51 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE51 = #{businessAttribute51}
+      </if>
+      <if test="businessAttribute50 != null and businessAttribute50 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE50 = #{businessAttribute50}
+      </if>
+      <if test="businessAttribute49 != null and businessAttribute49 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE49 = #{businessAttribute49}
+      </if>
+      <if test="businessAttribute48 != null and businessAttribute48 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE48 = #{businessAttribute48}
+      </if>
+      <if test="businessAttribute47 != null and businessAttribute47 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE47 = #{businessAttribute47}
+      </if>
+      <if test="businessAttribute46 != null and businessAttribute46 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE46 = #{businessAttribute46}
+      </if>
+      <if test="businessAttribute45 != null and businessAttribute45 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE45 = #{businessAttribute45}
+      </if>
+      <if test="businessAttribute44 != null and businessAttribute44 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE44 = #{businessAttribute44}
+      </if>
+      <if test="businessAttribute43 != null and businessAttribute43 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE43 = #{businessAttribute43}
+      </if>
+      <if test="businessAttribute42 != null and businessAttribute42 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE42 = #{businessAttribute42}
+      </if>
+      <if test="businessAttribute41 != null and businessAttribute41 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE41 = #{businessAttribute41}
+      </if>
+      <if test="businessAttribute40 != null and businessAttribute40 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE40 = #{businessAttribute40}
+      </if>
+      <if test="businessAttribute39 != null and businessAttribute39 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE39 = #{businessAttribute39}
+      </if>
+      <if test="businessAttribute38 != null and businessAttribute38 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE38 = #{businessAttribute38}
+      </if>
+      <if test="businessAttribute37 != null and businessAttribute37 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE37 = #{businessAttribute37}
+      </if>
+      <if test="businessAttribute36 != null and businessAttribute36 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE36 = #{businessAttribute36}
+      </if>
+      <if test="businessAttribute35 != null and businessAttribute35 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE35 = #{businessAttribute35}
+      </if>
+      <if test="businessAttribute34 != null and businessAttribute34 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE34 = #{businessAttribute34}
+      </if>
+      <if test="businessAttribute33 != null and businessAttribute33 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE33 = #{businessAttribute33}
+      </if>
+      <if test="businessAttribute32 != null and businessAttribute32 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE32 = #{businessAttribute32}
+      </if>
+      <if test="businessAttribute31 != null and businessAttribute31 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE31 = #{businessAttribute31}
+      </if>
+      <if test="businessAttribute30 != null and businessAttribute30 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE30 = #{businessAttribute30}
+      </if>
+      <if test="businessAttribute29 != null and businessAttribute29 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE29 = #{businessAttribute29}
+      </if>
+      <if test="businessAttribute28 != null and businessAttribute28 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE28 = #{businessAttribute28}
+      </if>
+      <if test="businessAttribute27 != null and businessAttribute27 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE27 = #{businessAttribute27}
+      </if>
+      <if test="businessAttribute26 != null and businessAttribute26 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE26 = #{businessAttribute26}
+      </if>
+      <if test="businessAttribute25 != null and businessAttribute25 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE25 = #{businessAttribute25}
+      </if>
+      <if test="businessAttribute24 != null and businessAttribute24 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE24 = #{businessAttribute24}
+      </if>
+      <if test="businessAttribute23 != null and businessAttribute23 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE23 = #{businessAttribute23}
+      </if>
+      <if test="businessAttribute22 != null and businessAttribute22 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE22 = #{businessAttribute22}
+      </if>
+      <if test="businessAttribute21 != null and businessAttribute21 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE21 = #{businessAttribute21}
+      </if>
+      <if test="businessAttribute20 != null and businessAttribute20 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE20 = #{businessAttribute20}
+      </if>
+      <if test="businessAttribute19 != null and businessAttribute19 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE19 = #{businessAttribute19}
+      </if>
+      <if test="businessAttribute18 != null and businessAttribute18 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE18 = #{businessAttribute18}
+      </if>
+      <if test="businessAttribute17 != null and businessAttribute17 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE17 = #{businessAttribute17}
+      </if>
+      <if test="businessAttribute16 != null and businessAttribute16 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE16 = #{businessAttribute16}
+      </if>
+      <if test="businessAttribute15 != null and businessAttribute15 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE15 = #{businessAttribute15}
+      </if>
+      <if test="businessAttribute14 != null and businessAttribute14 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE14 = #{businessAttribute14}
+      </if>
+      <if test="businessAttribute13 != null and businessAttribute13 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE13 = #{businessAttribute13}
+      </if>
+      <if test="businessAttribute12 != null and businessAttribute12 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE12 = #{businessAttribute12}
+      </if>
+      <if test="businessAttribute11 != null and businessAttribute11 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE11 = #{businessAttribute11}
+      </if>
+      <if test="businessAttribute10 != null and businessAttribute10 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE10 = #{businessAttribute10}
+      </if>
+      <if test="businessAttribute9 != null and businessAttribute9 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE9 = #{businessAttribute9}
+      </if>
+      <if test="businessAttribute8 != null and businessAttribute8 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE8 = #{businessAttribute8}
+      </if>
+      <if test="businessAttribute7 != null and businessAttribute7 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE7 = #{businessAttribute7}
+      </if>
+      <if test="businessAttribute6 != null and businessAttribute6 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE6 = #{businessAttribute6}
+      </if>
+      <if test="businessAttribute5 != null and businessAttribute5 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE5 = #{businessAttribute5}
+      </if>
+      <if test="businessAttribute4 != null and businessAttribute4 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE4 = #{businessAttribute4}
+      </if>
+      <if test="businessAttribute3 != null and businessAttribute3 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE3 = #{businessAttribute3}
+      </if>
+      <if test="businessAttribute1 != null and businessAttribute1 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE1 = #{businessAttribute1}
+      </if>
+      <if test="businessAttribute2 != null and businessAttribute2 != ''">
+        and WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE2 = #{businessAttribute2}
+      </if>
+      <if test="delete_flag != null and delete_flag != ''">
+        and nvl(WK_GENERAL_BUSINESS_PROCESS.DELETE_FLAG,'0') = #{delete_flag}
+      </if>
+      </trim>
+  </sql>
+
+  <insert id="insert" parameterType="com.dfhc.wk.generalbusinessprocess.vo.GeneralBusinessProcessVo">
+    insert into WK_GENERAL_BUSINESS_PROCESS (
+      USABLE_STATUS, CREATE_TIME, CREATE_IP, CREATE_USER_ID, 
+      CREATE_USER_NAME, MODIFY_TIME, MODIFY_IP, MODIFY_USER_ID, 
+      MODIFY_USER_NAME, DELETE_TIME, DELETE_IP, DELETE_FLAG, 
+      DELETE_USER_ID, DELETE_USER_NAME, ORDER_CODE, ATTRIBUTE1, 
+      ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, 
+      ID ,
+      PROC_DEF_ID ,
+      PROC_INST_ID ,
+      PROC_NAME ,
+      PROC_KEY ,
+      INITIATOR ,
+      INITIATOR_ID ,
+      INITIATOR_ORGANIZATION_DEPARTMENT ,
+      INITIATOR_ORGANIZATION_ID ,
+      INITIATOR_TIME ,
+      BUSINESS_TYPE ,
+      BUSINESS_GROUP ,
+      PARENT_ID ,
+      BUSINESS_ATTRIBUTE70 ,
+      BUSINESS_ATTRIBUTE69 ,
+      BUSINESS_ATTRIBUTE68 ,
+      BUSINESS_ATTRIBUTE67 ,
+      BUSINESS_ATTRIBUTE66 ,
+      BUSINESS_ATTRIBUTE65 ,
+      BUSINESS_ATTRIBUTE64 ,
+      BUSINESS_ATTRIBUTE63 ,
+      BUSINESS_ATTRIBUTE62 ,
+      BUSINESS_ATTRIBUTE61 ,
+      BUSINESS_ATTRIBUTE60 ,
+      BUSINESS_ATTRIBUTE59 ,
+      BUSINESS_ATTRIBUTE58 ,
+      BUSINESS_ATTRIBUTE57 ,
+      BUSINESS_ATTRIBUTE56 ,
+      BUSINESS_ATTRIBUTE55 ,
+      BUSINESS_ATTRIBUTE54 ,
+      BUSINESS_ATTRIBUTE53 ,
+      BUSINESS_ATTRIBUTE52 ,
+      BUSINESS_ATTRIBUTE51 ,
+      BUSINESS_ATTRIBUTE50 ,
+      BUSINESS_ATTRIBUTE49 ,
+      BUSINESS_ATTRIBUTE48 ,
+      BUSINESS_ATTRIBUTE47 ,
+      BUSINESS_ATTRIBUTE46 ,
+      BUSINESS_ATTRIBUTE45 ,
+      BUSINESS_ATTRIBUTE44 ,
+      BUSINESS_ATTRIBUTE43 ,
+      BUSINESS_ATTRIBUTE42 ,
+      BUSINESS_ATTRIBUTE41 ,
+      BUSINESS_ATTRIBUTE40 ,
+      BUSINESS_ATTRIBUTE39 ,
+      BUSINESS_ATTRIBUTE38 ,
+      BUSINESS_ATTRIBUTE37 ,
+      BUSINESS_ATTRIBUTE36 ,
+      BUSINESS_ATTRIBUTE35 ,
+      BUSINESS_ATTRIBUTE34 ,
+      BUSINESS_ATTRIBUTE33 ,
+      BUSINESS_ATTRIBUTE32 ,
+      BUSINESS_ATTRIBUTE31 ,
+      BUSINESS_ATTRIBUTE30 ,
+      BUSINESS_ATTRIBUTE29 ,
+      BUSINESS_ATTRIBUTE28 ,
+      BUSINESS_ATTRIBUTE27 ,
+      BUSINESS_ATTRIBUTE26 ,
+      BUSINESS_ATTRIBUTE25 ,
+      BUSINESS_ATTRIBUTE24 ,
+      BUSINESS_ATTRIBUTE23 ,
+      BUSINESS_ATTRIBUTE22 ,
+      BUSINESS_ATTRIBUTE21 ,
+      BUSINESS_ATTRIBUTE20 ,
+      BUSINESS_ATTRIBUTE19 ,
+      BUSINESS_ATTRIBUTE18 ,
+      BUSINESS_ATTRIBUTE17 ,
+      BUSINESS_ATTRIBUTE16 ,
+      BUSINESS_ATTRIBUTE15 ,
+      BUSINESS_ATTRIBUTE14 ,
+      BUSINESS_ATTRIBUTE13 ,
+      BUSINESS_ATTRIBUTE12 ,
+      BUSINESS_ATTRIBUTE11 ,
+      BUSINESS_ATTRIBUTE10 ,
+      BUSINESS_ATTRIBUTE9 ,
+      BUSINESS_ATTRIBUTE8 ,
+      BUSINESS_ATTRIBUTE7 ,
+      BUSINESS_ATTRIBUTE6 ,
+      BUSINESS_ATTRIBUTE5 ,
+      BUSINESS_ATTRIBUTE4 ,
+      BUSINESS_ATTRIBUTE3 ,
+      BUSINESS_ATTRIBUTE1 ,
+      BUSINESS_ATTRIBUTE2 
+      )
+    values ( 
+     #{usable_status,jdbcType=VARCHAR},#{create_time,jdbcType=TIMESTAMP},#{create_ip,jdbcType=VARCHAR},#{create_user_id,jdbcType=VARCHAR},#{create_user_name,jdbcType=VARCHAR},#{modify_time,jdbcType=TIMESTAMP},#{modify_ip,jdbcType=VARCHAR},#{modify_user_id,jdbcType=VARCHAR},#{modify_user_name,jdbcType=VARCHAR},#{delete_time,jdbcType=TIMESTAMP},#{delete_ip,jdbcType=VARCHAR},#{delete_flag,jdbcType=VARCHAR},#{delete_user_id,jdbcType=VARCHAR},#{delete_user_name,jdbcType=VARCHAR},#{order_code,jdbcType=VARCHAR},#{attribute1,jdbcType=VARCHAR},#{attribute2,jdbcType=VARCHAR},#{attribute3,jdbcType=VARCHAR},#{attribute4,jdbcType=VARCHAR},#{attribute5,jdbcType=VARCHAR},
+	#{id,jdbcType=CHAR},
+	#{procDefId,jdbcType=VARCHAR},
+	#{procInstId,jdbcType=VARCHAR},
+	#{procName,jdbcType=VARCHAR},
+	#{procKey,jdbcType=VARCHAR},
+	#{initiator,jdbcType=VARCHAR},
+	#{initiatorId,jdbcType=BIGINT},
+	#{initiatorOrganizationDepartment,jdbcType=VARCHAR},
+	#{initiatorOrganizationId,jdbcType=CHAR},
+	#{initiatorTime,jdbcType=TIMESTAMP},
+	#{businessType,jdbcType=VARCHAR},
+	#{businessGroup,jdbcType=VARCHAR},
+	#{parentId,jdbcType=CHAR},
+	#{businessAttribute70,jdbcType=VARCHAR},
+	#{businessAttribute69,jdbcType=VARCHAR},
+	#{businessAttribute68,jdbcType=VARCHAR},
+	#{businessAttribute67,jdbcType=VARCHAR},
+	#{businessAttribute66,jdbcType=VARCHAR},
+	#{businessAttribute65,jdbcType=VARCHAR},
+	#{businessAttribute64,jdbcType=VARCHAR},
+	#{businessAttribute63,jdbcType=VARCHAR},
+	#{businessAttribute62,jdbcType=VARCHAR},
+	#{businessAttribute61,jdbcType=VARCHAR},
+	#{businessAttribute60,jdbcType=VARCHAR},
+	#{businessAttribute59,jdbcType=VARCHAR},
+	#{businessAttribute58,jdbcType=VARCHAR},
+	#{businessAttribute57,jdbcType=VARCHAR},
+	#{businessAttribute56,jdbcType=VARCHAR},
+	#{businessAttribute55,jdbcType=VARCHAR},
+	#{businessAttribute54,jdbcType=VARCHAR},
+	#{businessAttribute53,jdbcType=VARCHAR},
+	#{businessAttribute52,jdbcType=VARCHAR},
+	#{businessAttribute51,jdbcType=VARCHAR},
+	#{businessAttribute50,jdbcType=VARCHAR},
+	#{businessAttribute49,jdbcType=VARCHAR},
+	#{businessAttribute48,jdbcType=VARCHAR},
+	#{businessAttribute47,jdbcType=VARCHAR},
+	#{businessAttribute46,jdbcType=VARCHAR},
+	#{businessAttribute45,jdbcType=VARCHAR},
+	#{businessAttribute44,jdbcType=VARCHAR},
+	#{businessAttribute43,jdbcType=VARCHAR},
+	#{businessAttribute42,jdbcType=VARCHAR},
+	#{businessAttribute41,jdbcType=VARCHAR},
+	#{businessAttribute40,jdbcType=VARCHAR},
+	#{businessAttribute39,jdbcType=VARCHAR},
+	#{businessAttribute38,jdbcType=VARCHAR},
+	#{businessAttribute37,jdbcType=VARCHAR},
+	#{businessAttribute36,jdbcType=VARCHAR},
+	#{businessAttribute35,jdbcType=VARCHAR},
+	#{businessAttribute34,jdbcType=VARCHAR},
+	#{businessAttribute33,jdbcType=VARCHAR},
+	#{businessAttribute32,jdbcType=VARCHAR},
+	#{businessAttribute31,jdbcType=VARCHAR},
+	#{businessAttribute30,jdbcType=VARCHAR},
+	#{businessAttribute29,jdbcType=VARCHAR},
+	#{businessAttribute28,jdbcType=VARCHAR},
+	#{businessAttribute27,jdbcType=VARCHAR},
+	#{businessAttribute26,jdbcType=VARCHAR},
+	#{businessAttribute25,jdbcType=VARCHAR},
+	#{businessAttribute24,jdbcType=VARCHAR},
+	#{businessAttribute23,jdbcType=VARCHAR},
+	#{businessAttribute22,jdbcType=VARCHAR},
+	#{businessAttribute21,jdbcType=VARCHAR},
+	#{businessAttribute20,jdbcType=VARCHAR},
+	#{businessAttribute19,jdbcType=VARCHAR},
+	#{businessAttribute18,jdbcType=VARCHAR},
+	#{businessAttribute17,jdbcType=VARCHAR},
+	#{businessAttribute16,jdbcType=VARCHAR},
+	#{businessAttribute15,jdbcType=VARCHAR},
+	#{businessAttribute14,jdbcType=VARCHAR},
+	#{businessAttribute13,jdbcType=VARCHAR},
+	#{businessAttribute12,jdbcType=VARCHAR},
+	#{businessAttribute11,jdbcType=VARCHAR},
+	#{businessAttribute10,jdbcType=VARCHAR},
+	#{businessAttribute9,jdbcType=VARCHAR},
+	#{businessAttribute8,jdbcType=VARCHAR},
+	#{businessAttribute7,jdbcType=VARCHAR},
+	#{businessAttribute6,jdbcType=VARCHAR},
+	#{businessAttribute5,jdbcType=VARCHAR},
+	#{businessAttribute4,jdbcType=VARCHAR},
+	#{businessAttribute3,jdbcType=VARCHAR},
+	#{businessAttribute1,jdbcType=VARCHAR},
+	#{businessAttribute2,jdbcType=VARCHAR}
+      )
+  </insert>
+    
+  <delete id="delete" parameterType="int">
+    delete from WK_GENERAL_BUSINESS_PROCESS where ID=#{id}
+  </delete>
+  
+  <delete id="deleteMulti" parameterType="int">
+    delete from WK_GENERAL_BUSINESS_PROCESS where ID in 
+    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">  
+      #{item}   
+    </foreach>
+  </delete>
+
+  <update id="update" parameterType="com.dfhc.wk.generalbusinessprocess.vo.GeneralBusinessProcessVo">
+    update WK_GENERAL_BUSINESS_PROCESS 
+    <trim prefix="SET" suffixOverrides=",">  
+		<if test="usable_status != null and usable_status != ''">
+		     USABLE_STATUS=#{usable_status,jdbcType=VARCHAR},
+		</if>
+		<if test="create_time != null and create_time != ''">
+		 CREATE_TIME=#{create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="create_ip != null and create_ip != ''">
+		 CREATE_IP=#{create_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="create_user_id != null and create_user_id != ''">
+		 CREATE_USER_ID=#{create_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="create_user_name != null and create_user_name != ''">
+		   CREATE_USER_NAME=#{create_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_time != null and modify_time != ''">
+		 MODIFY_TIME=#{modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="modify_ip != null and modify_ip != ''">
+		 MODIFY_IP=#{modify_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_user_id != null and modify_user_id != ''">
+		 MODIFY_USER_ID=#{modify_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_user_name != null and modify_user_name != ''">
+		   MODIFY_USER_NAME=#{modify_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_time != null and delete_time != ''">
+		 DELETE_TIME=#{delete_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="delete_ip != null and delete_ip != ''">
+		 DELETE_IP=#{delete_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_flag != null and delete_flag != ''">
+		 DELETE_FLAG=#{delete_flag,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_user_id != null and delete_user_id != ''">
+		   DELETE_USER_ID=#{delete_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_user_name != null and delete_user_name != ''">
+		 DELETE_USER_NAME=#{delete_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="order_code != null and order_code != ''">
+		 ORDER_CODE=#{order_code,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute1 != null and attribute1 != ''">
+		 ATTRIBUTE1=#{attribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute2 != null and attribute2 != ''">
+		 ATTRIBUTE2=#{attribute2,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute3 != null and attribute3 != ''">
+		 ATTRIBUTE3=#{attribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute4 != null and attribute4 != ''">
+		 ATTRIBUTE4=#{attribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute5 != null and attribute5 != ''">
+		 ATTRIBUTE5=#{attribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="id!=null and id!= ''">
+		ID=#{id,jdbcType=CHAR},
+		</if>
+		<if test="procDefId!=null and procDefId!= ''">
+		PROC_DEF_ID=#{procDefId,jdbcType=VARCHAR},
+		</if>
+		<if test="procInstId!=null and procInstId!= ''">
+		PROC_INST_ID=#{procInstId,jdbcType=VARCHAR},
+		</if>
+		<if test="procName!=null and procName!= ''">
+		PROC_NAME=#{procName,jdbcType=VARCHAR},
+		</if>
+		<if test="procKey!=null and procKey!= ''">
+		PROC_KEY=#{procKey,jdbcType=VARCHAR},
+		</if>
+		<if test="initiator!=null and initiator!= ''">
+		INITIATOR=#{initiator,jdbcType=VARCHAR},
+		</if>
+		<if test="initiatorId!=null and initiatorId!= ''">
+		INITIATOR_ID=#{initiatorId,jdbcType=BIGINT},
+		</if>
+		<if test="initiatorOrganizationDepartment!=null and initiatorOrganizationDepartment!= ''">
+		INITIATOR_ORGANIZATION_DEPARTMENT=#{initiatorOrganizationDepartment,jdbcType=VARCHAR},
+		</if>
+		<if test="initiatorOrganizationId!=null and initiatorOrganizationId!= ''">
+		INITIATOR_ORGANIZATION_ID=#{initiatorOrganizationId,jdbcType=CHAR},
+		</if>
+		<if test="initiatorTime!=null and initiatorTime!= ''">
+		INITIATOR_TIME=#{initiatorTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="businessType!=null and businessType!= ''">
+		BUSINESS_TYPE=#{businessType,jdbcType=VARCHAR},
+		</if>
+		<if test="businessGroup!=null and businessGroup!= ''">
+		BUSINESS_GROUP=#{businessGroup,jdbcType=VARCHAR},
+		</if>
+		<if test="parentId!=null and parentId!= ''">
+		PARENT_ID=#{parentId,jdbcType=CHAR},
+		</if>
+		<if test="businessAttribute70!=null and businessAttribute70!= ''">
+		BUSINESS_ATTRIBUTE70=#{businessAttribute70,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute69!=null and businessAttribute69!= ''">
+		BUSINESS_ATTRIBUTE69=#{businessAttribute69,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute68!=null and businessAttribute68!= ''">
+		BUSINESS_ATTRIBUTE68=#{businessAttribute68,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute67!=null and businessAttribute67!= ''">
+		BUSINESS_ATTRIBUTE67=#{businessAttribute67,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute66!=null and businessAttribute66!= ''">
+		BUSINESS_ATTRIBUTE66=#{businessAttribute66,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute65!=null and businessAttribute65!= ''">
+		BUSINESS_ATTRIBUTE65=#{businessAttribute65,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute64!=null and businessAttribute64!= ''">
+		BUSINESS_ATTRIBUTE64=#{businessAttribute64,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute63!=null and businessAttribute63!= ''">
+		BUSINESS_ATTRIBUTE63=#{businessAttribute63,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute62!=null and businessAttribute62!= ''">
+		BUSINESS_ATTRIBUTE62=#{businessAttribute62,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute61!=null and businessAttribute61!= ''">
+		BUSINESS_ATTRIBUTE61=#{businessAttribute61,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute60!=null and businessAttribute60!= ''">
+		BUSINESS_ATTRIBUTE60=#{businessAttribute60,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute59!=null and businessAttribute59!= ''">
+		BUSINESS_ATTRIBUTE59=#{businessAttribute59,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute58!=null and businessAttribute58!= ''">
+		BUSINESS_ATTRIBUTE58=#{businessAttribute58,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute57!=null and businessAttribute57!= ''">
+		BUSINESS_ATTRIBUTE57=#{businessAttribute57,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute56!=null and businessAttribute56!= ''">
+		BUSINESS_ATTRIBUTE56=#{businessAttribute56,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute55!=null and businessAttribute55!= ''">
+		BUSINESS_ATTRIBUTE55=#{businessAttribute55,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute54!=null and businessAttribute54!= ''">
+		BUSINESS_ATTRIBUTE54=#{businessAttribute54,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute53!=null and businessAttribute53!= ''">
+		BUSINESS_ATTRIBUTE53=#{businessAttribute53,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute52!=null and businessAttribute52!= ''">
+		BUSINESS_ATTRIBUTE52=#{businessAttribute52,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute51!=null and businessAttribute51!= ''">
+		BUSINESS_ATTRIBUTE51=#{businessAttribute51,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute50!=null and businessAttribute50!= ''">
+		BUSINESS_ATTRIBUTE50=#{businessAttribute50,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute49!=null and businessAttribute49!= ''">
+		BUSINESS_ATTRIBUTE49=#{businessAttribute49,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute48!=null and businessAttribute48!= ''">
+		BUSINESS_ATTRIBUTE48=#{businessAttribute48,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute47!=null and businessAttribute47!= ''">
+		BUSINESS_ATTRIBUTE47=#{businessAttribute47,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute46!=null and businessAttribute46!= ''">
+		BUSINESS_ATTRIBUTE46=#{businessAttribute46,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute45!=null and businessAttribute45!= ''">
+		BUSINESS_ATTRIBUTE45=#{businessAttribute45,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute44!=null and businessAttribute44!= ''">
+		BUSINESS_ATTRIBUTE44=#{businessAttribute44,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute43!=null and businessAttribute43!= ''">
+		BUSINESS_ATTRIBUTE43=#{businessAttribute43,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute42!=null and businessAttribute42!= ''">
+		BUSINESS_ATTRIBUTE42=#{businessAttribute42,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute41!=null and businessAttribute41!= ''">
+		BUSINESS_ATTRIBUTE41=#{businessAttribute41,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute40!=null and businessAttribute40!= ''">
+		BUSINESS_ATTRIBUTE40=#{businessAttribute40,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute39!=null and businessAttribute39!= ''">
+		BUSINESS_ATTRIBUTE39=#{businessAttribute39,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute38!=null and businessAttribute38!= ''">
+		BUSINESS_ATTRIBUTE38=#{businessAttribute38,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute37!=null and businessAttribute37!= ''">
+		BUSINESS_ATTRIBUTE37=#{businessAttribute37,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute36!=null and businessAttribute36!= ''">
+		BUSINESS_ATTRIBUTE36=#{businessAttribute36,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute35!=null and businessAttribute35!= ''">
+		BUSINESS_ATTRIBUTE35=#{businessAttribute35,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute34!=null and businessAttribute34!= ''">
+		BUSINESS_ATTRIBUTE34=#{businessAttribute34,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute33!=null and businessAttribute33!= ''">
+		BUSINESS_ATTRIBUTE33=#{businessAttribute33,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute32!=null and businessAttribute32!= ''">
+		BUSINESS_ATTRIBUTE32=#{businessAttribute32,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute31!=null and businessAttribute31!= ''">
+		BUSINESS_ATTRIBUTE31=#{businessAttribute31,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute30!=null and businessAttribute30!= ''">
+		BUSINESS_ATTRIBUTE30=#{businessAttribute30,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute29!=null and businessAttribute29!= ''">
+		BUSINESS_ATTRIBUTE29=#{businessAttribute29,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute28!=null and businessAttribute28!= ''">
+		BUSINESS_ATTRIBUTE28=#{businessAttribute28,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute27!=null and businessAttribute27!= ''">
+		BUSINESS_ATTRIBUTE27=#{businessAttribute27,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute26!=null and businessAttribute26!= ''">
+		BUSINESS_ATTRIBUTE26=#{businessAttribute26,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute25!=null and businessAttribute25!= ''">
+		BUSINESS_ATTRIBUTE25=#{businessAttribute25,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute24!=null and businessAttribute24!= ''">
+		BUSINESS_ATTRIBUTE24=#{businessAttribute24,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute23!=null and businessAttribute23!= ''">
+		BUSINESS_ATTRIBUTE23=#{businessAttribute23,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute22!=null and businessAttribute22!= ''">
+		BUSINESS_ATTRIBUTE22=#{businessAttribute22,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute21!=null and businessAttribute21!= ''">
+		BUSINESS_ATTRIBUTE21=#{businessAttribute21,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute20!=null and businessAttribute20!= ''">
+		BUSINESS_ATTRIBUTE20=#{businessAttribute20,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute19!=null and businessAttribute19!= ''">
+		BUSINESS_ATTRIBUTE19=#{businessAttribute19,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute18!=null and businessAttribute18!= ''">
+		BUSINESS_ATTRIBUTE18=#{businessAttribute18,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute17!=null and businessAttribute17!= ''">
+		BUSINESS_ATTRIBUTE17=#{businessAttribute17,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute16!=null and businessAttribute16!= ''">
+		BUSINESS_ATTRIBUTE16=#{businessAttribute16,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute15!=null and businessAttribute15!= ''">
+		BUSINESS_ATTRIBUTE15=#{businessAttribute15,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute14!=null and businessAttribute14!= ''">
+		BUSINESS_ATTRIBUTE14=#{businessAttribute14,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute13!=null and businessAttribute13!= ''">
+		BUSINESS_ATTRIBUTE13=#{businessAttribute13,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute12!=null and businessAttribute12!= ''">
+		BUSINESS_ATTRIBUTE12=#{businessAttribute12,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute11!=null and businessAttribute11!= ''">
+		BUSINESS_ATTRIBUTE11=#{businessAttribute11,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute10!=null and businessAttribute10!= ''">
+		BUSINESS_ATTRIBUTE10=#{businessAttribute10,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute9!=null and businessAttribute9!= ''">
+		BUSINESS_ATTRIBUTE9=#{businessAttribute9,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute8!=null and businessAttribute8!= ''">
+		BUSINESS_ATTRIBUTE8=#{businessAttribute8,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute7!=null and businessAttribute7!= ''">
+		BUSINESS_ATTRIBUTE7=#{businessAttribute7,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute6!=null and businessAttribute6!= ''">
+		BUSINESS_ATTRIBUTE6=#{businessAttribute6,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute5!=null and businessAttribute5!= ''">
+		BUSINESS_ATTRIBUTE5=#{businessAttribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute4!=null and businessAttribute4!= ''">
+		BUSINESS_ATTRIBUTE4=#{businessAttribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute3!=null and businessAttribute3!= ''">
+		BUSINESS_ATTRIBUTE3=#{businessAttribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute1!=null and businessAttribute1!= ''">
+		BUSINESS_ATTRIBUTE1=#{businessAttribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="businessAttribute2!=null and businessAttribute2!= ''">
+		BUSINESS_ATTRIBUTE2=#{businessAttribute2,jdbcType=VARCHAR},
+		</if>
+     </trim> 
+    where ID=#{id}
+  </update>
+
+  <select id="get" parameterType="string" resultType="com.dfhc.wk.generalbusinessprocess.vo.GeneralBusinessProcessVo">
+    select  
+      WK_GENERAL_BUSINESS_PROCESS.USABLE_STATUS, WK_GENERAL_BUSINESS_PROCESS.CREATE_TIME, WK_GENERAL_BUSINESS_PROCESS.CREATE_IP, WK_GENERAL_BUSINESS_PROCESS.CREATE_USER_ID, 
+      WK_GENERAL_BUSINESS_PROCESS.CREATE_USER_NAME, WK_GENERAL_BUSINESS_PROCESS.MODIFY_TIME, WK_GENERAL_BUSINESS_PROCESS.MODIFY_IP, WK_GENERAL_BUSINESS_PROCESS.MODIFY_USER_ID, 
+      WK_GENERAL_BUSINESS_PROCESS.MODIFY_USER_NAME, WK_GENERAL_BUSINESS_PROCESS.DELETE_TIME, WK_GENERAL_BUSINESS_PROCESS.DELETE_IP, WK_GENERAL_BUSINESS_PROCESS.DELETE_FLAG, 
+      WK_GENERAL_BUSINESS_PROCESS.DELETE_USER_ID, WK_GENERAL_BUSINESS_PROCESS.DELETE_USER_NAME, WK_GENERAL_BUSINESS_PROCESS.ORDER_CODE, WK_GENERAL_BUSINESS_PROCESS.ATTRIBUTE1, 
+      WK_GENERAL_BUSINESS_PROCESS.ATTRIBUTE2, WK_GENERAL_BUSINESS_PROCESS.ATTRIBUTE3, WK_GENERAL_BUSINESS_PROCESS.ATTRIBUTE4, WK_GENERAL_BUSINESS_PROCESS.ATTRIBUTE5, 
+      WK_GENERAL_BUSINESS_PROCESS.ID as id,	
+      WK_GENERAL_BUSINESS_PROCESS.PROC_DEF_ID as procDefId,	
+      WK_GENERAL_BUSINESS_PROCESS.PROC_INST_ID as procInstId,	
+      WK_GENERAL_BUSINESS_PROCESS.PROC_NAME as procName,	
+      WK_GENERAL_BUSINESS_PROCESS.PROC_KEY as procKey,	
+      WK_GENERAL_BUSINESS_PROCESS.INITIATOR as initiator,	
+      WK_GENERAL_BUSINESS_PROCESS.INITIATOR_ID as initiatorId,	
+      WK_GENERAL_BUSINESS_PROCESS.INITIATOR_ORGANIZATION_DEPARTMENT as initiatorOrganizationDepartment,	
+      WK_GENERAL_BUSINESS_PROCESS.INITIATOR_ORGANIZATION_ID as initiatorOrganizationId,	
+      WK_GENERAL_BUSINESS_PROCESS.INITIATOR_TIME as initiatorTime,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_TYPE as businessType,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_GROUP as businessGroup,	
+      WK_GENERAL_BUSINESS_PROCESS.PARENT_ID as parentId,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE70 as businessAttribute70,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE69 as businessAttribute69,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE68 as businessAttribute68,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE67 as businessAttribute67,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE66 as businessAttribute66,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE65 as businessAttribute65,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE64 as businessAttribute64,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE63 as businessAttribute63,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE62 as businessAttribute62,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE61 as businessAttribute61,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE60 as businessAttribute60,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE59 as businessAttribute59,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE58 as businessAttribute58,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE57 as businessAttribute57,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE56 as businessAttribute56,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE55 as businessAttribute55,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE54 as businessAttribute54,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE53 as businessAttribute53,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE52 as businessAttribute52,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE51 as businessAttribute51,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE50 as businessAttribute50,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE49 as businessAttribute49,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE48 as businessAttribute48,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE47 as businessAttribute47,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE46 as businessAttribute46,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE45 as businessAttribute45,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE44 as businessAttribute44,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE43 as businessAttribute43,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE42 as businessAttribute42,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE41 as businessAttribute41,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE40 as businessAttribute40,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE39 as businessAttribute39,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE38 as businessAttribute38,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE37 as businessAttribute37,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE36 as businessAttribute36,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE35 as businessAttribute35,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE34 as businessAttribute34,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE33 as businessAttribute33,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE32 as businessAttribute32,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE31 as businessAttribute31,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE30 as businessAttribute30,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE29 as businessAttribute29,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE28 as businessAttribute28,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE27 as businessAttribute27,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE26 as businessAttribute26,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE25 as businessAttribute25,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE24 as businessAttribute24,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE23 as businessAttribute23,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE22 as businessAttribute22,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE21 as businessAttribute21,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE20 as businessAttribute20,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE19 as businessAttribute19,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE18 as businessAttribute18,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE17 as businessAttribute17,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE16 as businessAttribute16,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE15 as businessAttribute15,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE14 as businessAttribute14,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE13 as businessAttribute13,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE12 as businessAttribute12,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE11 as businessAttribute11,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE10 as businessAttribute10,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE9 as businessAttribute9,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE8 as businessAttribute8,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE7 as businessAttribute7,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE6 as businessAttribute6,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE5 as businessAttribute5,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE4 as businessAttribute4,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE3 as businessAttribute3,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE1 as businessAttribute1,	
+      WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE2 as businessAttribute2	
+    from WK_GENERAL_BUSINESS_PROCESS 
+    where WK_GENERAL_BUSINESS_PROCESS.ID=#{id}
+  </select>
+
+  <select id="getCount" parameterType="map" resultType="int" useCache="true">
+    select count(WK_GENERAL_BUSINESS_PROCESS.ID) from WK_GENERAL_BUSINESS_PROCESS
+    <include refid="where"/>    
+  </select>
+  
+  <select id="list" parameterType="map" resultType="com.dfhc.wk.generalbusinessprocess.vo.GeneralBusinessProcessVo">
+    select 
+     WK_GENERAL_BUSINESS_PROCESS.ID as id,	
+     WK_GENERAL_BUSINESS_PROCESS.PROC_DEF_ID as procDefId,	
+     WK_GENERAL_BUSINESS_PROCESS.PROC_INST_ID as procInstId,	
+     WK_GENERAL_BUSINESS_PROCESS.PROC_NAME as procName,	
+     WK_GENERAL_BUSINESS_PROCESS.PROC_KEY as procKey,	
+     WK_GENERAL_BUSINESS_PROCESS.INITIATOR as initiator,	
+     WK_GENERAL_BUSINESS_PROCESS.INITIATOR_ID as initiatorId,	
+     WK_GENERAL_BUSINESS_PROCESS.INITIATOR_ORGANIZATION_DEPARTMENT as initiatorOrganizationDepartment,	
+     WK_GENERAL_BUSINESS_PROCESS.INITIATOR_ORGANIZATION_ID as initiatorOrganizationId,	
+     WK_GENERAL_BUSINESS_PROCESS.INITIATOR_TIME as initiatorTime,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_TYPE as businessType,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_GROUP as businessGroup,	
+     WK_GENERAL_BUSINESS_PROCESS.PARENT_ID as parentId,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE70 as businessAttribute70,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE69 as businessAttribute69,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE68 as businessAttribute68,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE67 as businessAttribute67,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE66 as businessAttribute66,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE65 as businessAttribute65,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE64 as businessAttribute64,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE63 as businessAttribute63,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE62 as businessAttribute62,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE61 as businessAttribute61,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE60 as businessAttribute60,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE59 as businessAttribute59,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE58 as businessAttribute58,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE57 as businessAttribute57,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE56 as businessAttribute56,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE55 as businessAttribute55,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE54 as businessAttribute54,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE53 as businessAttribute53,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE52 as businessAttribute52,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE51 as businessAttribute51,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE50 as businessAttribute50,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE49 as businessAttribute49,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE48 as businessAttribute48,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE47 as businessAttribute47,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE46 as businessAttribute46,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE45 as businessAttribute45,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE44 as businessAttribute44,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE43 as businessAttribute43,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE42 as businessAttribute42,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE41 as businessAttribute41,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE40 as businessAttribute40,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE39 as businessAttribute39,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE38 as businessAttribute38,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE37 as businessAttribute37,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE36 as businessAttribute36,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE35 as businessAttribute35,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE34 as businessAttribute34,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE33 as businessAttribute33,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE32 as businessAttribute32,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE31 as businessAttribute31,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE30 as businessAttribute30,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE29 as businessAttribute29,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE28 as businessAttribute28,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE27 as businessAttribute27,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE26 as businessAttribute26,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE25 as businessAttribute25,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE24 as businessAttribute24,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE23 as businessAttribute23,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE22 as businessAttribute22,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE21 as businessAttribute21,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE20 as businessAttribute20,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE19 as businessAttribute19,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE18 as businessAttribute18,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE17 as businessAttribute17,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE16 as businessAttribute16,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE15 as businessAttribute15,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE14 as businessAttribute14,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE13 as businessAttribute13,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE12 as businessAttribute12,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE11 as businessAttribute11,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE10 as businessAttribute10,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE9 as businessAttribute9,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE8 as businessAttribute8,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE7 as businessAttribute7,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE6 as businessAttribute6,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE5 as businessAttribute5,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE4 as businessAttribute4,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE3 as businessAttribute3,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE1 as businessAttribute1,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE2 as businessAttribute2	
+    from WK_GENERAL_BUSINESS_PROCESS
+    <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+  
+  <select id="listAllColumn" parameterType="map" resultType="com.dfhc.wk.generalbusinessprocess.vo.GeneralBusinessProcessVo">
+    select 
+      WK_GENERAL_BUSINESS_PROCESS.USABLE_STATUS, WK_GENERAL_BUSINESS_PROCESS.CREATE_TIME, WK_GENERAL_BUSINESS_PROCESS.CREATE_IP, WK_GENERAL_BUSINESS_PROCESS.CREATE_USER_ID, 
+      WK_GENERAL_BUSINESS_PROCESS.CREATE_USER_NAME, WK_GENERAL_BUSINESS_PROCESS.MODIFY_TIME, WK_GENERAL_BUSINESS_PROCESS.MODIFY_IP, WK_GENERAL_BUSINESS_PROCESS.MODIFY_USER_ID, 
+      WK_GENERAL_BUSINESS_PROCESS.MODIFY_USER_NAME, WK_GENERAL_BUSINESS_PROCESS.DELETE_TIME, WK_GENERAL_BUSINESS_PROCESS.DELETE_IP, WK_GENERAL_BUSINESS_PROCESS.DELETE_FLAG, 
+      WK_GENERAL_BUSINESS_PROCESS.DELETE_USER_ID, WK_GENERAL_BUSINESS_PROCESS.DELETE_USER_NAME, WK_GENERAL_BUSINESS_PROCESS.ORDER_CODE, WK_GENERAL_BUSINESS_PROCESS.ATTRIBUTE1, 
+     WK_GENERAL_BUSINESS_PROCESS.ATTRIBUTE2, WK_GENERAL_BUSINESS_PROCESS.ATTRIBUTE3, WK_GENERAL_BUSINESS_PROCESS.ATTRIBUTE4, WK_GENERAL_BUSINESS_PROCESS.ATTRIBUTE5, 
+     WK_GENERAL_BUSINESS_PROCESS.ID as id,	
+     WK_GENERAL_BUSINESS_PROCESS.PROC_DEF_ID as procDefId,	
+     WK_GENERAL_BUSINESS_PROCESS.PROC_INST_ID as procInstId,	
+     WK_GENERAL_BUSINESS_PROCESS.PROC_NAME as procName,	
+     WK_GENERAL_BUSINESS_PROCESS.PROC_KEY as procKey,	
+     WK_GENERAL_BUSINESS_PROCESS.INITIATOR as initiator,	
+     WK_GENERAL_BUSINESS_PROCESS.INITIATOR_ID as initiatorId,	
+     WK_GENERAL_BUSINESS_PROCESS.INITIATOR_ORGANIZATION_DEPARTMENT as initiatorOrganizationDepartment,	
+     WK_GENERAL_BUSINESS_PROCESS.INITIATOR_ORGANIZATION_ID as initiatorOrganizationId,	
+     WK_GENERAL_BUSINESS_PROCESS.INITIATOR_TIME as initiatorTime,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_TYPE as businessType,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_GROUP as businessGroup,	
+     WK_GENERAL_BUSINESS_PROCESS.PARENT_ID as parentId,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE70 as businessAttribute70,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE69 as businessAttribute69,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE68 as businessAttribute68,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE67 as businessAttribute67,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE66 as businessAttribute66,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE65 as businessAttribute65,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE64 as businessAttribute64,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE63 as businessAttribute63,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE62 as businessAttribute62,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE61 as businessAttribute61,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE60 as businessAttribute60,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE59 as businessAttribute59,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE58 as businessAttribute58,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE57 as businessAttribute57,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE56 as businessAttribute56,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE55 as businessAttribute55,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE54 as businessAttribute54,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE53 as businessAttribute53,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE52 as businessAttribute52,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE51 as businessAttribute51,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE50 as businessAttribute50,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE49 as businessAttribute49,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE48 as businessAttribute48,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE47 as businessAttribute47,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE46 as businessAttribute46,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE45 as businessAttribute45,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE44 as businessAttribute44,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE43 as businessAttribute43,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE42 as businessAttribute42,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE41 as businessAttribute41,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE40 as businessAttribute40,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE39 as businessAttribute39,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE38 as businessAttribute38,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE37 as businessAttribute37,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE36 as businessAttribute36,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE35 as businessAttribute35,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE34 as businessAttribute34,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE33 as businessAttribute33,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE32 as businessAttribute32,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE31 as businessAttribute31,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE30 as businessAttribute30,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE29 as businessAttribute29,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE28 as businessAttribute28,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE27 as businessAttribute27,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE26 as businessAttribute26,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE25 as businessAttribute25,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE24 as businessAttribute24,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE23 as businessAttribute23,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE22 as businessAttribute22,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE21 as businessAttribute21,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE20 as businessAttribute20,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE19 as businessAttribute19,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE18 as businessAttribute18,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE17 as businessAttribute17,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE16 as businessAttribute16,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE15 as businessAttribute15,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE14 as businessAttribute14,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE13 as businessAttribute13,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE12 as businessAttribute12,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE11 as businessAttribute11,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE10 as businessAttribute10,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE9 as businessAttribute9,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE8 as businessAttribute8,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE7 as businessAttribute7,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE6 as businessAttribute6,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE5 as businessAttribute5,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE4 as businessAttribute4,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE3 as businessAttribute3,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE1 as businessAttribute1,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE2 as businessAttribute2	
+    from WK_GENERAL_BUSINESS_PROCESS
+    <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+
+  <select id="search" parameterType="map" resultType="com.dfhc.wk.generalbusinessprocess.vo.GeneralBusinessProcessVo">
+    select 
+      WK_GENERAL_BUSINESS_PROCESS.USABLE_STATUS, WK_GENERAL_BUSINESS_PROCESS.CREATE_TIME, WK_GENERAL_BUSINESS_PROCESS.CREATE_IP, WK_GENERAL_BUSINESS_PROCESS.CREATE_USER_ID, 
+      WK_GENERAL_BUSINESS_PROCESS.CREATE_USER_NAME, WK_GENERAL_BUSINESS_PROCESS.MODIFY_TIME, WK_GENERAL_BUSINESS_PROCESS.MODIFY_IP, WK_GENERAL_BUSINESS_PROCESS.MODIFY_USER_ID, 
+      WK_GENERAL_BUSINESS_PROCESS.MODIFY_USER_NAME, WK_GENERAL_BUSINESS_PROCESS.DELETE_TIME, WK_GENERAL_BUSINESS_PROCESS.DELETE_IP, WK_GENERAL_BUSINESS_PROCESS.DELETE_FLAG, 
+      WK_GENERAL_BUSINESS_PROCESS.DELETE_USER_ID, WK_GENERAL_BUSINESS_PROCESS.DELETE_USER_NAME, WK_GENERAL_BUSINESS_PROCESS.ORDER_CODE, WK_GENERAL_BUSINESS_PROCESS.ATTRIBUTE1, 
+      WK_GENERAL_BUSINESS_PROCESS.ATTRIBUTE2, WK_GENERAL_BUSINESS_PROCESS.ATTRIBUTE3, WK_GENERAL_BUSINESS_PROCESS.ATTRIBUTE4, WK_GENERAL_BUSINESS_PROCESS.ATTRIBUTE5, 
+     WK_GENERAL_BUSINESS_PROCESS.ID as id,	
+     WK_GENERAL_BUSINESS_PROCESS.PROC_DEF_ID as procDefId,	
+     WK_GENERAL_BUSINESS_PROCESS.PROC_INST_ID as procInstId,	
+     WK_GENERAL_BUSINESS_PROCESS.PROC_NAME as procName,	
+     WK_GENERAL_BUSINESS_PROCESS.PROC_KEY as procKey,	
+     WK_GENERAL_BUSINESS_PROCESS.INITIATOR as initiator,	
+     WK_GENERAL_BUSINESS_PROCESS.INITIATOR_ID as initiatorId,	
+     WK_GENERAL_BUSINESS_PROCESS.INITIATOR_ORGANIZATION_DEPARTMENT as initiatorOrganizationDepartment,	
+     WK_GENERAL_BUSINESS_PROCESS.INITIATOR_ORGANIZATION_ID as initiatorOrganizationId,	
+     WK_GENERAL_BUSINESS_PROCESS.INITIATOR_TIME as initiatorTime,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_TYPE as businessType,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_GROUP as businessGroup,	
+     WK_GENERAL_BUSINESS_PROCESS.PARENT_ID as parentId,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE70 as businessAttribute70,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE69 as businessAttribute69,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE68 as businessAttribute68,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE67 as businessAttribute67,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE66 as businessAttribute66,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE65 as businessAttribute65,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE64 as businessAttribute64,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE63 as businessAttribute63,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE62 as businessAttribute62,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE61 as businessAttribute61,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE60 as businessAttribute60,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE59 as businessAttribute59,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE58 as businessAttribute58,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE57 as businessAttribute57,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE56 as businessAttribute56,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE55 as businessAttribute55,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE54 as businessAttribute54,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE53 as businessAttribute53,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE52 as businessAttribute52,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE51 as businessAttribute51,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE50 as businessAttribute50,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE49 as businessAttribute49,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE48 as businessAttribute48,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE47 as businessAttribute47,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE46 as businessAttribute46,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE45 as businessAttribute45,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE44 as businessAttribute44,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE43 as businessAttribute43,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE42 as businessAttribute42,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE41 as businessAttribute41,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE40 as businessAttribute40,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE39 as businessAttribute39,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE38 as businessAttribute38,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE37 as businessAttribute37,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE36 as businessAttribute36,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE35 as businessAttribute35,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE34 as businessAttribute34,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE33 as businessAttribute33,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE32 as businessAttribute32,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE31 as businessAttribute31,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE30 as businessAttribute30,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE29 as businessAttribute29,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE28 as businessAttribute28,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE27 as businessAttribute27,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE26 as businessAttribute26,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE25 as businessAttribute25,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE24 as businessAttribute24,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE23 as businessAttribute23,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE22 as businessAttribute22,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE21 as businessAttribute21,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE20 as businessAttribute20,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE19 as businessAttribute19,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE18 as businessAttribute18,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE17 as businessAttribute17,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE16 as businessAttribute16,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE15 as businessAttribute15,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE14 as businessAttribute14,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE13 as businessAttribute13,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE12 as businessAttribute12,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE11 as businessAttribute11,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE10 as businessAttribute10,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE9 as businessAttribute9,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE8 as businessAttribute8,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE7 as businessAttribute7,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE6 as businessAttribute6,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE5 as businessAttribute5,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE4 as businessAttribute4,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE3 as businessAttribute3,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE1 as businessAttribute1,	
+     WK_GENERAL_BUSINESS_PROCESS.BUSINESS_ATTRIBUTE2 as businessAttribute2	
+    from WK_GENERAL_BUSINESS_PROCESS
+     <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+ <!-- 批量更新 -->
+  <update id="updateBatch" parameterType="ArrayList">
+     begin
+     <foreach collection="list" item="item" index="index" separator=";" > 
+     update WK_GENERAL_BUSINESS_PROCESS 
+    <set>  
+		<if test="item.usable_status != null and item.usable_status != ''">
+		     USABLE_STATUS=#{item.usable_status,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_time != null and item.create_time != ''">
+		 CREATE_TIME=#{item.create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.create_ip != null and item.create_ip != ''">
+		 CREATE_IP=#{item.create_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_user_id != null and item.create_user_id != ''">
+		 CREATE_USER_ID=#{item.create_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_user_name != null and item.create_user_name != ''">
+		   CREATE_USER_NAME=#{item.create_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_time != null and item.modify_time != ''">
+		 MODIFY_TIME=#{item.modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.modify_ip != null and item.modify_ip != ''">
+		 MODIFY_IP=#{item.modify_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_user_id != null and item.modify_user_id != ''">
+		 MODIFY_USER_ID=#{item.modify_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_user_name != null and item.modify_user_name != ''">
+		   MODIFY_USER_NAME=#{item.modify_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_time != null and item.delete_time != ''">
+		 DELETE_TIME=#{item.delete_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.delete_ip != null and item.delete_ip != ''">
+		 DELETE_IP=#{item.delete_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_flag != null and item.delete_flag != ''">
+		 DELETE_FLAG=#{item.delete_flag,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_user_id != null and item.delete_user_id != ''">
+		   DELETE_USER_ID=#{item.delete_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_user_name != null and item.delete_user_name != ''">
+		 DELETE_USER_NAME=#{item.delete_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.order_code != null and item.order_code != ''">
+		 ORDER_CODE=#{item.order_code,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute1 != null and item.attribute1 != ''">
+		 ATTRIBUTE1=#{item.attribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute2 != null and item.attribute2 != ''">
+		 ATTRIBUTE2=#{item.attribute2,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute3 != null and item.attribute3 != ''">
+		 ATTRIBUTE3=#{item.attribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute4 != null and item.attribute4 != ''">
+		 ATTRIBUTE4=#{item.attribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute5 != null and item.attribute5 != ''">
+		 ATTRIBUTE5=#{item.attribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="item.id!=null and item.id!= ''">
+		ID=#{item.id,jdbcType=CHAR},
+		</if>
+		<if test="item.procDefId!=null and item.procDefId!= ''">
+		PROC_DEF_ID=#{item.procDefId,jdbcType=VARCHAR},
+		</if>
+		<if test="item.procInstId!=null and item.procInstId!= ''">
+		PROC_INST_ID=#{item.procInstId,jdbcType=VARCHAR},
+		</if>
+		<if test="item.procName!=null and item.procName!= ''">
+		PROC_NAME=#{item.procName,jdbcType=VARCHAR},
+		</if>
+		<if test="item.procKey!=null and item.procKey!= ''">
+		PROC_KEY=#{item.procKey,jdbcType=VARCHAR},
+		</if>
+		<if test="item.initiator!=null and item.initiator!= ''">
+		INITIATOR=#{item.initiator,jdbcType=VARCHAR},
+		</if>
+		<if test="item.initiatorId!=null and item.initiatorId!= ''">
+		INITIATOR_ID=#{item.initiatorId,jdbcType=BIGINT},
+		</if>
+		<if test="item.initiatorOrganizationDepartment!=null and item.initiatorOrganizationDepartment!= ''">
+		INITIATOR_ORGANIZATION_DEPARTMENT=#{item.initiatorOrganizationDepartment,jdbcType=VARCHAR},
+		</if>
+		<if test="item.initiatorOrganizationId!=null and item.initiatorOrganizationId!= ''">
+		INITIATOR_ORGANIZATION_ID=#{item.initiatorOrganizationId,jdbcType=CHAR},
+		</if>
+		<if test="item.initiatorTime!=null and item.initiatorTime!= ''">
+		INITIATOR_TIME=#{item.initiatorTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.businessType!=null and item.businessType!= ''">
+		BUSINESS_TYPE=#{item.businessType,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessGroup!=null and item.businessGroup!= ''">
+		BUSINESS_GROUP=#{item.businessGroup,jdbcType=VARCHAR},
+		</if>
+		<if test="item.parentId!=null and item.parentId!= ''">
+		PARENT_ID=#{item.parentId,jdbcType=CHAR},
+		</if>
+		<if test="item.businessAttribute70!=null and item.businessAttribute70!= ''">
+		BUSINESS_ATTRIBUTE70=#{item.businessAttribute70,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute69!=null and item.businessAttribute69!= ''">
+		BUSINESS_ATTRIBUTE69=#{item.businessAttribute69,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute68!=null and item.businessAttribute68!= ''">
+		BUSINESS_ATTRIBUTE68=#{item.businessAttribute68,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute67!=null and item.businessAttribute67!= ''">
+		BUSINESS_ATTRIBUTE67=#{item.businessAttribute67,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute66!=null and item.businessAttribute66!= ''">
+		BUSINESS_ATTRIBUTE66=#{item.businessAttribute66,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute65!=null and item.businessAttribute65!= ''">
+		BUSINESS_ATTRIBUTE65=#{item.businessAttribute65,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute64!=null and item.businessAttribute64!= ''">
+		BUSINESS_ATTRIBUTE64=#{item.businessAttribute64,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute63!=null and item.businessAttribute63!= ''">
+		BUSINESS_ATTRIBUTE63=#{item.businessAttribute63,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute62!=null and item.businessAttribute62!= ''">
+		BUSINESS_ATTRIBUTE62=#{item.businessAttribute62,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute61!=null and item.businessAttribute61!= ''">
+		BUSINESS_ATTRIBUTE61=#{item.businessAttribute61,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute60!=null and item.businessAttribute60!= ''">
+		BUSINESS_ATTRIBUTE60=#{item.businessAttribute60,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute59!=null and item.businessAttribute59!= ''">
+		BUSINESS_ATTRIBUTE59=#{item.businessAttribute59,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute58!=null and item.businessAttribute58!= ''">
+		BUSINESS_ATTRIBUTE58=#{item.businessAttribute58,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute57!=null and item.businessAttribute57!= ''">
+		BUSINESS_ATTRIBUTE57=#{item.businessAttribute57,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute56!=null and item.businessAttribute56!= ''">
+		BUSINESS_ATTRIBUTE56=#{item.businessAttribute56,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute55!=null and item.businessAttribute55!= ''">
+		BUSINESS_ATTRIBUTE55=#{item.businessAttribute55,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute54!=null and item.businessAttribute54!= ''">
+		BUSINESS_ATTRIBUTE54=#{item.businessAttribute54,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute53!=null and item.businessAttribute53!= ''">
+		BUSINESS_ATTRIBUTE53=#{item.businessAttribute53,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute52!=null and item.businessAttribute52!= ''">
+		BUSINESS_ATTRIBUTE52=#{item.businessAttribute52,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute51!=null and item.businessAttribute51!= ''">
+		BUSINESS_ATTRIBUTE51=#{item.businessAttribute51,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute50!=null and item.businessAttribute50!= ''">
+		BUSINESS_ATTRIBUTE50=#{item.businessAttribute50,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute49!=null and item.businessAttribute49!= ''">
+		BUSINESS_ATTRIBUTE49=#{item.businessAttribute49,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute48!=null and item.businessAttribute48!= ''">
+		BUSINESS_ATTRIBUTE48=#{item.businessAttribute48,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute47!=null and item.businessAttribute47!= ''">
+		BUSINESS_ATTRIBUTE47=#{item.businessAttribute47,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute46!=null and item.businessAttribute46!= ''">
+		BUSINESS_ATTRIBUTE46=#{item.businessAttribute46,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute45!=null and item.businessAttribute45!= ''">
+		BUSINESS_ATTRIBUTE45=#{item.businessAttribute45,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute44!=null and item.businessAttribute44!= ''">
+		BUSINESS_ATTRIBUTE44=#{item.businessAttribute44,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute43!=null and item.businessAttribute43!= ''">
+		BUSINESS_ATTRIBUTE43=#{item.businessAttribute43,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute42!=null and item.businessAttribute42!= ''">
+		BUSINESS_ATTRIBUTE42=#{item.businessAttribute42,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute41!=null and item.businessAttribute41!= ''">
+		BUSINESS_ATTRIBUTE41=#{item.businessAttribute41,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute40!=null and item.businessAttribute40!= ''">
+		BUSINESS_ATTRIBUTE40=#{item.businessAttribute40,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute39!=null and item.businessAttribute39!= ''">
+		BUSINESS_ATTRIBUTE39=#{item.businessAttribute39,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute38!=null and item.businessAttribute38!= ''">
+		BUSINESS_ATTRIBUTE38=#{item.businessAttribute38,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute37!=null and item.businessAttribute37!= ''">
+		BUSINESS_ATTRIBUTE37=#{item.businessAttribute37,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute36!=null and item.businessAttribute36!= ''">
+		BUSINESS_ATTRIBUTE36=#{item.businessAttribute36,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute35!=null and item.businessAttribute35!= ''">
+		BUSINESS_ATTRIBUTE35=#{item.businessAttribute35,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute34!=null and item.businessAttribute34!= ''">
+		BUSINESS_ATTRIBUTE34=#{item.businessAttribute34,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute33!=null and item.businessAttribute33!= ''">
+		BUSINESS_ATTRIBUTE33=#{item.businessAttribute33,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute32!=null and item.businessAttribute32!= ''">
+		BUSINESS_ATTRIBUTE32=#{item.businessAttribute32,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute31!=null and item.businessAttribute31!= ''">
+		BUSINESS_ATTRIBUTE31=#{item.businessAttribute31,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute30!=null and item.businessAttribute30!= ''">
+		BUSINESS_ATTRIBUTE30=#{item.businessAttribute30,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute29!=null and item.businessAttribute29!= ''">
+		BUSINESS_ATTRIBUTE29=#{item.businessAttribute29,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute28!=null and item.businessAttribute28!= ''">
+		BUSINESS_ATTRIBUTE28=#{item.businessAttribute28,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute27!=null and item.businessAttribute27!= ''">
+		BUSINESS_ATTRIBUTE27=#{item.businessAttribute27,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute26!=null and item.businessAttribute26!= ''">
+		BUSINESS_ATTRIBUTE26=#{item.businessAttribute26,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute25!=null and item.businessAttribute25!= ''">
+		BUSINESS_ATTRIBUTE25=#{item.businessAttribute25,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute24!=null and item.businessAttribute24!= ''">
+		BUSINESS_ATTRIBUTE24=#{item.businessAttribute24,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute23!=null and item.businessAttribute23!= ''">
+		BUSINESS_ATTRIBUTE23=#{item.businessAttribute23,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute22!=null and item.businessAttribute22!= ''">
+		BUSINESS_ATTRIBUTE22=#{item.businessAttribute22,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute21!=null and item.businessAttribute21!= ''">
+		BUSINESS_ATTRIBUTE21=#{item.businessAttribute21,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute20!=null and item.businessAttribute20!= ''">
+		BUSINESS_ATTRIBUTE20=#{item.businessAttribute20,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute19!=null and item.businessAttribute19!= ''">
+		BUSINESS_ATTRIBUTE19=#{item.businessAttribute19,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute18!=null and item.businessAttribute18!= ''">
+		BUSINESS_ATTRIBUTE18=#{item.businessAttribute18,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute17!=null and item.businessAttribute17!= ''">
+		BUSINESS_ATTRIBUTE17=#{item.businessAttribute17,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute16!=null and item.businessAttribute16!= ''">
+		BUSINESS_ATTRIBUTE16=#{item.businessAttribute16,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute15!=null and item.businessAttribute15!= ''">
+		BUSINESS_ATTRIBUTE15=#{item.businessAttribute15,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute14!=null and item.businessAttribute14!= ''">
+		BUSINESS_ATTRIBUTE14=#{item.businessAttribute14,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute13!=null and item.businessAttribute13!= ''">
+		BUSINESS_ATTRIBUTE13=#{item.businessAttribute13,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute12!=null and item.businessAttribute12!= ''">
+		BUSINESS_ATTRIBUTE12=#{item.businessAttribute12,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute11!=null and item.businessAttribute11!= ''">
+		BUSINESS_ATTRIBUTE11=#{item.businessAttribute11,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute10!=null and item.businessAttribute10!= ''">
+		BUSINESS_ATTRIBUTE10=#{item.businessAttribute10,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute9!=null and item.businessAttribute9!= ''">
+		BUSINESS_ATTRIBUTE9=#{item.businessAttribute9,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute8!=null and item.businessAttribute8!= ''">
+		BUSINESS_ATTRIBUTE8=#{item.businessAttribute8,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute7!=null and item.businessAttribute7!= ''">
+		BUSINESS_ATTRIBUTE7=#{item.businessAttribute7,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute6!=null and item.businessAttribute6!= ''">
+		BUSINESS_ATTRIBUTE6=#{item.businessAttribute6,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute5!=null and item.businessAttribute5!= ''">
+		BUSINESS_ATTRIBUTE5=#{item.businessAttribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute4!=null and item.businessAttribute4!= ''">
+		BUSINESS_ATTRIBUTE4=#{item.businessAttribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute3!=null and item.businessAttribute3!= ''">
+		BUSINESS_ATTRIBUTE3=#{item.businessAttribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute1!=null and item.businessAttribute1!= ''">
+		BUSINESS_ATTRIBUTE1=#{item.businessAttribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="item.businessAttribute2!=null and item.businessAttribute2!= ''">
+		BUSINESS_ATTRIBUTE2=#{item.businessAttribute2,jdbcType=VARCHAR},
+		</if>
+     </set> 
+    where ID=#{item.id}
+   </foreach>
+   ;end;
+   </update>
+   <!--批量插入-->
+ <insert id="insertBatch" parameterType="ArrayList">
+     insert into WK_GENERAL_BUSINESS_PROCESS (
+      USABLE_STATUS, CREATE_TIME, CREATE_IP, CREATE_USER_ID, 
+      CREATE_USER_NAME, MODIFY_TIME, MODIFY_IP, MODIFY_USER_ID, 
+      MODIFY_USER_NAME, DELETE_TIME, DELETE_IP, DELETE_FLAG, 
+      DELETE_USER_ID, DELETE_USER_NAME, ORDER_CODE, ATTRIBUTE1, 
+      ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, 
+      ID ,
+      PROC_DEF_ID ,
+      PROC_INST_ID ,
+      PROC_NAME ,
+      PROC_KEY ,
+      INITIATOR ,
+      INITIATOR_ID ,
+      INITIATOR_ORGANIZATION_DEPARTMENT ,
+      INITIATOR_ORGANIZATION_ID ,
+      INITIATOR_TIME ,
+      BUSINESS_TYPE ,
+      BUSINESS_GROUP ,
+      PARENT_ID ,
+      BUSINESS_ATTRIBUTE70 ,
+      BUSINESS_ATTRIBUTE69 ,
+      BUSINESS_ATTRIBUTE68 ,
+      BUSINESS_ATTRIBUTE67 ,
+      BUSINESS_ATTRIBUTE66 ,
+      BUSINESS_ATTRIBUTE65 ,
+      BUSINESS_ATTRIBUTE64 ,
+      BUSINESS_ATTRIBUTE63 ,
+      BUSINESS_ATTRIBUTE62 ,
+      BUSINESS_ATTRIBUTE61 ,
+      BUSINESS_ATTRIBUTE60 ,
+      BUSINESS_ATTRIBUTE59 ,
+      BUSINESS_ATTRIBUTE58 ,
+      BUSINESS_ATTRIBUTE57 ,
+      BUSINESS_ATTRIBUTE56 ,
+      BUSINESS_ATTRIBUTE55 ,
+      BUSINESS_ATTRIBUTE54 ,
+      BUSINESS_ATTRIBUTE53 ,
+      BUSINESS_ATTRIBUTE52 ,
+      BUSINESS_ATTRIBUTE51 ,
+      BUSINESS_ATTRIBUTE50 ,
+      BUSINESS_ATTRIBUTE49 ,
+      BUSINESS_ATTRIBUTE48 ,
+      BUSINESS_ATTRIBUTE47 ,
+      BUSINESS_ATTRIBUTE46 ,
+      BUSINESS_ATTRIBUTE45 ,
+      BUSINESS_ATTRIBUTE44 ,
+      BUSINESS_ATTRIBUTE43 ,
+      BUSINESS_ATTRIBUTE42 ,
+      BUSINESS_ATTRIBUTE41 ,
+      BUSINESS_ATTRIBUTE40 ,
+      BUSINESS_ATTRIBUTE39 ,
+      BUSINESS_ATTRIBUTE38 ,
+      BUSINESS_ATTRIBUTE37 ,
+      BUSINESS_ATTRIBUTE36 ,
+      BUSINESS_ATTRIBUTE35 ,
+      BUSINESS_ATTRIBUTE34 ,
+      BUSINESS_ATTRIBUTE33 ,
+      BUSINESS_ATTRIBUTE32 ,
+      BUSINESS_ATTRIBUTE31 ,
+      BUSINESS_ATTRIBUTE30 ,
+      BUSINESS_ATTRIBUTE29 ,
+      BUSINESS_ATTRIBUTE28 ,
+      BUSINESS_ATTRIBUTE27 ,
+      BUSINESS_ATTRIBUTE26 ,
+      BUSINESS_ATTRIBUTE25 ,
+      BUSINESS_ATTRIBUTE24 ,
+      BUSINESS_ATTRIBUTE23 ,
+      BUSINESS_ATTRIBUTE22 ,
+      BUSINESS_ATTRIBUTE21 ,
+      BUSINESS_ATTRIBUTE20 ,
+      BUSINESS_ATTRIBUTE19 ,
+      BUSINESS_ATTRIBUTE18 ,
+      BUSINESS_ATTRIBUTE17 ,
+      BUSINESS_ATTRIBUTE16 ,
+      BUSINESS_ATTRIBUTE15 ,
+      BUSINESS_ATTRIBUTE14 ,
+      BUSINESS_ATTRIBUTE13 ,
+      BUSINESS_ATTRIBUTE12 ,
+      BUSINESS_ATTRIBUTE11 ,
+      BUSINESS_ATTRIBUTE10 ,
+      BUSINESS_ATTRIBUTE9 ,
+      BUSINESS_ATTRIBUTE8 ,
+      BUSINESS_ATTRIBUTE7 ,
+      BUSINESS_ATTRIBUTE6 ,
+      BUSINESS_ATTRIBUTE5 ,
+      BUSINESS_ATTRIBUTE4 ,
+      BUSINESS_ATTRIBUTE3 ,
+      BUSINESS_ATTRIBUTE1 ,
+      BUSINESS_ATTRIBUTE2 
+      )    
+    <foreach collection="list" item="item" index="index" separator="union all" > 
+    select  
+   #{item.usable_status,jdbcType=VARCHAR},#{item.create_time,jdbcType=TIMESTAMP},#{item.create_ip,jdbcType=VARCHAR},#{item.create_user_id,jdbcType=VARCHAR},#{item.create_user_name,jdbcType=VARCHAR},#{item.modify_time,jdbcType=TIMESTAMP},#{item.modify_ip,jdbcType=VARCHAR},#{item.modify_user_id,jdbcType=VARCHAR},#{item.modify_user_name,jdbcType=VARCHAR},#{item.delete_time,jdbcType=TIMESTAMP},#{item.delete_ip,jdbcType=VARCHAR},#{item.delete_flag,jdbcType=VARCHAR},#{item.delete_user_id,jdbcType=VARCHAR},#{item.delete_user_name,jdbcType=VARCHAR},#{item.order_code,jdbcType=VARCHAR},#{item.attribute1,jdbcType=VARCHAR},#{item.attribute2,jdbcType=VARCHAR},#{item.attribute3,jdbcType=VARCHAR},#{item.attribute4,jdbcType=VARCHAR},#{item.attribute5,jdbcType=VARCHAR},
+	#{item.id,jdbcType=CHAR},
+	#{item.procDefId,jdbcType=VARCHAR},
+	#{item.procInstId,jdbcType=VARCHAR},
+	#{item.procName,jdbcType=VARCHAR},
+	#{item.procKey,jdbcType=VARCHAR},
+	#{item.initiator,jdbcType=VARCHAR},
+	#{item.initiatorId,jdbcType=BIGINT},
+	#{item.initiatorOrganizationDepartment,jdbcType=VARCHAR},
+	#{item.initiatorOrganizationId,jdbcType=CHAR},
+	#{item.initiatorTime,jdbcType=TIMESTAMP},
+	#{item.businessType,jdbcType=VARCHAR},
+	#{item.businessGroup,jdbcType=VARCHAR},
+	#{item.parentId,jdbcType=CHAR},
+	#{item.businessAttribute70,jdbcType=VARCHAR},
+	#{item.businessAttribute69,jdbcType=VARCHAR},
+	#{item.businessAttribute68,jdbcType=VARCHAR},
+	#{item.businessAttribute67,jdbcType=VARCHAR},
+	#{item.businessAttribute66,jdbcType=VARCHAR},
+	#{item.businessAttribute65,jdbcType=VARCHAR},
+	#{item.businessAttribute64,jdbcType=VARCHAR},
+	#{item.businessAttribute63,jdbcType=VARCHAR},
+	#{item.businessAttribute62,jdbcType=VARCHAR},
+	#{item.businessAttribute61,jdbcType=VARCHAR},
+	#{item.businessAttribute60,jdbcType=VARCHAR},
+	#{item.businessAttribute59,jdbcType=VARCHAR},
+	#{item.businessAttribute58,jdbcType=VARCHAR},
+	#{item.businessAttribute57,jdbcType=VARCHAR},
+	#{item.businessAttribute56,jdbcType=VARCHAR},
+	#{item.businessAttribute55,jdbcType=VARCHAR},
+	#{item.businessAttribute54,jdbcType=VARCHAR},
+	#{item.businessAttribute53,jdbcType=VARCHAR},
+	#{item.businessAttribute52,jdbcType=VARCHAR},
+	#{item.businessAttribute51,jdbcType=VARCHAR},
+	#{item.businessAttribute50,jdbcType=VARCHAR},
+	#{item.businessAttribute49,jdbcType=VARCHAR},
+	#{item.businessAttribute48,jdbcType=VARCHAR},
+	#{item.businessAttribute47,jdbcType=VARCHAR},
+	#{item.businessAttribute46,jdbcType=VARCHAR},
+	#{item.businessAttribute45,jdbcType=VARCHAR},
+	#{item.businessAttribute44,jdbcType=VARCHAR},
+	#{item.businessAttribute43,jdbcType=VARCHAR},
+	#{item.businessAttribute42,jdbcType=VARCHAR},
+	#{item.businessAttribute41,jdbcType=VARCHAR},
+	#{item.businessAttribute40,jdbcType=VARCHAR},
+	#{item.businessAttribute39,jdbcType=VARCHAR},
+	#{item.businessAttribute38,jdbcType=VARCHAR},
+	#{item.businessAttribute37,jdbcType=VARCHAR},
+	#{item.businessAttribute36,jdbcType=VARCHAR},
+	#{item.businessAttribute35,jdbcType=VARCHAR},
+	#{item.businessAttribute34,jdbcType=VARCHAR},
+	#{item.businessAttribute33,jdbcType=VARCHAR},
+	#{item.businessAttribute32,jdbcType=VARCHAR},
+	#{item.businessAttribute31,jdbcType=VARCHAR},
+	#{item.businessAttribute30,jdbcType=VARCHAR},
+	#{item.businessAttribute29,jdbcType=VARCHAR},
+	#{item.businessAttribute28,jdbcType=VARCHAR},
+	#{item.businessAttribute27,jdbcType=VARCHAR},
+	#{item.businessAttribute26,jdbcType=VARCHAR},
+	#{item.businessAttribute25,jdbcType=VARCHAR},
+	#{item.businessAttribute24,jdbcType=VARCHAR},
+	#{item.businessAttribute23,jdbcType=VARCHAR},
+	#{item.businessAttribute22,jdbcType=VARCHAR},
+	#{item.businessAttribute21,jdbcType=VARCHAR},
+	#{item.businessAttribute20,jdbcType=VARCHAR},
+	#{item.businessAttribute19,jdbcType=VARCHAR},
+	#{item.businessAttribute18,jdbcType=VARCHAR},
+	#{item.businessAttribute17,jdbcType=VARCHAR},
+	#{item.businessAttribute16,jdbcType=VARCHAR},
+	#{item.businessAttribute15,jdbcType=VARCHAR},
+	#{item.businessAttribute14,jdbcType=VARCHAR},
+	#{item.businessAttribute13,jdbcType=VARCHAR},
+	#{item.businessAttribute12,jdbcType=VARCHAR},
+	#{item.businessAttribute11,jdbcType=VARCHAR},
+	#{item.businessAttribute10,jdbcType=VARCHAR},
+	#{item.businessAttribute9,jdbcType=VARCHAR},
+	#{item.businessAttribute8,jdbcType=VARCHAR},
+	#{item.businessAttribute7,jdbcType=VARCHAR},
+	#{item.businessAttribute6,jdbcType=VARCHAR},
+	#{item.businessAttribute5,jdbcType=VARCHAR},
+	#{item.businessAttribute4,jdbcType=VARCHAR},
+	#{item.businessAttribute3,jdbcType=VARCHAR},
+	#{item.businessAttribute1,jdbcType=VARCHAR},
+	#{item.businessAttribute2,jdbcType=VARCHAR}
+     from dual
+    </foreach>
+  </insert>	
+</mapper>

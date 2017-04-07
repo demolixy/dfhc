@@ -1,0 +1,50 @@
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<div class="zc_nav">
+	<c:choose>
+		<c:when test="${operator == '2' }">
+			 <a href="javascript:void(0);" class="flex1" operation="02">待确认装车</a>
+		     <a href="javascript:void(0);" class="flex1" operation="03">已确认待装车</a>
+		     <a href="javascript:void(0);" class="flex1" operation="04">今日完成</a>
+		</c:when>
+		<c:when test="${operator == '1' }">
+			 <a href="javascript:void(0);" class="flex1" operation="01">抢单</a>
+		     <a href="javascript:void(0);" class="flex1" operation="05">待确认装车</a>
+		     <a href="javascript:void(0);" class="flex1" operation="08">我的待装车</a>
+		     <a href="javascript:void(0);" class="flex1" operation="04">今日完成</a>
+		</c:when>
+		<c:when test="${operator == '3' }">
+			 <a href="javascript:void(0);" class="flex1" operation="06">待检验车辆</a>
+		     <a href="javascript:void(0);" class="flex1" operation="07">已检验车辆</a>
+		</c:when>
+	</c:choose>
+     
+
+</div>
+
+<script type="text/javascript">
+	$(function(){
+		$(".zc_nav").find(".flex1").each(function(){
+			if($(this).attr("operation") == '${operation}'){
+				$(".zc_nav").find(".on").removeClass("on");
+				$(this).addClass("on");
+				return;
+			}
+			
+		});
+		
+		$(".flex1").click(function(){
+			if($(this).attr("class").indexOf("on") != -1){
+				return false;
+			}
+			var operation = $(this).attr("operation");
+			var operator = '${operator}';
+			if(operator == '1'){
+				window.location = "${pageContext.request.contextPath}/api/loadingnotice/forklift?operation=" + operation;
+			}else if(operator == '2'){
+				window.location = "${pageContext.request.contextPath}/api/loadingnotice/supervisor?operation=" + operation;
+			}else if(operator == '3'){
+				window.location = "${pageContext.request.contextPath}/api/loadingnotice/security?operation=" + operation;
+			}
+		});
+	});
+</script>

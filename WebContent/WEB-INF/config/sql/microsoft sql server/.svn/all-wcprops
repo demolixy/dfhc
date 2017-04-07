@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/sql/microsoft%20sql%20server
+END
+act.sql
+K 25
+svn:wc:ra_dav:version-url
+V 165
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/sql/microsoft%20sql%20server/act.sql
+END
+rm_quartz.sqlserver.sql
+K 25
+svn:wc:ra_dav:version-url
+V 181
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/sql/microsoft%20sql%20server/rm_quartz.sqlserver.sql
+END
+rm_system.sqlserver.sql
+K 25
+svn:wc:ra_dav:version-url
+V 181
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/sql/microsoft%20sql%20server/rm_system.sqlserver.sql
+END
+rm_base.sqlserver.sql
+K 25
+svn:wc:ra_dav:version-url
+V 179
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/sql/microsoft%20sql%20server/rm_base.sqlserver.sql
+END
+rm_orgauth.sqlserver.sql
+K 25
+svn:wc:ra_dav:version-url
+V 182
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/sql/microsoft%20sql%20server/rm_orgauth.sqlserver.sql
+END
+quartz_sqlserver.sql
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/sql/microsoft%20sql%20server/quartz_sqlserver.sql
+END

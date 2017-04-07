@@ -1,0 +1,2931 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dfhc.bus.ladingbill.dao.LadingBillDao">
+  <!-- 共享的where语句，如有冲突或特殊情况，请另写 -->
+  <sql id="where">
+   <trim prefix="where" prefixOverrides="and|or">  
+      <if test="id != null and id != ''">
+        and BUS_LADING_BILL.ID = #{id}
+      </if>
+      <if test="ids != null and ids != ''">
+        and BUS_LADING_BILL.ID in (${ids})
+      </if>
+      <if test="orderPlanId != null and orderPlanId != ''">
+        and BUS_LADING_BILL.ORDER_PLAN_ID = #{orderPlanId}
+      </if>
+      <if test="orderPlanCode != null and orderPlanCode != ''">
+        and BUS_LADING_BILL.ORDER_PLAN_CODE = #{orderPlanCode}
+      </if>
+      <if test="changeReference != null and changeReference != ''">
+        and BUS_LADING_BILL.ORDER_PLAN_CODE LIKE   '%${changeReference}%'
+      </if>
+      <if test="ladingBillCode != null and ladingBillCode != ''">
+        and BUS_LADING_BILL.LADING_BILL_CODE = #{ladingBillCode}
+      </if>
+      <if test="billType != null and billType != ''">
+        and BUS_LADING_BILL.BILL_TYPE = #{billType}
+      </if>
+      <if test="billTypeIn != null and billTypeIn != ''">
+        and BUS_LADING_BILL.BILL_TYPE in  (${billTypeIn})
+      </if>
+       <!--作废提货单判断  -->
+<!--       <if test="cancelLadingBill != null and cancelLadingBill != ''"> -->
+<!--         and BUS_LADING_BILL.LADING_BILL_STATUS in  (${cancelLadingBill}) -->
+<!--       </if> -->
+      <!--电子提货单审核  过滤副产品过期的  -->
+	   <if test="isExpiredByLuShow != null and isExpiredByLuShow != ''">                   <!-- 副产品                                              提货结束日期-->
+        and (BUS_LADING_BILL.BILL_TYPE in  ('02','03','04') or (BUS_LADING_BILL.BILL_TYPE ='01'  and BUS_ORDER.DELIVERY_END_DATE > sysdate))
+	   </if>
+      <if test="shipMode != null and shipMode != ''">
+        and BUS_LADING_BILL.SHIP_MODE = #{shipMode}
+      </if>
+      <if test="shipModeCode != null and shipModeCode != ''">
+        and BUS_LADING_BILL.SHIP_MODE_CODE = #{shipModeCode}
+      </if>
+      <if test="productType != null and productType != ''">
+        and BUS_LADING_BILL.PRODUCT_TYPE = #{productType}
+      </if>
+      <if test="productTypeId != null and productTypeId != ''">
+        and BUS_LADING_BILL.PRODUCT_TYPE_ID = #{productTypeId}
+      </if>
+      <if test="productId != null and productId != ''">
+        and BUS_LADING_BILL.PRODUCT_ID = #{productId}
+      </if>
+      <if test="productName != null and productName != ''">
+        and BUS_LADING_BILL.PRODUCT_NAME = #{productName}
+      </if>
+      <if test="productModelNumber != null and productModelNumber != ''">
+        and BUS_LADING_BILL.PRODUCT_MODEL_NUMBER = #{productModelNumber}
+      </if>
+      <if test="phoneNumber != null and phoneNumber != ''">
+        and BUS_LADING_BILL.PHONE_NUMBER = #{phoneNumber}
+      </if>
+      <if test="licensePlate != null and licensePlate != ''">
+        and BUS_LADING_BILL.LICENSE_PLATE = #{licensePlate}
+      </if>
+      <if test="carType != null and carType != ''">
+        and BUS_LADING_BILL.CAR_TYPE = #{carType}
+      </if>
+      <if test="driverName != null and driverName != ''">
+        and BUS_LADING_BILL.DRIVER_NAME = #{driverName}
+      </if>
+      <if test="driverIdCardNumber != null and driverIdCardNumber != ''">
+        and BUS_LADING_BILL.DRIVER_ID_CARD_NUMBER = #{driverIdCardNumber}
+      </if>
+      <if test="ladingBillStatus != null and ladingBillStatus != ''">
+        and BUS_LADING_BILL.LADING_BILL_STATUS = #{ladingBillStatus}
+      </if>
+      <if test="ladingBillStatuses != null and ladingBillStatuses != ''">
+        and BUS_LADING_BILL.LADING_BILL_STATUS in (${ladingBillStatuses})
+      </if>
+      <if test="notInStatusLu != null and notInStatusLu != ''">
+        and BUS_LADING_BILL.LADING_BILL_STATUS  not in ${notInStatusLu}
+      </if>
+      <if test="auditTime != null and auditTime != ''">
+        and to_char(BUS_LADING_BILL.AUDIT_TIME,'YYYY-MM-DD') = #{auditTime}
+      </if>
+      <if test="auditPerson != null and auditPerson != ''">
+        and BUS_LADING_BILL.AUDIT_PERSON = #{auditPerson}
+      </if>
+      <if test="auditPersonId != null and auditPersonId != ''">
+        and BUS_LADING_BILL.AUDIT_PERSON_ID = #{auditPersonId}
+      </if>
+      <if test="estimatedLoadingTime != null and estimatedLoadingTime != ''">
+        and to_char(BUS_LADING_BILL.ESTIMATED_LOADING_TIME,'YYYY-MM-DD') = #{estimatedLoadingTime}
+      </if>
+      <if test="estimatedLadingTimeStart != null and estimatedLadingTimeStart != ''">
+        and to_char(BUS_LADING_BILL.ESTIMATED_LOADING_TIME,'YYYY-MM-DD') >= #{estimatedLadingTimeStart}
+      </if>
+      <if test="estimatedLadingTimeEnd != null and estimatedLadingTimeEnd != ''">
+        <![CDATA[
+        	and to_char(BUS_LADING_BILL.ESTIMATED_LOADING_TIME,'YYYY-MM-DD') <= #{estimatedLadingTimeEnd}
+        ]]>
+      </if>
+      <if test="takeNoTime != null and takeNoTime != ''">
+        and to_char(BUS_LADING_BILL.TAKE_NO_TIME,'YYYY-MM-DD') = #{takeNoTime}
+      </if>
+      <if test="actualShippingWeight != null and actualShippingWeight != ''">
+        and BUS_LADING_BILL.ACTUAL_SHIPPING_WEIGHT = #{actualShippingWeight}
+      </if>
+      <if test="nuclearLoad != null and nuclearLoad != ''">
+        and BUS_LADING_BILL.NUCLEAR_LOAD = #{nuclearLoad}
+      </if>
+      <if test="inGate != null and inGate != ''">
+        and BUS_LADING_BILL.IN_GATE = #{inGate}
+      </if>
+      <if test="inTime != null and inTime != ''">
+        and to_char(BUS_LADING_BILL.IN_TIME,'YYYY-MM-DD') = #{inTime}
+      </if>
+      <if test="emptyWeight != null and emptyWeight != ''">
+        and BUS_LADING_BILL.EMPTY_WEIGHT = #{emptyWeight}
+      </if>
+      <if test="emptyPoundTime != null and emptyPoundTime != ''">
+        and to_char(BUS_LADING_BILL.EMPTY_POUND_TIME,'YYYY-MM-DD') = #{emptyPoundTime}
+      </if>
+      <if test="fullWeight != null and fullWeight != ''">
+        and BUS_LADING_BILL.FULL_WEIGHT = #{fullWeight}
+      </if>
+      <if test="fullPoundTime != null and fullPoundTime != ''">
+        and to_char(BUS_LADING_BILL.FULL_POUND_TIME,'YYYY-MM-DD') = #{fullPoundTime}
+      </if>
+      <if test="outGate != null and outGate != ''">
+        and BUS_LADING_BILL.OUT_GATE = #{outGate}
+      </if>
+      <if test="outTime != null and outTime != ''">
+        and to_char(BUS_LADING_BILL.OUT_TIME,'YYYY-MM-DD') = #{outTime}
+      </if>
+      <if test="inputPersonId != null and inputPersonId != ''">
+        and BUS_LADING_BILL.INPUT_PERSON_ID = #{inputPersonId}
+      </if>
+      <if test="inputPerson != null and inputPerson != ''">
+        and BUS_LADING_BILL.INPUT_PERSON = #{inputPerson}
+      </if>
+      <if test="inputTime != null and inputTime != ''">
+        and to_char(BUS_LADING_BILL.INPUT_TIME,'YYYY-MM-DD') = #{inputTime}
+      </if>
+      <if test="invalidPersonId != null and invalidPersonId != ''">
+        and BUS_LADING_BILL.INVALID_PERSON_ID = #{invalidPersonId}
+      </if>
+      <if test="invalidPerson != null and invalidPerson != ''">
+        and BUS_LADING_BILL.INVALID_PERSON = #{invalidPerson}
+      </if>
+      <if test="invalidTime != null and invalidTime != ''">
+        and to_char(BUS_LADING_BILL.INVALID_TIME,'YYYY-MM-DD') = #{invalidTime}
+      </if>
+      <if test="invalidReason != null and invalidReason != ''">
+        and BUS_LADING_BILL.INVALID_REASON = #{invalidReason}
+      </if>
+      <if test="isBringBelt != null and isBringBelt != ''">
+        and BUS_LADING_BILL.IS_BRING_BELT = #{isBringBelt}
+      </if>
+      <if test="isLipolysis != null and isLipolysis != ''">
+        and BUS_LADING_BILL.IS_LIPOLYSIS = #{isLipolysis}
+      </if>
+      <if test="isSince != null and isSince != ''">
+        and BUS_LADING_BILL.IS_SINCE = #{isSince}
+      </if>
+      <if test="isUrgent != null and isUrgent != ''">
+        and BUS_LADING_BILL.IS_URGENT = #{isUrgent}
+      </if>
+      <if test="plannedMileage != null and plannedMileage != ''">
+        and BUS_LADING_BILL.PLANNED_MILEAGE = #{plannedMileage}
+      </if>
+      <if test="factMileage != null and factMileage != ''">
+        and BUS_LADING_BILL.FACT_MILEAGE = #{factMileage}
+      </if>
+      <if test="valuationMileage != null and valuationMileage != ''">
+        and BUS_LADING_BILL.VALUATION_MILEAGE = #{valuationMileage}
+      </if>
+      <if test="factValuationMileage != null and factValuationMileage != ''">
+        and BUS_LADING_BILL.FACT_VALUATION_MILEAGE = #{factValuationMileage}
+      </if>
+      <if test="settlementFreight != null and settlementFreight != ''">
+        and BUS_LADING_BILL.SETTLEMENT_FREIGHT = #{settlementFreight}
+      </if>
+      <if test="yuanKmTon != null and yuanKmTon != ''">
+        and BUS_LADING_BILL.YUAN_KM_TON = #{yuanKmTon}
+      </if>
+      <if test="freight != null and freight != ''">
+        and BUS_LADING_BILL.FREIGHT = #{freight}
+      </if>
+      <if test="receivingPerson != null and receivingPerson != ''">
+        and BUS_LADING_BILL.RECEIVING_PERSON = #{receivingPerson}
+      </if>
+      <if test="receivingAddress != null and receivingAddress != ''">
+        and BUS_LADING_BILL.RECEIVING_ADDRESS = #{receivingAddress}
+      </if>
+      <if test="receivingPersonPhone != null and receivingPersonPhone != ''">
+        and BUS_LADING_BILL.RECEIVING_PERSON_PHONE = #{receivingPersonPhone}
+      </if>
+      <if test="freightSettlementId != null and freightSettlementId != ''">
+        and BUS_LADING_BILL.FREIGHT_SETTLEMENT_ID = #{freightSettlementId}
+      </if>
+      <if test="notFreightSettlementId != null and notFreightSettlementId != ''">
+        and BUS_LADING_BILL.FREIGHT_SETTLEMENT_ID  is null
+      </if>
+      <if test="invoiceSettlementId != null and invoiceSettlementId != ''">
+        and BUS_LADING_BILL.INVOICE_SETTLEMENT_ID = #{invoiceSettlementId}
+      </if>
+      <if test="notInvoiceSettlementId != null and notInvoiceSettlementId != ''">
+        and BUS_LADING_BILL.INVOICE_SETTLEMENT_ID is null
+      </if>
+      <if test="shipperCode != null and shipperCode != ''">
+        and BUS_LADING_BILL.SHIPPER_CODE = #{shipperCode}
+      </if>
+      <if test="printTime != null and printTime != ''">
+        and to_char(BUS_LADING_BILL.PRINT_TIME,'YYYY-MM-DD') = #{printTime}
+      </if>
+      <if test="printTimes != null and printTimes != ''">
+        and BUS_LADING_BILL.PRINT_TIMES = #{printTimes}
+      </if>
+      <if test="remark != null and remark != ''">
+        and BUS_LADING_BILL.REMARK = #{remark}
+      </if>
+      <if test="logisticsSpecialistId != null and logisticsSpecialistId != ''">
+        and BUS_LADING_BILL.LOGISTICS_SPECIALIST_ID = #{logisticsSpecialistId}
+      </if>
+      <if test="logisticsSpecialistName != null and logisticsSpecialistName != ''">
+        and BUS_LADING_BILL.LOGISTICS_SPECIALIST_NAME = #{logisticsSpecialistName}
+      </if>
+      <if test="importTime != null and importTime != ''">
+        and to_char(BUS_LADING_BILL.IMPORT_TIME,'YYYY-MM-DD') = #{importTime}
+      </if>
+      <if test="distributionTime != null and distributionTime != ''">
+        and to_char(BUS_LADING_BILL.DISTRIBUTION_TIME,'YYYY-MM-DD') = #{distributionTime}
+      </if>
+      <if test="logisticsCompanyClerkId != null and logisticsCompanyClerkId != ''">
+        and BUS_LADING_BILL.LOGISTICS_COMPANY_CLERK_ID = #{logisticsCompanyClerkId}
+      </if>
+      <if test="logisticsCompanyClerk != null and logisticsCompanyClerk != ''">
+        and BUS_LADING_BILL.LOGISTICS_COMPANY_CLERK = #{logisticsCompanyClerk}
+      </if>
+      <if test="allocationVehicleTime != null and allocationVehicleTime != ''">
+        and to_char(BUS_LADING_BILL.ALLOCATION_VEHICLE_TIME,'YYYY-MM-DD') = #{allocationVehicleTime}
+      </if>
+      <if test="isPound != null and isPound != ''">
+        and BUS_LADING_BILL.IS_POUND = #{isPound}
+      </if>
+      <if test="isLoading != null and isLoading != ''">
+        and BUS_LADING_BILL.IS_LOADING = #{isLoading}
+      </if>
+      <if test="delete_flag != null and delete_flag != ''">
+        and nvl(BUS_LADING_BILL.DELETE_FLAG,'0') = #{delete_flag}
+      </if>
+      <if test="delete_flag1 != null and delete_flag1 != ''">
+        and nvl(BASE_SHIPPER.DELETE_FLAG,'0') = #{delete_flag1}
+      </if>
+      <if test="delete_flag2 != null and delete_flag2 != ''">
+        and nvl(BUS_ORDER.DELETE_FLAG,'0') = #{delete_flag2}
+      </if>
+      <if test="delete_flag3 != null and delete_flag3 != ''">
+        and nvl(BUS_ROW_NUMBER.DELETE_FLAG,'0') = #{delete_flag3}
+      </if>
+      <if test="delete_flag4 != null and delete_flag4 != ''">
+        and nvl(BUS_TRAINS_REQUISITION_PLAN.DELETE_FLAG,'0') = #{delete_flag4}
+      </if>
+      <if test="delete_flag5 != null and delete_flag5 != ''">
+        and nvl(BASE_LOGISTICS_COMPANY.DELETE_FLAG,'0') = #{delete_flag5}
+      </if>
+      <if test="delete_flag6 != null and delete_flag6 != ''">
+        and nvl(BUS_CAR_REQUISITION_PLAN.DELETE_FLAG,'0') = #{delete_flag6}
+      </if>
+      <if test="delete_flag7 != null and delete_flag7 != ''">
+        and nvl(BUS_CAR_DISTRIBUTION_PLAN.DELETE_FLAG,'0') = #{delete_flag7}
+      </if>
+      
+      <if test="orderLadingDate != null and orderLadingDate != ''">
+        <![CDATA[
+        	and to_char(BUS_ORDER.DELIVERY_START_DATE,'YYYY-MM-DD') <= #{deliveryStartDate}
+        	and to_char(BUS_ORDER.DELIVERY_END_DATE,'YYYY-MM-DD') => #{deliveryEndDate}
+        ]]>
+      </if>
+      <if test="customerIdHou != null and customerIdHou != ''">
+      	and BUS_ORDER.CUSTOMER_ID = #{customerIdHou}
+      </if>
+      <if test="orderStatus != null and orderStatus != ''">
+      	and BUS_ORDER.STATUS IN (${orderStatus})
+      </if>
+      <if test="settlementStartDateHou != null and settlementStartDateHou != ''">
+      	and to_char(BUS_LADING_BILL.OUT_TIME,'YYYY-MM-DD') >= #{settlementStartDateHou}
+      </if>
+      <if test="settlementEndDateHou != null and settlementEndDateHou != ''">
+      <![CDATA[
+      	and to_char(BUS_LADING_BILL.OUT_TIME,'YYYY-MM-DD') <=#{settlementEndDateHou}
+      	 ]]>
+      </if>
+      <if test="rowDate != null and rowDate != ''">
+        and to_char(BUS_ROW_NUMBER.ROW_DATE,'YYYY-MM-DD') = #{rowDate}
+      </if>
+      <if test="status != null and status != ''">
+        and BUS_ROW_NUMBER.STATUS = #{status}
+      </if>
+      <if test="rowStatus != null and rowStatus != ''">
+        and BUS_ROW_NUMBER.STATUS in (${rowStatus})
+      </if>
+      <if test="truckNo != null and truckNo != ''">
+        and BUS_ROW_NUMBER.TRUCK_NO = #{truckNo}
+      </if>
+      <if test="weighingBill != null and weighingBill != ''">
+        <![CDATA[
+	        and nvl(BUS_WEIGHING_BILL.NET_WEIGHT, 0) <> 0
+        ]]>
+      </if>
+      <if test="toBeSettlement != null and toBeSettlement != ''">
+      	and nvl(BUS_LADING_BILL.INVOICE_SETTLEMENT_ID, '0') = #{toBeSettlement}
+      	and nvl(BUS_WEIGHING_BILL.NET_WEIGHT, '0') = #{toBeSettlement}
+      </if>
+      <if test="toBeSettlement1 != null and toBeSettlement1 != ''">
+      	and nvl(BUS_LADING_BILL.INVOICE_SETTLEMENT_ID, '0') = #{toBeSettlement1}
+      </if>
+      <if test="toBeSettlementLu != null and toBeSettlementLu != ''">
+      	and nvl(BUS_LADING_BILL.FREIGHT_SETTLEMENT_ID, '0') = #{toBeSettlementLu}
+      	and nvl(BUS_WEIGHING_BILL.NET_WEIGHT, '0') = #{toBeSettlementLu}
+      </if>
+      <if test="toBeSettlementLu1 != null and toBeSettlementLu1 != ''">
+      	and nvl(BUS_LADING_BILL.FREIGHT_SETTLEMENT_ID, '0') = #{toBeSettlementLu1}
+      </if>
+      <if test="doCheckOrderLu != null and doCheckOrderLu != ''">
+      	and BUS_CAR_DISTRIBUTION_PLAN.BUSINESS_TYPE= #{doCheckOrderLu}
+      </if>
+      <if test="notRowStatus != null and notRowStatus != ''">
+      	<![CDATA[and nvl(BUS_ROW_NUMBER.STATUS, '0') <> #{notRowStatus}]]>
+      </if>
+      
+      <if test="notCheckStatus != null and notCheckStatus != ''">
+      	<![CDATA[and nvl(BUS_VEHICLE_SAFETY_INSPECTION.STATUS, '0') <> #{notCheckStatus}]]>
+      </if>
+      <if test="checkStatus != null and checkStatus != ''">
+		      	<![CDATA[and nvl("check".status, '2') = #{checkStatus}]]>
+		      </if>
+		      
+	  <if test="storeMode != null and storeMode != ''">
+	  	and BASE_PRODUCT.STORE_MODE = #{storeMode}
+	  </if>	 
+	  
+	  
+	 <if test="loadingNoticeLoadingLu == 'loadingNoticeLoadingLu'">
+			  <if test="outTimeStr != null and outTimeStr != ''">
+			  	and to_char(BUS_LADING_BILL.OUT_TIME,'YYYY-MM-DD')  &gt;= #{outTimeStr}
+			  </if>	 
+			  <if test="outTimeEnd != null and outTimeEnd != ''">
+			  	and  to_char(BUS_LADING_BILL.OUT_TIME,'YYYY-MM-DD') &lt;= #{outTimeEnd}
+			  </if>	 
+
+		    <if test="billTypeOne =='01'">
+			  <if test="customerId != null and customerId != ''">
+			  	and BUS_ORDER.CUSTOMER_ID = #{customerId}
+			  </if>	 
+		    </if>
+		    <if test="billTypeOne =='02'">
+					and  BUS_CAR_DISTRIBUTION_PLAN.BUSINESS_TYPE  ='00'
+			  <if test="logisticsCompanyId != null and logisticsCompanyId != ''">
+			  	and BUS_CAR_DISTRIBUTION_PLAN.LOGISTICS_COMPANY_ID   = #{logisticsCompanyId}
+			  </if>	
+			  <if test="sequenceNumber != null and sequenceNumber !=''">
+		    		and BUS_CAR_DISTRIBUTION_PLAN.SEQUENCE_NUMBER = #{sequenceNumber}
+		    	</if>
+		    	<if test="province != null and province !=''">
+		    		and BUS_CAR_DISTRIBUTION_PLAN.PROVINCE = #{province}
+		    	</if>
+		    	<if test="region != null and region !=''">
+		    		and BUS_CAR_DISTRIBUTION_PLAN.AREA = #{region}
+		    	</if> 
+		    </if>
+		    <if test="billTypeOne =='03'">
+			  <if test="logisticsCompanyId != null and logisticsCompanyId != ''">
+			  	and BUS_CAR_REQUISITION_PLAN.LOGISTICS_COMPANY_ID   = #{logisticsCompanyId}
+			  </if>	 
+		    </if>
+		    <if test="billTypeOne =='04'">
+			  <if test="stationId != null and stationId != ''">
+			  	and BUS_TRAINS_REQUISITION_PLAN.STATION_ID   = #{stationId}
+			  </if>	 
+			  <if test="logisticsCompany != null and logisticsCompany !=''">
+    				and BUS_TRAINS_REQUISITION_PLAN.LOGISTICS_COMPANY = #{logisticsCompany}
+    			</if>
+		    </if>
+		    <if test="billTypeOne =='05'">
+					and  BUS_CAR_DISTRIBUTION_PLAN.BUSINESS_TYPE  ='01'
+			  <if test="customerId != null and customerId != ''">
+			  	and BUS_CAR_DISTRIBUTION_PLAN.CUSTOMER_ID = #{customerId}
+			  </if>	 
+		    </if>
+    </if>
+	       
+      </trim>
+  </sql>
+
+  <insert id="insert" parameterType="com.dfhc.bus.ladingbill.vo.LadingBillVo">
+    insert into BUS_LADING_BILL (
+      USABLE_STATUS, CREATE_TIME, CREATE_IP, CREATE_USER_ID, 
+      CREATE_USER_NAME, MODIFY_TIME, MODIFY_IP, MODIFY_USER_ID, 
+      MODIFY_USER_NAME, DELETE_TIME, DELETE_IP, DELETE_FLAG, 
+      DELETE_USER_ID, DELETE_USER_NAME, ORDER_CODE, ATTRIBUTE1, 
+      ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, 
+      ID ,
+      ORDER_PLAN_ID ,
+      ORDER_PLAN_CODE ,
+      LADING_BILL_CODE ,
+      BILL_TYPE ,
+      SHIP_MODE ,
+      SHIP_MODE_CODE ,
+      PRODUCT_TYPE ,
+      PRODUCT_TYPE_ID ,
+      PRODUCT_ID ,
+      PRODUCT_NAME ,
+      PRODUCT_MODEL_NUMBER ,
+      PHONE_NUMBER ,
+      LICENSE_PLATE ,
+      CAR_TYPE ,
+      DRIVER_NAME ,
+      DRIVER_ID_CARD_NUMBER ,
+      LADING_BILL_STATUS ,
+      AUDIT_TIME ,
+      AUDIT_PERSON ,
+      AUDIT_PERSON_ID ,
+      ESTIMATED_LOADING_TIME ,
+      TAKE_NO_TIME ,
+      ACTUAL_SHIPPING_WEIGHT ,
+      NUCLEAR_LOAD ,
+      IN_GATE ,
+      IN_TIME ,
+      EMPTY_WEIGHT ,
+      EMPTY_POUND_TIME ,
+      FULL_WEIGHT ,
+      FULL_POUND_TIME ,
+      OUT_GATE ,
+      OUT_TIME ,
+      INPUT_PERSON_ID ,
+      INPUT_PERSON ,
+      INPUT_TIME ,
+      INVALID_PERSON_ID ,
+      INVALID_PERSON ,
+      INVALID_TIME ,
+      INVALID_REASON ,
+      IS_BRING_BELT ,
+      IS_LIPOLYSIS ,
+      IS_SINCE ,
+      IS_URGENT ,
+      PLANNED_MILEAGE ,
+      FACT_MILEAGE ,
+      VALUATION_MILEAGE ,
+      FACT_VALUATION_MILEAGE,
+      SETTLEMENT_FREIGHT ,
+      YUAN_KM_TON ,
+      FREIGHT ,
+      RECEIVING_PERSON ,
+      RECEIVING_ADDRESS ,
+      RECEIVING_PERSON_PHONE ,
+      FREIGHT_SETTLEMENT_ID ,
+      INVOICE_SETTLEMENT_ID ,
+      SHIPPER_CODE ,
+      PRINT_TIME ,
+      PRINT_TIMES ,
+      REMARK ,
+      LOGISTICS_SPECIALIST_ID ,
+      LOGISTICS_SPECIALIST_NAME ,
+      IMPORT_TIME ,
+      DISTRIBUTION_TIME ,
+      LOGISTICS_COMPANY_CLERK_ID ,
+      LOGISTICS_COMPANY_CLERK ,
+      ALLOCATION_VEHICLE_TIME ,
+      IS_POUND ,
+      IS_LOADING ,
+      PRODUCT_UNIT_PRICE ,
+      ACTUAL_SHIPPING_AMOUNT ,
+      PLANNED_SHIPMENT_AMOUNT 
+      )
+    values ( 
+     #{usable_status,jdbcType=VARCHAR},#{create_time,jdbcType=TIMESTAMP},#{create_ip,jdbcType=VARCHAR},#{create_user_id,jdbcType=VARCHAR},#{create_user_name,jdbcType=VARCHAR},#{modify_time,jdbcType=TIMESTAMP},#{modify_ip,jdbcType=VARCHAR},#{modify_user_id,jdbcType=VARCHAR},#{modify_user_name,jdbcType=VARCHAR},#{delete_time,jdbcType=TIMESTAMP},#{delete_ip,jdbcType=VARCHAR},#{delete_flag,jdbcType=VARCHAR},#{delete_user_id,jdbcType=VARCHAR},#{delete_user_name,jdbcType=VARCHAR},#{order_code,jdbcType=VARCHAR},#{attribute1,jdbcType=VARCHAR},#{attribute2,jdbcType=VARCHAR},#{attribute3,jdbcType=VARCHAR},#{attribute4,jdbcType=VARCHAR},#{attribute5,jdbcType=VARCHAR},
+	#{id,jdbcType=CHAR},
+	#{orderPlanId,jdbcType=CHAR},
+	#{orderPlanCode,jdbcType=VARCHAR},
+	#{ladingBillCode,jdbcType=VARCHAR},
+	#{billType,jdbcType=CHAR},
+	#{shipMode,jdbcType=VARCHAR},
+	#{shipModeCode,jdbcType=VARCHAR},
+	#{productType,jdbcType=VARCHAR},
+	#{productTypeId,jdbcType=CHAR},
+	#{productId,jdbcType=CHAR},
+	#{productName,jdbcType=VARCHAR},
+	#{productModelNumber,jdbcType=VARCHAR},
+	#{phoneNumber,jdbcType=VARCHAR},
+	#{licensePlate,jdbcType=VARCHAR},
+	#{carType,jdbcType=VARCHAR},
+	#{driverName,jdbcType=VARCHAR},
+	#{driverIdCardNumber,jdbcType=VARCHAR},
+	#{ladingBillStatus,jdbcType=CHAR},
+	#{auditTime,jdbcType=TIMESTAMP},
+	#{auditPerson,jdbcType=VARCHAR},
+	#{auditPersonId,jdbcType=NUMERIC},
+	#{estimatedLoadingTime,jdbcType=TIMESTAMP},
+	#{takeNoTime,jdbcType=TIMESTAMP},
+	#{actualShippingWeight,jdbcType=DECIMAL},
+	#{nuclearLoad,jdbcType=DECIMAL},
+	#{inGate,jdbcType=VARCHAR},
+	#{inTime,jdbcType=TIMESTAMP},
+	#{emptyWeight,jdbcType=DECIMAL},
+	#{emptyPoundTime,jdbcType=TIMESTAMP},
+	#{fullWeight,jdbcType=DECIMAL},
+	#{fullPoundTime,jdbcType=TIMESTAMP},
+	#{outGate,jdbcType=VARCHAR},
+	#{outTime,jdbcType=TIMESTAMP},
+	#{inputPersonId,jdbcType=NUMERIC},
+	#{inputPerson,jdbcType=VARCHAR},
+	#{inputTime,jdbcType=TIMESTAMP},
+	#{invalidPersonId,jdbcType=NUMERIC},
+	#{invalidPerson,jdbcType=VARCHAR},
+	#{invalidTime,jdbcType=TIMESTAMP},
+	#{invalidReason,jdbcType=VARCHAR},
+	#{isBringBelt,jdbcType=CHAR},
+	#{isLipolysis,jdbcType=CHAR},
+	#{isSince,jdbcType=CHAR},
+	#{isUrgent,jdbcType=CHAR},
+	#{plannedMileage,jdbcType=DECIMAL},
+	#{factMileage,jdbcType=DECIMAL},
+	#{valuationMileage,jdbcType=DECIMAL},
+	#{factValuationMileage,jdbcType=DECIMAL},
+	#{settlementFreight,jdbcType=DECIMAL},
+	#{yuanKmTon,jdbcType=DECIMAL},
+	#{freight,jdbcType=DECIMAL},
+	#{receivingPerson,jdbcType=VARCHAR},
+	#{receivingAddress,jdbcType=VARCHAR},
+	#{receivingPersonPhone,jdbcType=VARCHAR},
+	#{freightSettlementId,jdbcType=CHAR},
+	#{invoiceSettlementId,jdbcType=CHAR},
+	#{shipperCode,jdbcType=VARCHAR},
+	#{printTime,jdbcType=TIMESTAMP},
+	#{printTimes,jdbcType=NUMERIC},
+	#{remark,jdbcType=VARCHAR},
+	#{logisticsSpecialistId,jdbcType=NUMERIC},
+	#{logisticsSpecialistName,jdbcType=VARCHAR},
+	#{importTime,jdbcType=TIMESTAMP},
+	#{distributionTime,jdbcType=TIMESTAMP},
+	#{logisticsCompanyClerkId,jdbcType=NUMERIC},
+	#{logisticsCompanyClerk,jdbcType=VARCHAR},
+	#{allocationVehicleTime,jdbcType=TIMESTAMP},
+	#{isPound,jdbcType=CHAR},
+	#{isLoading,jdbcType=CHAR},
+	#{productUnitPrice,jdbcType=DECIMAL},
+	#{actualShippingAmount,jdbcType=DECIMAL},
+	#{plannedShipmentAmount,jdbcType=DECIMAL}
+      )
+  </insert>
+    
+  <delete id="delete" parameterType="string">
+    delete from BUS_LADING_BILL where ID=#{id}
+  </delete>
+  
+  <delete id="deleteMulti" parameterType="int">
+    delete from BUS_LADING_BILL where ID in 
+    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">  
+      #{item}   
+    </foreach>
+  </delete>
+
+  <update id="update" parameterType="com.dfhc.bus.ladingbill.vo.LadingBillVo">
+    update BUS_LADING_BILL 
+    <trim prefix="SET" suffixOverrides=",">  
+		<if test="usable_status != null and usable_status != ''">
+		     USABLE_STATUS=#{usable_status,jdbcType=VARCHAR},
+		</if>
+		<if test="create_time != null and create_time != ''">
+		 CREATE_TIME=#{create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="create_ip != null and create_ip != ''">
+		 CREATE_IP=#{create_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="create_user_id != null and create_user_id != ''">
+		 CREATE_USER_ID=#{create_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="create_user_name != null and create_user_name != ''">
+		   CREATE_USER_NAME=#{create_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_time != null and modify_time != ''">
+		 MODIFY_TIME=#{modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="modify_ip != null and modify_ip != ''">
+		 MODIFY_IP=#{modify_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_user_id != null and modify_user_id != ''">
+		 MODIFY_USER_ID=#{modify_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_user_name != null and modify_user_name != ''">
+		   MODIFY_USER_NAME=#{modify_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_time != null and delete_time != ''">
+		 DELETE_TIME=#{delete_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="delete_ip != null and delete_ip != ''">
+		 DELETE_IP=#{delete_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_flag != null and delete_flag != ''">
+		 DELETE_FLAG=#{delete_flag,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_user_id != null and delete_user_id != ''">
+		   DELETE_USER_ID=#{delete_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_user_name != null and delete_user_name != ''">
+		 DELETE_USER_NAME=#{delete_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="order_code != null and order_code != ''">
+		 ORDER_CODE=#{order_code,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute1 != null and attribute1 != ''">
+		 ATTRIBUTE1=#{attribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute2 != null and attribute2 != ''">
+		 ATTRIBUTE2=#{attribute2,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute3 != null and attribute3 != ''">
+		 ATTRIBUTE3=#{attribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute4 != null and attribute4 != ''">
+		 ATTRIBUTE4=#{attribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute5 != null and attribute5 != ''">
+		 ATTRIBUTE5=#{attribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="id!=null and id!= ''">
+		ID=#{id,jdbcType=CHAR},
+		</if>
+		<if test="orderPlanId!=null and orderPlanId!= ''">
+		ORDER_PLAN_ID=#{orderPlanId,jdbcType=CHAR},
+		</if>
+		<if test="orderPlanCode!=null and orderPlanCode!= ''">
+		ORDER_PLAN_CODE=#{orderPlanCode,jdbcType=VARCHAR},
+		</if>
+		<if test="ladingBillCode!=null and ladingBillCode!= ''">
+		LADING_BILL_CODE=#{ladingBillCode,jdbcType=VARCHAR},
+		</if>
+		<if test="billType!=null and billType!= ''">
+		BILL_TYPE=#{billType,jdbcType=CHAR},
+		</if>
+		<if test="shipMode!=null and shipMode!= ''">
+		SHIP_MODE=#{shipMode,jdbcType=VARCHAR},
+		</if>
+		<if test="shipModeCode!=null and shipModeCode!= ''">
+		SHIP_MODE_CODE=#{shipModeCode,jdbcType=VARCHAR},
+		</if>
+		<if test="productType!=null and productType!= ''">
+		PRODUCT_TYPE=#{productType,jdbcType=VARCHAR},
+		</if>
+		<if test="productTypeId!=null and productTypeId!= ''">
+		PRODUCT_TYPE_ID=#{productTypeId,jdbcType=CHAR},
+		</if>
+		<if test="productId!=null and productId!= ''">
+		PRODUCT_ID=#{productId,jdbcType=CHAR},
+		</if>
+		<if test="productName!=null and productName!= ''">
+		PRODUCT_NAME=#{productName,jdbcType=VARCHAR},
+		</if>
+		<if test="productModelNumber!=null and productModelNumber!= ''">
+		PRODUCT_MODEL_NUMBER=#{productModelNumber,jdbcType=VARCHAR},
+		</if>
+		<if test="phoneNumber!=null and phoneNumber!= ''">
+		PHONE_NUMBER=#{phoneNumber,jdbcType=VARCHAR},
+		</if>
+		<if test="licensePlate!=null and licensePlate!= ''">
+		LICENSE_PLATE=#{licensePlate,jdbcType=VARCHAR},
+		</if>
+		<if test="carType!=null and carType!= ''">
+		CAR_TYPE=#{carType,jdbcType=VARCHAR},
+		</if>
+		<if test="driverName!=null and driverName!= ''">
+		DRIVER_NAME=#{driverName,jdbcType=VARCHAR},
+		</if>
+		<if test="driverIdCardNumber!=null and driverIdCardNumber!= ''">
+		DRIVER_ID_CARD_NUMBER=#{driverIdCardNumber,jdbcType=VARCHAR},
+		</if>
+		<if test="ladingBillStatus!=null and ladingBillStatus!= ''">
+		LADING_BILL_STATUS=#{ladingBillStatus,jdbcType=CHAR},
+		</if>
+		<if test="auditTime!=null and auditTime!= ''">
+		AUDIT_TIME=#{auditTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="auditPerson!=null and auditPerson!= ''">
+		AUDIT_PERSON=#{auditPerson,jdbcType=VARCHAR},
+		</if>
+		<if test="auditPersonId!=null and auditPersonId!= ''">
+		AUDIT_PERSON_ID=#{auditPersonId,jdbcType=NUMERIC},
+		</if>
+		<if test="estimatedLoadingTime!=null and estimatedLoadingTime!= ''">
+		ESTIMATED_LOADING_TIME=#{estimatedLoadingTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="takeNoTime!=null and takeNoTime!= ''">
+		TAKE_NO_TIME=#{takeNoTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="actualShippingWeight!=null and actualShippingWeight!= ''">
+		ACTUAL_SHIPPING_WEIGHT=#{actualShippingWeight,jdbcType=DECIMAL},
+		</if>
+		<if test="nuclearLoad!=null and nuclearLoad!= ''">
+		NUCLEAR_LOAD=#{nuclearLoad,jdbcType=DECIMAL},
+		</if>
+		<if test="inGate!=null and inGate!= ''">
+		IN_GATE=#{inGate,jdbcType=VARCHAR},
+		</if>
+		<if test="inTime!=null and inTime!= ''">
+		IN_TIME=#{inTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="emptyWeight!=null and emptyWeight!= ''">
+		EMPTY_WEIGHT=#{emptyWeight,jdbcType=DECIMAL},
+		</if>
+		<if test="emptyPoundTime!=null and emptyPoundTime!= ''">
+		EMPTY_POUND_TIME=#{emptyPoundTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="fullWeight!=null and fullWeight!= ''">
+		FULL_WEIGHT=#{fullWeight,jdbcType=DECIMAL},
+		</if>
+		<if test="fullPoundTime!=null and fullPoundTime!= ''">
+		FULL_POUND_TIME=#{fullPoundTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="outGate!=null and outGate!= ''">
+		OUT_GATE=#{outGate,jdbcType=VARCHAR},
+		</if>
+		<if test="outTime!=null and outTime!= ''">
+		OUT_TIME=#{outTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="inputPersonId!=null and inputPersonId!= ''">
+		INPUT_PERSON_ID=#{inputPersonId,jdbcType=NUMERIC},
+		</if>
+		<if test="inputPerson!=null and inputPerson!= ''">
+		INPUT_PERSON=#{inputPerson,jdbcType=VARCHAR},
+		</if>
+		<if test="inputTime!=null and inputTime!= ''">
+		INPUT_TIME=#{inputTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="invalidPersonId!=null and invalidPersonId!= ''">
+		INVALID_PERSON_ID=#{invalidPersonId,jdbcType=NUMERIC},
+		</if>
+		<if test="invalidPerson!=null and invalidPerson!= ''">
+		INVALID_PERSON=#{invalidPerson,jdbcType=VARCHAR},
+		</if>
+		<if test="invalidTime!=null and invalidTime!= ''">
+		INVALID_TIME=#{invalidTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="invalidReason!=null and invalidReason!= ''">
+		INVALID_REASON=#{invalidReason,jdbcType=VARCHAR},
+		</if>
+		<if test="isBringBelt!=null and isBringBelt!= ''">
+		IS_BRING_BELT=#{isBringBelt,jdbcType=CHAR},
+		</if>
+		<if test="isLipolysis!=null and isLipolysis!= ''">
+		IS_LIPOLYSIS=#{isLipolysis,jdbcType=CHAR},
+		</if>
+		<if test="isSince!=null and isSince!= ''">
+		IS_SINCE=#{isSince,jdbcType=CHAR},
+		</if>
+		<if test="isUrgent!=null and isUrgent!= ''">
+		IS_URGENT=#{isUrgent,jdbcType=CHAR},
+		</if>
+		<if test="plannedMileage!=null and plannedMileage!= ''">
+		PLANNED_MILEAGE=#{plannedMileage,jdbcType=DECIMAL},
+		</if>
+		<if test="factMileage!=null and factMileage!= ''">
+		FACT_MILEAGE=#{factMileage,jdbcType=DECIMAL},
+		</if>
+		<if test="valuationMileage!=null and valuationMileage!= ''">
+		VALUATION_MILEAGE=#{valuationMileage,jdbcType=DECIMAL},
+		</if>
+		<if test="factValuationMileage!=null and factValuationMileage!= ''">
+		FACT_VALUATION_MILEAGE=#{factValuationMileage,jdbcType=DECIMAL},
+		</if>
+		<if test="settlementFreight!=null and settlementFreight!= ''">
+		SETTLEMENT_FREIGHT=#{settlementFreight,jdbcType=DECIMAL},
+		</if>
+		<if test="yuanKmTon!=null and yuanKmTon!= ''">
+		YUAN_KM_TON=#{yuanKmTon,jdbcType=DECIMAL},
+		</if>
+		<if test="freight!=null and freight!= ''">
+		FREIGHT=#{freight,jdbcType=DECIMAL},
+		</if>
+		<if test="receivingPerson!=null and receivingPerson!= ''">
+		RECEIVING_PERSON=#{receivingPerson,jdbcType=VARCHAR},
+		</if>
+		<if test="receivingAddress!=null and receivingAddress!= ''">
+		RECEIVING_ADDRESS=#{receivingAddress,jdbcType=VARCHAR},
+		</if>
+		<if test="receivingPersonPhone!=null and receivingPersonPhone!= ''">
+		RECEIVING_PERSON_PHONE=#{receivingPersonPhone,jdbcType=VARCHAR},
+		</if>
+		<if test="freightSettlementId!=null and freightSettlementId!= ''">
+		FREIGHT_SETTLEMENT_ID=#{freightSettlementId,jdbcType=CHAR},
+		</if>
+		<if test="invoiceSettlementId!=null and invoiceSettlementId!= ''">
+		INVOICE_SETTLEMENT_ID=#{invoiceSettlementId,jdbcType=CHAR},
+		</if>
+		<if test="shipperCode!=null and shipperCode!= ''">
+		SHIPPER_CODE=#{shipperCode,jdbcType=VARCHAR},
+		</if>
+		<if test="printTime!=null and printTime!= ''">
+		PRINT_TIME=#{printTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="printTimes!=null and printTimes!= ''">
+		PRINT_TIMES=#{printTimes,jdbcType=NUMERIC},
+		</if>
+		<if test="remark!=null and remark!= ''">
+		REMARK=#{remark,jdbcType=VARCHAR},
+		</if>
+		<if test="logisticsSpecialistId!=null and logisticsSpecialistId!= ''">
+		LOGISTICS_SPECIALIST_ID=#{logisticsSpecialistId,jdbcType=NUMERIC},
+		</if>
+		<if test="logisticsSpecialistName!=null and logisticsSpecialistName!= ''">
+		LOGISTICS_SPECIALIST_NAME=#{logisticsSpecialistName,jdbcType=VARCHAR},
+		</if>
+		<if test="importTime!=null and importTime!= ''">
+		IMPORT_TIME=#{importTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="distributionTime!=null and distributionTime!= ''">
+		DISTRIBUTION_TIME=#{distributionTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="logisticsCompanyClerkId!=null and logisticsCompanyClerkId!= ''">
+		LOGISTICS_COMPANY_CLERK_ID=#{logisticsCompanyClerkId,jdbcType=NUMERIC},
+		</if>
+		<if test="logisticsCompanyClerk!=null and logisticsCompanyClerk!= ''">
+		LOGISTICS_COMPANY_CLERK=#{logisticsCompanyClerk,jdbcType=VARCHAR},
+		</if>
+		<if test="allocationVehicleTime!=null and allocationVehicleTime!= ''">
+		ALLOCATION_VEHICLE_TIME=#{allocationVehicleTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="isPound!=null and isPound!= ''">
+		IS_POUND=#{isPound,jdbcType=CHAR},
+		</if>
+		<if test="isLoading!=null and isLoading!= ''">
+		IS_LOADING=#{isLoading,jdbcType=CHAR},
+		</if>
+		<if test="productUnitPrice!=null and productUnitPrice!= ''">
+		PRODUCT_UNIT_PRICE=#{productUnitPrice,jdbcType=DECIMAL},
+		</if>
+		<if test="actualShippingAmount!=null and actualShippingAmount!= ''">
+		ACTUAL_SHIPPING_AMOUNT=#{actualShippingAmount,jdbcType=DECIMAL},
+		</if>
+		<if test="plannedShipmentAmount!=null and plannedShipmentAmount!= ''">
+		PLANNED_SHIPMENT_AMOUNT=#{plannedShipmentAmount,jdbcType=DECIMAL},
+		</if>
+     </trim> 
+    where ID=#{id}
+  </update>
+
+  <select id="get" parameterType="string" resultType="com.dfhc.bus.ladingbill.vo.LadingBillVo">
+    select  
+      BUS_LADING_BILL.USABLE_STATUS, BUS_LADING_BILL.CREATE_TIME, BUS_LADING_BILL.CREATE_IP, BUS_LADING_BILL.CREATE_USER_ID, 
+      BUS_LADING_BILL.CREATE_USER_NAME, BUS_LADING_BILL.MODIFY_TIME, BUS_LADING_BILL.MODIFY_IP, BUS_LADING_BILL.MODIFY_USER_ID, 
+      BUS_LADING_BILL.MODIFY_USER_NAME, BUS_LADING_BILL.DELETE_TIME, BUS_LADING_BILL.DELETE_IP, BUS_LADING_BILL.DELETE_FLAG, 
+      BUS_LADING_BILL.DELETE_USER_ID, BUS_LADING_BILL.DELETE_USER_NAME, BUS_LADING_BILL.ORDER_CODE, BUS_LADING_BILL.ATTRIBUTE1, 
+      BUS_LADING_BILL.ATTRIBUTE2, BUS_LADING_BILL.ATTRIBUTE3, BUS_LADING_BILL.ATTRIBUTE4, BUS_LADING_BILL.ATTRIBUTE5, 
+      BUS_LADING_BILL.ID as id,	
+      BUS_LADING_BILL.ORDER_PLAN_ID as orderPlanId,	
+      BUS_LADING_BILL.ORDER_PLAN_CODE as orderPlanCode,	
+      BUS_LADING_BILL.LADING_BILL_CODE as ladingBillCode,	
+      BUS_LADING_BILL.BILL_TYPE as billType,	
+      BUS_LADING_BILL.SHIP_MODE as shipMode,	
+      BUS_LADING_BILL.SHIP_MODE_CODE as shipModeCode,	
+      BUS_LADING_BILL.PRODUCT_TYPE as productType,	
+      BUS_LADING_BILL.PRODUCT_TYPE_ID as productTypeId,	
+      BUS_LADING_BILL.PRODUCT_ID as productId,	
+      BUS_LADING_BILL.PRODUCT_NAME as productName,	
+      BUS_LADING_BILL.PRODUCT_MODEL_NUMBER as productModelNumber,	
+      BUS_LADING_BILL.PHONE_NUMBER as phoneNumber,	
+      BUS_LADING_BILL.LICENSE_PLATE as licensePlate,	
+      BUS_LADING_BILL.CAR_TYPE as carType,	
+      BUS_LADING_BILL.DRIVER_NAME as driverName,	
+      BUS_LADING_BILL.DRIVER_ID_CARD_NUMBER as driverIdCardNumber,	
+      BUS_LADING_BILL.LADING_BILL_STATUS as ladingBillStatus,	
+      BUS_LADING_BILL.AUDIT_TIME as auditTime,	
+      BUS_LADING_BILL.AUDIT_PERSON as auditPerson,	
+      BUS_LADING_BILL.AUDIT_PERSON_ID as auditPersonId,	
+      BUS_LADING_BILL.ESTIMATED_LOADING_TIME as estimatedLoadingTime,	
+      BUS_LADING_BILL.TAKE_NO_TIME as takeNoTime,	
+      BUS_LADING_BILL.ACTUAL_SHIPPING_WEIGHT as actualShippingWeight,	
+      BUS_LADING_BILL.NUCLEAR_LOAD as nuclearLoad,	
+      BUS_LADING_BILL.IN_GATE as inGate,	
+      BUS_LADING_BILL.IN_TIME as inTime,	
+      BUS_LADING_BILL.EMPTY_WEIGHT as emptyWeight,	
+      BUS_LADING_BILL.EMPTY_POUND_TIME as emptyPoundTime,	
+      BUS_LADING_BILL.FULL_WEIGHT as fullWeight,	
+      BUS_LADING_BILL.FULL_POUND_TIME as fullPoundTime,	
+      BUS_LADING_BILL.OUT_GATE as outGate,	
+      BUS_LADING_BILL.OUT_TIME as outTime,	
+      BUS_LADING_BILL.INPUT_PERSON_ID as inputPersonId,	
+      BUS_LADING_BILL.INPUT_PERSON as inputPerson,	
+      BUS_LADING_BILL.INPUT_TIME as inputTime,	
+      BUS_LADING_BILL.INVALID_PERSON_ID as invalidPersonId,	
+      BUS_LADING_BILL.INVALID_PERSON as invalidPerson,	
+      BUS_LADING_BILL.INVALID_TIME as invalidTime,	
+      BUS_LADING_BILL.INVALID_REASON as invalidReason,	
+      BUS_LADING_BILL.IS_BRING_BELT as isBringBelt,	
+      BUS_LADING_BILL.IS_LIPOLYSIS as isLipolysis,	
+      BUS_LADING_BILL.IS_SINCE as isSince,	
+      BUS_LADING_BILL.IS_URGENT as isUrgent,	
+      BUS_LADING_BILL.PLANNED_MILEAGE as plannedMileage,	
+      BUS_LADING_BILL.FACT_MILEAGE as factMileage,	
+      BUS_LADING_BILL.VALUATION_MILEAGE as valuationMileage,	
+      BUS_LADING_BILL.FACT_VALUATION_MILEAGE as factValuationMileage,	
+      BUS_LADING_BILL.SETTLEMENT_FREIGHT as settlementFreight,	
+      BUS_LADING_BILL.YUAN_KM_TON as yuanKmTon,	
+      BUS_LADING_BILL.FREIGHT as freight,	
+      BUS_LADING_BILL.RECEIVING_PERSON as receivingPerson,	
+      BUS_LADING_BILL.RECEIVING_ADDRESS as receivingAddress,	
+      BUS_LADING_BILL.RECEIVING_PERSON_PHONE as receivingPersonPhone,	
+      BUS_LADING_BILL.FREIGHT_SETTLEMENT_ID as freightSettlementId,	
+      BUS_LADING_BILL.INVOICE_SETTLEMENT_ID as invoiceSettlementId,	
+      BUS_LADING_BILL.SHIPPER_CODE as shipperCode,	
+      BUS_LADING_BILL.PRINT_TIME as printTime,	
+      BUS_LADING_BILL.PRINT_TIMES as printTimes,	
+      BUS_LADING_BILL.REMARK as remark,	
+      BUS_LADING_BILL.LOGISTICS_SPECIALIST_ID as logisticsSpecialistId,	
+      BUS_LADING_BILL.LOGISTICS_SPECIALIST_NAME as logisticsSpecialistName,	
+      BUS_LADING_BILL.IMPORT_TIME as importTime,	
+      BUS_LADING_BILL.DISTRIBUTION_TIME as distributionTime,	
+      BUS_LADING_BILL.LOGISTICS_COMPANY_CLERK_ID as logisticsCompanyClerkId,	
+      BUS_LADING_BILL.LOGISTICS_COMPANY_CLERK as logisticsCompanyClerk,	
+      BUS_LADING_BILL.ALLOCATION_VEHICLE_TIME as allocationVehicleTime,	
+      BUS_LADING_BILL.IS_POUND as isPound,	
+      BUS_LADING_BILL.IS_LOADING as isLoading,	
+      BUS_LADING_BILL.PRODUCT_UNIT_PRICE as productUnitPrice,	
+      BUS_LADING_BILL.ACTUAL_SHIPPING_AMOUNT as actualShippingAmount,	
+      BUS_LADING_BILL.PLANNED_SHIPMENT_AMOUNT as plannedShipmentAmount
+
+    from BUS_LADING_BILL 
+    where BUS_LADING_BILL.ID=#{id}
+  </select>
+  <select id="getList" parameterType="string" resultType="com.dfhc.bus.ladingbill.vo.LadingBillVo">
+    select  
+      BUS_LADING_BILL.USABLE_STATUS, BUS_LADING_BILL.CREATE_TIME, BUS_LADING_BILL.CREATE_IP, BUS_LADING_BILL.CREATE_USER_ID, 
+      BUS_LADING_BILL.CREATE_USER_NAME, BUS_LADING_BILL.MODIFY_TIME, BUS_LADING_BILL.MODIFY_IP, BUS_LADING_BILL.MODIFY_USER_ID, 
+      BUS_LADING_BILL.MODIFY_USER_NAME, BUS_LADING_BILL.DELETE_TIME, BUS_LADING_BILL.DELETE_IP, BUS_LADING_BILL.DELETE_FLAG, 
+      BUS_LADING_BILL.DELETE_USER_ID, BUS_LADING_BILL.DELETE_USER_NAME, BUS_LADING_BILL.ORDER_CODE, BUS_LADING_BILL.ATTRIBUTE1, 
+      BUS_LADING_BILL.ATTRIBUTE2, BUS_LADING_BILL.ATTRIBUTE3, BUS_LADING_BILL.ATTRIBUTE4, BUS_LADING_BILL.ATTRIBUTE5, 
+      BUS_LADING_BILL.ID as id,	
+      BUS_LADING_BILL.ORDER_PLAN_ID as orderPlanId,	
+      BUS_LADING_BILL.ORDER_PLAN_CODE as orderPlanCode,	
+      BUS_LADING_BILL.LADING_BILL_CODE as ladingBillCode,	
+      BUS_LADING_BILL.BILL_TYPE as billType,	
+      BUS_LADING_BILL.SHIP_MODE as shipMode,	
+      BUS_LADING_BILL.SHIP_MODE_CODE as shipModeCode,	
+      BUS_LADING_BILL.PRODUCT_TYPE as productType,	
+      BUS_LADING_BILL.PRODUCT_TYPE_ID as productTypeId,	
+      BUS_LADING_BILL.PRODUCT_ID as productId,	
+      BUS_LADING_BILL.PRODUCT_NAME as productName,	
+      BUS_LADING_BILL.PRODUCT_MODEL_NUMBER as productModelNumber,	
+      BUS_LADING_BILL.PHONE_NUMBER as phoneNumber,	
+      BUS_LADING_BILL.LICENSE_PLATE as licensePlate,	
+      BUS_LADING_BILL.CAR_TYPE as carType,	
+      BUS_LADING_BILL.DRIVER_NAME as driverName,	
+      BUS_LADING_BILL.DRIVER_ID_CARD_NUMBER as driverIdCardNumber,	
+      BUS_LADING_BILL.LADING_BILL_STATUS as ladingBillStatus,	
+      BUS_LADING_BILL.AUDIT_TIME as auditTime,	
+      BUS_LADING_BILL.AUDIT_PERSON as auditPerson,	
+      BUS_LADING_BILL.AUDIT_PERSON_ID as auditPersonId,	
+      BUS_LADING_BILL.ESTIMATED_LOADING_TIME as estimatedLoadingTime,	
+      BUS_LADING_BILL.TAKE_NO_TIME as takeNoTime,	
+      BUS_LADING_BILL.ACTUAL_SHIPPING_WEIGHT as actualShippingWeight,	
+      BUS_LADING_BILL.NUCLEAR_LOAD as nuclearLoad,	
+      BUS_LADING_BILL.IN_GATE as inGate,	
+      BUS_LADING_BILL.IN_TIME as inTime,	
+      BUS_LADING_BILL.EMPTY_WEIGHT as emptyWeight,	
+      BUS_LADING_BILL.EMPTY_POUND_TIME as emptyPoundTime,	
+      BUS_LADING_BILL.FULL_WEIGHT as fullWeight,	
+      BUS_LADING_BILL.FULL_POUND_TIME as fullPoundTime,	
+      BUS_LADING_BILL.OUT_GATE as outGate,	
+      BUS_LADING_BILL.OUT_TIME as outTime,	
+      BUS_LADING_BILL.INPUT_PERSON_ID as inputPersonId,	
+      BUS_LADING_BILL.INPUT_PERSON as inputPerson,	
+      BUS_LADING_BILL.INPUT_TIME as inputTime,	
+      BUS_LADING_BILL.INVALID_PERSON_ID as invalidPersonId,	
+      BUS_LADING_BILL.INVALID_PERSON as invalidPerson,	
+      BUS_LADING_BILL.INVALID_TIME as invalidTime,	
+      BUS_LADING_BILL.INVALID_REASON as invalidReason,	
+      BUS_LADING_BILL.IS_BRING_BELT as isBringBelt,	
+      BUS_LADING_BILL.IS_LIPOLYSIS as isLipolysis,	
+      BUS_LADING_BILL.IS_SINCE as isSince,	
+      BUS_LADING_BILL.IS_URGENT as isUrgent,	
+      BUS_LADING_BILL.PLANNED_MILEAGE as plannedMileage,	
+      BUS_LADING_BILL.FACT_MILEAGE as factMileage,	
+      BUS_LADING_BILL.VALUATION_MILEAGE as valuationMileage,	
+      BUS_LADING_BILL.FACT_VALUATION_MILEAGE as factValuationMileage,	
+      BUS_LADING_BILL.SETTLEMENT_FREIGHT as settlementFreight,	
+      BUS_LADING_BILL.YUAN_KM_TON as yuanKmTon,	
+      BUS_LADING_BILL.FREIGHT as freight,	
+      BUS_LADING_BILL.RECEIVING_PERSON as receivingPerson,	
+      BUS_LADING_BILL.RECEIVING_ADDRESS as receivingAddress,	
+      BUS_LADING_BILL.RECEIVING_PERSON_PHONE as receivingPersonPhone,	
+      BUS_LADING_BILL.FREIGHT_SETTLEMENT_ID as freightSettlementId,	
+      BUS_LADING_BILL.INVOICE_SETTLEMENT_ID as invoiceSettlementId,	
+      BUS_LADING_BILL.SHIPPER_CODE as shipperCode,	
+      BUS_LADING_BILL.PRINT_TIME as printTime,	
+      BUS_LADING_BILL.PRINT_TIMES as printTimes,	
+      BUS_LADING_BILL.REMARK as remark,	
+      BUS_LADING_BILL.LOGISTICS_SPECIALIST_ID as logisticsSpecialistId,	
+      BUS_LADING_BILL.LOGISTICS_SPECIALIST_NAME as logisticsSpecialistName,	
+      BUS_LADING_BILL.IMPORT_TIME as importTime,	
+      BUS_LADING_BILL.DISTRIBUTION_TIME as distributionTime,	
+      BUS_LADING_BILL.LOGISTICS_COMPANY_CLERK_ID as logisticsCompanyClerkId,	
+      BUS_LADING_BILL.LOGISTICS_COMPANY_CLERK as logisticsCompanyClerk,	
+      BUS_LADING_BILL.ALLOCATION_VEHICLE_TIME as allocationVehicleTime,	
+      BUS_LADING_BILL.IS_POUND as isPound,	
+      BUS_LADING_BILL.IS_LOADING as isLoading,	
+      BUS_LADING_BILL.PRODUCT_UNIT_PRICE as productUnitPrice,	
+      BUS_LADING_BILL.ACTUAL_SHIPPING_AMOUNT as actualShippingAmount,	
+      BUS_LADING_BILL.PLANNED_SHIPMENT_AMOUNT as plannedShipmentAmount	
+    from BUS_LADING_BILL 
+    where BUS_LADING_BILL.INVOICE_SETTLEMENT_ID=#{id}
+  </select>
+
+  <select id="getCount" parameterType="map" resultType="int" useCache="true">
+    select count(BUS_LADING_BILL.ID) from BUS_LADING_BILL
+    <if test="loadingNoticeLoading != null and loadingNoticeLoading != ''">
+   		inner join BUS_ROW_NUMBER on BUS_ROW_NUMBER.LADING_BILL_ID = BUS_LADING_BILL.ID
+   </if>
+    <if test="customerIdHou != null and customerIdHou != ''">
+    	inner join BUS_ORDER on BUS_ORDER.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+    </if>
+    <if test="ladingBillDetail != null and ladingBillDetail != ''">
+    	inner join BUS_ORDER on BUS_ORDER.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+    	inner join BUS_ORDER_PRODUCT_DETAIL on BUS_ORDER_PRODUCT_DETAIL.ORDER_ID = BUS_ORDER.ID
+    										and BUS_ORDER_PRODUCT_DETAIL.PRODUCT_ID = BUS_LADING_BILL.PRODUCT_ID
+    </if>
+    
+    
+    <if test="weighingBill != null and weighingBill != ''">
+    	inner join BUS_ROW_NUMBER on BUS_ROW_NUMBER.LADING_BILL_ID = BUS_LADING_BILL.ID
+    	inner join BUS_WEIGHING_BILL on BUS_WEIGHING_BILL.LADING_BILL_ID = BUS_LADING_BILL.ID
+    </if>
+    <if test="toBeSettlement != null and toBeSettlement != ''">
+    	inner join BUS_WEIGHING_BILL on BUS_WEIGHING_BILL.LADING_BILL_ID = BUS_LADING_BILL.ID
+    </if>
+    <if test="toBeSettlementLu != null and toBeSettlementLu != ''">
+    	inner join BUS_WEIGHING_BILL on BUS_WEIGHING_BILL.LADING_BILL_ID = BUS_LADING_BILL.ID
+    </if>
+     <if test="doCheckOrderLu != null and doCheckOrderLu != ''">
+    	left join BUS_CAR_DISTRIBUTION_PLAN on BUS_CAR_DISTRIBUTION_PLAN.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+    </if>
+    
+    <if test="electronicAudit != null and electronicAudit != ''">
+    	left join BUS_ROW_NUMBER on BUS_ROW_NUMBER.LADING_BILL_ID = BUS_LADING_BILL.ID
+    </if>
+   <!-- 台账 -->
+    <if test="loadingNoticeLoadingLu == 'loadingNoticeLoadingLu'">
+		    <if test="billTypeOne =='01'">
+		    	inner join  BUS_ORDER on BUS_ORDER.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+		    </if>
+		    <if test="billTypeOne =='02' || billTypeOne =='05'  ">
+		    	inner join BUS_CAR_DISTRIBUTION_PLAN on BUS_CAR_DISTRIBUTION_PLAN.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+		    </if>
+		    <if test="billTypeOne =='03'">
+		    	inner join BUS_CAR_REQUISITION_PLAN on BUS_CAR_REQUISITION_PLAN.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+		    </if>
+		    <if test="billTypeOne =='04'">
+		    	inner join BUS_TRAINS_REQUISITION_PLAN on BUS_TRAINS_REQUISITION_PLAN.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+		    </if>
+    </if>
+   <!-- 电子提货单审核过滤 副产品过期的 -->
+   <if test="isExpiredByLu != null and isExpiredByLu != ''">
+    	<![CDATA[left join BUS_ORDER on BUS_ORDER.ID = BUS_LADING_BILL.ORDER_PLAN_ID ]]>
+	</if>
+    <if test="waitCheck != null and waitCheck != ''">
+    	inner join BASE_PRODUCT on BASE_PRODUCT.ID = BUS_LADING_BILL.PRODUCT_ID
+    	inner join BUS_ROW_NUMBER on BUS_ROW_NUMBER.LADING_BILL_ID = BUS_LADING_BILL.ID
+    	left join (
+    		select BUS_VEHICLE_SAFETY_INSPECTION.LADING_BILL_ID as ladingBillId,BUS_VEHICLE_SAFETY_INSPECTION.STATUS as status from BUS_VEHICLE_SAFETY_INSPECTION
+    		<trim prefix="where" prefixOverrides="and|or"> 
+    			<if test="delete_flag8 != null and delete_flag8 != ''">
+			        and nvl(BUS_VEHICLE_SAFETY_INSPECTION.DELETE_FLAG,'0') = #{delete_flag8}
+			    </if>
+    			
+    		</trim>
+    		)"check"
+    	 on "check".ladingBillId = BUS_LADING_BILL.ID
+    </if>
+    <if test="check != null and check != ''">
+    	inner join BUS_ROW_NUMBER on BUS_ROW_NUMBER.LADING_BILL_ID = BUS_LADING_BILL.ID
+    	inner join BUS_VEHICLE_SAFETY_INSPECTION on BUS_VEHICLE_SAFETY_INSPECTION.LADING_BILL_ID = BUS_LADING_BILL.ID
+    </if>
+    <include refid="where"/>    
+  </select>
+  
+  <select id="list" parameterType="map" resultType="com.dfhc.bus.ladingbill.vo.LadingBillVo">
+    select 
+	     distinct
+	     BUS_LADING_BILL.ID as id,	
+	     BUS_LADING_BILL.ORDER_PLAN_ID as orderPlanId,	
+	     BUS_LADING_BILL.ORDER_PLAN_CODE as orderPlanCode,	
+	     BUS_LADING_BILL.LADING_BILL_CODE as ladingBillCode,	
+	     BUS_LADING_BILL.BILL_TYPE as billType,	
+	     BUS_LADING_BILL.SHIP_MODE as shipMode,	
+	     BUS_LADING_BILL.SHIP_MODE_CODE as shipModeCode,	
+	     BUS_LADING_BILL.PRODUCT_TYPE as productType,	
+	     BUS_LADING_BILL.PRODUCT_TYPE_ID as productTypeId,	
+	     BUS_LADING_BILL.PRODUCT_ID as productId,	
+	     BUS_LADING_BILL.PRODUCT_NAME as productName,	
+	     BUS_LADING_BILL.PRODUCT_MODEL_NUMBER as productModelNumber,	
+	     BUS_LADING_BILL.PHONE_NUMBER as phoneNumber,	
+	     BUS_LADING_BILL.LICENSE_PLATE as licensePlate,	
+	     BUS_LADING_BILL.CAR_TYPE as carType,	
+	     BUS_LADING_BILL.DRIVER_NAME as driverName,	
+	     BUS_LADING_BILL.DRIVER_ID_CARD_NUMBER as driverIdCardNumber,
+	     <choose>
+	     	<when test="waitCheck != null and waitCheck != ''">
+	     		nvl("check".status, '2')  as ladingBillStatus,	
+	     	</when>
+	     	<otherwise>
+	     		BUS_LADING_BILL.LADING_BILL_STATUS as ladingBillStatus,	
+	     	</otherwise>
+	     </choose>	
+	     
+	     BUS_LADING_BILL.AUDIT_TIME as auditTime,	
+	     BUS_LADING_BILL.AUDIT_PERSON as auditPerson,	
+	     BUS_LADING_BILL.AUDIT_PERSON_ID as auditPersonId,	
+	     BUS_LADING_BILL.ESTIMATED_LOADING_TIME as estimatedLoadingTime,	
+	     BUS_LADING_BILL.TAKE_NO_TIME as takeNoTime,	
+	     BUS_LADING_BILL.ACTUAL_SHIPPING_WEIGHT as actualShippingWeight,	
+	     BUS_LADING_BILL.NUCLEAR_LOAD as nuclearLoad,	
+	     BUS_LADING_BILL.IN_GATE as inGate,	
+	     BUS_LADING_BILL.IN_TIME as inTime,	
+	     BUS_LADING_BILL.EMPTY_WEIGHT as emptyWeight,	
+	     BUS_LADING_BILL.EMPTY_POUND_TIME as emptyPoundTime,	
+	     BUS_LADING_BILL.FULL_WEIGHT as fullWeight,	
+	     BUS_LADING_BILL.FULL_POUND_TIME as fullPoundTime,	
+	     BUS_LADING_BILL.OUT_GATE as outGate,	
+	     BUS_LADING_BILL.OUT_TIME as outTime,	
+	     BUS_LADING_BILL.INPUT_PERSON_ID as inputPersonId,	
+	     BUS_LADING_BILL.INPUT_PERSON as inputPerson,	
+	     BUS_LADING_BILL.INPUT_TIME as inputTime,	
+	     BUS_LADING_BILL.INVALID_PERSON_ID as invalidPersonId,	
+	     BUS_LADING_BILL.INVALID_PERSON as invalidPerson,	
+	     BUS_LADING_BILL.INVALID_TIME as invalidTime,	
+	     BUS_LADING_BILL.INVALID_REASON as invalidReason,	
+	     BUS_LADING_BILL.IS_BRING_BELT as isBringBelt,	
+	     BUS_LADING_BILL.IS_LIPOLYSIS as isLipolysis,	
+	     BUS_LADING_BILL.IS_SINCE as isSince,	
+	     BUS_LADING_BILL.IS_URGENT as isUrgent,	
+	     BUS_LADING_BILL.PLANNED_MILEAGE as plannedMileage,	
+	     BUS_LADING_BILL.FACT_MILEAGE as factMileage,	
+	     BUS_LADING_BILL.VALUATION_MILEAGE as valuationMileage,	
+	      BUS_LADING_BILL.FACT_VALUATION_MILEAGE as factValuationMileage,	
+	     BUS_LADING_BILL.SETTLEMENT_FREIGHT as settlementFreight,	
+	     BUS_LADING_BILL.YUAN_KM_TON as yuanKmTon,	
+	     BUS_LADING_BILL.FREIGHT as freight,	
+	     BUS_LADING_BILL.RECEIVING_PERSON as receivingPerson,	
+	     BUS_LADING_BILL.RECEIVING_ADDRESS as receivingAddress,	
+	     BUS_LADING_BILL.RECEIVING_PERSON_PHONE as receivingPersonPhone,	
+	     BUS_LADING_BILL.FREIGHT_SETTLEMENT_ID as freightSettlementId,	
+	     BUS_LADING_BILL.INVOICE_SETTLEMENT_ID as invoiceSettlementId,	
+	     BUS_LADING_BILL.SHIPPER_CODE as shipperCode,	
+	     BUS_LADING_BILL.PRINT_TIME as printTime,	
+	     BUS_LADING_BILL.PRINT_TIMES as printTimes,	
+	     BUS_LADING_BILL.REMARK as remark,	
+	     BUS_LADING_BILL.LOGISTICS_SPECIALIST_ID as logisticsSpecialistId,	
+	     BUS_LADING_BILL.LOGISTICS_SPECIALIST_NAME as logisticsSpecialistName,	
+	     BUS_LADING_BILL.IMPORT_TIME as importTime,	
+	     BUS_LADING_BILL.DISTRIBUTION_TIME as distributionTime,	
+	     BUS_LADING_BILL.LOGISTICS_COMPANY_CLERK_ID as logisticsCompanyClerkId,	
+	     BUS_LADING_BILL.LOGISTICS_COMPANY_CLERK as logisticsCompanyClerk,	
+	     BUS_LADING_BILL.ALLOCATION_VEHICLE_TIME as allocationVehicleTime,	
+	     BUS_LADING_BILL.IS_POUND as isPound,	
+	     BUS_LADING_BILL.IS_LOADING as isLoading,	
+	     BUS_LADING_BILL.PRODUCT_UNIT_PRICE as productUnitPrice,	
+	     BUS_LADING_BILL.ACTUAL_SHIPPING_AMOUNT as actualShippingAmount,
+	     <if test="check != null and check != ''">
+	     	BUS_VEHICLE_SAFETY_INSPECTION.STATUS as safeCheckStatus,
+	     	BUS_VEHICLE_SAFETY_INSPECTION.CHECK_TIME AS safeCheckTime,
+	    </if>
+	     <if test="toBeSettlementOrder != null and toBeSettlementOrder != ''">
+	     	BUS_ORDER.CUSTOMER_ID AS customerId,
+	     	BUS_ORDER.CUSTOMER_NAME AS customerName,
+	     </if>
+	     
+	    <if test="toBeSettlementOrderLu != null and toBeSettlementOrderLu != ''">
+		    <if test="billTypeLu != null and billTypeLu != ''">
+			    <if test="billTypeLu =='02'">
+			    	BUS_CAR_DISTRIBUTION_PLAN.LOGISTICS_COMPANY_ID  as  logisticsCompanyId,
+			    	BUS_CAR_DISTRIBUTION_PLAN.LOGISTICS_COMPANY  as  logisticsCompany,
+			    </if>
+			    <if test="billTypeLu =='03'">
+			    	BUS_CAR_REQUISITION_PLAN.LOGISTICS_COMPANY_ID  as  logisticsCompanyId,
+			    	BUS_CAR_REQUISITION_PLAN.LOGISTICS_COMPANY  as logisticsCompany,
+			    </if>
+			    <if test="billTypeLu =='04'">
+			    	BUS_TRAINS_REQUISITION_PLAN.LOGISTICS_COMPANY_ID  as  logisticsCompanyId,
+			    	BUS_TRAINS_REQUISITION_PLAN.LOGISTICS_COMPANY  as logisticsCompany,
+			    </if>
+		    </if>
+	    </if>
+	     
+	     <if test="ladingBillDetail != null and ladingBillDetail != ''">
+	     	BUS_ORDER.CUSTOMER_NAME AS customerName,
+	     	BUS_ORDER_PRODUCT_DETAIL.PLANNED_VOLUME as plannedVolume,
+	     	BUS_ORDER_PRODUCT_DETAIL.REMARK_VOLUME as remarkVolume,
+	     	BUS_ORDER_PRODUCT_DETAIL.REMAINDER_CAR_NUM as remainderCarNum,
+	     	BUS_ORDER.DELIVERY_START_DATE as deliveryStartDate,
+	     	BUS_ORDER.DELIVERY_END_DATE as deliveryEndDate,
+	     </if>
+	     
+    <if test="loadingNoticeLoadingLu == 'loadingNoticeLoadingLu'">
+		    <if test="billTypeOne =='01'">
+		    	BUS_ORDER.CUSTOMER_NAME  as  customerName,
+		    </if>
+		    <if test="billTypeOne =='02'">
+		    	BUS_CAR_DISTRIBUTION_PLAN.CUSTOMER_NAME  as  customerName,
+		    	BUS_CAR_DISTRIBUTION_PLAN.ACCEPT_ORDER_TIME as receiveTime,
+		    	BUS_CAR_DISTRIBUTION_PLAN.PRICE as price,
+		    	BUS_CAR_DISTRIBUTION_PLAN.LOGISTICS_COMPANY as logisticsCompany,
+		    	BUS_CAR_DISTRIBUTION_PLAN.REGION as regionName,
+		    	BUS_CAR_DISTRIBUTION_PLAN.PROVINCE as province,
+		    	BUS_CAR_DISTRIBUTION_PLAN.AREA as region,
+		    	BUS_CAR_DISTRIBUTION_PLAN.ROUNDING_PRICE as roundingUnit,
+		    	BUS_LADING_BILL.YUAN_KM_SETTLEMENT as settlementPrice,
+		    </if>
+		    <if test="billTypeOne =='03'">
+		    	BUS_CAR_REQUISITION_PLAN.LOGISTICS_COMPANY as logisticsCompany,
+		    	BASE_PRODUCT.BAG_WEIGHT as deliveryNumber,
+		    </if>
+		    <if test="billTypeOne =='04'">
+		    	BUS_TRAINS_REQUISITION_PLAN.LOGISTICS_COMPANY as logisticsCompany,
+		    </if>
+		    <if test="billTypeOne =='05'">
+		    	BUS_CAR_DISTRIBUTION_PLAN.SEQUENCE_NUMBER as sequenceNumber,
+		    	BUS_CAR_DISTRIBUTION_PLAN.REGION as regionName,
+		    	BUS_CAR_DISTRIBUTION_PLAN.CUSTOMER_NAME as customerName,
+		    	BUS_CAR_DISTRIBUTION_PLAN.PRODUCT_LEVEL as grade,
+		    	BUS_CAR_DISTRIBUTION_PLAN.PROVINCE as province,
+		    	BUS_CAR_DISTRIBUTION_PLAN.AREA as region,
+		    </if>
+    </if>
+     <if test="listWaitSettleLu == 'listWaitSettleLu'">
+     		 <if test="billTypeTwo =='02'">
+		    	BUS_CAR_DISTRIBUTION_PLAN.LOGISTICS_COMPANY as logisticsCompany,
+		    </if>
+		    <if test="billTypeTwo =='03'">
+		    	BUS_CAR_REQUISITION_PLAN.LOGISTICS_COMPANY as logisticsCompany,
+		    </if>
+		    <if test="billTypeTwo =='04'">
+		    	BUS_TRAINS_REQUISITION_PLAN.LOGISTICS_COMPANY as logisticsCompany,
+		    </if>
+     </if>
+    <if test="ladingBillNoticeStatus !=null and ladingBillNoticeStatus !=''">
+    	BUS_LOADING_NOTICE.STATUS as ladingBillNoticeStatus,
+    </if>
+	     BUS_LADING_BILL.PLANNED_SHIPMENT_AMOUNT as plannedShipmentAmount	
+     
+    from BUS_LADING_BILL
+    
+    <if test="ladingBillNoticeStatus !=null and ladingBillNoticeStatus !=''">
+    	left join BUS_LOADING_NOTICE on BUS_LOADING_NOTICE.LADING_BILL_ID = BUS_LADING_BILL.ID
+    </if>
+    <if test="waitCheck != null and waitCheck != ''">
+    	inner join BASE_PRODUCT on BASE_PRODUCT.ID = BUS_LADING_BILL.PRODUCT_ID
+    	inner join BUS_ROW_NUMBER on BUS_ROW_NUMBER.LADING_BILL_ID = BUS_LADING_BILL.ID
+    	left join (
+    		select BUS_VEHICLE_SAFETY_INSPECTION.LADING_BILL_ID as ladingBillId,BUS_VEHICLE_SAFETY_INSPECTION.STATUS as status from BUS_VEHICLE_SAFETY_INSPECTION
+    		<trim prefix="where" prefixOverrides="and|or"> 
+    			<if test="delete_flag8 != null and delete_flag8 != ''">
+			        and nvl(BUS_VEHICLE_SAFETY_INSPECTION.DELETE_FLAG,'0') = #{delete_flag8}
+			    </if>
+    			
+    		</trim>
+    		)"check"
+    	 on "check".ladingBillId = BUS_LADING_BILL.ID
+    </if>
+    <if test="check != null and check != ''">
+    	inner join BUS_ROW_NUMBER on BUS_ROW_NUMBER.LADING_BILL_ID = BUS_LADING_BILL.ID
+    	inner join BUS_VEHICLE_SAFETY_INSPECTION on BUS_VEHICLE_SAFETY_INSPECTION.LADING_BILL_ID = BUS_LADING_BILL.ID
+    </if>
+    
+    
+    <if test="customerIdHou != null and customerIdHou != ''">
+    	inner join BUS_ORDER on BUS_ORDER.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+    </if>
+    <if test="ladingBillDetail != null and ladingBillDetail != ''">
+    	inner join BUS_ORDER on BUS_ORDER.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+    	inner join BUS_ORDER_PRODUCT_DETAIL on BUS_ORDER_PRODUCT_DETAIL.ORDER_ID = BUS_ORDER.ID
+    										and BUS_ORDER_PRODUCT_DETAIL.PRODUCT_ID = BUS_LADING_BILL.PRODUCT_ID
+    </if>
+    <if test="toBeSettlement != null and toBeSettlement != ''">
+    	inner join BUS_WEIGHING_BILL on BUS_WEIGHING_BILL.LADING_BILL_ID = BUS_LADING_BILL.ID
+    </if>
+    <!-- 联查过磅单-->
+    <if test="toBeSettlementLu != null and toBeSettlementLu != ''">
+    	inner join BUS_WEIGHING_BILL on BUS_WEIGHING_BILL.LADING_BILL_ID = BUS_LADING_BILL.ID
+    </if>
+    <if test="doCheckOrderLu != null and doCheckOrderLu != ''">
+    	left join BUS_CAR_DISTRIBUTION_PLAN on BUS_CAR_DISTRIBUTION_PLAN.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+    </if>
+    <if test="toBeSettlementOrder != null and toBeSettlementOrder != ''">
+    	inner join BUS_ORDER on BUS_ORDER.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+    </if>
+    
+    <if test="toBeSettlementOrderLu != null and toBeSettlementOrderLu != ''">
+	    <if test="billTypeLu != null and billTypeLu != ''">
+		    <if test="billTypeLu =='02'">
+		    	inner join BUS_CAR_DISTRIBUTION_PLAN on BUS_CAR_DISTRIBUTION_PLAN.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+		    </if>
+		    <if test="billTypeLu =='03'">
+		    	inner join BUS_CAR_REQUISITION_PLAN on BUS_CAR_REQUISITION_PLAN.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+		    </if>
+		    <if test="billTypeLu =='04'">
+		    	inner join BUS_TRAINS_REQUISITION_PLAN on BUS_TRAINS_REQUISITION_PLAN.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+		    </if>
+	    </if>
+    </if>
+    <if test="loadingNoticeLoadingLu == 'loadingNoticeLoadingLu'">
+		    <if test="billTypeOne =='01'">
+		    	inner join  BUS_ORDER on BUS_ORDER.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+		    </if>
+		    <if test="billTypeOne =='02' || billTypeOne =='05'  ">
+		    	inner join BUS_CAR_DISTRIBUTION_PLAN on BUS_CAR_DISTRIBUTION_PLAN.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+		    </if>
+		    <if test="billTypeOne =='03'">
+		    	inner join BUS_CAR_REQUISITION_PLAN on BUS_CAR_REQUISITION_PLAN.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+		    	left JOIN BASE_PRODUCT ON BASE_PRODUCT.ID = BUS_LADING_BILL.PRODUCT_ID
+		    </if>
+		    <if test="billTypeOne =='04'">
+		    	inner join BUS_TRAINS_REQUISITION_PLAN on BUS_TRAINS_REQUISITION_PLAN.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+		    </if>
+    </if>
+	<if test="listWaitSettleLu == 'listWaitSettleLu'">
+
+		    <if test="billTypeTwo =='02'">
+		    	inner join BUS_CAR_DISTRIBUTION_PLAN on BUS_CAR_DISTRIBUTION_PLAN.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+		    	<if test ="logisticsCompany !=null and logisticsCompany !=''">
+		    		and BUS_CAR_DISTRIBUTION_PLAN.LOGISTICS_COMPANY = #{logisticsCompany}
+		    	</if>
+		    </if>
+		    <if test="billTypeTwo =='03'">
+		    	inner join BUS_CAR_REQUISITION_PLAN on BUS_CAR_REQUISITION_PLAN.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+		    	<if test ="logisticsCompany !=null and logisticsCompany !=''">
+		    		and BUS_CAR_REQUISITION_PLAN.LOGISTICS_COMPANY = #{logisticsCompany}
+		    	</if>
+		    </if>
+		    <if test="billTypeTwo =='04'">
+		    	inner join BUS_TRAINS_REQUISITION_PLAN on BUS_TRAINS_REQUISITION_PLAN.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+		    	<if test ="logisticsCompany !=null and logisticsCompany !=''">
+		    		and BUS_TRAINS_REQUISITION_PLAN.LOGISTICS_COMPANY = #{logisticsCompany}
+		    	</if>
+		    </if>
+		    <if test="outTimeStart != null and outTimeStart != ''">
+        			<![CDATA[and to_char(BUS_LADING_BILL.OUT_TIME,'YYYY-MM-DD') >= #{outTimeStart}]]>
+     		</if>
+      		<if test="outTimeEnd != null and outTimeEnd != ''">
+        			<![CDATA[and to_char(BUS_LADING_BILL.OUT_TIME,'YYYY-MM-DD') <= #{outTimeEnd}]]>
+      		</if>	
+		    
+    </if>
+
+    <if test="weighingBill != null and weighingBill != ''">
+    	inner join BUS_ROW_NUMBER on BUS_ROW_NUMBER.LADING_BILL_ID = BUS_LADING_BILL.ID
+    	inner join BUS_WEIGHING_BILL on BUS_WEIGHING_BILL.LADING_BILL_ID = BUS_LADING_BILL.ID
+    </if>
+    <if test="outGateFlag != null and outGateFlag != ''">
+    	inner join BUS_ROW_NUMBER on BUS_ROW_NUMBER.LADING_BILL_ID = BUS_LADING_BILL.ID
+    </if>
+    <if test="cancelLadingBill != null and cancelLadingBill != ''">
+    	inner join BUS_ROW_NUMBER on BUS_ROW_NUMBER.LADING_BILL_ID = BUS_LADING_BILL.ID
+    </if>
+   <if test="loadingNoticeLoading != null and loadingNoticeLoading != ''">
+   		inner join BUS_ROW_NUMBER on BUS_ROW_NUMBER.LADING_BILL_ID = BUS_LADING_BILL.ID
+   </if>
+   <if test="gateCar != null and gateCar != ''">
+   		inner join BUS_ROW_NUMBER on BUS_ROW_NUMBER.LADING_BILL_ID = BUS_LADING_BILL.ID
+   </if>
+    <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+  
+  <select id="listAllColumn" parameterType="map" resultType="com.dfhc.bus.ladingbill.vo.LadingBillVo">
+    select 
+      BUS_LADING_BILL.USABLE_STATUS, BUS_LADING_BILL.CREATE_TIME, BUS_LADING_BILL.CREATE_IP, BUS_LADING_BILL.CREATE_USER_ID, 
+      BUS_LADING_BILL.CREATE_USER_NAME, BUS_LADING_BILL.MODIFY_TIME, BUS_LADING_BILL.MODIFY_IP, BUS_LADING_BILL.MODIFY_USER_ID, 
+      BUS_LADING_BILL.MODIFY_USER_NAME, BUS_LADING_BILL.DELETE_TIME, BUS_LADING_BILL.DELETE_IP, BUS_LADING_BILL.DELETE_FLAG, 
+      BUS_LADING_BILL.DELETE_USER_ID, BUS_LADING_BILL.DELETE_USER_NAME, BUS_LADING_BILL.ORDER_CODE, BUS_LADING_BILL.ATTRIBUTE1, 
+     BUS_LADING_BILL.ATTRIBUTE2, BUS_LADING_BILL.ATTRIBUTE3, BUS_LADING_BILL.ATTRIBUTE4, BUS_LADING_BILL.ATTRIBUTE5, 
+     BUS_LADING_BILL.ID as id,	
+     BUS_LADING_BILL.ORDER_PLAN_ID as orderPlanId,	
+     BUS_LADING_BILL.ORDER_PLAN_CODE as orderPlanCode,	
+     BUS_LADING_BILL.LADING_BILL_CODE as ladingBillCode,	
+     BUS_LADING_BILL.BILL_TYPE as billType,	
+     BUS_LADING_BILL.SHIP_MODE as shipMode,	
+     BUS_LADING_BILL.SHIP_MODE_CODE as shipModeCode,	
+     BUS_LADING_BILL.PRODUCT_TYPE as productType,	
+     BUS_LADING_BILL.PRODUCT_TYPE_ID as productTypeId,	
+     BUS_LADING_BILL.PRODUCT_ID as productId,	
+     BUS_LADING_BILL.PRODUCT_NAME as productName,	
+     BUS_LADING_BILL.PRODUCT_MODEL_NUMBER as productModelNumber,	
+     BUS_LADING_BILL.PHONE_NUMBER as phoneNumber,	
+     BUS_LADING_BILL.LICENSE_PLATE as licensePlate,	
+     BUS_LADING_BILL.CAR_TYPE as carType,	
+     BUS_LADING_BILL.DRIVER_NAME as driverName,	
+     BUS_LADING_BILL.DRIVER_ID_CARD_NUMBER as driverIdCardNumber,	
+     BUS_LADING_BILL.LADING_BILL_STATUS as ladingBillStatus,	
+     BUS_LADING_BILL.AUDIT_TIME as auditTime,	
+     BUS_LADING_BILL.AUDIT_PERSON as auditPerson,	
+     BUS_LADING_BILL.AUDIT_PERSON_ID as auditPersonId,	
+     BUS_LADING_BILL.ESTIMATED_LOADING_TIME as estimatedLoadingTime,	
+     BUS_LADING_BILL.TAKE_NO_TIME as takeNoTime,	
+     BUS_LADING_BILL.ACTUAL_SHIPPING_WEIGHT as actualShippingWeight,	
+     BUS_LADING_BILL.NUCLEAR_LOAD as nuclearLoad,	
+     BUS_LADING_BILL.IN_GATE as inGate,	
+     BUS_LADING_BILL.IN_TIME as inTime,	
+     BUS_LADING_BILL.EMPTY_WEIGHT as emptyWeight,	
+     BUS_LADING_BILL.EMPTY_POUND_TIME as emptyPoundTime,	
+     BUS_LADING_BILL.FULL_WEIGHT as fullWeight,	
+     BUS_LADING_BILL.FULL_POUND_TIME as fullPoundTime,	
+     BUS_LADING_BILL.OUT_GATE as outGate,	
+     BUS_LADING_BILL.OUT_TIME as outTime,	
+     BUS_LADING_BILL.INPUT_PERSON_ID as inputPersonId,	
+     BUS_LADING_BILL.INPUT_PERSON as inputPerson,	
+     BUS_LADING_BILL.INPUT_TIME as inputTime,	
+     BUS_LADING_BILL.INVALID_PERSON_ID as invalidPersonId,	
+     BUS_LADING_BILL.INVALID_PERSON as invalidPerson,	
+     BUS_LADING_BILL.INVALID_TIME as invalidTime,	
+     BUS_LADING_BILL.INVALID_REASON as invalidReason,	
+     BUS_LADING_BILL.IS_BRING_BELT as isBringBelt,	
+     BUS_LADING_BILL.IS_LIPOLYSIS as isLipolysis,	
+     BUS_LADING_BILL.IS_SINCE as isSince,	
+     BUS_LADING_BILL.IS_URGENT as isUrgent,	
+     BUS_LADING_BILL.PLANNED_MILEAGE as plannedMileage,	
+     BUS_LADING_BILL.FACT_MILEAGE as factMileage,	
+     BUS_LADING_BILL.VALUATION_MILEAGE as valuationMileage,	
+     BUS_LADING_BILL.FACT_VALUATION_MILEAGE as factValuationMileage,	
+     BUS_LADING_BILL.SETTLEMENT_FREIGHT as settlementFreight,	
+     BUS_LADING_BILL.YUAN_KM_TON as yuanKmTon,	
+     BUS_LADING_BILL.FREIGHT as freight,	
+     BUS_LADING_BILL.RECEIVING_PERSON as receivingPerson,	
+     BUS_LADING_BILL.RECEIVING_ADDRESS as receivingAddress,	
+     BUS_LADING_BILL.RECEIVING_PERSON_PHONE as receivingPersonPhone,	
+     BUS_LADING_BILL.FREIGHT_SETTLEMENT_ID as freightSettlementId,	
+     BUS_LADING_BILL.INVOICE_SETTLEMENT_ID as invoiceSettlementId,	
+     BUS_LADING_BILL.SHIPPER_CODE as shipperCode,	
+     BUS_LADING_BILL.PRINT_TIME as printTime,	
+     BUS_LADING_BILL.PRINT_TIMES as printTimes,	
+     BUS_LADING_BILL.REMARK as remark,	
+     BUS_LADING_BILL.LOGISTICS_SPECIALIST_ID as logisticsSpecialistId,	
+     BUS_LADING_BILL.LOGISTICS_SPECIALIST_NAME as logisticsSpecialistName,	
+     BUS_LADING_BILL.IMPORT_TIME as importTime,	
+     BUS_LADING_BILL.DISTRIBUTION_TIME as distributionTime,	
+     BUS_LADING_BILL.LOGISTICS_COMPANY_CLERK_ID as logisticsCompanyClerkId,	
+     BUS_LADING_BILL.LOGISTICS_COMPANY_CLERK as logisticsCompanyClerk,	
+     BUS_LADING_BILL.ALLOCATION_VEHICLE_TIME as allocationVehicleTime,	
+     BUS_LADING_BILL.IS_POUND as isPound,	
+     BUS_LADING_BILL.IS_LOADING as isLoading,	
+     BUS_LADING_BILL.PRODUCT_UNIT_PRICE as productUnitPrice,	
+     BUS_LADING_BILL.ACTUAL_SHIPPING_AMOUNT as actualShippingAmount,
+	<if test="electronicAudit != null and electronicAudit != ''">
+		BUS_ROW_NUMBER.ROW_DATE as signTime,
+	</if>
+     BUS_LADING_BILL.PLANNED_SHIPMENT_AMOUNT as plannedShipmentAmount
+     from BUS_LADING_BILL
+      
+   <if test="electronicAudit != null and electronicAudit != ''">
+    	<![CDATA[left join BUS_ROW_NUMBER on BUS_ROW_NUMBER.LADING_BILL_ID = BUS_LADING_BILL.ID AND NVL(BUS_ROW_NUMBER.STATUS, '0') <> #{waitStatus}]]>
+   </if>
+   <!-- 电子提货单审核过滤 副产品过期的 -->
+   <if test="isExpiredByLu != null and isExpiredByLu != ''">
+    	<![CDATA[left join BUS_ORDER on BUS_ORDER.ID = BUS_LADING_BILL.ORDER_PLAN_ID ]]>
+   </if>
+    <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+
+  <select id="search" parameterType="map" resultType="com.dfhc.bus.ladingbill.vo.LadingBillVo">
+    select 
+      BUS_LADING_BILL.USABLE_STATUS, BUS_LADING_BILL.CREATE_TIME, BUS_LADING_BILL.CREATE_IP, BUS_LADING_BILL.CREATE_USER_ID, 
+      BUS_LADING_BILL.CREATE_USER_NAME, BUS_LADING_BILL.MODIFY_TIME, BUS_LADING_BILL.MODIFY_IP, BUS_LADING_BILL.MODIFY_USER_ID, 
+      BUS_LADING_BILL.MODIFY_USER_NAME, BUS_LADING_BILL.DELETE_TIME, BUS_LADING_BILL.DELETE_IP, BUS_LADING_BILL.DELETE_FLAG, 
+      BUS_LADING_BILL.DELETE_USER_ID, BUS_LADING_BILL.DELETE_USER_NAME, BUS_LADING_BILL.ORDER_CODE, BUS_LADING_BILL.ATTRIBUTE1, 
+      BUS_LADING_BILL.ATTRIBUTE2, BUS_LADING_BILL.ATTRIBUTE3, BUS_LADING_BILL.ATTRIBUTE4, BUS_LADING_BILL.ATTRIBUTE5, 
+     BUS_LADING_BILL.ID as id,	
+     BUS_LADING_BILL.ORDER_PLAN_ID as orderPlanId,	
+     BUS_LADING_BILL.ORDER_PLAN_CODE as orderPlanCode,	
+     BUS_LADING_BILL.LADING_BILL_CODE as ladingBillCode,	
+     BUS_LADING_BILL.BILL_TYPE as billType,	
+     BUS_LADING_BILL.SHIP_MODE as shipMode,	
+     BUS_LADING_BILL.SHIP_MODE_CODE as shipModeCode,	
+     BUS_LADING_BILL.PRODUCT_TYPE as productType,	
+     BUS_LADING_BILL.PRODUCT_TYPE_ID as productTypeId,	
+     BUS_LADING_BILL.PRODUCT_ID as productId,	
+     BUS_LADING_BILL.PRODUCT_NAME as productName,	
+     BUS_LADING_BILL.PRODUCT_MODEL_NUMBER as productModelNumber,	
+     BUS_LADING_BILL.PHONE_NUMBER as phoneNumber,	
+     BUS_LADING_BILL.LICENSE_PLATE as licensePlate,	
+     BUS_LADING_BILL.CAR_TYPE as carType,	
+     BUS_LADING_BILL.DRIVER_NAME as driverName,	
+     BUS_LADING_BILL.DRIVER_ID_CARD_NUMBER as driverIdCardNumber,	
+     BUS_LADING_BILL.LADING_BILL_STATUS as ladingBillStatus,	
+     BUS_LADING_BILL.AUDIT_TIME as auditTime,	
+     BUS_LADING_BILL.AUDIT_PERSON as auditPerson,	
+     BUS_LADING_BILL.AUDIT_PERSON_ID as auditPersonId,	
+     BUS_LADING_BILL.ESTIMATED_LOADING_TIME as estimatedLoadingTime,	
+     BUS_LADING_BILL.TAKE_NO_TIME as takeNoTime,	
+     BUS_LADING_BILL.ACTUAL_SHIPPING_WEIGHT as actualShippingWeight,	
+     BUS_LADING_BILL.NUCLEAR_LOAD as nuclearLoad,	
+     BUS_LADING_BILL.IN_GATE as inGate,	
+     BUS_LADING_BILL.IN_TIME as inTime,	
+     BUS_LADING_BILL.EMPTY_WEIGHT as emptyWeight,	
+     BUS_LADING_BILL.EMPTY_POUND_TIME as emptyPoundTime,	
+     BUS_LADING_BILL.FULL_WEIGHT as fullWeight,	
+     BUS_LADING_BILL.FULL_POUND_TIME as fullPoundTime,	
+     BUS_LADING_BILL.OUT_GATE as outGate,	
+     BUS_LADING_BILL.OUT_TIME as outTime,	
+     BUS_LADING_BILL.INPUT_PERSON_ID as inputPersonId,	
+     BUS_LADING_BILL.INPUT_PERSON as inputPerson,	
+     BUS_LADING_BILL.INPUT_TIME as inputTime,	
+     BUS_LADING_BILL.INVALID_PERSON_ID as invalidPersonId,	
+     BUS_LADING_BILL.INVALID_PERSON as invalidPerson,	
+     BUS_LADING_BILL.INVALID_TIME as invalidTime,	
+     BUS_LADING_BILL.INVALID_REASON as invalidReason,	
+     BUS_LADING_BILL.IS_BRING_BELT as isBringBelt,	
+     BUS_LADING_BILL.IS_LIPOLYSIS as isLipolysis,	
+     BUS_LADING_BILL.IS_SINCE as isSince,	
+     BUS_LADING_BILL.IS_URGENT as isUrgent,	
+     BUS_LADING_BILL.PLANNED_MILEAGE as plannedMileage,	
+     BUS_LADING_BILL.FACT_MILEAGE as factMileage,	
+     BUS_LADING_BILL.VALUATION_MILEAGE as valuationMileage,	
+       BUS_LADING_BILL.FACT_VALUATION_MILEAGE as factValuationMileage,	
+     BUS_LADING_BILL.SETTLEMENT_FREIGHT as settlementFreight,	
+     BUS_LADING_BILL.YUAN_KM_TON as yuanKmTon,	
+     BUS_LADING_BILL.FREIGHT as freight,	
+     BUS_LADING_BILL.RECEIVING_PERSON as receivingPerson,	
+     BUS_LADING_BILL.RECEIVING_ADDRESS as receivingAddress,	
+     BUS_LADING_BILL.RECEIVING_PERSON_PHONE as receivingPersonPhone,	
+     BUS_LADING_BILL.FREIGHT_SETTLEMENT_ID as freightSettlementId,	
+     BUS_LADING_BILL.INVOICE_SETTLEMENT_ID as invoiceSettlementId,	
+     BUS_LADING_BILL.SHIPPER_CODE as shipperCode,	
+     BUS_LADING_BILL.PRINT_TIME as printTime,	
+     BUS_LADING_BILL.PRINT_TIMES as printTimes,	
+     BUS_LADING_BILL.REMARK as remark,	
+     BUS_LADING_BILL.LOGISTICS_SPECIALIST_ID as logisticsSpecialistId,	
+     BUS_LADING_BILL.LOGISTICS_SPECIALIST_NAME as logisticsSpecialistName,	
+     BUS_LADING_BILL.IMPORT_TIME as importTime,	
+     BUS_LADING_BILL.DISTRIBUTION_TIME as distributionTime,	
+     BUS_LADING_BILL.LOGISTICS_COMPANY_CLERK_ID as logisticsCompanyClerkId,	
+     BUS_LADING_BILL.LOGISTICS_COMPANY_CLERK as logisticsCompanyClerk,	
+     BUS_LADING_BILL.ALLOCATION_VEHICLE_TIME as allocationVehicleTime,	
+     BUS_LADING_BILL.IS_POUND as isPound,	
+     BUS_LADING_BILL.IS_LOADING as isLoading,	
+     BUS_LADING_BILL.PRODUCT_UNIT_PRICE as productUnitPrice,	
+     BUS_LADING_BILL.ACTUAL_SHIPPING_AMOUNT as actualShippingAmount,	
+     BUS_LADING_BILL.PLANNED_SHIPMENT_AMOUNT as plannedShipmentAmount	
+    from BUS_LADING_BILL
+     <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+ <!-- 批量更新 -->
+  <update id="updateBatch" parameterType="ArrayList">
+     begin
+     <foreach collection="list" item="item" index="index" separator=";" > 
+     update BUS_LADING_BILL 
+    <set>  
+		<if test="item.usable_status != null and item.usable_status != ''">
+		     USABLE_STATUS=#{item.usable_status,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_time != null and item.create_time != ''">
+		 CREATE_TIME=#{item.create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.create_ip != null and item.create_ip != ''">
+		 CREATE_IP=#{item.create_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_user_id != null and item.create_user_id != ''">
+		 CREATE_USER_ID=#{item.create_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_user_name != null and item.create_user_name != ''">
+		   CREATE_USER_NAME=#{item.create_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_time != null and item.modify_time != ''">
+		 MODIFY_TIME=#{item.modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.modify_ip != null and item.modify_ip != ''">
+		 MODIFY_IP=#{item.modify_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_user_id != null and item.modify_user_id != ''">
+		 MODIFY_USER_ID=#{item.modify_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_user_name != null and item.modify_user_name != ''">
+		   MODIFY_USER_NAME=#{item.modify_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_time != null and item.delete_time != ''">
+		 DELETE_TIME=#{item.delete_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.delete_ip != null and item.delete_ip != ''">
+		 DELETE_IP=#{item.delete_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_flag != null and item.delete_flag != ''">
+		 DELETE_FLAG=#{item.delete_flag,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_user_id != null and item.delete_user_id != ''">
+		   DELETE_USER_ID=#{item.delete_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_user_name != null and item.delete_user_name != ''">
+		 DELETE_USER_NAME=#{item.delete_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.order_code != null and item.order_code != ''">
+		 ORDER_CODE=#{item.order_code,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute1 != null and item.attribute1 != ''">
+		 ATTRIBUTE1=#{item.attribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute2 != null and item.attribute2 != ''">
+		 ATTRIBUTE2=#{item.attribute2,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute3 != null and item.attribute3 != ''">
+		 ATTRIBUTE3=#{item.attribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute4 != null and item.attribute4 != ''">
+		 ATTRIBUTE4=#{item.attribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute5 != null and item.attribute5 != ''">
+		 ATTRIBUTE5=#{item.attribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="item.id!=null and item.id!= ''">
+		ID=#{item.id,jdbcType=CHAR},
+		</if>
+		<if test="item.orderPlanId!=null and item.orderPlanId!= ''">
+		ORDER_PLAN_ID=#{item.orderPlanId,jdbcType=CHAR},
+		</if>
+		<if test="item.orderPlanCode!=null and item.orderPlanCode!= ''">
+		ORDER_PLAN_CODE=#{item.orderPlanCode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.ladingBillCode!=null and item.ladingBillCode!= ''">
+		LADING_BILL_CODE=#{item.ladingBillCode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.billType!=null and item.billType!= ''">
+		BILL_TYPE=#{item.billType,jdbcType=CHAR},
+		</if>
+		<if test="item.shipMode!=null and item.shipMode!= ''">
+		SHIP_MODE=#{item.shipMode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.shipModeCode!=null and item.shipModeCode!= ''">
+		SHIP_MODE_CODE=#{item.shipModeCode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.productType!=null and item.productType!= ''">
+		PRODUCT_TYPE=#{item.productType,jdbcType=VARCHAR},
+		</if>
+		<if test="item.productTypeId!=null and item.productTypeId!= ''">
+		PRODUCT_TYPE_ID=#{item.productTypeId,jdbcType=CHAR},
+		</if>
+		<if test="item.productId!=null and item.productId!= ''">
+		PRODUCT_ID=#{item.productId,jdbcType=CHAR},
+		</if>
+		<if test="item.productName!=null and item.productName!= ''">
+		PRODUCT_NAME=#{item.productName,jdbcType=VARCHAR},
+		</if>
+		<if test="item.productModelNumber!=null and item.productModelNumber!= ''">
+		PRODUCT_MODEL_NUMBER=#{item.productModelNumber,jdbcType=VARCHAR},
+		</if>
+		<if test="item.phoneNumber!=null and item.phoneNumber!= ''">
+		PHONE_NUMBER=#{item.phoneNumber,jdbcType=VARCHAR},
+		</if>
+		<if test="item.licensePlate!=null and item.licensePlate!= ''">
+		LICENSE_PLATE=#{item.licensePlate,jdbcType=VARCHAR},
+		</if>
+		<if test="item.carType!=null and item.carType!= ''">
+		CAR_TYPE=#{item.carType,jdbcType=VARCHAR},
+		</if>
+		<if test="item.driverName!=null and item.driverName!= ''">
+		DRIVER_NAME=#{item.driverName,jdbcType=VARCHAR},
+		</if>
+		<if test="item.driverIdCardNumber!=null and item.driverIdCardNumber!= ''">
+		DRIVER_ID_CARD_NUMBER=#{item.driverIdCardNumber,jdbcType=VARCHAR},
+		</if>
+		<if test="item.ladingBillStatus!=null and item.ladingBillStatus!= ''">
+		LADING_BILL_STATUS=#{item.ladingBillStatus,jdbcType=CHAR},
+		</if>
+		<if test="item.auditTime!=null and item.auditTime!= ''">
+		AUDIT_TIME=#{item.auditTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.auditPerson!=null and item.auditPerson!= ''">
+		AUDIT_PERSON=#{item.auditPerson,jdbcType=VARCHAR},
+		</if>
+		<if test="item.auditPersonId!=null and item.auditPersonId!= ''">
+		AUDIT_PERSON_ID=#{item.auditPersonId,jdbcType=NUMERIC},
+		</if>
+		<if test="item.estimatedLoadingTime!=null and item.estimatedLoadingTime!= ''">
+		ESTIMATED_LOADING_TIME=#{item.estimatedLoadingTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.takeNoTime!=null and item.takeNoTime!= ''">
+		TAKE_NO_TIME=#{item.takeNoTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.actualShippingWeight!=null and item.actualShippingWeight!= ''">
+		ACTUAL_SHIPPING_WEIGHT=#{item.actualShippingWeight,jdbcType=DECIMAL},
+		</if>
+		<if test="item.nuclearLoad!=null and item.nuclearLoad!= ''">
+		NUCLEAR_LOAD=#{item.nuclearLoad,jdbcType=DECIMAL},
+		</if>
+		<if test="item.inGate!=null and item.inGate!= ''">
+		IN_GATE=#{item.inGate,jdbcType=VARCHAR},
+		</if>
+		<if test="item.inTime!=null and item.inTime!= ''">
+		IN_TIME=#{item.inTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.emptyWeight!=null and item.emptyWeight!= ''">
+		EMPTY_WEIGHT=#{item.emptyWeight,jdbcType=DECIMAL},
+		</if>
+		<if test="item.emptyPoundTime!=null and item.emptyPoundTime!= ''">
+		EMPTY_POUND_TIME=#{item.emptyPoundTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.fullWeight!=null and item.fullWeight!= ''">
+		FULL_WEIGHT=#{item.fullWeight,jdbcType=DECIMAL},
+		</if>
+		<if test="item.fullPoundTime!=null and item.fullPoundTime!= ''">
+		FULL_POUND_TIME=#{item.fullPoundTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.outGate!=null and item.outGate!= ''">
+		OUT_GATE=#{item.outGate,jdbcType=VARCHAR},
+		</if>
+		<if test="item.outTime!=null and item.outTime!= ''">
+		OUT_TIME=#{item.outTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.inputPersonId!=null and item.inputPersonId!= ''">
+		INPUT_PERSON_ID=#{item.inputPersonId,jdbcType=NUMERIC},
+		</if>
+		<if test="item.inputPerson!=null and item.inputPerson!= ''">
+		INPUT_PERSON=#{item.inputPerson,jdbcType=VARCHAR},
+		</if>
+		<if test="item.inputTime!=null and item.inputTime!= ''">
+		INPUT_TIME=#{item.inputTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.invalidPersonId!=null and item.invalidPersonId!= ''">
+		INVALID_PERSON_ID=#{item.invalidPersonId,jdbcType=NUMERIC},
+		</if>
+		<if test="item.invalidPerson!=null and item.invalidPerson!= ''">
+		INVALID_PERSON=#{item.invalidPerson,jdbcType=VARCHAR},
+		</if>
+		<if test="item.invalidTime!=null and item.invalidTime!= ''">
+		INVALID_TIME=#{item.invalidTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.invalidReason!=null and item.invalidReason!= ''">
+		INVALID_REASON=#{item.invalidReason,jdbcType=VARCHAR},
+		</if>
+		<if test="item.isBringBelt!=null and item.isBringBelt!= ''">
+		IS_BRING_BELT=#{item.isBringBelt,jdbcType=CHAR},
+		</if>
+		<if test="item.isLipolysis!=null and item.isLipolysis!= ''">
+		IS_LIPOLYSIS=#{item.isLipolysis,jdbcType=CHAR},
+		</if>
+		<if test="item.isSince!=null and item.isSince!= ''">
+		IS_SINCE=#{item.isSince,jdbcType=CHAR},
+		</if>
+		<if test="item.isUrgent!=null and item.isUrgent!= ''">
+		IS_URGENT=#{item.isUrgent,jdbcType=CHAR},
+		</if>
+		<if test="item.plannedMileage!=null and item.plannedMileage!= ''">
+		PLANNED_MILEAGE=#{item.plannedMileage,jdbcType=DECIMAL},
+		</if>
+		<if test="item.factMileage!=null and item.factMileage!= ''">
+		FACT_MILEAGE=#{item.factMileage,jdbcType=DECIMAL},
+		</if>
+		<if test="item.valuationMileage!=null and item.valuationMileage!= ''">
+		VALUATION_MILEAGE=#{item.valuationMileage,jdbcType=DECIMAL},
+		</if>
+		<if test="item.factValuationMileage!=null and item.factValuationMileage!= ''">
+		FACT_VALUATION_MILEAGE=#{item.factValuationMileage,jdbcType=DECIMAL},
+		</if>
+		<if test="item.settlementFreight!=null and item.settlementFreight!= ''">
+		SETTLEMENT_FREIGHT=#{item.settlementFreight,jdbcType=DECIMAL},
+		</if>
+		<if test="item.yuanKmTon!=null and item.yuanKmTon!= ''">
+		YUAN_KM_TON=#{item.yuanKmTon,jdbcType=DECIMAL},
+		</if>
+		<if test="item.freight!=null and item.freight!= ''">
+		FREIGHT=#{item.freight,jdbcType=DECIMAL},
+		</if>
+		<if test="item.receivingPerson!=null and item.receivingPerson!= ''">
+		RECEIVING_PERSON=#{item.receivingPerson,jdbcType=VARCHAR},
+		</if>
+		<if test="item.receivingAddress!=null and item.receivingAddress!= ''">
+		RECEIVING_ADDRESS=#{item.receivingAddress,jdbcType=VARCHAR},
+		</if>
+		<if test="item.receivingPersonPhone!=null and item.receivingPersonPhone!= ''">
+		RECEIVING_PERSON_PHONE=#{item.receivingPersonPhone,jdbcType=VARCHAR},
+		</if>
+		<if test="item.freightSettlementId!=null and item.freightSettlementId!= ''">
+		FREIGHT_SETTLEMENT_ID=#{item.freightSettlementId,jdbcType=CHAR},
+		</if>
+		<if test="item.invoiceSettlementId!=null and item.invoiceSettlementId!= ''">
+		INVOICE_SETTLEMENT_ID=#{item.invoiceSettlementId,jdbcType=CHAR},
+		</if>
+		<if test="item.settlementFlag!=null and item.settlementFlag!= ''">
+		INVOICE_SETTLEMENT_ID=#{item.invoiceSettlementId,jdbcType=CHAR},
+		</if>
+		<if test="item.shipperCode!=null and item.shipperCode!= ''">
+		SHIPPER_CODE=#{item.shipperCode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.printTime!=null and item.printTime!= ''">
+		PRINT_TIME=#{item.printTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.printTimes!=null and item.printTimes!= ''">
+		PRINT_TIMES=#{item.printTimes,jdbcType=NUMERIC},
+		</if>
+		<if test="item.remark!=null and item.remark!= ''">
+		REMARK=#{item.remark,jdbcType=VARCHAR},
+		</if>
+		<if test="item.logisticsSpecialistId!=null and item.logisticsSpecialistId!= ''">
+		LOGISTICS_SPECIALIST_ID=#{item.logisticsSpecialistId,jdbcType=NUMERIC},
+		</if>
+		<if test="item.logisticsSpecialistName!=null and item.logisticsSpecialistName!= ''">
+		LOGISTICS_SPECIALIST_NAME=#{item.logisticsSpecialistName,jdbcType=VARCHAR},
+		</if>
+		<if test="item.importTime!=null and item.importTime!= ''">
+		IMPORT_TIME=#{item.importTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.distributionTime!=null and item.distributionTime!= ''">
+		DISTRIBUTION_TIME=#{item.distributionTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.logisticsCompanyClerkId!=null and item.logisticsCompanyClerkId!= ''">
+		LOGISTICS_COMPANY_CLERK_ID=#{item.logisticsCompanyClerkId,jdbcType=NUMERIC},
+		</if>
+		<if test="item.logisticsCompanyClerk!=null and item.logisticsCompanyClerk!= ''">
+		LOGISTICS_COMPANY_CLERK=#{item.logisticsCompanyClerk,jdbcType=VARCHAR},
+		</if>
+		<if test="item.allocationVehicleTime!=null and item.allocationVehicleTime!= ''">
+		ALLOCATION_VEHICLE_TIME=#{item.allocationVehicleTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.isPound!=null and item.isPound!= ''">
+		IS_POUND=#{item.isPound,jdbcType=CHAR},
+		</if>
+		<if test="item.isLoading!=null and item.isLoading!= ''">
+		IS_LOADING=#{item.isLoading,jdbcType=CHAR},
+		</if>
+		<if test="item.productUnitPrice!=null and item.productUnitPrice!= ''">
+		PRODUCT_UNIT_PRICE=#{item.productUnitPrice,jdbcType=DECIMAL},
+		</if>
+		<if test="item.actualShippingAmount!=null and item.actualShippingAmount!= ''">
+		ACTUAL_SHIPPING_AMOUNT=#{item.actualShippingAmount,jdbcType=DECIMAL},
+		</if>
+		<if test="item.plannedShipmentAmount!=null and item.plannedShipmentAmount!= ''">
+		PLANNED_SHIPMENT_AMOUNT=#{item.plannedShipmentAmount,jdbcType=DECIMAL},
+		</if>
+     </set> 
+    where ID=#{item.id}
+   </foreach>
+   ;end;
+   </update>
+   <!--批量插入-->
+ <insert id="insertBatch" parameterType="ArrayList">
+     insert into BUS_LADING_BILL (
+      USABLE_STATUS, CREATE_TIME, CREATE_IP, CREATE_USER_ID, 
+      CREATE_USER_NAME, MODIFY_TIME, MODIFY_IP, MODIFY_USER_ID, 
+      MODIFY_USER_NAME, DELETE_TIME, DELETE_IP, DELETE_FLAG, 
+      DELETE_USER_ID, DELETE_USER_NAME, ORDER_CODE, ATTRIBUTE1, 
+      ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, 
+      ID ,
+      ORDER_PLAN_ID ,
+      ORDER_PLAN_CODE ,
+      LADING_BILL_CODE ,
+      BILL_TYPE ,
+      SHIP_MODE ,
+      SHIP_MODE_CODE ,
+      PRODUCT_TYPE ,
+      PRODUCT_TYPE_ID ,
+      PRODUCT_ID ,
+      PRODUCT_NAME ,
+      PRODUCT_MODEL_NUMBER ,
+      PHONE_NUMBER ,
+      LICENSE_PLATE ,
+      CAR_TYPE ,
+      DRIVER_NAME ,
+      DRIVER_ID_CARD_NUMBER ,
+      LADING_BILL_STATUS ,
+      AUDIT_TIME ,
+      AUDIT_PERSON ,
+      AUDIT_PERSON_ID ,
+      ESTIMATED_LOADING_TIME ,
+      TAKE_NO_TIME ,
+      ACTUAL_SHIPPING_WEIGHT ,
+      NUCLEAR_LOAD ,
+      IN_GATE ,
+      IN_TIME ,
+      EMPTY_WEIGHT ,
+      EMPTY_POUND_TIME ,
+      FULL_WEIGHT ,
+      FULL_POUND_TIME ,
+      OUT_GATE ,
+      OUT_TIME ,
+      INPUT_PERSON_ID ,
+      INPUT_PERSON ,
+      INPUT_TIME ,
+      INVALID_PERSON_ID ,
+      INVALID_PERSON ,
+      INVALID_TIME ,
+      INVALID_REASON ,
+      IS_BRING_BELT ,
+      IS_LIPOLYSIS ,
+      IS_SINCE ,
+      IS_URGENT ,
+      PLANNED_MILEAGE ,
+      FACT_MILEAGE ,
+      VALUATION_MILEAGE ,
+      FACT_VALUATION_MILEAGE,
+      SETTLEMENT_FREIGHT ,
+      YUAN_KM_TON ,
+      FREIGHT ,
+      RECEIVING_PERSON ,
+      RECEIVING_ADDRESS ,
+      RECEIVING_PERSON_PHONE ,
+      FREIGHT_SETTLEMENT_ID ,
+      INVOICE_SETTLEMENT_ID ,
+      SHIPPER_CODE ,
+      PRINT_TIME ,
+      PRINT_TIMES ,
+      REMARK ,
+      LOGISTICS_SPECIALIST_ID ,
+      LOGISTICS_SPECIALIST_NAME ,
+      IMPORT_TIME ,
+      DISTRIBUTION_TIME ,
+      LOGISTICS_COMPANY_CLERK_ID ,
+      LOGISTICS_COMPANY_CLERK ,
+      ALLOCATION_VEHICLE_TIME ,
+      IS_POUND ,
+      IS_LOADING ,
+      PRODUCT_UNIT_PRICE ,
+      ACTUAL_SHIPPING_AMOUNT ,
+      PLANNED_SHIPMENT_AMOUNT 
+      )    
+    <foreach collection="list" item="item" index="index" separator="union all" > 
+    select  
+   #{item.usable_status,jdbcType=VARCHAR},#{item.create_time,jdbcType=TIMESTAMP},#{item.create_ip,jdbcType=VARCHAR},#{item.create_user_id,jdbcType=VARCHAR},#{item.create_user_name,jdbcType=VARCHAR},#{item.modify_time,jdbcType=TIMESTAMP},#{item.modify_ip,jdbcType=VARCHAR},#{item.modify_user_id,jdbcType=VARCHAR},#{item.modify_user_name,jdbcType=VARCHAR},#{item.delete_time,jdbcType=TIMESTAMP},#{item.delete_ip,jdbcType=VARCHAR},#{item.delete_flag,jdbcType=VARCHAR},#{item.delete_user_id,jdbcType=VARCHAR},#{item.delete_user_name,jdbcType=VARCHAR},#{item.order_code,jdbcType=VARCHAR},#{item.attribute1,jdbcType=VARCHAR},#{item.attribute2,jdbcType=VARCHAR},#{item.attribute3,jdbcType=VARCHAR},#{item.attribute4,jdbcType=VARCHAR},#{item.attribute5,jdbcType=VARCHAR},
+	#{item.id,jdbcType=CHAR},
+	#{item.orderPlanId,jdbcType=CHAR},
+	#{item.orderPlanCode,jdbcType=VARCHAR},
+	#{item.ladingBillCode,jdbcType=VARCHAR},
+	#{item.billType,jdbcType=CHAR},
+	#{item.shipMode,jdbcType=VARCHAR},
+	#{item.shipModeCode,jdbcType=VARCHAR},
+	#{item.productType,jdbcType=VARCHAR},
+	#{item.productTypeId,jdbcType=CHAR},
+	#{item.productId,jdbcType=CHAR},
+	#{item.productName,jdbcType=VARCHAR},
+	#{item.productModelNumber,jdbcType=VARCHAR},
+	#{item.phoneNumber,jdbcType=VARCHAR},
+	#{item.licensePlate,jdbcType=VARCHAR},
+	#{item.carType,jdbcType=VARCHAR},
+	#{item.driverName,jdbcType=VARCHAR},
+	#{item.driverIdCardNumber,jdbcType=VARCHAR},
+	#{item.ladingBillStatus,jdbcType=CHAR},
+	#{item.auditTime,jdbcType=TIMESTAMP},
+	#{item.auditPerson,jdbcType=VARCHAR},
+	#{item.auditPersonId,jdbcType=NUMERIC},
+	#{item.estimatedLoadingTime,jdbcType=TIMESTAMP},
+	#{item.takeNoTime,jdbcType=TIMESTAMP},
+	#{item.actualShippingWeight,jdbcType=DECIMAL},
+	#{item.nuclearLoad,jdbcType=DECIMAL},
+	#{item.inGate,jdbcType=VARCHAR},
+	#{item.inTime,jdbcType=TIMESTAMP},
+	#{item.emptyWeight,jdbcType=DECIMAL},
+	#{item.emptyPoundTime,jdbcType=TIMESTAMP},
+	#{item.fullWeight,jdbcType=DECIMAL},
+	#{item.fullPoundTime,jdbcType=TIMESTAMP},
+	#{item.outGate,jdbcType=VARCHAR},
+	#{item.outTime,jdbcType=TIMESTAMP},
+	#{item.inputPersonId,jdbcType=NUMERIC},
+	#{item.inputPerson,jdbcType=VARCHAR},
+	#{item.inputTime,jdbcType=TIMESTAMP},
+	#{item.invalidPersonId,jdbcType=NUMERIC},
+	#{item.invalidPerson,jdbcType=VARCHAR},
+	#{item.invalidTime,jdbcType=TIMESTAMP},
+	#{item.invalidReason,jdbcType=VARCHAR},
+	#{item.isBringBelt,jdbcType=CHAR},
+	#{item.isLipolysis,jdbcType=CHAR},
+	#{item.isSince,jdbcType=CHAR},
+	#{item.isUrgent,jdbcType=CHAR},
+	#{item.plannedMileage,jdbcType=DECIMAL},
+	#{item.factMileage,jdbcType=DECIMAL},
+	#{item.valuationMileage,jdbcType=DECIMAL},
+	#{item.factValuationMileage,jdbcType=DECIMAL},
+	#{item.settlementFreight,jdbcType=DECIMAL},
+	#{item.yuanKmTon,jdbcType=DECIMAL},
+	#{item.freight,jdbcType=DECIMAL},
+	#{item.receivingPerson,jdbcType=VARCHAR},
+	#{item.receivingAddress,jdbcType=VARCHAR},
+	#{item.receivingPersonPhone,jdbcType=VARCHAR},
+	#{item.freightSettlementId,jdbcType=CHAR},
+	#{item.invoiceSettlementId,jdbcType=CHAR},
+	#{item.shipperCode,jdbcType=VARCHAR},
+	#{item.printTime,jdbcType=TIMESTAMP},
+	#{item.printTimes,jdbcType=NUMERIC},
+	#{item.remark,jdbcType=VARCHAR},
+	#{item.logisticsSpecialistId,jdbcType=NUMERIC},
+	#{item.logisticsSpecialistName,jdbcType=VARCHAR},
+	#{item.importTime,jdbcType=TIMESTAMP},
+	#{item.distributionTime,jdbcType=TIMESTAMP},
+	#{item.logisticsCompanyClerkId,jdbcType=NUMERIC},
+	#{item.logisticsCompanyClerk,jdbcType=VARCHAR},
+	#{item.allocationVehicleTime,jdbcType=TIMESTAMP},
+	#{item.isPound,jdbcType=CHAR},
+	#{item.isLoading,jdbcType=CHAR},
+	#{item.productUnitPrice,jdbcType=DECIMAL},
+	#{item.actualShippingAmount,jdbcType=DECIMAL},
+	#{item.plannedShipmentAmount,jdbcType=DECIMAL}
+     from dual
+    </foreach>
+  </insert>	
+  
+  <select id="getId" parameterType="map" resultType="string">
+  	select BUS_LADING_BILL.ID from BUS_LADING_BILL
+  	<include refid="where"/>
+  </select>
+  
+  <select id="ladingBillInterfaceData" parameterType="map" resultType="com.dfhc.bus.ladingbill.vo.ILadingBillVo">
+	    select
+	    lading.billid,
+	    lading.billStatus,
+	    lading.truckNumber,
+	    lading.bullType,
+	    lading.productName,
+	    lading.specification,
+	    lading."from",
+	    lading."to",
+	    lading.transportation,
+	    lading.amount,
+	    lading.phoneNumber,
+	    lading.idNumber,
+	    lading.remark,
+	    lading.issign,
+	    lading.queueid,
+	    lading.driverName,
+		lading.deliveryDate,
+		lading.customerName,
+		lading.transportationMethod,
+		lading.placeOfDelivery,
+		lading.quantityOfShipments,
+		lading.numberOfPackages
+	     from
+	(
+    select DISTINCT
+     BUS_LADING_BILL.LADING_BILL_CODE as billid,
+     BUS_LADING_BILL.LADING_BILL_STATUS as billStatus,
+     BUS_LADING_BILL.LICENSE_PLATE as truckNumber,		
+     BUS_LADING_BILL.BILL_TYPE as bullType,
+     BUS_LADING_BILL.PRODUCT_NAME as productName,
+     BUS_LADING_BILL.PRODUCT_MODEL_NUMBER as specification,
+     BASE_SHIPPER.NAME as "from",
+     BUS_LADING_BILL.RECEIVING_ADDRESS as "to",
+	 BASE_LOGISTICS_COMPANY.NAME  as transportation, 
+	 BUS_LADING_BILL.NUCLEAR_LOAD as amount,
+	 BUS_LADING_BILL.PHONE_NUMBER as phoneNumber,
+	 BUS_LADING_BILL.DRIVER_ID_CARD_NUMBER as idNumber,
+     BUS_LADING_BILL.REMARK as remark,
+     CASE 　　
+         WHEN NVL(BUS_ROW_NUMBER.STATUS, '0')='0'
+         THEN '0'　
+         WHEN BUS_ROW_NUMBER.STATUS = '04'
+         THEN '0'
+         WHEN BUS_ROW_NUMBER.STATUS = '06'
+         THEN '0'
+         ELSE '1'　　
+    END                             AS issign,
+    BUS_ROW_NUMBER.PRODUCT_SEQUENCE as queueid,
+     BUS_LADING_BILL.DRIVER_NAME as driverName,
+     to_char(BUS_LADING_BILL.IN_TIME,'YYYY-MM-DD') as deliveryDate,
+     BUS_CAR_DISTRIBUTION_PLAN.CUSTOMER_NAME as customerName,
+     BUS_LADING_BILL.SHIP_MODE as transportationMethod,
+     BUS_LADING_BILL.RECEIVING_ADDRESS as placeOfDelivery,
+     BUS_LADING_BILL.ACTUAL_SHIPPING_WEIGHT as quantityOfShipments,
+     decode(BUS_LADING_BILL.IS_POUND,'1',1,BUS_LOADING_NOTICE.ACTUAL_DELIVERY_NUMBER) as numberOfPackages 
+    from BUS_LADING_BILL
+    left join BASE_SHIPPER on BASE_SHIPPER.CODE = BUS_LADING_BILL.SHIPPER_CODE
+    inner join BUS_CAR_DISTRIBUTION_PLAN on BUS_LADING_BILL.ORDER_PLAN_ID = BUS_CAR_DISTRIBUTION_PLAN.ID
+    left join BASE_LOGISTICS_COMPANY on BASE_LOGISTICS_COMPANY.ID = BUS_CAR_DISTRIBUTION_PLAN.LOGISTICS_COMPANY_ID
+    left join BUS_ROW_NUMBER on BUS_ROW_NUMBER.LADING_BILL_ID = BUS_LADING_BILL.ID 
+    left join BUS_LOADING_NOTICE on BUS_LOADING_NOTICE.LADING_BILL_ID = BUS_LADING_BILL.ID 
+    <trim prefix="where" prefixOverrides="and|or">
+      <if test="phoneNumber != null and phoneNumber != ''">
+        and BUS_LADING_BILL.PHONE_NUMBER = #{phoneNumber}
+      </if>
+      <if test="licensePlate != null and licensePlate != ''">
+        and BUS_LADING_BILL.LICENSE_PLATE = #{licensePlate}
+      </if>
+	  <if test="driverIdCardNumber != null and driverIdCardNumber != ''">
+        and BUS_LADING_BILL.DRIVER_ID_CARD_NUMBER = #{driverIdCardNumber}
+      </if>	  
+      <if test="ladingBillStatuses != null and ladingBillStatuses != ''">
+        and BUS_LADING_BILL.LADING_BILL_STATUS in (${ladingBillStatuses})
+      </if>
+      <if test="ladingBillStatus != null and ladingBillStatus != ''">
+        and BUS_LADING_BILL.LADING_BILL_STATUS = #{ladingBillStatus}
+      </if>
+      <if test="estimatedLadingTimeStart != null and estimatedLadingTimeStart != ''">
+        <![CDATA[and to_char(BUS_LADING_BILL.ESTIMATED_LOADING_TIME,'YYYY-MM-DD') <= #{estimatedLadingTimeStart}]]>
+      </if>
+      <if test="estimatedLadingTimeEnd != null and estimatedLadingTimeEnd != ''">
+        <![CDATA[
+        	and to_char(BUS_LADING_BILL.ESTIMATED_LOADING_TIME+${time},'YYYY-MM-DD') >= #{estimatedLadingTimeEnd}
+        ]]>
+      </if>	  	  
+      <if test="notRowStatus != null and notRowStatus != ''">
+      	<![CDATA[and nvl(BUS_ROW_NUMBER.STATUS, '0') <> #{notRowStatus}]]>
+      </if>
+      <!-- 排除排号表多个状态 -->
+      <if test="notRowStatues != null and notRowStatues != ''">
+      	<![CDATA[and nvl(BUS_ROW_NUMBER.STATUS, '0') not in (${notRowStatues})]]>
+      </if>      
+      <if test="delete_flag7 != null and delete_flag7 != ''">
+        and nvl(BUS_CAR_DISTRIBUTION_PLAN.DELETE_FLAG,'0') = #{delete_flag7}
+      </if>
+      <if test="delete_flag != null and delete_flag != ''">
+        and nvl(BUS_LADING_BILL.DELETE_FLAG,'0') = #{delete_flag}
+      </if>
+      <if test="delete_flag1 != null and delete_flag1 != ''">
+        and nvl(BASE_SHIPPER.DELETE_FLAG,'0') = #{delete_flag1}
+      </if>
+      <if test="delete_flag3 != null and delete_flag3 != ''">
+        and nvl(BUS_ROW_NUMBER.DELETE_FLAG,'0') = #{delete_flag3}
+      </if>
+      <if test="delete_flag5 != null and delete_flag5 != ''">
+        and nvl(BASE_LOGISTICS_COMPANY.DELETE_FLAG,'0') = #{delete_flag5}
+      </if>
+    </trim>
+    union all
+    select DISTINCT
+     BUS_LADING_BILL.LADING_BILL_CODE as billid,
+     BUS_LADING_BILL.LADING_BILL_STATUS as billStatus,
+     BUS_LADING_BILL.LICENSE_PLATE as truckNumber,		
+     BUS_LADING_BILL.BILL_TYPE as bullType,
+     BUS_LADING_BILL.PRODUCT_NAME as productName,
+     BUS_LADING_BILL.PRODUCT_MODEL_NUMBER as specification,
+     BASE_SHIPPER.NAME as "from",
+     BUS_LADING_BILL.RECEIVING_ADDRESS as "to",
+	 BASE_LOGISTICS_COMPANY.NAME  as transportation, 
+	 BUS_LADING_BILL.NUCLEAR_LOAD as amount,
+	 BUS_LADING_BILL.PHONE_NUMBER as phoneNumber,
+	 BUS_LADING_BILL.DRIVER_ID_CARD_NUMBER as idNumber,
+     BUS_LADING_BILL.REMARK as remark,
+     CASE 　　
+         WHEN NVL(BUS_ROW_NUMBER.STATUS, '0')='0'
+         THEN '0'　
+         WHEN BUS_ROW_NUMBER.STATUS = '04'
+         THEN '0'
+         WHEN BUS_ROW_NUMBER.STATUS = '06'
+         THEN '0'         
+         ELSE '1'　　
+    END                             AS issign,
+    BUS_ROW_NUMBER.PRODUCT_SEQUENCE as queueid,
+     BUS_LADING_BILL.DRIVER_NAME as driverName,
+     to_char(BUS_LADING_BILL.IN_TIME,'YYYY-MM-DD') as deliveryDate,
+     BUS_CAR_REQUISITION_PLAN.REQUISITION_WAREHOUSE as customerName,
+     BUS_LADING_BILL.SHIP_MODE as transportationMethod,
+     BUS_LADING_BILL.RECEIVING_ADDRESS as placeOfDelivery,
+     BUS_LADING_BILL.ACTUAL_SHIPPING_WEIGHT as quantityOfShipments,
+     decode(BUS_LADING_BILL.IS_POUND,'1',1,BUS_LOADING_NOTICE.ACTUAL_DELIVERY_NUMBER) as numberOfPackages
+    from BUS_LADING_BILL
+    left join BASE_SHIPPER on BASE_SHIPPER.CODE = BUS_LADING_BILL.SHIPPER_CODE
+    inner join BUS_CAR_REQUISITION_PLAN on BUS_LADING_BILL.ORDER_PLAN_ID = BUS_CAR_REQUISITION_PLAN.ID
+    left join BASE_LOGISTICS_COMPANY on BASE_LOGISTICS_COMPANY.ID = BUS_CAR_REQUISITION_PLAN.LOGISTICS_COMPANY_ID
+    left join BUS_ROW_NUMBER on BUS_ROW_NUMBER.LADING_BILL_ID = BUS_LADING_BILL.ID 
+    left join BUS_LOADING_NOTICE on BUS_LOADING_NOTICE.LADING_BILL_ID = BUS_LADING_BILL.ID
+    <trim prefix="where" prefixOverrides="and|or">
+      <if test="phoneNumber != null and phoneNumber != ''">
+        and BUS_LADING_BILL.PHONE_NUMBER = #{phoneNumber}
+      </if>
+      <if test="licensePlate != null and licensePlate != ''">
+        and BUS_LADING_BILL.LICENSE_PLATE = #{licensePlate}
+      </if>
+	  <if test="driverIdCardNumber != null and driverIdCardNumber != ''">
+        and BUS_LADING_BILL.DRIVER_ID_CARD_NUMBER = #{driverIdCardNumber}
+      </if>	  
+      <if test="ladingBillStatuses != null and ladingBillStatuses != ''">
+        and BUS_LADING_BILL.LADING_BILL_STATUS in (${ladingBillStatuses})
+      </if>
+      <if test="ladingBillStatus != null and ladingBillStatus != ''">
+        and BUS_LADING_BILL.LADING_BILL_STATUS = #{ladingBillStatus}
+      </if>
+      <if test="estimatedLadingTimeStart != null and estimatedLadingTimeStart != ''">
+        <![CDATA[and to_char(BUS_LADING_BILL.ESTIMATED_LOADING_TIME,'YYYY-MM-DD') <= #{estimatedLadingTimeStart}]]>
+      </if>
+      <if test="estimatedLadingTimeEnd != null and estimatedLadingTimeEnd != ''">
+        <![CDATA[
+        	and to_char(BUS_LADING_BILL.ESTIMATED_LOADING_TIME+${time},'YYYY-MM-DD') >= #{estimatedLadingTimeEnd}
+        ]]>
+      </if>	  	  
+      <if test="notRowStatus != null and notRowStatus != ''">
+      	<![CDATA[and nvl(BUS_ROW_NUMBER.STATUS, '0') <> #{notRowStatus}]]>
+      </if>
+      <!-- 排除排号表多个状态 -->
+      <if test="notRowStatues != null and notRowStatues != ''">
+      	<![CDATA[and nvl(BUS_ROW_NUMBER.STATUS, '0') not in (${notRowStatues})]]>
+      </if>      
+      
+      <if test="delete_flag6 != null and delete_flag6 != ''">
+        and nvl(BUS_CAR_REQUISITION_PLAN.DELETE_FLAG,'0') = #{delete_flag6}
+      </if>
+      <if test="delete_flag != null and delete_flag != ''">
+        and nvl(BUS_LADING_BILL.DELETE_FLAG,'0') = #{delete_flag}
+      </if>
+      <if test="delete_flag1 != null and delete_flag1 != ''">
+        and nvl(BASE_SHIPPER.DELETE_FLAG,'0') = #{delete_flag1}
+      </if>
+      <if test="delete_flag3 != null and delete_flag3 != ''">
+        and nvl(BUS_ROW_NUMBER.DELETE_FLAG,'0') = #{delete_flag3}
+      </if>
+      <if test="delete_flag5 != null and delete_flag5 != ''">
+        and nvl(BASE_LOGISTICS_COMPANY.DELETE_FLAG,'0') = #{delete_flag5}
+      </if>
+    </trim>
+    union all
+    select DISTINCT
+     BUS_LADING_BILL.LADING_BILL_CODE as billid,
+     BUS_LADING_BILL.LADING_BILL_STATUS as billStatus,
+     BUS_LADING_BILL.LICENSE_PLATE as truckNumber,		
+     BUS_LADING_BILL.BILL_TYPE as bullType,
+     BUS_LADING_BILL.PRODUCT_NAME as productName,
+     BUS_LADING_BILL.PRODUCT_MODEL_NUMBER as specification,
+     BASE_SHIPPER.NAME as "from",
+     BUS_LADING_BILL.RECEIVING_ADDRESS as "to",
+	 BASE_LOGISTICS_COMPANY.NAME  as transportation, 
+	 BUS_LADING_BILL.NUCLEAR_LOAD as amount,
+	 BUS_LADING_BILL.PHONE_NUMBER as phoneNumber,
+	 BUS_LADING_BILL.DRIVER_ID_CARD_NUMBER as idNumber,
+     BUS_LADING_BILL.REMARK as remark,
+     CASE 　　
+         WHEN NVL(BUS_ROW_NUMBER.STATUS, '0')='0'
+         THEN '0'　
+         WHEN BUS_ROW_NUMBER.STATUS = '04'
+         THEN '0'
+         WHEN BUS_ROW_NUMBER.STATUS = '06'
+         THEN '0'         
+         ELSE '1'　　
+    END                             AS issign,
+    BUS_ROW_NUMBER.PRODUCT_SEQUENCE as queueid,
+     BUS_LADING_BILL.DRIVER_NAME as driverName,
+     to_char(BUS_LADING_BILL.IN_TIME,'YYYY-MM-DD') as deliveryDate,
+     BUS_TRAINS_REQUISITION_PLAN.REQUISITION_WAREHOUSE as customerName,
+     BUS_LADING_BILL.SHIP_MODE as transportationMethod,
+     BUS_LADING_BILL.RECEIVING_ADDRESS as placeOfDelivery,
+     BUS_LADING_BILL.ACTUAL_SHIPPING_WEIGHT as quantityOfShipments,
+     decode(BUS_LADING_BILL.IS_POUND,'1',1,BUS_LOADING_NOTICE.ACTUAL_DELIVERY_NUMBER) as numberOfPackages
+    from BUS_LADING_BILL
+    left join BASE_SHIPPER on BASE_SHIPPER.CODE = BUS_LADING_BILL.SHIPPER_CODE
+    inner join BUS_TRAINS_REQUISITION_PLAN on BUS_LADING_BILL.ORDER_PLAN_ID = BUS_TRAINS_REQUISITION_PLAN.ID
+    left join BASE_LOGISTICS_COMPANY on BASE_LOGISTICS_COMPANY.ID = BUS_TRAINS_REQUISITION_PLAN.LOGISTICS_COMPANY_ID
+    left join BUS_ROW_NUMBER on BUS_ROW_NUMBER.LADING_BILL_ID = BUS_LADING_BILL.ID 
+    left join BUS_LOADING_NOTICE on BUS_LOADING_NOTICE.LADING_BILL_ID = BUS_LADING_BILL.ID
+    <trim prefix="where" prefixOverrides="and|or">
+      <if test="phoneNumber != null and phoneNumber != ''">
+        and BUS_LADING_BILL.PHONE_NUMBER = #{phoneNumber}
+      </if>
+      <if test="licensePlate != null and licensePlate != ''">
+        and BUS_LADING_BILL.LICENSE_PLATE = #{licensePlate}
+      </if>
+	  <if test="driverIdCardNumber != null and driverIdCardNumber != ''">
+        and BUS_LADING_BILL.DRIVER_ID_CARD_NUMBER = #{driverIdCardNumber}
+      </if>	  
+      <if test="ladingBillStatuses != null and ladingBillStatuses != ''">
+        and BUS_LADING_BILL.LADING_BILL_STATUS in (${ladingBillStatuses})
+      </if>
+      <if test="ladingBillStatus != null and ladingBillStatus != ''">
+        and BUS_LADING_BILL.LADING_BILL_STATUS = #{ladingBillStatus}
+      </if>
+      <if test="estimatedLadingTimeStart != null and estimatedLadingTimeStart != ''">
+        <![CDATA[and to_char(BUS_LADING_BILL.ESTIMATED_LOADING_TIME,'YYYY-MM-DD') <= #{estimatedLadingTimeStart}]]>
+      </if>
+      <if test="estimatedLadingTimeEnd != null and estimatedLadingTimeEnd != ''">
+        <![CDATA[
+        	and to_char(BUS_LADING_BILL.ESTIMATED_LOADING_TIME+${time},'YYYY-MM-DD') >= #{estimatedLadingTimeEnd}
+        ]]>
+      </if>	  	  
+      <if test="notRowStatus != null and notRowStatus != ''">
+      	<![CDATA[and nvl(BUS_ROW_NUMBER.STATUS, '0') <> #{notRowStatus}]]>
+      </if>
+      <!-- 排除排号表多个状态 -->
+      <if test="notRowStatues != null and notRowStatues != ''">
+      	<![CDATA[and nvl(BUS_ROW_NUMBER.STATUS, '0') not in (${notRowStatues})]]>
+      </if>            
+      <if test="delete_flag4 != null and delete_flag4 != ''">
+        and nvl(BUS_TRAINS_REQUISITION_PLAN.DELETE_FLAG,'0') = #{delete_flag4}
+      </if>
+      <if test="delete_flag != null and delete_flag != ''">
+        and nvl(BUS_LADING_BILL.DELETE_FLAG,'0') = #{delete_flag}
+      </if>
+      <if test="delete_flag1 != null and delete_flag1 != ''">
+        and nvl(BASE_SHIPPER.DELETE_FLAG,'0') = #{delete_flag1}
+      </if>
+      <if test="delete_flag3 != null and delete_flag3 != ''">
+        and nvl(BUS_ROW_NUMBER.DELETE_FLAG,'0') = #{delete_flag3}
+      </if>
+      <if test="delete_flag5 != null and delete_flag5 != ''">
+        and nvl(BASE_LOGISTICS_COMPANY.DELETE_FLAG,'0') = #{delete_flag5}
+      </if>
+    </trim>
+    union all
+    select DISTINCT
+     BUS_LADING_BILL.LADING_BILL_CODE as billid,
+     BUS_LADING_BILL.LADING_BILL_STATUS as billStatus,
+     BUS_LADING_BILL.LICENSE_PLATE as truckNumber,		
+     BUS_LADING_BILL.BILL_TYPE as bullType,
+     BUS_LADING_BILL.PRODUCT_NAME as productName,
+     BUS_LADING_BILL.PRODUCT_MODEL_NUMBER as specification,
+     BASE_SHIPPER.NAME as "from",
+     BUS_LADING_BILL.RECEIVING_ADDRESS as "to",
+	 ''  as transportation, 
+	 BUS_LADING_BILL.NUCLEAR_LOAD as amount,
+	 BUS_LADING_BILL.PHONE_NUMBER as phoneNumber,
+	 BUS_LADING_BILL.DRIVER_ID_CARD_NUMBER as idNumber,
+     BUS_LADING_BILL.REMARK as remark,
+     CASE 　　
+         WHEN NVL(BUS_ROW_NUMBER.STATUS, '0')='0'
+         THEN '0'　
+         WHEN BUS_ROW_NUMBER.STATUS = '04'
+         THEN '0'
+         WHEN BUS_ROW_NUMBER.STATUS = '06'
+         THEN '0'
+         ELSE '1'　　
+    END                             AS issign,
+     BUS_ROW_NUMBER.PRODUCT_SEQUENCE as queueid,
+     BUS_LADING_BILL.DRIVER_NAME as driverName,
+     to_char(BUS_LADING_BILL.IN_TIME,'YYYY-MM-DD') as deliveryDate,
+     BUS_ORDER.CUSTOMER_NAME as customerName,
+     BUS_LADING_BILL.SHIP_MODE as transportationMethod,
+     BUS_LADING_BILL.RECEIVING_ADDRESS as placeOfDelivery,
+     BUS_LADING_BILL.ACTUAL_SHIPPING_WEIGHT as quantityOfShipments,
+     decode(BUS_LADING_BILL.IS_POUND,'1',1,BUS_LOADING_NOTICE.ACTUAL_DELIVERY_NUMBER) as numberOfPackages
+    from BUS_LADING_BILL
+    left join BASE_SHIPPER on BASE_SHIPPER.CODE = BUS_LADING_BILL.SHIPPER_CODE
+    INNER JOIN BUS_ORDER ON BUS_ORDER.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+    left join BUS_ROW_NUMBER on BUS_ROW_NUMBER.LADING_BILL_ID = BUS_LADING_BILL.ID 
+    left join BUS_LOADING_NOTICE on BUS_LOADING_NOTICE.LADING_BILL_ID = BUS_LADING_BILL.ID
+    <trim prefix="where" prefixOverrides="and|or">
+      <if test="phoneNumber != null and phoneNumber != ''">
+        and BUS_LADING_BILL.PHONE_NUMBER = #{phoneNumber}
+      </if>
+      <if test="licensePlate != null and licensePlate != ''">
+        and BUS_LADING_BILL.LICENSE_PLATE = #{licensePlate}
+      </if>
+	  <if test="driverIdCardNumber != null and driverIdCardNumber != ''">
+        and BUS_LADING_BILL.DRIVER_ID_CARD_NUMBER = #{driverIdCardNumber}
+      </if>	  
+      <if test="ladingBillStatuses != null and ladingBillStatuses != ''">
+        and BUS_LADING_BILL.LADING_BILL_STATUS in (${ladingBillStatuses})
+      </if>
+      <if test="ladingBillStatus != null and ladingBillStatus != ''">
+        and BUS_LADING_BILL.LADING_BILL_STATUS = #{ladingBillStatus}
+      </if>
+      <if test="estimatedLadingTimeStart != null and estimatedLadingTimeStart != ''">
+        <![CDATA[and to_char(BUS_LADING_BILL.ESTIMATED_LOADING_TIME,'YYYY-MM-DD') <= #{estimatedLadingTimeStart}]]>
+      </if>
+      <if test="estimatedLadingTimeEnd != null and estimatedLadingTimeEnd != ''">
+        <![CDATA[
+        	and to_char(BUS_LADING_BILL.ESTIMATED_LOADING_TIME+${time},'YYYY-MM-DD') >= #{estimatedLadingTimeEnd}
+        ]]>
+      </if>	  	  
+      <if test="notRowStatus != null and notRowStatus != ''">
+      	<![CDATA[and nvl(BUS_ROW_NUMBER.STATUS, '0') <> #{notRowStatus}]]>
+      </if>
+      <!-- 排除排号表多个状态 -->
+      <if test="notRowStatues != null and notRowStatues != ''">
+      	<![CDATA[and nvl(BUS_ROW_NUMBER.STATUS, '0') not in (${notRowStatues})]]>
+      </if>      
+      
+      <if test="delete_flag2 != null and delete_flag2 != ''">
+        and nvl(BUS_ORDER.DELETE_FLAG,'0') = #{delete_flag2}
+      </if>
+      <if test="delete_flag != null and delete_flag != ''">
+        and nvl(BUS_LADING_BILL.DELETE_FLAG,'0') = #{delete_flag}
+      </if>
+      <if test="delete_flag1 != null and delete_flag1 != ''">
+        and nvl(BASE_SHIPPER.DELETE_FLAG,'0') = #{delete_flag1}
+      </if>
+      <if test="delete_flag3 != null and delete_flag3 != ''">
+        and nvl(BUS_ROW_NUMBER.DELETE_FLAG,'0') = #{delete_flag3}
+      </if>
+    </trim>
+    )lading
+
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+  <select id="plantOrderList" parameterType="map" resultType="com.dfhc.bus.ladingbill.vo.LadingBillVo">
+    select distinct
+	      plant.USABLE_STATUS, plant.CREATE_TIME, plant.CREATE_IP, plant.CREATE_USER_ID, 
+	      plant.CREATE_USER_NAME, plant.MODIFY_TIME, plant.MODIFY_IP, plant.MODIFY_USER_ID, 
+	      plant.MODIFY_USER_NAME, plant.DELETE_TIME, plant.DELETE_IP, plant.DELETE_FLAG, 
+	      plant.DELETE_USER_ID, plant.DELETE_USER_NAME, plant.ORDER_CODE, plant.ATTRIBUTE1, 
+	     plant.ATTRIBUTE2, plant.ATTRIBUTE3, plant.ATTRIBUTE4, plant.ATTRIBUTE5, 
+	     plant.id,	
+	     plant.orderPlanId,	
+	     plant.orderPlanCode,	
+	     plant.ladingBillCode,	
+	     plant.billType,	
+	     plant.shipMode,	
+	     plant.shipModeCode,	
+	     plant.productType,	
+	     plant.productTypeId,	
+	     plant.productId,	
+	     plant.productName,	
+	     plant.productModelNumber,	
+	     plant.phoneNumber,	
+	     plant.licensePlate,	
+	     plant.carType,	
+	     plant.driverName,	
+	     plant.driverIdCardNumber,	
+	     plant.ladingBillStatus,	
+	     plant.auditTime,	
+	     plant.auditPerson,	
+	     plant.auditPersonId,	
+	     plant.estimatedLoadingTime,	
+	     plant.takeNoTime,	
+	     plant.actualShippingWeight,	
+	     plant.nuclearLoad,	
+	     plant.inGate,	
+	     plant.inTime,	
+	     plant.emptyWeight,	
+	     plant.emptyPoundTime,	
+	     plant.fullWeight,	
+	     plant.fullPoundTime,	
+	     plant.outGate,	
+	     plant.outTime,	
+	     plant.inputPersonId,	
+	     plant.inputPerson,	
+	     plant.inputTime,	
+	     plant.invalidPersonId,	
+	     plant.invalidPerson,	
+	     plant.invalidTime,	
+	     plant.invalidReason,	
+	     plant.isBringBelt,	
+	     plant.isLipolysis,	
+	     plant.isSince,	
+	     plant.isUrgent,	
+	     plant.plannedMileage,	
+	     plant.factMileage,	
+	     plant.valuationMileage,	
+	     plant.factValuationMileage,	
+	     plant.settlementFreight,	
+	     plant.yuanKmTon,	
+	     plant.freight,	
+	     plant.receivingPerson,	
+	     plant.receivingAddress,	
+	     plant.receivingPersonPhone,	
+	     plant.freightSettlementId,	
+	     plant.invoiceSettlementId,	
+	     plant.shipperCode,	
+	     plant.printTime,	
+	     plant.printTimes,	
+	     plant.remark,	
+	     plant.logisticsSpecialistId,	
+	     plant.logisticsSpecialistName,	
+	     plant.importTime,	
+	     plant.distributionTime,	
+	     plant.logisticsCompanyClerkId,	
+	     plant.logisticsCompanyClerk,	
+	     plant.allocationVehicleTime,	
+	     plant.isPound,	
+	     plant.isLoading,	
+	     plant.productUnitPrice,	
+	     plant.actualShippingAmount,	
+	     plant.plannedShipmentAmount
+    from(
+    select 
+      BUS_LADING_BILL.USABLE_STATUS, BUS_LADING_BILL.CREATE_TIME, BUS_LADING_BILL.CREATE_IP, BUS_LADING_BILL.CREATE_USER_ID, 
+      BUS_LADING_BILL.CREATE_USER_NAME, BUS_LADING_BILL.MODIFY_TIME, BUS_LADING_BILL.MODIFY_IP, BUS_LADING_BILL.MODIFY_USER_ID, 
+      BUS_LADING_BILL.MODIFY_USER_NAME, BUS_LADING_BILL.DELETE_TIME, BUS_LADING_BILL.DELETE_IP, BUS_LADING_BILL.DELETE_FLAG, 
+      BUS_LADING_BILL.DELETE_USER_ID, BUS_LADING_BILL.DELETE_USER_NAME, BUS_LADING_BILL.ORDER_CODE, BUS_LADING_BILL.ATTRIBUTE1, 
+     BUS_LADING_BILL.ATTRIBUTE2, BUS_LADING_BILL.ATTRIBUTE3, BUS_LADING_BILL.ATTRIBUTE4, BUS_LADING_BILL.ATTRIBUTE5, 
+     BUS_LADING_BILL.ID as id,	
+     BUS_LADING_BILL.ORDER_PLAN_ID as orderPlanId,	
+     BUS_LADING_BILL.ORDER_PLAN_CODE as orderPlanCode,	
+     BUS_LADING_BILL.LADING_BILL_CODE as ladingBillCode,	
+     BUS_LADING_BILL.BILL_TYPE as billType,	
+     BUS_LADING_BILL.SHIP_MODE as shipMode,	
+     BUS_LADING_BILL.SHIP_MODE_CODE as shipModeCode,	
+     BUS_LADING_BILL.PRODUCT_TYPE as productType,	
+     BUS_LADING_BILL.PRODUCT_TYPE_ID as productTypeId,	
+     BUS_LADING_BILL.PRODUCT_ID as productId,	
+     BUS_LADING_BILL.PRODUCT_NAME as productName,	
+     BUS_LADING_BILL.PRODUCT_MODEL_NUMBER as productModelNumber,	
+     BUS_LADING_BILL.PHONE_NUMBER as phoneNumber,	
+     BUS_LADING_BILL.LICENSE_PLATE as licensePlate,	
+     BUS_LADING_BILL.CAR_TYPE as carType,	
+     BUS_LADING_BILL.DRIVER_NAME as driverName,	
+     BUS_LADING_BILL.DRIVER_ID_CARD_NUMBER as driverIdCardNumber,	
+     BUS_LADING_BILL.LADING_BILL_STATUS as ladingBillStatus,	
+     BUS_LADING_BILL.AUDIT_TIME as auditTime,	
+     BUS_LADING_BILL.AUDIT_PERSON as auditPerson,	
+     BUS_LADING_BILL.AUDIT_PERSON_ID as auditPersonId,	
+     BUS_LADING_BILL.ESTIMATED_LOADING_TIME as estimatedLoadingTime,	
+     BUS_LADING_BILL.TAKE_NO_TIME as takeNoTime,	
+     BUS_LADING_BILL.ACTUAL_SHIPPING_WEIGHT as actualShippingWeight,	
+     BUS_LADING_BILL.NUCLEAR_LOAD as nuclearLoad,	
+     BUS_LADING_BILL.IN_GATE as inGate,	
+     BUS_LADING_BILL.IN_TIME as inTime,	
+     BUS_LADING_BILL.EMPTY_WEIGHT as emptyWeight,	
+     BUS_LADING_BILL.EMPTY_POUND_TIME as emptyPoundTime,	
+     BUS_LADING_BILL.FULL_WEIGHT as fullWeight,	
+     BUS_LADING_BILL.FULL_POUND_TIME as fullPoundTime,	
+     BUS_LADING_BILL.OUT_GATE as outGate,	
+     BUS_LADING_BILL.OUT_TIME as outTime,	
+     BUS_LADING_BILL.INPUT_PERSON_ID as inputPersonId,	
+     BUS_LADING_BILL.INPUT_PERSON as inputPerson,	
+     BUS_LADING_BILL.INPUT_TIME as inputTime,	
+     BUS_LADING_BILL.INVALID_PERSON_ID as invalidPersonId,	
+     BUS_LADING_BILL.INVALID_PERSON as invalidPerson,	
+     BUS_LADING_BILL.INVALID_TIME as invalidTime,	
+     BUS_LADING_BILL.INVALID_REASON as invalidReason,	
+     BUS_LADING_BILL.IS_BRING_BELT as isBringBelt,	
+     BUS_LADING_BILL.IS_LIPOLYSIS as isLipolysis,	
+     BUS_LADING_BILL.IS_SINCE as isSince,	
+     BUS_LADING_BILL.IS_URGENT as isUrgent,	
+     BUS_LADING_BILL.PLANNED_MILEAGE as plannedMileage,	
+     BUS_LADING_BILL.FACT_MILEAGE as factMileage,	
+     BUS_LADING_BILL.VALUATION_MILEAGE as valuationMileage,	
+     BUS_LADING_BILL.FACT_VALUATION_MILEAGE as factValuationMileage,	
+     BUS_LADING_BILL.SETTLEMENT_FREIGHT as settlementFreight,	
+     BUS_LADING_BILL.YUAN_KM_TON as yuanKmTon,	
+     BUS_LADING_BILL.FREIGHT as freight,	
+     BUS_LADING_BILL.RECEIVING_PERSON as receivingPerson,	
+     BUS_LADING_BILL.RECEIVING_ADDRESS as receivingAddress,	
+     BUS_LADING_BILL.RECEIVING_PERSON_PHONE as receivingPersonPhone,	
+     BUS_LADING_BILL.FREIGHT_SETTLEMENT_ID as freightSettlementId,	
+     BUS_LADING_BILL.INVOICE_SETTLEMENT_ID as invoiceSettlementId,	
+     BUS_LADING_BILL.SHIPPER_CODE as shipperCode,	
+     BUS_LADING_BILL.PRINT_TIME as printTime,	
+     BUS_LADING_BILL.PRINT_TIMES as printTimes,	
+     BUS_LADING_BILL.REMARK as remark,	
+     BUS_LADING_BILL.LOGISTICS_SPECIALIST_ID as logisticsSpecialistId,	
+     BUS_LADING_BILL.LOGISTICS_SPECIALIST_NAME as logisticsSpecialistName,	
+     BUS_LADING_BILL.IMPORT_TIME as importTime,	
+     BUS_LADING_BILL.DISTRIBUTION_TIME as distributionTime,	
+     BUS_LADING_BILL.LOGISTICS_COMPANY_CLERK_ID as logisticsCompanyClerkId,	
+     BUS_LADING_BILL.LOGISTICS_COMPANY_CLERK as logisticsCompanyClerk,	
+     BUS_LADING_BILL.ALLOCATION_VEHICLE_TIME as allocationVehicleTime,	
+     BUS_LADING_BILL.IS_POUND as isPound,	
+     BUS_LADING_BILL.IS_LOADING as isLoading,	
+     BUS_LADING_BILL.PRODUCT_UNIT_PRICE as productUnitPrice,	
+     BUS_LADING_BILL.ACTUAL_SHIPPING_AMOUNT as actualShippingAmount,	
+     BUS_LADING_BILL.PLANNED_SHIPMENT_AMOUNT as plannedShipmentAmount	
+    from BUS_LADING_BILL
+    	inner join BUS_CAR_DISTRIBUTION_PLAN on BUS_CAR_DISTRIBUTION_PLAN.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+	 <include refid="where"/>
+     
+     union all
+     select 
+     BUS_LADING_BILL.USABLE_STATUS, BUS_LADING_BILL.CREATE_TIME, BUS_LADING_BILL.CREATE_IP, BUS_LADING_BILL.CREATE_USER_ID, 
+      BUS_LADING_BILL.CREATE_USER_NAME, BUS_LADING_BILL.MODIFY_TIME, BUS_LADING_BILL.MODIFY_IP, BUS_LADING_BILL.MODIFY_USER_ID, 
+      BUS_LADING_BILL.MODIFY_USER_NAME, BUS_LADING_BILL.DELETE_TIME, BUS_LADING_BILL.DELETE_IP, BUS_LADING_BILL.DELETE_FLAG, 
+      BUS_LADING_BILL.DELETE_USER_ID, BUS_LADING_BILL.DELETE_USER_NAME, BUS_LADING_BILL.ORDER_CODE, BUS_LADING_BILL.ATTRIBUTE1, 
+     BUS_LADING_BILL.ATTRIBUTE2, BUS_LADING_BILL.ATTRIBUTE3, BUS_LADING_BILL.ATTRIBUTE4, BUS_LADING_BILL.ATTRIBUTE5, 
+     BUS_LADING_BILL.ID as id,	
+     BUS_LADING_BILL.ORDER_PLAN_ID as orderPlanId,	
+     BUS_LADING_BILL.ORDER_PLAN_CODE as orderPlanCode,	
+     BUS_LADING_BILL.LADING_BILL_CODE as ladingBillCode,	
+     BUS_LADING_BILL.BILL_TYPE as billType,	
+     BUS_LADING_BILL.SHIP_MODE as shipMode,	
+     BUS_LADING_BILL.SHIP_MODE_CODE as shipModeCode,	
+     BUS_LADING_BILL.PRODUCT_TYPE as productType,	
+     BUS_LADING_BILL.PRODUCT_TYPE_ID as productTypeId,	
+     BUS_LADING_BILL.PRODUCT_ID as productId,	
+     BUS_LADING_BILL.PRODUCT_NAME as productName,	
+     BUS_LADING_BILL.PRODUCT_MODEL_NUMBER as productModelNumber,	
+     BUS_LADING_BILL.PHONE_NUMBER as phoneNumber,	
+     BUS_LADING_BILL.LICENSE_PLATE as licensePlate,	
+     BUS_LADING_BILL.CAR_TYPE as carType,	
+     BUS_LADING_BILL.DRIVER_NAME as driverName,	
+     BUS_LADING_BILL.DRIVER_ID_CARD_NUMBER as driverIdCardNumber,	
+     BUS_LADING_BILL.LADING_BILL_STATUS as ladingBillStatus,	
+     BUS_LADING_BILL.AUDIT_TIME as auditTime,	
+     BUS_LADING_BILL.AUDIT_PERSON as auditPerson,	
+     BUS_LADING_BILL.AUDIT_PERSON_ID as auditPersonId,	
+     BUS_LADING_BILL.ESTIMATED_LOADING_TIME as estimatedLoadingTime,	
+     BUS_LADING_BILL.TAKE_NO_TIME as takeNoTime,	
+     BUS_LADING_BILL.ACTUAL_SHIPPING_WEIGHT as actualShippingWeight,	
+     BUS_LADING_BILL.NUCLEAR_LOAD as nuclearLoad,	
+     BUS_LADING_BILL.IN_GATE as inGate,	
+     BUS_LADING_BILL.IN_TIME as inTime,	
+     BUS_LADING_BILL.EMPTY_WEIGHT as emptyWeight,	
+     BUS_LADING_BILL.EMPTY_POUND_TIME as emptyPoundTime,	
+     BUS_LADING_BILL.FULL_WEIGHT as fullWeight,	
+     BUS_LADING_BILL.FULL_POUND_TIME as fullPoundTime,	
+     BUS_LADING_BILL.OUT_GATE as outGate,	
+     BUS_LADING_BILL.OUT_TIME as outTime,	
+     BUS_LADING_BILL.INPUT_PERSON_ID as inputPersonId,	
+     BUS_LADING_BILL.INPUT_PERSON as inputPerson,	
+     BUS_LADING_BILL.INPUT_TIME as inputTime,	
+     BUS_LADING_BILL.INVALID_PERSON_ID as invalidPersonId,	
+     BUS_LADING_BILL.INVALID_PERSON as invalidPerson,	
+     BUS_LADING_BILL.INVALID_TIME as invalidTime,	
+     BUS_LADING_BILL.INVALID_REASON as invalidReason,	
+     BUS_LADING_BILL.IS_BRING_BELT as isBringBelt,	
+     BUS_LADING_BILL.IS_LIPOLYSIS as isLipolysis,	
+     BUS_LADING_BILL.IS_SINCE as isSince,	
+     BUS_LADING_BILL.IS_URGENT as isUrgent,	
+     BUS_LADING_BILL.PLANNED_MILEAGE as plannedMileage,	
+     BUS_LADING_BILL.FACT_MILEAGE as factMileage,	
+     BUS_LADING_BILL.VALUATION_MILEAGE as valuationMileage,	
+     BUS_LADING_BILL.FACT_VALUATION_MILEAGE as factValuationMileage,	
+     BUS_LADING_BILL.SETTLEMENT_FREIGHT as settlementFreight,	
+     BUS_LADING_BILL.YUAN_KM_TON as yuanKmTon,	
+     BUS_LADING_BILL.FREIGHT as freight,	
+     BUS_LADING_BILL.RECEIVING_PERSON as receivingPerson,	
+     BUS_LADING_BILL.RECEIVING_ADDRESS as receivingAddress,	
+     BUS_LADING_BILL.RECEIVING_PERSON_PHONE as receivingPersonPhone,	
+     BUS_LADING_BILL.FREIGHT_SETTLEMENT_ID as freightSettlementId,	
+     BUS_LADING_BILL.INVOICE_SETTLEMENT_ID as invoiceSettlementId,	
+     BUS_LADING_BILL.SHIPPER_CODE as shipperCode,	
+     BUS_LADING_BILL.PRINT_TIME as printTime,	
+     BUS_LADING_BILL.PRINT_TIMES as printTimes,	
+     BUS_LADING_BILL.REMARK as remark,	
+     BUS_LADING_BILL.LOGISTICS_SPECIALIST_ID as logisticsSpecialistId,	
+     BUS_LADING_BILL.LOGISTICS_SPECIALIST_NAME as logisticsSpecialistName,	
+     BUS_LADING_BILL.IMPORT_TIME as importTime,	
+     BUS_LADING_BILL.DISTRIBUTION_TIME as distributionTime,	
+     BUS_LADING_BILL.LOGISTICS_COMPANY_CLERK_ID as logisticsCompanyClerkId,	
+     BUS_LADING_BILL.LOGISTICS_COMPANY_CLERK as logisticsCompanyClerk,	
+     BUS_LADING_BILL.ALLOCATION_VEHICLE_TIME as allocationVehicleTime,	
+     BUS_LADING_BILL.IS_POUND as isPound,	
+     BUS_LADING_BILL.IS_LOADING as isLoading,	
+     BUS_LADING_BILL.PRODUCT_UNIT_PRICE as productUnitPrice,	
+     BUS_LADING_BILL.ACTUAL_SHIPPING_AMOUNT as actualShippingAmount,	
+     BUS_LADING_BILL.PLANNED_SHIPMENT_AMOUNT as plannedShipmentAmount	
+    from BUS_LADING_BILL
+     inner join  BUS_CAR_REQUISITION_PLAN on BUS_CAR_REQUISITION_PLAN.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+	 <include refid="where"/>
+
+     union all
+
+     select 
+     BUS_LADING_BILL.USABLE_STATUS, BUS_LADING_BILL.CREATE_TIME, BUS_LADING_BILL.CREATE_IP, BUS_LADING_BILL.CREATE_USER_ID, 
+      BUS_LADING_BILL.CREATE_USER_NAME, BUS_LADING_BILL.MODIFY_TIME, BUS_LADING_BILL.MODIFY_IP, BUS_LADING_BILL.MODIFY_USER_ID, 
+      BUS_LADING_BILL.MODIFY_USER_NAME, BUS_LADING_BILL.DELETE_TIME, BUS_LADING_BILL.DELETE_IP, BUS_LADING_BILL.DELETE_FLAG, 
+      BUS_LADING_BILL.DELETE_USER_ID, BUS_LADING_BILL.DELETE_USER_NAME, BUS_LADING_BILL.ORDER_CODE, BUS_LADING_BILL.ATTRIBUTE1, 
+     BUS_LADING_BILL.ATTRIBUTE2, BUS_LADING_BILL.ATTRIBUTE3, BUS_LADING_BILL.ATTRIBUTE4, BUS_LADING_BILL.ATTRIBUTE5, 
+     BUS_LADING_BILL.ID as id,	
+     BUS_LADING_BILL.ORDER_PLAN_ID as orderPlanId,	
+     BUS_LADING_BILL.ORDER_PLAN_CODE as orderPlanCode,	
+     BUS_LADING_BILL.LADING_BILL_CODE as ladingBillCode,	
+     BUS_LADING_BILL.BILL_TYPE as billType,	
+     BUS_LADING_BILL.SHIP_MODE as shipMode,	
+     BUS_LADING_BILL.SHIP_MODE_CODE as shipModeCode,	
+     BUS_LADING_BILL.PRODUCT_TYPE as productType,	
+     BUS_LADING_BILL.PRODUCT_TYPE_ID as productTypeId,	
+     BUS_LADING_BILL.PRODUCT_ID as productId,	
+     BUS_LADING_BILL.PRODUCT_NAME as productName,	
+     BUS_LADING_BILL.PRODUCT_MODEL_NUMBER as productModelNumber,	
+     BUS_LADING_BILL.PHONE_NUMBER as phoneNumber,	
+     BUS_LADING_BILL.LICENSE_PLATE as licensePlate,	
+     BUS_LADING_BILL.CAR_TYPE as carType,	
+     BUS_LADING_BILL.DRIVER_NAME as driverName,	
+     BUS_LADING_BILL.DRIVER_ID_CARD_NUMBER as driverIdCardNumber,	
+     BUS_LADING_BILL.LADING_BILL_STATUS as ladingBillStatus,	
+     BUS_LADING_BILL.AUDIT_TIME as auditTime,	
+     BUS_LADING_BILL.AUDIT_PERSON as auditPerson,	
+     BUS_LADING_BILL.AUDIT_PERSON_ID as auditPersonId,	
+     BUS_LADING_BILL.ESTIMATED_LOADING_TIME as estimatedLoadingTime,	
+     BUS_LADING_BILL.TAKE_NO_TIME as takeNoTime,	
+     BUS_LADING_BILL.ACTUAL_SHIPPING_WEIGHT as actualShippingWeight,	
+     BUS_LADING_BILL.NUCLEAR_LOAD as nuclearLoad,	
+     BUS_LADING_BILL.IN_GATE as inGate,	
+     BUS_LADING_BILL.IN_TIME as inTime,	
+     BUS_LADING_BILL.EMPTY_WEIGHT as emptyWeight,	
+     BUS_LADING_BILL.EMPTY_POUND_TIME as emptyPoundTime,	
+     BUS_LADING_BILL.FULL_WEIGHT as fullWeight,	
+     BUS_LADING_BILL.FULL_POUND_TIME as fullPoundTime,	
+     BUS_LADING_BILL.OUT_GATE as outGate,	
+     BUS_LADING_BILL.OUT_TIME as outTime,	
+     BUS_LADING_BILL.INPUT_PERSON_ID as inputPersonId,	
+     BUS_LADING_BILL.INPUT_PERSON as inputPerson,	
+     BUS_LADING_BILL.INPUT_TIME as inputTime,	
+     BUS_LADING_BILL.INVALID_PERSON_ID as invalidPersonId,	
+     BUS_LADING_BILL.INVALID_PERSON as invalidPerson,	
+     BUS_LADING_BILL.INVALID_TIME as invalidTime,	
+     BUS_LADING_BILL.INVALID_REASON as invalidReason,	
+     BUS_LADING_BILL.IS_BRING_BELT as isBringBelt,	
+     BUS_LADING_BILL.IS_LIPOLYSIS as isLipolysis,	
+     BUS_LADING_BILL.IS_SINCE as isSince,	
+     BUS_LADING_BILL.IS_URGENT as isUrgent,	
+     BUS_LADING_BILL.PLANNED_MILEAGE as plannedMileage,	
+     BUS_LADING_BILL.FACT_MILEAGE as factMileage,	
+     BUS_LADING_BILL.VALUATION_MILEAGE as valuationMileage,	
+     BUS_LADING_BILL.FACT_VALUATION_MILEAGE as factValuationMileage,	
+     BUS_LADING_BILL.SETTLEMENT_FREIGHT as settlementFreight,	
+     BUS_LADING_BILL.YUAN_KM_TON as yuanKmTon,	
+     BUS_LADING_BILL.FREIGHT as freight,	
+     BUS_LADING_BILL.RECEIVING_PERSON as receivingPerson,	
+     BUS_LADING_BILL.RECEIVING_ADDRESS as receivingAddress,	
+     BUS_LADING_BILL.RECEIVING_PERSON_PHONE as receivingPersonPhone,	
+     BUS_LADING_BILL.FREIGHT_SETTLEMENT_ID as freightSettlementId,	
+     BUS_LADING_BILL.INVOICE_SETTLEMENT_ID as invoiceSettlementId,	
+     BUS_LADING_BILL.SHIPPER_CODE as shipperCode,	
+     BUS_LADING_BILL.PRINT_TIME as printTime,	
+     BUS_LADING_BILL.PRINT_TIMES as printTimes,	
+     BUS_LADING_BILL.REMARK as remark,	
+     BUS_LADING_BILL.LOGISTICS_SPECIALIST_ID as logisticsSpecialistId,	
+     BUS_LADING_BILL.LOGISTICS_SPECIALIST_NAME as logisticsSpecialistName,	
+     BUS_LADING_BILL.IMPORT_TIME as importTime,	
+     BUS_LADING_BILL.DISTRIBUTION_TIME as distributionTime,	
+     BUS_LADING_BILL.LOGISTICS_COMPANY_CLERK_ID as logisticsCompanyClerkId,	
+     BUS_LADING_BILL.LOGISTICS_COMPANY_CLERK as logisticsCompanyClerk,	
+     BUS_LADING_BILL.ALLOCATION_VEHICLE_TIME as allocationVehicleTime,	
+     BUS_LADING_BILL.IS_POUND as isPound,	
+     BUS_LADING_BILL.IS_LOADING as isLoading,	
+     BUS_LADING_BILL.PRODUCT_UNIT_PRICE as productUnitPrice,	
+     BUS_LADING_BILL.ACTUAL_SHIPPING_AMOUNT as actualShippingAmount,	
+     BUS_LADING_BILL.PLANNED_SHIPMENT_AMOUNT as plannedShipmentAmount	
+    from BUS_LADING_BILL
+    inner join BUS_TRAINS_REQUISITION_PLAN on BUS_TRAINS_REQUISITION_PLAN.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+	 <include refid="where"/>
+
+    <if test="ladingBillDetail != null and ladingBillDetail != ''">
+     union all
+     select 
+     BUS_LADING_BILL.USABLE_STATUS, BUS_LADING_BILL.CREATE_TIME, BUS_LADING_BILL.CREATE_IP, BUS_LADING_BILL.CREATE_USER_ID, 
+      BUS_LADING_BILL.CREATE_USER_NAME, BUS_LADING_BILL.MODIFY_TIME, BUS_LADING_BILL.MODIFY_IP, BUS_LADING_BILL.MODIFY_USER_ID, 
+      BUS_LADING_BILL.MODIFY_USER_NAME, BUS_LADING_BILL.DELETE_TIME, BUS_LADING_BILL.DELETE_IP, BUS_LADING_BILL.DELETE_FLAG, 
+      BUS_LADING_BILL.DELETE_USER_ID, BUS_LADING_BILL.DELETE_USER_NAME, BUS_LADING_BILL.ORDER_CODE, BUS_LADING_BILL.ATTRIBUTE1, 
+     BUS_LADING_BILL.ATTRIBUTE2, BUS_LADING_BILL.ATTRIBUTE3, BUS_LADING_BILL.ATTRIBUTE4, BUS_LADING_BILL.ATTRIBUTE5, 
+     BUS_LADING_BILL.ID as id,	
+     BUS_LADING_BILL.ORDER_PLAN_ID as orderPlanId,	
+     BUS_LADING_BILL.ORDER_PLAN_CODE as orderPlanCode,	
+     BUS_LADING_BILL.LADING_BILL_CODE as ladingBillCode,	
+     BUS_LADING_BILL.BILL_TYPE as billType,	
+     BUS_LADING_BILL.SHIP_MODE as shipMode,	
+     BUS_LADING_BILL.SHIP_MODE_CODE as shipModeCode,	
+     BUS_LADING_BILL.PRODUCT_TYPE as productType,	
+     BUS_LADING_BILL.PRODUCT_TYPE_ID as productTypeId,	
+     BUS_LADING_BILL.PRODUCT_ID as productId,	
+     BUS_LADING_BILL.PRODUCT_NAME as productName,	
+     BUS_LADING_BILL.PRODUCT_MODEL_NUMBER as productModelNumber,	
+     BUS_LADING_BILL.PHONE_NUMBER as phoneNumber,	
+     BUS_LADING_BILL.LICENSE_PLATE as licensePlate,	
+     BUS_LADING_BILL.CAR_TYPE as carType,	
+     BUS_LADING_BILL.DRIVER_NAME as driverName,	
+     BUS_LADING_BILL.DRIVER_ID_CARD_NUMBER as driverIdCardNumber,	
+     BUS_LADING_BILL.LADING_BILL_STATUS as ladingBillStatus,	
+     BUS_LADING_BILL.AUDIT_TIME as auditTime,	
+     BUS_LADING_BILL.AUDIT_PERSON as auditPerson,	
+     BUS_LADING_BILL.AUDIT_PERSON_ID as auditPersonId,	
+     BUS_LADING_BILL.ESTIMATED_LOADING_TIME as estimatedLoadingTime,	
+     BUS_LADING_BILL.TAKE_NO_TIME as takeNoTime,	
+     BUS_LADING_BILL.ACTUAL_SHIPPING_WEIGHT as actualShippingWeight,	
+     BUS_LADING_BILL.NUCLEAR_LOAD as nuclearLoad,	
+     BUS_LADING_BILL.IN_GATE as inGate,	
+     BUS_LADING_BILL.IN_TIME as inTime,	
+     BUS_LADING_BILL.EMPTY_WEIGHT as emptyWeight,	
+     BUS_LADING_BILL.EMPTY_POUND_TIME as emptyPoundTime,	
+     BUS_LADING_BILL.FULL_WEIGHT as fullWeight,	
+     BUS_LADING_BILL.FULL_POUND_TIME as fullPoundTime,	
+     BUS_LADING_BILL.OUT_GATE as outGate,	
+     BUS_LADING_BILL.OUT_TIME as outTime,	
+     BUS_LADING_BILL.INPUT_PERSON_ID as inputPersonId,	
+     BUS_LADING_BILL.INPUT_PERSON as inputPerson,	
+     BUS_LADING_BILL.INPUT_TIME as inputTime,	
+     BUS_LADING_BILL.INVALID_PERSON_ID as invalidPersonId,	
+     BUS_LADING_BILL.INVALID_PERSON as invalidPerson,	
+     BUS_LADING_BILL.INVALID_TIME as invalidTime,	
+     BUS_LADING_BILL.INVALID_REASON as invalidReason,	
+     BUS_LADING_BILL.IS_BRING_BELT as isBringBelt,	
+     BUS_LADING_BILL.IS_LIPOLYSIS as isLipolysis,	
+     BUS_LADING_BILL.IS_SINCE as isSince,	
+     BUS_LADING_BILL.IS_URGENT as isUrgent,	
+     BUS_LADING_BILL.PLANNED_MILEAGE as plannedMileage,	
+     BUS_LADING_BILL.FACT_MILEAGE as factMileage,	
+     BUS_LADING_BILL.VALUATION_MILEAGE as valuationMileage,	
+     BUS_LADING_BILL.FACT_VALUATION_MILEAGE as factValuationMileage,	
+     BUS_LADING_BILL.SETTLEMENT_FREIGHT as settlementFreight,	
+     BUS_LADING_BILL.YUAN_KM_TON as yuanKmTon,	
+     BUS_LADING_BILL.FREIGHT as freight,	
+     BUS_LADING_BILL.RECEIVING_PERSON as receivingPerson,	
+     BUS_LADING_BILL.RECEIVING_ADDRESS as receivingAddress,	
+     BUS_LADING_BILL.RECEIVING_PERSON_PHONE as receivingPersonPhone,	
+     BUS_LADING_BILL.FREIGHT_SETTLEMENT_ID as freightSettlementId,	
+     BUS_LADING_BILL.INVOICE_SETTLEMENT_ID as invoiceSettlementId,	
+     BUS_LADING_BILL.SHIPPER_CODE as shipperCode,	
+     BUS_LADING_BILL.PRINT_TIME as printTime,	
+     BUS_LADING_BILL.PRINT_TIMES as printTimes,	
+     BUS_LADING_BILL.REMARK as remark,	
+     BUS_LADING_BILL.LOGISTICS_SPECIALIST_ID as logisticsSpecialistId,	
+     BUS_LADING_BILL.LOGISTICS_SPECIALIST_NAME as logisticsSpecialistName,	
+     BUS_LADING_BILL.IMPORT_TIME as importTime,	
+     BUS_LADING_BILL.DISTRIBUTION_TIME as distributionTime,	
+     BUS_LADING_BILL.LOGISTICS_COMPANY_CLERK_ID as logisticsCompanyClerkId,	
+     BUS_LADING_BILL.LOGISTICS_COMPANY_CLERK as logisticsCompanyClerk,	
+     BUS_LADING_BILL.ALLOCATION_VEHICLE_TIME as allocationVehicleTime,	
+     BUS_LADING_BILL.IS_POUND as isPound,	
+     BUS_LADING_BILL.IS_LOADING as isLoading,	
+     BUS_LADING_BILL.PRODUCT_UNIT_PRICE as productUnitPrice,	
+     BUS_LADING_BILL.ACTUAL_SHIPPING_AMOUNT as actualShippingAmount,	
+     BUS_LADING_BILL.PLANNED_SHIPMENT_AMOUNT as plannedShipmentAmount	
+    from BUS_LADING_BILL
+    inner join BUS_ORDER on BUS_ORDER.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+	 <include refid="where"/>
+    </if>
+     
+     ) plant
+   
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+  <select id="getPlantOrderCount" parameterType="map" resultType="int" useCache="true">
+  	select count(distinct plant.id) from(
+    	select BUS_LADING_BILL.ID as id from BUS_LADING_BILL
+    	inner join BUS_CAR_DISTRIBUTION_PLAN on BUS_CAR_DISTRIBUTION_PLAN.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+	     <include refid="where"/>
+    	
+    	union all
+    	
+    	select BUS_LADING_BILL.ID as id from BUS_LADING_BILL
+    	inner join  BUS_CAR_REQUISITION_PLAN on BUS_CAR_REQUISITION_PLAN.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+	     <include refid="where"/>
+    	
+    	union all
+    	
+    	select BUS_LADING_BILL.ID as id from BUS_LADING_BILL
+    	inner join BUS_TRAINS_REQUISITION_PLAN on BUS_TRAINS_REQUISITION_PLAN.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+   		  <include refid="where"/>
+    <if test="ladingBillDetail != null and ladingBillDetail != ''">
+    	union all
+    	
+    	select BUS_LADING_BILL.ID as id from BUS_LADING_BILL
+    	inner join BUS_ORDER on BUS_ORDER.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+     <include refid="where"/>
+    </if>
+    ) plant
+  </select>
+  
+  
+    <select id="getPrint" parameterType="string" resultType="com.dfhc.bus.ladingbill.vo.LadingBillVo">
+  	SELECT
+  	<if test="byProductPrinting != null and byProductPrinting != ''">
+  	BUS_ROW_NUMBER.ROW_DATE AS tabDate,
+    BUS_ORDER.ORDER_NUM AS orderNumber,
+    BUS_ORDER.CUSTOMER_NAME AS customerName,
+  	</if>
+  	<if test="motorPrintting != null and motorPrintting != ''">
+  	BUS_CAR_DISTRIBUTION_PLAN.MAKE_DATE AS tabDate,
+  	BUS_CAR_DISTRIBUTION_PLAN.SHIPPING_ADDRESS AS deliveryWarehouse,
+    BUS_CAR_DISTRIBUTION_PLAN.LOGISTICS_COMPANY AS logisticsCompany,
+    BUS_ORDER.CUSTOMER_NAME AS customerName,
+    BASE_PRODUCT.BAG_WEIGHT AS deliveryNumber,
+  	</if>
+    <if test="remoteAllocationPrinting != null and remoteAllocationPrinting != ''">
+    BUS_CAR_REQUISITION_PLAN.MAKE_DATE AS tabDate,
+    BUS_ORDER.RECEIVING_UNIT AS receivingUnit,
+    BUS_CAR_REQUISITION_PLAN.LOGISTICS_COMPANY AS logisticsCompany,
+    </if>
+    <if test="trainsPrinting != null and trainsPrinting != ''">
+    BUS_TRAINS_REQUISITION_PLAN.MAKE_DATE AS tabDate,
+    BUS_ORDER.CUSTOMER_NAME AS customerName,
+    BUS_ORDER.ORDER_NUM AS orderNumber,
+    BUS_TRAINS_REQUISITION_PLAN.REQUISITION_WAREHOUSE AS deliveryWarehouse,
+    BUS_TRAINS_REQUISITION_PLAN.LOGISTICS_COMPANY AS logisticsCompany,
+    BUS_TRAINS_REQUISITION_PLAN.ARRIVE_AT_STATION AS deliveryStation,
+    BASE_PRODUCT.BAG_WEIGHT AS deliveryNumber,
+    </if>
+    BUS_LADING_BILL.ACTUAL_SHIPPING_AMOUNT AS actualShippingAmount,
+    BUS_LADING_BILL.ORDER_PLAN_CODE AS orderPlanCode,
+    BUS_LADING_BILL.PRODUCT_NAME AS productName,
+    BUS_LADING_BILL.PRODUCT_MODEL_NUMBER AS productModelNumber,
+    BUS_LADING_BILL.NUCLEAR_LOAD AS nuclearLoad,
+    BUS_LADING_BILL.ACTUAL_SHIPPING_WEIGHT AS actualShippingWeight,
+    BUS_LADING_BILL.DRIVER_NAME AS driverName,
+    BUS_LADING_BILL.LICENSE_PLATE AS licensePlate,
+    BUS_LADING_BILL.PHONE_NUMBER AS phoneNumber,
+    BUS_LADING_BILL.DRIVER_ID_CARD_NUMBER AS driverIdCardNumber,
+    BUS_LADING_BILL.REMARK AS remark,
+    BUS_LADING_BILL.BILL_TYPE AS billType,
+    BUS_LADING_BILL.SHIP_MODE AS shipMode,
+    BUS_LADING_BILL.SHIPPER_CODE AS shipperCode,	
+    BUS_LADING_BILL.RECEIVING_ADDRESS AS receivingAddress,
+    BUS_LADING_BILL.SEQUENCE_NUMBER AS lineNumber,
+    BUS_LADING_BILL.PRODUCT_UNIT_PRICE AS productUnitPrice
+FROM
+    BUS_LADING_BILL
+<if test="byProductPrinting != null and byProductPrinting != ''">
+LEFT JOIN
+    BUS_ROW_NUMBER
+ON
+    BUS_ROW_NUMBER.LADING_BILL_ID = BUS_LADING_BILL.ID
+LEFT JOIN
+    BUS_ORDER
+ON
+    BUS_ORDER.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+</if>
+<if test="motorPrintting != null and motorPrintting != ''">
+LEFT JOIN
+    BUS_ORDER
+ON
+    BUS_ORDER.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+LEFT JOIN
+    BUS_CAR_DISTRIBUTION_PLAN
+ON
+    BUS_CAR_DISTRIBUTION_PLAN.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+LEFT JOIN
+    BASE_PRODUCT
+ON
+    BASE_PRODUCT.ID = BUS_LADING_BILL.PRODUCT_ID
+</if>
+<if test="trainsPrinting != null and trainsPrinting != ''">
+LEFT JOIN
+    BASE_PRODUCT
+ON
+    BASE_PRODUCT.ID = BUS_LADING_BILL.PRODUCT_ID
+LEFT JOIN
+    BUS_TRAINS_REQUISITION_PLAN
+ON
+    BUS_TRAINS_REQUISITION_PLAN.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+LEFT JOIN
+    BUS_ORDER
+ON
+    BUS_ORDER.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+</if>
+<if test="remoteAllocationPrinting != null and remoteAllocationPrinting != ''">
+LEFT JOIN
+    BUS_CAR_REQUISITION_PLAN
+ON
+    BUS_CAR_REQUISITION_PLAN.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+LEFT JOIN
+    BUS_ORDER
+ON
+    BUS_ORDER.ID = BUS_LADING_BILL.ORDER_PLAN_ID
+</if>
+WHERE
+    BUS_LADING_BILL.id =#{id}
+
+  </select>
+</mapper>

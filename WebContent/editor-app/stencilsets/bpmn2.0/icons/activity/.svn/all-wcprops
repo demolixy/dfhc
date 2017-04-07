@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/stencilsets/bpmn2.0/icons/activity
+END
+task.png
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/stencilsets/bpmn2.0/icons/activity/task.png
+END
+event.subprocess.collapsed.png
+K 25
+svn:wc:ra_dav:version-url
+V 190
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/stencilsets/bpmn2.0/icons/activity/event.subprocess.collapsed.png
+END
+subprocess.png
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/stencilsets/bpmn2.0/icons/activity/subprocess.png
+END
+event.subprocess.png
+K 25
+svn:wc:ra_dav:version-url
+V 180
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/stencilsets/bpmn2.0/icons/activity/event.subprocess.png
+END
+expanded.subprocess.png
+K 25
+svn:wc:ra_dav:version-url
+V 183
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/stencilsets/bpmn2.0/icons/activity/expanded.subprocess.png
+END

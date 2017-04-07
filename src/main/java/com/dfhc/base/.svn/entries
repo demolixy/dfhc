@@ -1,0 +1,88 @@
+10
+
+dir
+2506
+http://1u52s05192.51mypc.cn:43678/svn/dfhc2016/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/base
+http://1u52s05192.51mypc.cn:43678/svn/dfhc2016
+
+
+
+2017-04-05T08:11:14.354624Z
+2469
+sunpd
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+7201a5ef-ca42-8e4b-8492-109c4177e1d4
+
+address
+dir
+
+car
+dir
+
+customer
+dir
+
+flowto
+dir
+
+freight
+dir
+
+logisticscompany
+dir
+
+paymentmode
+dir
+
+price
+dir
+
+product
+dir
+
+producttype
+dir
+
+receiptaddress
+dir
+
+region
+dir
+
+requisitionwarehouse
+dir
+
+securityindex
+dir
+
+shipmode
+dir
+
+shipper
+dir
+
+todomenumap
+dir
+
+trainstation
+dir
+
+warehousegate
+dir
+
+warehouseposition
+dir
+

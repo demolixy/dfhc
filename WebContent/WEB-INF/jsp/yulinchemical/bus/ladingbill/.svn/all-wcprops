@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/svn/dfhc2016/!svn/ver/2439/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/bus/ladingbill
+END
+toBeSettlement.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/svn/dfhc2016/!svn/ver/1904/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/bus/ladingbill/toBeSettlement.jsp
+END
+billListByTra.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/dfhc2016/!svn/ver/2168/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/bus/ladingbill/billListByTra.jsp
+END
+hisLogLadingBillList.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 180
+/svn/dfhc2016/!svn/ver/1904/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/bus/ladingbill/hisLogLadingBillList.jsp
+END
+ladingBillDetail.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 176
+/svn/dfhc2016/!svn/ver/1140/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/bus/ladingbill/ladingBillDetail.jsp
+END
+toDetailForOrderType.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 180
+/svn/dfhc2016/!svn/ver/2439/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/bus/ladingbill/toDetailForOrderType.jsp
+END
+toDetail.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/svn/dfhc2016/!svn/ver/2158/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/bus/ladingbill/toDetail.jsp
+END
+listLadingBillZhu.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 177
+/svn/dfhc2016/!svn/ver/1904/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/bus/ladingbill/listLadingBillZhu.jsp
+END
+listOrder.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/dfhc2016/!svn/ver/1950/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/bus/ladingbill/listOrder.jsp
+END
+billListByOrder.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 175
+/svn/dfhc2016/!svn/ver/2236/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/bus/ladingbill/billListByOrder.jsp
+END
+billListByDis.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/dfhc2016/!svn/ver/2168/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/bus/ladingbill/billListByDis.jsp
+END
+listWaitSettleByTrain.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 181
+/svn/dfhc2016/!svn/ver/2363/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/bus/ladingbill/listWaitSettleByTrain.jsp
+END
+billListByDisIn.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 175
+/svn/dfhc2016/!svn/ver/2168/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/bus/ladingbill/billListByDisIn.jsp
+END
+listLadingBill.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/svn/dfhc2016/!svn/ver/2038/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/bus/ladingbill/listLadingBill.jsp
+END
+listApplySettlement.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 179
+/svn/dfhc2016/!svn/ver/1904/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/bus/ladingbill/listApplySettlement.jsp
+END
+loadingManagement.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 177
+/svn/dfhc2016/!svn/ver/2330/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/bus/ladingbill/loadingManagement.jsp
+END
+listLadingBillLogisticsCompany.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 190
+/svn/dfhc2016/!svn/ver/1904/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/bus/ladingbill/listLadingBillLogisticsCompany.jsp
+END
+billListByReq.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/dfhc2016/!svn/ver/2168/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/bus/ladingbill/billListByReq.jsp
+END
+listLadingBillWaitReviewed.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 186
+/svn/dfhc2016/!svn/ver/1904/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/bus/ladingbill/listLadingBillWaitReviewed.jsp
+END

@@ -1,0 +1,77 @@
+10
+
+dir
+2506
+http://1u52s05192.51mypc.cn:43678/svn/dfhc2016/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/wk/generalbusinessprocess
+http://1u52s05192.51mypc.cn:43678/svn/dfhc2016
+
+
+
+2017-04-05T10:55:14.419095Z
+2476
+sunpd
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+7201a5ef-ca42-8e4b-8492-109c4177e1d4
+
+IGeneralBusinessProcessConstants.java
+file
+
+
+
+
+2017-04-01T08:54:28.603000Z
+d327db266e1b07692bc789b1bcfe8084
+2017-01-06T10:11:28.206888Z
+911
+liuzr
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6000
+
+dao
+dir
+
+rest
+dir
+
+service
+dir
+
+vo
+dir
+
+web
+dir
+

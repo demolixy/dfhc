@@ -1,0 +1,143 @@
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svn/dfhc2016/!svn/ver/939/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/configuration
+END
+properties-event-listeners-controller.js
+K 25
+svn:wc:ra_dav:version-url
+V 179
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/configuration/properties-event-listeners-controller.js
+END
+properties-fields-controller.js
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/configuration/properties-fields-controller.js
+END
+properties-message-scope-controller.js
+K 25
+svn:wc:ra_dav:version-url
+V 177
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/configuration/properties-message-scope-controller.js
+END
+properties-custom-controllers.js
+K 25
+svn:wc:ra_dav:version-url
+V 171
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/configuration/properties-custom-controllers.js
+END
+properties-multiinstance-controller.js
+K 25
+svn:wc:ra_dav:version-url
+V 177
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/configuration/properties-multiinstance-controller.js
+END
+properties-signal-definitions-controller.js
+K 25
+svn:wc:ra_dav:version-url
+V 182
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/configuration/properties-signal-definitions-controller.js
+END
+toolbar-custom-actions.js
+K 25
+svn:wc:ra_dav:version-url
+V 164
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/configuration/toolbar-custom-actions.js
+END
+properties.js
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/configuration/properties.js
+END
+properties-in-parameters-controller.js
+K 25
+svn:wc:ra_dav:version-url
+V 177
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/configuration/properties-in-parameters-controller.js
+END
+properties-default-controllers.js
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/configuration/properties-default-controllers.js
+END
+properties-message-definitions-controller.js
+K 25
+svn:wc:ra_dav:version-url
+V 183
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/configuration/properties-message-definitions-controller.js
+END
+角色分配前properties-assignment-controller.js
+K 25
+svn:wc:ra_dav:version-url
+V 219
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/configuration/%E8%A7%92%E8%89%B2%E5%88%86%E9%85%8D%E5%89%8Dproperties-assignment-controller.js
+END
+properties-form-properties-controller.js
+K 25
+svn:wc:ra_dav:version-url
+V 179
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/configuration/properties-form-properties-controller.js
+END
+properties-out-parameters-controller.js
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/configuration/properties-out-parameters-controller.js
+END
+properties-condition-expression-controller.js
+K 25
+svn:wc:ra_dav:version-url
+V 184
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/configuration/properties-condition-expression-controller.js
+END
+properties-assignment-controller.js
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/svn/dfhc2016/!svn/ver/939/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/configuration/properties-assignment-controller.js
+END
+url-config.js
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/configuration/url-config.js
+END
+properties-signal-scope-controller.js
+K 25
+svn:wc:ra_dav:version-url
+V 176
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/configuration/properties-signal-scope-controller.js
+END
+toolbar-default-actions.js
+K 25
+svn:wc:ra_dav:version-url
+V 165
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/configuration/toolbar-default-actions.js
+END
+properties-sequenceflow-order-controller.js
+K 25
+svn:wc:ra_dav:version-url
+V 182
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/configuration/properties-sequenceflow-order-controller.js
+END
+toolbar.js
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/configuration/toolbar.js
+END
+properties-execution-listeners-controller.js
+K 25
+svn:wc:ra_dav:version-url
+V 183
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/configuration/properties-execution-listeners-controller.js
+END
+properties-task-listeners-controller.js
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/editor-app/configuration/properties-task-listeners-controller.js
+END

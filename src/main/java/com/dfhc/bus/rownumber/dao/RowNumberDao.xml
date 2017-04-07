@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dfhc.bus.rownumber.dao.RowNumberDao">
+  <!-- 共享的where语句，如有冲突或特殊情况，请另写 -->
+  <sql id="where">
+   <trim prefix="where" prefixOverrides="and|or">  
+      <if test="id != null and id != ''">
+        and BUS_ROW_NUMBER.ID = #{id}
+      </if>
+      <if test="ids != null and ids != ''">
+        and BUS_ROW_NUMBER.ID in (${ids})
+      </if>
+      <if test="ladingBillId != null and ladingBillId != ''">
+        and BUS_ROW_NUMBER.LADING_BILL_ID = #{ladingBillId}
+      </if>
+      <if test="rowType != null and rowType != ''">
+        and BUS_ROW_NUMBER.ROW_TYPE = #{rowType}
+      </if>
+      <if test="rowDate != null and rowDate != ''">
+        and to_char(BUS_ROW_NUMBER.ROW_DATE,'YYYY-MM-DD') = #{rowDate}
+      </if>
+      <if test="sequence != null and sequence != ''">
+        and BUS_ROW_NUMBER.SEQUENCE = #{sequence}
+      </if>
+      <if test="notEquals != null and notEquals != ''">
+        <![CDATA[and BUS_ROW_NUMBER.STATUS <> #{notEquals}]]>
+      </if>
+      <if test="status != null and status != ''">
+        and BUS_ROW_NUMBER.STATUS = #{status}
+      </if>
+      <if test="rowStatus != null and rowStatus != ''">
+        and BUS_ROW_NUMBER.STATUS in (${rowStatus})
+      </if>
+      <if test="truckNo != null and truckNo != ''">
+        and BUS_ROW_NUMBER.TRUCK_NO = #{truckNo}
+      </if>
+      <if test="sequenceId != null and sequenceId != ''">
+        and BUS_ROW_NUMBER.SEQUENCE_ID = #{sequenceId}
+      </if>
+      <if test="sequenceIds != null and sequenceIds != ''">
+        and BUS_ROW_NUMBER.SEQUENCE_ID in (${sequenceIds})
+      </if>
+      <if test="phoneNumber != null and phoneNumber != ''">
+        and BUS_ROW_NUMBER.PHONE_NUMBER = #{phoneNumber}
+      </if>
+      <if test="controlNumberVehicles != null and controlNumberVehicles != ''">
+        and BUS_ROW_NUMBER.CONTROL_NUMBER_VEHICLES = #{controlNumberVehicles}
+      </if>
+      <if test="delete_flag != null and delete_flag != ''">
+        and nvl(BUS_ROW_NUMBER.DELETE_FLAG,'0') = #{delete_flag}
+      </if>
+      <if test="productSequence != null and productSequence != ''">
+        and BUS_ROW_NUMBER.PRODUCT_SEQUENCE = #{productSequence}
+      </if>
+      <if test="checkStatus != null and checkStatus != ''">
+        and BUS_VEHICLE_SAFETY_INSPECTION.STATUS = #{checkStatus}
+      </if>
+      <if test="notCheckStatus != null and notCheckStatus != ''">
+        <![CDATA[and nvl(BUS_VEHICLE_SAFETY_INSPECTION.STATUS, '1') <> #{notCheckStatus}]]>
+      </if>
+      <if test="ladingBillStatus != null and ladingBillStatus != ''">
+        and BUS_LADING_BILL.LADING_BILL_STATUS = #{ladingBillStatus}
+      </if>
+      <!-- 是否过磅 -->
+      <if test="isPound != null and isPound != ''">
+        and BUS_LADING_BILL.IS_POUND = #{isPound}
+      </if>
+      <!-- 是否装车 -->
+      <if test="isLoading != null and isLoading != ''">
+        and BUS_LADING_BILL.IS_LOADING = #{isLoading}
+      </if>
+      <!-- 多个提货单状态 -->
+      <if test="ladingBillStatues != null and ladingBillStatues != ''">
+        and BUS_LADING_BILL.LADING_BILL_STATUS in  (${ladingBillStatues})
+      </if>
+      <!-- 多个装车通知单状态 -->
+      <if test="loadingNoticeStatues != null and loadingNoticeStatues != ''">
+        and BUS_LOADING_NOTICE.STATUS in  (${loadingNoticeStatues})
+      </if>
+      <!--不在多个排队状态  -->
+      <if test="notRowStatus != null and notRowStatus != ''">
+        and BUS_ROW_NUMBER.STATUS not in (${notRowStatus})
+      </if>
+      </trim>
+  </sql>
+
+  <insert id="insert" parameterType="com.dfhc.bus.rownumber.vo.RowNumberVo">
+    insert into BUS_ROW_NUMBER (
+      USABLE_STATUS, CREATE_TIME, CREATE_IP, CREATE_USER_ID, 
+      CREATE_USER_NAME, MODIFY_TIME, MODIFY_IP, MODIFY_USER_ID, 
+      MODIFY_USER_NAME, DELETE_TIME, DELETE_IP, DELETE_FLAG, 
+      DELETE_USER_ID, DELETE_USER_NAME, ORDER_CODE, ATTRIBUTE1, 
+      ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, 
+      ID ,
+      LADING_BILL_ID ,
+      ROW_TYPE ,
+      ROW_DATE ,
+      SEQUENCE ,
+      PRODUCT_SEQUENCE ,
+      STATUS ,
+      TRUCK_NO ,
+      SEQUENCE_ID ,
+      PHONE_NUMBER ,
+      CONTROL_NUMBER_VEHICLES 
+      )
+    values ( 
+     #{usable_status,jdbcType=VARCHAR},#{create_time,jdbcType=TIMESTAMP},#{create_ip,jdbcType=VARCHAR},#{create_user_id,jdbcType=VARCHAR},#{create_user_name,jdbcType=VARCHAR},#{modify_time,jdbcType=TIMESTAMP},#{modify_ip,jdbcType=VARCHAR},#{modify_user_id,jdbcType=VARCHAR},#{modify_user_name,jdbcType=VARCHAR},#{delete_time,jdbcType=TIMESTAMP},#{delete_ip,jdbcType=VARCHAR},#{delete_flag,jdbcType=VARCHAR},#{delete_user_id,jdbcType=VARCHAR},#{delete_user_name,jdbcType=VARCHAR},#{order_code,jdbcType=VARCHAR},#{attribute1,jdbcType=VARCHAR},#{attribute2,jdbcType=VARCHAR},#{attribute3,jdbcType=VARCHAR},#{attribute4,jdbcType=VARCHAR},#{attribute5,jdbcType=VARCHAR},
+	#{id,jdbcType=CHAR},
+	#{ladingBillId,jdbcType=CHAR},
+	#{rowType,jdbcType=CHAR},
+	#{rowDate,jdbcType=TIMESTAMP},
+	#{sequence,jdbcType=VARCHAR},
+	#{productSequence,jdbcType=VARCHAR},
+	#{status,jdbcType=CHAR},
+	#{truckNo,jdbcType=VARCHAR},
+	#{sequenceId,jdbcType=CHAR},
+	#{phoneNumber,jdbcType=VARCHAR},
+	#{controlNumberVehicles,jdbcType=CHAR}
+      )
+  </insert>
+    
+  <delete id="delete" parameterType="int">
+    delete from BUS_ROW_NUMBER where ID=#{id}
+  </delete>
+  
+  <delete id="deleteMulti" parameterType="int">
+    delete from BUS_ROW_NUMBER where ID in 
+    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">  
+      #{item}   
+    </foreach>
+  </delete>
+
+  <update id="update" parameterType="com.dfhc.bus.rownumber.vo.RowNumberVo">
+    update BUS_ROW_NUMBER 
+    <trim prefix="SET" suffixOverrides=",">  
+		<if test="usable_status != null and usable_status != ''">
+		     USABLE_STATUS=#{usable_status,jdbcType=VARCHAR},
+		</if>
+		<if test="create_time != null and create_time != ''">
+		 CREATE_TIME=#{create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="create_ip != null and create_ip != ''">
+		 CREATE_IP=#{create_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="create_user_id != null and create_user_id != ''">
+		 CREATE_USER_ID=#{create_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="create_user_name != null and create_user_name != ''">
+		   CREATE_USER_NAME=#{create_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_time != null and modify_time != ''">
+		 MODIFY_TIME=#{modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="modify_ip != null and modify_ip != ''">
+		 MODIFY_IP=#{modify_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_user_id != null and modify_user_id != ''">
+		 MODIFY_USER_ID=#{modify_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_user_name != null and modify_user_name != ''">
+		   MODIFY_USER_NAME=#{modify_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_time != null and delete_time != ''">
+		 DELETE_TIME=#{delete_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="delete_ip != null and delete_ip != ''">
+		 DELETE_IP=#{delete_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_flag != null and delete_flag != ''">
+		 DELETE_FLAG=#{delete_flag,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_user_id != null and delete_user_id != ''">
+		   DELETE_USER_ID=#{delete_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_user_name != null and delete_user_name != ''">
+		 DELETE_USER_NAME=#{delete_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="order_code != null and order_code != ''">
+		 ORDER_CODE=#{order_code,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute1 != null and attribute1 != ''">
+		 ATTRIBUTE1=#{attribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute2 != null and attribute2 != ''">
+		 ATTRIBUTE2=#{attribute2,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute3 != null and attribute3 != ''">
+		 ATTRIBUTE3=#{attribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute4 != null and attribute4 != ''">
+		 ATTRIBUTE4=#{attribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute5 != null and attribute5 != ''">
+		 ATTRIBUTE5=#{attribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="id!=null and id!= ''">
+		ID=#{id,jdbcType=CHAR},
+		</if>
+		<if test="ladingBillId!=null and ladingBillId!= ''">
+		LADING_BILL_ID=#{ladingBillId,jdbcType=CHAR},
+		</if>
+		<if test="rowType!=null and rowType!= ''">
+		ROW_TYPE=#{rowType,jdbcType=CHAR},
+		</if>
+		<if test="rowDate!=null and rowDate!= ''">
+		ROW_DATE=#{rowDate,jdbcType=TIMESTAMP},
+		</if>
+		<if test="sequence!=null and sequence!= ''">
+		SEQUENCE=#{sequence,jdbcType=VARCHAR},
+		</if>
+		<if test="productSequence!=null and productSequence!= ''">
+		PRODUCT_SEQUENCE=#{productSequence,jdbcType=VARCHAR},
+		</if>
+		<if test="status!=null and status!= ''">
+		STATUS=#{status,jdbcType=CHAR},
+		</if>
+		<if test="truckNo!=null and truckNo!= ''">
+		TRUCK_NO=#{truckNo,jdbcType=VARCHAR},
+		</if>
+		<if test="sequenceId!=null and sequenceId!= ''">
+		SEQUENCE_ID=#{sequenceId,jdbcType=CHAR},
+		</if>
+		<if test="phoneNumber!=null and phoneNumber!= ''">
+		PHONE_NUMBER=#{phoneNumber,jdbcType=VARCHAR},
+		</if>
+		<if test="controlNumberVehicles!=null and controlNumberVehicles!= ''">
+		CONTROL_NUMBER_VEHICLES=#{controlNumberVehicles,jdbcType=CHAR},
+		</if>
+     </trim> 
+    where ID=#{id}
+  </update>
+
+  <select id="get" parameterType="string" resultType="com.dfhc.bus.rownumber.vo.RowNumberVo">
+    select  
+      BUS_ROW_NUMBER.USABLE_STATUS, BUS_ROW_NUMBER.CREATE_TIME, BUS_ROW_NUMBER.CREATE_IP, BUS_ROW_NUMBER.CREATE_USER_ID, 
+      BUS_ROW_NUMBER.CREATE_USER_NAME, BUS_ROW_NUMBER.MODIFY_TIME, BUS_ROW_NUMBER.MODIFY_IP, BUS_ROW_NUMBER.MODIFY_USER_ID, 
+      BUS_ROW_NUMBER.MODIFY_USER_NAME, BUS_ROW_NUMBER.DELETE_TIME, BUS_ROW_NUMBER.DELETE_IP, BUS_ROW_NUMBER.DELETE_FLAG, 
+      BUS_ROW_NUMBER.DELETE_USER_ID, BUS_ROW_NUMBER.DELETE_USER_NAME, BUS_ROW_NUMBER.ORDER_CODE, BUS_ROW_NUMBER.ATTRIBUTE1, 
+      BUS_ROW_NUMBER.ATTRIBUTE2, BUS_ROW_NUMBER.ATTRIBUTE3, BUS_ROW_NUMBER.ATTRIBUTE4, BUS_ROW_NUMBER.ATTRIBUTE5, 
+      BUS_ROW_NUMBER.ID as id,	
+      BUS_ROW_NUMBER.LADING_BILL_ID as ladingBillId,	
+      BUS_ROW_NUMBER.ROW_TYPE as rowType,	
+      BUS_ROW_NUMBER.ROW_DATE as rowDate,	
+      BUS_ROW_NUMBER.SEQUENCE as sequence,	
+      BUS_ROW_NUMBER.PRODUCT_SEQUENCE as productSequence,	
+      BUS_ROW_NUMBER.STATUS as status,	
+      BUS_ROW_NUMBER.TRUCK_NO as truckNo,	
+      BUS_ROW_NUMBER.SEQUENCE_ID as sequenceId,	
+      BUS_ROW_NUMBER.PHONE_NUMBER as phoneNumber,	
+      BUS_ROW_NUMBER.CONTROL_NUMBER_VEHICLES as controlNumberVehicles	
+    from BUS_ROW_NUMBER 
+    where BUS_ROW_NUMBER.ID=#{id}
+  </select>
+
+  <select id="getCount" parameterType="map" resultType="int" useCache="true">
+    select count(BUS_ROW_NUMBER.ID) from BUS_ROW_NUMBER
+    <include refid="where"/>    
+  </select>
+  
+  <select id="list" parameterType="map" resultType="com.dfhc.bus.rownumber.vo.RowNumberVo">
+    select 
+     BUS_ROW_NUMBER.ID as id,	
+     BUS_ROW_NUMBER.LADING_BILL_ID as ladingBillId,	
+     BUS_ROW_NUMBER.ROW_TYPE as rowType,	
+     BUS_ROW_NUMBER.ROW_DATE as rowDate,	
+     BUS_ROW_NUMBER.SEQUENCE as sequence,	
+     BUS_ROW_NUMBER.PRODUCT_SEQUENCE as productSequence,	
+     BUS_ROW_NUMBER.STATUS as status,	
+     BUS_ROW_NUMBER.TRUCK_NO as truckNo,	
+     BUS_ROW_NUMBER.SEQUENCE_ID as sequenceId,	
+     BUS_ROW_NUMBER.PHONE_NUMBER as phoneNumber,
+      BUS_ROW_NUMBER.CREATE_TIME  as  create_time,	
+     <if test="alreadySign != null and alreadySign != ''">
+     BUS_LADING_BILL.LADING_BILL_CODE as ladingBillCode,
+     </if>
+     BUS_ROW_NUMBER.CONTROL_NUMBER_VEHICLES as controlNumberVehicles	
+    from BUS_ROW_NUMBER
+    <if test="alreadySign != null and alreadySign != ''">
+    	inner join BUS_LADING_BILL on BUS_LADING_BILL.ID = BUS_ROW_NUMBER.LADING_BILL_ID
+    </if>
+    <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+  <select id="carList" parameterType="map" resultType="com.dfhc.bus.rownumber.vo.CarListInteVo">
+    select 
+    	BUS_LADING_BILL.LADING_BILL_CODE as billid,
+     	BUS_ROW_NUMBER.TRUCK_NO as truckNumber,
+     	BUS_ROW_NUMBER.PRODUCT_SEQUENCE as queueid,
+     	BUS_ROW_NUMBER.SEQUENCE_ID as sequenceId,
+     	(
+     		case BUS_LADING_BILL.LADING_BILL_STATUS
+     		when '02' then BUS_ROW_NUMBER.STATUS
+     		when '03' then BUS_ROW_NUMBER.STATUS
+     		else BUS_LADING_BILL.LADING_BILL_STATUS	
+     		end
+     	)as truckStaus,
+     	<if test="securityCheck != null and securityCheck != ''">
+     	decode(BASE_PRODUCT.STORE_MODE,'01','3',nvl(BUS_VEHICLE_SAFETY_INSPECTION.STATUS, '2')) as safeCheck,<!-- 袋装不需要安检,罐装需要 -->
+     	</if>
+     	<if test="securityCheck == null or securityCheck == ''">
+     	   '3' as safeCheck,<!-- 不查安检标志，认为为不需要安检 -->
+     	</if>
+		nvl(BASE_PRODUCT.MAX_BUS_NUM_IN_FACTORY, BASE_PRODUCT_TYPE.MAX_BUS_NUM_IN_FACTORY) as truckCounts,     	
+     	BUS_LOADING_NOTICE.GATE_NUM || BUS_LOADING_NOTICE.POSITION_NUM  as place,
+     	BUS_LADING_BILL.PRODUCT_TYPE as productType,
+     	BUS_LADING_BILL.PRODUCT_NAME as productName,
+     	to_char(BUS_LADING_BILL.NUCLEAR_LOAD,'FM999') as plannedCapacity,
+     	to_char(BUS_LOADING_NOTICE.TONE_NUM,'FM999') as distributionAmount
+       from BUS_ROW_NUMBER
+    	inner join BUS_LADING_BILL on BUS_LADING_BILL.ID = BUS_ROW_NUMBER.LADING_BILL_ID
+		left join BASE_PRODUCT on BASE_PRODUCT.ID = BUS_ROW_NUMBER.SEQUENCE_ID
+		left join BASE_PRODUCT_TYPE on BASE_PRODUCT_TYPE.ID = BUS_ROW_NUMBER.SEQUENCE_ID
+		left join BUS_LOADING_NOTICE on BUS_LOADING_NOTICE.LADING_BILL_ID = BUS_LADING_BILL.ID
+		<if test="securityCheck != null and securityCheck != ''">
+			left join BUS_VEHICLE_SAFETY_INSPECTION on BUS_VEHICLE_SAFETY_INSPECTION.LADING_BILL_ID = BUS_LADING_BILL.ID
+		</if>
+		
+    <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+  
+  <select id="listAllColumn" parameterType="map" resultType="com.dfhc.bus.rownumber.vo.RowNumberVo">
+    select 
+      BUS_ROW_NUMBER.USABLE_STATUS, BUS_ROW_NUMBER.CREATE_TIME, BUS_ROW_NUMBER.CREATE_IP, BUS_ROW_NUMBER.CREATE_USER_ID, 
+      BUS_ROW_NUMBER.CREATE_USER_NAME, BUS_ROW_NUMBER.MODIFY_TIME, BUS_ROW_NUMBER.MODIFY_IP, BUS_ROW_NUMBER.MODIFY_USER_ID, 
+      BUS_ROW_NUMBER.MODIFY_USER_NAME, BUS_ROW_NUMBER.DELETE_TIME, BUS_ROW_NUMBER.DELETE_IP, BUS_ROW_NUMBER.DELETE_FLAG, 
+      BUS_ROW_NUMBER.DELETE_USER_ID, BUS_ROW_NUMBER.DELETE_USER_NAME, BUS_ROW_NUMBER.ORDER_CODE, BUS_ROW_NUMBER.ATTRIBUTE1, 
+     BUS_ROW_NUMBER.ATTRIBUTE2, BUS_ROW_NUMBER.ATTRIBUTE3, BUS_ROW_NUMBER.ATTRIBUTE4, BUS_ROW_NUMBER.ATTRIBUTE5, 
+     BUS_ROW_NUMBER.ID as id,	
+     BUS_ROW_NUMBER.LADING_BILL_ID as ladingBillId,	
+     BUS_ROW_NUMBER.ROW_TYPE as rowType,	
+     BUS_ROW_NUMBER.ROW_DATE as rowDate,	
+     BUS_ROW_NUMBER.SEQUENCE as sequence,	
+     BUS_ROW_NUMBER.PRODUCT_SEQUENCE as productSequence,	
+     BUS_ROW_NUMBER.STATUS as status,	
+     BUS_ROW_NUMBER.TRUCK_NO as truckNo,	
+     BUS_ROW_NUMBER.SEQUENCE_ID as sequenceId,	
+     BUS_ROW_NUMBER.PHONE_NUMBER as phoneNumber,	
+     BUS_ROW_NUMBER.CONTROL_NUMBER_VEHICLES as controlNumberVehicles	
+    from BUS_ROW_NUMBER
+    <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+
+  <select id="search" parameterType="map" resultType="com.dfhc.bus.rownumber.vo.RowNumberVo">
+    select 
+      BUS_ROW_NUMBER.USABLE_STATUS, BUS_ROW_NUMBER.CREATE_TIME, BUS_ROW_NUMBER.CREATE_IP, BUS_ROW_NUMBER.CREATE_USER_ID, 
+      BUS_ROW_NUMBER.CREATE_USER_NAME, BUS_ROW_NUMBER.MODIFY_TIME, BUS_ROW_NUMBER.MODIFY_IP, BUS_ROW_NUMBER.MODIFY_USER_ID, 
+      BUS_ROW_NUMBER.MODIFY_USER_NAME, BUS_ROW_NUMBER.DELETE_TIME, BUS_ROW_NUMBER.DELETE_IP, BUS_ROW_NUMBER.DELETE_FLAG, 
+      BUS_ROW_NUMBER.DELETE_USER_ID, BUS_ROW_NUMBER.DELETE_USER_NAME, BUS_ROW_NUMBER.ORDER_CODE, BUS_ROW_NUMBER.ATTRIBUTE1, 
+      BUS_ROW_NUMBER.ATTRIBUTE2, BUS_ROW_NUMBER.ATTRIBUTE3, BUS_ROW_NUMBER.ATTRIBUTE4, BUS_ROW_NUMBER.ATTRIBUTE5, 
+     BUS_ROW_NUMBER.ID as id,	
+     BUS_ROW_NUMBER.LADING_BILL_ID as ladingBillId,	
+     BUS_ROW_NUMBER.ROW_TYPE as rowType,	
+     BUS_ROW_NUMBER.ROW_DATE as rowDate,	
+     BUS_ROW_NUMBER.SEQUENCE as sequence,	
+     BUS_ROW_NUMBER.PRODUCT_SEQUENCE as productSequence,	
+     BUS_ROW_NUMBER.STATUS as status,	
+     BUS_ROW_NUMBER.TRUCK_NO as truckNo,	
+     BUS_ROW_NUMBER.SEQUENCE_ID as sequenceId,	
+     BUS_ROW_NUMBER.PHONE_NUMBER as phoneNumber,	
+     <if test="leftLadingBill != null and leftLadingBill != ''">
+     	BUS_LADING_BILL.LADING_BILL_CODE as ladingBillCode,
+     </if>	
+     BUS_ROW_NUMBER.CONTROL_NUMBER_VEHICLES as controlNumberVehicles	
+    from BUS_ROW_NUMBER
+    <if test="leftLadingBill != null and leftLadingBill != ''">
+    	left join BUS_LADING_BILL on BUS_LADING_BILL.ID = BUS_ROW_NUMBER.LADING_BILL_ID 
+    </if>
+     <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+ <!-- 批量更新 -->
+  <update id="updateBatch" parameterType="ArrayList">
+     begin
+     <foreach collection="list" item="item" index="index" separator=";" > 
+     update BUS_ROW_NUMBER 
+    <set>  
+		<if test="item.usable_status != null and item.usable_status != ''">
+		     USABLE_STATUS=#{item.usable_status,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_time != null and item.create_time != ''">
+		 CREATE_TIME=#{item.create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.create_ip != null and item.create_ip != ''">
+		 CREATE_IP=#{item.create_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_user_id != null and item.create_user_id != ''">
+		 CREATE_USER_ID=#{item.create_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_user_name != null and item.create_user_name != ''">
+		   CREATE_USER_NAME=#{item.create_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_time != null and item.modify_time != ''">
+		 MODIFY_TIME=#{item.modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.modify_ip != null and item.modify_ip != ''">
+		 MODIFY_IP=#{item.modify_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_user_id != null and item.modify_user_id != ''">
+		 MODIFY_USER_ID=#{item.modify_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_user_name != null and item.modify_user_name != ''">
+		   MODIFY_USER_NAME=#{item.modify_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_time != null and item.delete_time != ''">
+		 DELETE_TIME=#{item.delete_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.delete_ip != null and item.delete_ip != ''">
+		 DELETE_IP=#{item.delete_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_flag != null and item.delete_flag != ''">
+		 DELETE_FLAG=#{item.delete_flag,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_user_id != null and item.delete_user_id != ''">
+		   DELETE_USER_ID=#{item.delete_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_user_name != null and item.delete_user_name != ''">
+		 DELETE_USER_NAME=#{item.delete_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.order_code != null and item.order_code != ''">
+		 ORDER_CODE=#{item.order_code,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute1 != null and item.attribute1 != ''">
+		 ATTRIBUTE1=#{item.attribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute2 != null and item.attribute2 != ''">
+		 ATTRIBUTE2=#{item.attribute2,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute3 != null and item.attribute3 != ''">
+		 ATTRIBUTE3=#{item.attribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute4 != null and item.attribute4 != ''">
+		 ATTRIBUTE4=#{item.attribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute5 != null and item.attribute5 != ''">
+		 ATTRIBUTE5=#{item.attribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="item.id!=null and item.id!= ''">
+		ID=#{item.id,jdbcType=CHAR},
+		</if>
+		<if test="item.ladingBillId!=null and item.ladingBillId!= ''">
+		LADING_BILL_ID=#{item.ladingBillId,jdbcType=CHAR},
+		</if>
+		<if test="item.rowType!=null and item.rowType!= ''">
+		ROW_TYPE=#{item.rowType,jdbcType=CHAR},
+		</if>
+		<if test="item.rowDate!=null and item.rowDate!= ''">
+		ROW_DATE=#{item.rowDate,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.sequence!=null and item.sequence!= ''">
+		SEQUENCE=#{item.sequence,jdbcType=VARCHAR},
+		</if>
+		<if test="item.productSequence!=null and item.productSequence!= ''">
+		PRODUCT_SEQUENCE=#{item.productSequence,jdbcType=VARCHAR},
+		</if>
+		<if test="item.status!=null and item.status!= ''">
+		STATUS=#{item.status,jdbcType=CHAR},
+		</if>
+		<if test="item.truckNo!=null and item.truckNo!= ''">
+		TRUCK_NO=#{item.truckNo,jdbcType=VARCHAR},
+		</if>
+		<if test="item.sequenceId!=null and item.sequenceId!= ''">
+		SEQUENCE_ID=#{item.sequenceId,jdbcType=CHAR},
+		</if>
+		<if test="item.phoneNumber!=null and item.phoneNumber!= ''">
+		PHONE_NUMBER=#{item.phoneNumber,jdbcType=VARCHAR},
+		</if>
+		<if test="item.controlNumberVehicles!=null and item.controlNumberVehicles!= ''">
+		CONTROL_NUMBER_VEHICLES=#{item.controlNumberVehicles,jdbcType=CHAR},
+		</if>
+     </set> 
+    where ID=#{item.id}
+   </foreach>
+   ;end;
+   </update>
+   <!--批量插入-->
+ <insert id="insertBatch" parameterType="ArrayList">
+     insert into BUS_ROW_NUMBER (
+      USABLE_STATUS, CREATE_TIME, CREATE_IP, CREATE_USER_ID, 
+      CREATE_USER_NAME, MODIFY_TIME, MODIFY_IP, MODIFY_USER_ID, 
+      MODIFY_USER_NAME, DELETE_TIME, DELETE_IP, DELETE_FLAG, 
+      DELETE_USER_ID, DELETE_USER_NAME, ORDER_CODE, ATTRIBUTE1, 
+      ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, 
+      ID ,
+      LADING_BILL_ID ,
+      ROW_TYPE ,
+      ROW_DATE ,
+      SEQUENCE ,
+      PRODUCT_SEQUENCE ,
+      STATUS ,
+      TRUCK_NO ,
+      SEQUENCE_ID ,
+      PHONE_NUMBER ,
+      CONTROL_NUMBER_VEHICLES 
+      )    
+    <foreach collection="list" item="item" index="index" separator="union all" > 
+    select  
+   #{item.usable_status,jdbcType=VARCHAR},#{item.create_time,jdbcType=TIMESTAMP},#{item.create_ip,jdbcType=VARCHAR},#{item.create_user_id,jdbcType=VARCHAR},#{item.create_user_name,jdbcType=VARCHAR},#{item.modify_time,jdbcType=TIMESTAMP},#{item.modify_ip,jdbcType=VARCHAR},#{item.modify_user_id,jdbcType=VARCHAR},#{item.modify_user_name,jdbcType=VARCHAR},#{item.delete_time,jdbcType=TIMESTAMP},#{item.delete_ip,jdbcType=VARCHAR},#{item.delete_flag,jdbcType=VARCHAR},#{item.delete_user_id,jdbcType=VARCHAR},#{item.delete_user_name,jdbcType=VARCHAR},#{item.order_code,jdbcType=VARCHAR},#{item.attribute1,jdbcType=VARCHAR},#{item.attribute2,jdbcType=VARCHAR},#{item.attribute3,jdbcType=VARCHAR},#{item.attribute4,jdbcType=VARCHAR},#{item.attribute5,jdbcType=VARCHAR},
+	#{item.id,jdbcType=CHAR},
+	#{item.ladingBillId,jdbcType=CHAR},
+	#{item.rowType,jdbcType=CHAR},
+	#{item.rowDate,jdbcType=TIMESTAMP},
+	#{item.sequence,jdbcType=VARCHAR},
+	#{item.productSequence,jdbcType=VARCHAR},
+	#{item.status,jdbcType=CHAR},
+	#{item.truckNo,jdbcType=VARCHAR},
+	#{item.sequenceId,jdbcType=CHAR},
+	#{item.phoneNumber,jdbcType=VARCHAR},
+	#{item.controlNumberVehicles,jdbcType=CHAR}
+     from dual
+    </foreach>
+  </insert>		
+ 
+ 
+ <select id="groupBySearch" parameterType="map" resultType="com.dfhc.bus.rownumber.vo.RowNumberVo">
+ 	select 
+ 		BUS_ROW_NUMBER.SEQUENCE_ID as sequenceId
+ 		
+ 		<if test="statusNum != null and statusNum != ''">
+ 			,
+ 		count(1)
+ 		as carNum
+ 		</if>
+ 		
+ 	from BUS_ROW_NUMBER 
+ 	<include refid="where"/>
+ 	group by BUS_ROW_NUMBER.SEQUENCE_ID
+ </select>
+  <select id="groupByProductId" parameterType="map" resultType="string">
+ 	select 
+ 		product.SEQUENCE_ID as sequenceId
+ 	from BUS_ROW_NUMBER product 
+ 	<include refid="where"/>
+ 	group by product.SEQUENCE_ID
+ </select>
+ 
+ 	<select id="getInFacCarNum"  parameterType="map" resultType="com.dfhc.bus.rownumber.vo.RowNumberVo">
+ 		SELECT
+		    COUNT(1) AS carNum,
+		    BUS_ROW_NUMBER.SEQUENCE_ID AS sequenceId,
+		    NVL(BASE_PRODUCT.MAX_BUS_NUM_IN_FACTORY, 0) AS maxBusNumInFactory
+		FROM
+		    BUS_ROW_NUMBER
+		INNER JOIN BASE_PRODUCT
+		ON
+		    BASE_PRODUCT.ID = BUS_ROW_NUMBER.SEQUENCE_ID
+		<include refid="where"/>    
+		GROUP BY
+		    BUS_ROW_NUMBER.SEQUENCE_ID,
+		    BASE_PRODUCT.MAX_BUS_NUM_IN_FACTORY
+		UNION ALL
+		SELECT
+		    COUNT(1) AS carNum,
+		    BUS_ROW_NUMBER.SEQUENCE_ID AS sequenceId,
+		    NVL(BASE_PRODUCT_TYPE.MAX_BUS_NUM_IN_FACTORY, 0) AS maxBusNumInFactory
+		FROM
+		    BUS_ROW_NUMBER
+		INNER JOIN BASE_PRODUCT_TYPE
+		ON
+		    BASE_PRODUCT_TYPE.ID = BUS_ROW_NUMBER.SEQUENCE_ID
+		<include refid="where"/>    
+		GROUP BY
+		    BUS_ROW_NUMBER.SEQUENCE_ID,
+		    BASE_PRODUCT_TYPE.MAX_BUS_NUM_IN_FACTORY
+ 	</select>
+</mapper>

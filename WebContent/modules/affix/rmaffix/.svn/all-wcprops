@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/modules/affix/rmaffix
+END
+listRmAffix.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/modules/affix/rmaffix/listRmAffix.jsp
+END
+exportRmAffix_excel.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/modules/affix/rmaffix/exportRmAffix_excel.jsp
+END
+insertRmAffix.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/modules/affix/rmaffix/insertRmAffix.jsp
+END
+exportRmAffix_custom.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/modules/affix/rmaffix/exportRmAffix_custom.jsp
+END
+importRmAffix.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/modules/affix/rmaffix/importRmAffix.jsp
+END
+detailRmAffix.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/modules/affix/rmaffix/detailRmAffix.jsp
+END

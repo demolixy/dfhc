@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svn/dfhc2016/!svn/ver/2295/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/pub/service
+END
+IExcelHandleExpand.java
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/svn/dfhc2016/!svn/ver/1962/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/pub/service/IExcelHandleExpand.java
+END
+BsTransaction.java
+K 25
+svn:wc:ra_dav:version-url
+V 156
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/pub/service/BsTransaction.java
+END
+PubPartyService.java
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svn/dfhc2016/!svn/ver/2059/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/pub/service/PubPartyService.java
+END
+ISequenceService.java
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/pub/service/ISequenceService.java
+END
+PubParamService.java
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svn/dfhc2016/!svn/ver/2295/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/pub/service/PubParamService.java
+END
+AccountChangeInter.java
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/svn/dfhc2016/!svn/ver/1303/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/pub/service/AccountChangeInter.java
+END
+ExcelService.java
+K 25
+svn:wc:ra_dav:version-url
+V 156
+/svn/dfhc2016/!svn/ver/1962/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/pub/service/ExcelService.java
+END
+ImageShowService.java
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/pub/service/ImageShowService.java
+END
+AccountChangeService.java
+K 25
+svn:wc:ra_dav:version-url
+V 164
+/svn/dfhc2016/!svn/ver/1303/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/pub/service/AccountChangeService.java
+END
+FileUploadService.java
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/svn/dfhc2016/!svn/ver/1015/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/pub/service/FileUploadService.java
+END
+OracleSequenceService.java
+K 25
+svn:wc:ra_dav:version-url
+V 164
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/pub/service/OracleSequenceService.java
+END
+ActivitiService.java
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svn/dfhc2016/!svn/ver/1064/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/pub/service/ActivitiService.java
+END
+BeanShellService.java
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/pub/service/BeanShellService.java
+END
+SequenceService.java
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/pub/service/SequenceService.java
+END
+FileDownloadService.java
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/pub/service/FileDownloadService.java
+END

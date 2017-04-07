@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/org/quickbundle/third/quartz/util
+END
+ISchedulerConstants.java
+K 25
+svn:wc:ra_dav:version-url
+V 175
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/org/quickbundle/third/quartz/util/ISchedulerConstants.java
+END
+RmConnectionProvider.java
+K 25
+svn:wc:ra_dav:version-url
+V 176
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/org/quickbundle/third/quartz/util/RmConnectionProvider.java
+END
+SchedulerHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 171
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/org/quickbundle/third/quartz/util/SchedulerHelper.java
+END

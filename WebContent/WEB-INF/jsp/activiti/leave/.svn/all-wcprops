@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/activiti/leave
+END
+leave-apply.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 156
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/activiti/leave/leave-apply.jsp
+END
+task-hrVerify.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/activiti/leave/task-hrVerify.jsp
+END
+task-modifyApply.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/activiti/leave/task-modifyApply.jsp
+END
+task-deptLeaderVerify.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/activiti/leave/task-deptLeaderVerify.jsp
+END
+leave-task-list.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/activiti/leave/leave-task-list.jsp
+END
+general-task-list.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/activiti/leave/general-task-list.jsp
+END
+task-reportBack.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/activiti/leave/task-reportBack.jsp
+END

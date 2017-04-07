@@ -1,0 +1,77 @@
+10
+
+dir
+2506
+http://1u52s05192.51mypc.cn:43678/svn/dfhc2016/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/com/dfhc/bus/weighingbill
+http://1u52s05192.51mypc.cn:43678/svn/dfhc2016
+
+
+
+2017-03-23T11:18:33.656809Z
+2218
+longsb
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+7201a5ef-ca42-8e4b-8492-109c4177e1d4
+
+IWeighingBillConstants.java
+file
+
+
+
+
+2017-04-01T08:54:41.196000Z
+5b71603f227f82b01086e5f1e934008d
+2017-01-04T08:53:26.968024Z
+869
+longsb
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2886
+
+dao
+dir
+
+rest
+dir
+
+service
+dir
+
+vo
+dir
+
+web
+dir
+

@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/svn/dfhc2016/!svn/ver/1846/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/org/quickbundle/project/init
+END
+NodeHeartbeatDaemon.java
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/org/quickbundle/project/init/NodeHeartbeatDaemon.java
+END
+AbstractClusterConfigLoader.java
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/org/quickbundle/project/init/AbstractClusterConfigLoader.java
+END
+ClusterConfigLoaderDb.java
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/org/quickbundle/project/init/ClusterConfigLoaderDb.java
+END
+RmCodeService.java
+K 25
+svn:wc:ra_dav:version-url
+V 164
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/org/quickbundle/project/init/RmCodeService.java
+END
+InitDatabaseHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/org/quickbundle/project/init/InitDatabaseHelper.java
+END
+ClusterConfigLoaderXml.java
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/org/quickbundle/project/init/ClusterConfigLoaderXml.java
+END
+RmWebApplicationInit.java
+K 25
+svn:wc:ra_dav:version-url
+V 171
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/org/quickbundle/project/init/RmWebApplicationInit.java
+END
+PopulateRmConfig.java
+K 25
+svn:wc:ra_dav:version-url
+V 167
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/org/quickbundle/project/init/PopulateRmConfig.java
+END
+LoadProjectConfig.java
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/dfhc2016/!svn/ver/1846/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/org/quickbundle/project/init/LoadProjectConfig.java
+END
+CustomSystemProperties.java
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/org/quickbundle/project/init/CustomSystemProperties.java
+END

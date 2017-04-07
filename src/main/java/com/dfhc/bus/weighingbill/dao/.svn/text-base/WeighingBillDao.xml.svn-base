@@ -1,0 +1,699 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dfhc.bus.weighingbill.dao.WeighingBillDao">
+  <!-- 共享的where语句，如有冲突或特殊情况，请另写 -->
+  <sql id="where">
+   <trim prefix="where" prefixOverrides="and|or">  
+      <if test="id != null and id != ''">
+        and BUS_WEIGHING_BILL.ID = #{id}
+      </if>
+      <if test="ladingBillId != null and ladingBillId != ''">
+        and BUS_WEIGHING_BILL.LADING_BILL_ID = #{ladingBillId}
+      </if>
+      <if test="ladingBillCode != null and ladingBillCode != ''">
+        and BUS_WEIGHING_BILL.LADING_BILL_CODE = #{ladingBillCode}
+      </if>
+      <if test="truckNo != null and truckNo != ''">
+        and BUS_WEIGHING_BILL.TRUCK_NO = #{truckNo}
+      </if>
+      <if test="phoneNumber != null and phoneNumber != ''">
+        and BUS_WEIGHING_BILL.PHONE_NUMBER = #{phoneNumber}
+      </if>
+      <if test="productId != null and productId != ''">
+        and BUS_WEIGHING_BILL.PRODUCT_ID = #{productId}
+      </if>
+      <if test="productName != null and productName != ''">
+        and BUS_WEIGHING_BILL.PRODUCT_NAME = #{productName}
+      </if>
+      <if test="productModelNumber != null and productModelNumber != ''">
+        and BUS_WEIGHING_BILL.PRODUCT_MODEL_NUMBER = #{productModelNumber}
+      </if>
+      <if test="tare != null and tare != ''">
+        and BUS_WEIGHING_BILL.TARE = #{tare}
+      </if>
+      <if test="grossWeight != null and grossWeight != ''">
+        and BUS_WEIGHING_BILL.GROSS_WEIGHT = #{grossWeight}
+      </if>
+      <if test="netWeight != null and netWeight != ''">
+        and BUS_WEIGHING_BILL.NET_WEIGHT = #{netWeight}
+      </if>
+      <if test="firstWeighingTime != null and firstWeighingTime != ''">
+        and to_char(BUS_WEIGHING_BILL.FIRST_WEIGHING_TIME,'YYYY-MM-DD') = #{firstWeighingTime}
+      </if>
+      <if test="twoWeighingTime != null and twoWeighingTime != ''">
+        and to_char(BUS_WEIGHING_BILL.TWO_WEIGHING_TIME,'YYYY-MM-DD') = #{twoWeighingTime}
+      </if>
+      <if test="weighmanId != null and weighmanId != ''">
+        and BUS_WEIGHING_BILL.WEIGHMAN_ID = #{weighmanId}
+      </if>
+      <if test="weighman != null and weighman != ''">
+        and BUS_WEIGHING_BILL.WEIGHMAN = #{weighman}
+      </if>
+      <if test="weighmanId2 != null and weighmanId2 != ''">
+        and BUS_WEIGHING_BILL.WEIGHMAN_ID2 = #{weighmanId2}
+      </if>
+      <if test="weighman2 != null and weighman2 != ''">
+        and BUS_WEIGHING_BILL.WEIGHMAN2 = #{weighman2}
+      </if>
+      <if test="shipperCode != null and shipperCode != ''">
+        and BUS_WEIGHING_BILL.SHIPPER_CODE = #{shipperCode}
+      </if>
+      <if test="shipper != null and shipper != ''">
+        and BUS_WEIGHING_BILL.SHIPPER = #{shipper}
+      </if>
+      <if test="receivingUnit != null and receivingUnit != ''">
+        and BUS_WEIGHING_BILL.RECEIVING_UNIT = #{receivingUnit}
+      </if>
+      <if test="transportUnit != null and transportUnit != ''">
+        and BUS_WEIGHING_BILL.TRANSPORT_UNIT = #{transportUnit}
+      </if>
+      <if test="timeToGoOut != null and timeToGoOut != ''">
+        and to_char(BUS_WEIGHING_BILL.TIME_TO_GO_OUT,'YYYY-MM-DD') = #{timeToGoOut}
+      </if>
+      <if test="printDate != null and printDate != ''">
+        and to_char(BUS_WEIGHING_BILL.PRINT_DATE,'YYYY-MM-DD') = #{printDate}
+      </if>
+      <if test="storageTransportationMan != null and storageTransportationMan != ''">
+        and BUS_WEIGHING_BILL.STORAGE_TRANSPORTATION_MAN = #{storageTransportationMan}
+      </if>
+      <if test="status != null and status != ''">
+        and BUS_WEIGHING_BILL.STATUS = #{status}
+      </if>
+      <if test="storageTransportationId != null and storageTransportationId != ''">
+        and BUS_WEIGHING_BILL.STORAGE_TRANSPORTATION_ID = #{storageTransportationId}
+      </if>
+      <if test="rowTruckNo != null and rowTruckNo != ''">
+        and BUS_ROW_NUMBER.TRUCK_NO = #{rowTruckNo}
+      </if>
+      <if test="rowStatus != null and rowStatus != ''">
+        and BUS_ROW_NUMBER.STATUS = #{rowStatus}
+      </if>
+      <if test="delete_flag != null and delete_flag != ''">
+        and nvl(BUS_WEIGHING_BILL.DELETE_FLAG,'0') = #{delete_flag}
+      </if>
+      <if test="create_time != null and create_time != ''">
+        and to_char(BUS_WEIGHING_BILL.CREATE_TIME,'YYYY-MM-DD') = #{create_time}
+      </if>
+      </trim>
+  </sql>
+
+  <insert id="insert" parameterType="com.dfhc.bus.weighingbill.vo.WeighingBillVo">
+    insert into BUS_WEIGHING_BILL (
+      USABLE_STATUS, CREATE_TIME, CREATE_IP, CREATE_USER_ID, 
+      CREATE_USER_NAME, MODIFY_TIME, MODIFY_IP, MODIFY_USER_ID, 
+      MODIFY_USER_NAME, DELETE_TIME, DELETE_IP, DELETE_FLAG, 
+      DELETE_USER_ID, DELETE_USER_NAME, ORDER_CODE, ATTRIBUTE1, 
+      ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, 
+      ID ,
+      LADING_BILL_ID ,
+      LADING_BILL_CODE ,
+      TRUCK_NO ,
+      PHONE_NUMBER ,
+      PRODUCT_ID ,
+      PRODUCT_NAME ,
+      PRODUCT_MODEL_NUMBER ,
+      TARE ,
+      GROSS_WEIGHT ,
+      NET_WEIGHT ,
+      FIRST_WEIGHING_TIME ,
+      TWO_WEIGHING_TIME ,
+      WEIGHMAN_ID ,
+      WEIGHMAN ,
+      WEIGHMAN_ID2 ,
+      WEIGHMAN2 ,
+      SHIPPER_CODE ,
+      SHIPPER ,
+      RECEIVING_UNIT ,
+      TRANSPORT_UNIT ,
+      TIME_TO_GO_OUT ,
+      PRINT_DATE ,
+      STORAGE_TRANSPORTATION_MAN ,
+      STATUS ,
+      STORAGE_TRANSPORTATION_ID 
+      )
+    values ( 
+     #{usable_status,jdbcType=VARCHAR},#{create_time,jdbcType=TIMESTAMP},#{create_ip,jdbcType=VARCHAR},#{create_user_id,jdbcType=VARCHAR},#{create_user_name,jdbcType=VARCHAR},#{modify_time,jdbcType=TIMESTAMP},#{modify_ip,jdbcType=VARCHAR},#{modify_user_id,jdbcType=VARCHAR},#{modify_user_name,jdbcType=VARCHAR},#{delete_time,jdbcType=TIMESTAMP},#{delete_ip,jdbcType=VARCHAR},#{delete_flag,jdbcType=VARCHAR},#{delete_user_id,jdbcType=VARCHAR},#{delete_user_name,jdbcType=VARCHAR},#{order_code,jdbcType=VARCHAR},#{attribute1,jdbcType=VARCHAR},#{attribute2,jdbcType=VARCHAR},#{attribute3,jdbcType=VARCHAR},#{attribute4,jdbcType=VARCHAR},#{attribute5,jdbcType=VARCHAR},
+	#{id,jdbcType=CHAR},
+	#{ladingBillId,jdbcType=CHAR},
+	#{ladingBillCode,jdbcType=VARCHAR},
+	#{truckNo,jdbcType=VARCHAR},
+	#{phoneNumber,jdbcType=VARCHAR},
+	#{productId,jdbcType=CHAR},
+	#{productName,jdbcType=VARCHAR},
+	#{productModelNumber,jdbcType=VARCHAR},
+	#{tare,jdbcType=DECIMAL},
+	#{grossWeight,jdbcType=DECIMAL},
+	#{netWeight,jdbcType=DECIMAL},
+	#{firstWeighingTime,jdbcType=TIMESTAMP},
+	#{twoWeighingTime,jdbcType=TIMESTAMP},
+	#{weighmanId,jdbcType=CHAR},
+	#{weighman,jdbcType=VARCHAR},
+	#{weighmanId2,jdbcType=CHAR},
+	#{weighman2,jdbcType=VARCHAR},
+	#{shipperCode,jdbcType=VARCHAR},
+	#{shipper,jdbcType=VARCHAR},
+	#{receivingUnit,jdbcType=VARCHAR},
+	#{transportUnit,jdbcType=VARCHAR},
+	#{timeToGoOut,jdbcType=TIMESTAMP},
+	#{printDate,jdbcType=TIMESTAMP},
+	#{storageTransportationMan,jdbcType=VARCHAR},
+	#{status,jdbcType=CHAR},
+	#{storageTransportationId,jdbcType=NUMERIC}
+      )
+  </insert>
+    
+  <delete id="delete" parameterType="int">
+    delete from BUS_WEIGHING_BILL where ID=#{id}
+  </delete>
+  
+  <delete id="deleteMulti" parameterType="int">
+    delete from BUS_WEIGHING_BILL where ID in 
+    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">  
+      #{item}   
+    </foreach>
+  </delete>
+
+  <update id="update" parameterType="com.dfhc.bus.weighingbill.vo.WeighingBillVo">
+    update BUS_WEIGHING_BILL 
+    <trim prefix="SET" suffixOverrides=",">  
+		<if test="usable_status != null and usable_status != ''">
+		     USABLE_STATUS=#{usable_status,jdbcType=VARCHAR},
+		</if>
+		<if test="create_time != null and create_time != ''">
+		 CREATE_TIME=#{create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="create_ip != null and create_ip != ''">
+		 CREATE_IP=#{create_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="create_user_id != null and create_user_id != ''">
+		 CREATE_USER_ID=#{create_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="create_user_name != null and create_user_name != ''">
+		   CREATE_USER_NAME=#{create_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_time != null and modify_time != ''">
+		 MODIFY_TIME=#{modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="modify_ip != null and modify_ip != ''">
+		 MODIFY_IP=#{modify_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_user_id != null and modify_user_id != ''">
+		 MODIFY_USER_ID=#{modify_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_user_name != null and modify_user_name != ''">
+		   MODIFY_USER_NAME=#{modify_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_time != null and delete_time != ''">
+		 DELETE_TIME=#{delete_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="delete_ip != null and delete_ip != ''">
+		 DELETE_IP=#{delete_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_flag != null and delete_flag != ''">
+		 DELETE_FLAG=#{delete_flag,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_user_id != null and delete_user_id != ''">
+		   DELETE_USER_ID=#{delete_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_user_name != null and delete_user_name != ''">
+		 DELETE_USER_NAME=#{delete_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="order_code != null and order_code != ''">
+		 ORDER_CODE=#{order_code,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute1 != null and attribute1 != ''">
+		 ATTRIBUTE1=#{attribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute2 != null and attribute2 != ''">
+		 ATTRIBUTE2=#{attribute2,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute3 != null and attribute3 != ''">
+		 ATTRIBUTE3=#{attribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute4 != null and attribute4 != ''">
+		 ATTRIBUTE4=#{attribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute5 != null and attribute5 != ''">
+		 ATTRIBUTE5=#{attribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="id!=null and id!= ''">
+		ID=#{id,jdbcType=CHAR},
+		</if>
+		<if test="ladingBillId!=null and ladingBillId!= ''">
+		LADING_BILL_ID=#{ladingBillId,jdbcType=CHAR},
+		</if>
+		<if test="ladingBillCode!=null and ladingBillCode!= ''">
+		LADING_BILL_CODE=#{ladingBillCode,jdbcType=VARCHAR},
+		</if>
+		<if test="truckNo!=null and truckNo!= ''">
+		TRUCK_NO=#{truckNo,jdbcType=VARCHAR},
+		</if>
+		<if test="phoneNumber!=null and phoneNumber!= ''">
+		PHONE_NUMBER=#{phoneNumber,jdbcType=VARCHAR},
+		</if>
+		<if test="productId!=null and productId!= ''">
+		PRODUCT_ID=#{productId,jdbcType=CHAR},
+		</if>
+		<if test="productName!=null and productName!= ''">
+		PRODUCT_NAME=#{productName,jdbcType=VARCHAR},
+		</if>
+		<if test="productModelNumber!=null and productModelNumber!= ''">
+		PRODUCT_MODEL_NUMBER=#{productModelNumber,jdbcType=VARCHAR},
+		</if>
+		<if test="tare!=null and tare!= ''">
+		TARE=#{tare,jdbcType=DECIMAL},
+		</if>
+		<if test="grossWeight!=null and grossWeight!= ''">
+		GROSS_WEIGHT=#{grossWeight,jdbcType=DECIMAL},
+		</if>
+		<if test="netWeight!=null and netWeight!= ''">
+		NET_WEIGHT=#{netWeight,jdbcType=DECIMAL},
+		</if>
+		<if test="firstWeighingTime!=null and firstWeighingTime!= ''">
+		FIRST_WEIGHING_TIME=#{firstWeighingTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="twoWeighingTime!=null and twoWeighingTime!= ''">
+		TWO_WEIGHING_TIME=#{twoWeighingTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="weighmanId!=null and weighmanId!= ''">
+		WEIGHMAN_ID=#{weighmanId,jdbcType=CHAR},
+		</if>
+		<if test="weighman!=null and weighman!= ''">
+		WEIGHMAN=#{weighman,jdbcType=VARCHAR},
+		</if>
+		<if test="weighmanId2!=null and weighmanId2!= ''">
+		WEIGHMAN_ID2=#{weighmanId2,jdbcType=CHAR},
+		</if>
+		<if test="weighman2!=null and weighman2!= ''">
+		WEIGHMAN2=#{weighman2,jdbcType=VARCHAR},
+		</if>
+		<if test="shipperCode!=null and shipperCode!= ''">
+		SHIPPER_CODE=#{shipperCode,jdbcType=VARCHAR},
+		</if>
+		<if test="shipper!=null and shipper!= ''">
+		SHIPPER=#{shipper,jdbcType=VARCHAR},
+		</if>
+		<if test="receivingUnit!=null and receivingUnit!= ''">
+		RECEIVING_UNIT=#{receivingUnit,jdbcType=VARCHAR},
+		</if>
+		<if test="transportUnit!=null and transportUnit!= ''">
+		TRANSPORT_UNIT=#{transportUnit,jdbcType=VARCHAR},
+		</if>
+		<if test="timeToGoOut!=null and timeToGoOut!= ''">
+		TIME_TO_GO_OUT=#{timeToGoOut,jdbcType=TIMESTAMP},
+		</if>
+		<if test="printDate!=null and printDate!= ''">
+		PRINT_DATE=#{printDate,jdbcType=TIMESTAMP},
+		</if>
+		<if test="storageTransportationMan!=null and storageTransportationMan!= ''">
+		STORAGE_TRANSPORTATION_MAN=#{storageTransportationMan,jdbcType=VARCHAR},
+		</if>
+		<if test="status!=null and status!= ''">
+		STATUS=#{status,jdbcType=CHAR},
+		</if>
+		<if test="storageTransportationId!=null and storageTransportationId!= ''">
+		STORAGE_TRANSPORTATION_ID=#{storageTransportationId,jdbcType=NUMERIC},
+		</if>
+     </trim> 
+    where ID=#{id}
+  </update>
+
+  <select id="get" parameterType="string" resultType="com.dfhc.bus.weighingbill.vo.WeighingBillVo">
+    select  
+      BUS_WEIGHING_BILL.USABLE_STATUS, BUS_WEIGHING_BILL.CREATE_TIME, BUS_WEIGHING_BILL.CREATE_IP, BUS_WEIGHING_BILL.CREATE_USER_ID, 
+      BUS_WEIGHING_BILL.CREATE_USER_NAME, BUS_WEIGHING_BILL.MODIFY_TIME, BUS_WEIGHING_BILL.MODIFY_IP, BUS_WEIGHING_BILL.MODIFY_USER_ID, 
+      BUS_WEIGHING_BILL.MODIFY_USER_NAME, BUS_WEIGHING_BILL.DELETE_TIME, BUS_WEIGHING_BILL.DELETE_IP, BUS_WEIGHING_BILL.DELETE_FLAG, 
+      BUS_WEIGHING_BILL.DELETE_USER_ID, BUS_WEIGHING_BILL.DELETE_USER_NAME, BUS_WEIGHING_BILL.ORDER_CODE, BUS_WEIGHING_BILL.ATTRIBUTE1, 
+      BUS_WEIGHING_BILL.ATTRIBUTE2, BUS_WEIGHING_BILL.ATTRIBUTE3, BUS_WEIGHING_BILL.ATTRIBUTE4, BUS_WEIGHING_BILL.ATTRIBUTE5, 
+      BUS_WEIGHING_BILL.ID as id,	
+      BUS_WEIGHING_BILL.LADING_BILL_ID as ladingBillId,	
+      BUS_WEIGHING_BILL.LADING_BILL_CODE as ladingBillCode,	
+      BUS_WEIGHING_BILL.TRUCK_NO as truckNo,	
+      BUS_WEIGHING_BILL.PHONE_NUMBER as phoneNumber,	
+      BUS_WEIGHING_BILL.PRODUCT_ID as productId,	
+      BUS_WEIGHING_BILL.PRODUCT_NAME as productName,	
+      BUS_WEIGHING_BILL.PRODUCT_MODEL_NUMBER as productModelNumber,	
+      BUS_WEIGHING_BILL.TARE as tare,	
+      BUS_WEIGHING_BILL.GROSS_WEIGHT as grossWeight,	
+      BUS_WEIGHING_BILL.NET_WEIGHT as netWeight,	
+      BUS_WEIGHING_BILL.FIRST_WEIGHING_TIME as firstWeighingTime,	
+      BUS_WEIGHING_BILL.TWO_WEIGHING_TIME as twoWeighingTime,	
+      BUS_WEIGHING_BILL.WEIGHMAN_ID as weighmanId,	
+      BUS_WEIGHING_BILL.WEIGHMAN as weighman,	
+      BUS_WEIGHING_BILL.WEIGHMAN_ID2 as weighmanId2,	
+      BUS_WEIGHING_BILL.WEIGHMAN2 as weighman2,	
+      BUS_WEIGHING_BILL.SHIPPER_CODE as shipperCode,	
+      BUS_WEIGHING_BILL.SHIPPER as shipper,	
+      BUS_WEIGHING_BILL.RECEIVING_UNIT as receivingUnit,	
+      BUS_WEIGHING_BILL.TRANSPORT_UNIT as transportUnit,	
+      BUS_WEIGHING_BILL.TIME_TO_GO_OUT as timeToGoOut,	
+      BUS_WEIGHING_BILL.PRINT_DATE as printDate,	
+      BUS_WEIGHING_BILL.STORAGE_TRANSPORTATION_MAN as storageTransportationMan,	
+      BUS_WEIGHING_BILL.STATUS as status,	
+      BUS_WEIGHING_BILL.STORAGE_TRANSPORTATION_ID as storageTransportationId	
+    from BUS_WEIGHING_BILL 
+    where BUS_WEIGHING_BILL.ID=#{id}
+  </select>
+
+  <select id="getCount" parameterType="map" resultType="int" useCache="true">
+    select count(BUS_WEIGHING_BILL.ID) from BUS_WEIGHING_BILL
+    <include refid="where"/>    
+  </select>
+  
+  <select id="list" parameterType="map" resultType="com.dfhc.bus.weighingbill.vo.WeighingBillVo">
+    select 
+     BUS_WEIGHING_BILL.ID as id,	
+     BUS_WEIGHING_BILL.LADING_BILL_ID as ladingBillId,	
+     BUS_WEIGHING_BILL.LADING_BILL_CODE as ladingBillCode,	
+     BUS_WEIGHING_BILL.TRUCK_NO as truckNo,	
+     BUS_WEIGHING_BILL.PHONE_NUMBER as phoneNumber,	
+     BUS_WEIGHING_BILL.PRODUCT_ID as productId,	
+     BUS_WEIGHING_BILL.PRODUCT_NAME as productName,	
+     BUS_WEIGHING_BILL.PRODUCT_MODEL_NUMBER as productModelNumber,	
+     BUS_WEIGHING_BILL.TARE as tare,	
+     BUS_WEIGHING_BILL.GROSS_WEIGHT as grossWeight,	
+     BUS_WEIGHING_BILL.NET_WEIGHT as netWeight,	
+     BUS_WEIGHING_BILL.FIRST_WEIGHING_TIME as firstWeighingTime,	
+     BUS_WEIGHING_BILL.TWO_WEIGHING_TIME as twoWeighingTime,	
+     BUS_WEIGHING_BILL.WEIGHMAN_ID as weighmanId,	
+     BUS_WEIGHING_BILL.WEIGHMAN as weighman,	
+     BUS_WEIGHING_BILL.WEIGHMAN_ID2 as weighmanId2,	
+     BUS_WEIGHING_BILL.WEIGHMAN2 as weighman2,	
+     BUS_WEIGHING_BILL.SHIPPER_CODE as shipperCode,	
+     BUS_WEIGHING_BILL.SHIPPER as shipper,	
+     BUS_WEIGHING_BILL.RECEIVING_UNIT as receivingUnit,	
+     BUS_WEIGHING_BILL.TRANSPORT_UNIT as transportUnit,	
+     BUS_WEIGHING_BILL.TIME_TO_GO_OUT as timeToGoOut,	
+     BUS_WEIGHING_BILL.PRINT_DATE as printDate,	
+     BUS_WEIGHING_BILL.STORAGE_TRANSPORTATION_MAN as storageTransportationMan,	
+     BUS_WEIGHING_BILL.STATUS as status,	
+     BUS_WEIGHING_BILL.STORAGE_TRANSPORTATION_ID as storageTransportationId	
+    from BUS_WEIGHING_BILL
+    <if test="twoWeigh != null and twoWeigh != ''">
+    	inner join BUS_LADING_BILL on BUS_LADING_BILL.ID = BUS_WEIGHING_BILL.LADING_BILL_ID
+    	inner join BUS_ROW_NUMBER on BUS_ROW_NUMBER.LADING_BILL_ID = BUS_LADING_BILL.ID
+    </if>
+    
+    <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+  
+  <select id="listAllColumn" parameterType="map" resultType="com.dfhc.bus.weighingbill.vo.WeighingBillVo">
+    select 
+      BUS_WEIGHING_BILL.USABLE_STATUS, BUS_WEIGHING_BILL.CREATE_TIME, BUS_WEIGHING_BILL.CREATE_IP, BUS_WEIGHING_BILL.CREATE_USER_ID, 
+      BUS_WEIGHING_BILL.CREATE_USER_NAME, BUS_WEIGHING_BILL.MODIFY_TIME, BUS_WEIGHING_BILL.MODIFY_IP, BUS_WEIGHING_BILL.MODIFY_USER_ID, 
+      BUS_WEIGHING_BILL.MODIFY_USER_NAME, BUS_WEIGHING_BILL.DELETE_TIME, BUS_WEIGHING_BILL.DELETE_IP, BUS_WEIGHING_BILL.DELETE_FLAG, 
+      BUS_WEIGHING_BILL.DELETE_USER_ID, BUS_WEIGHING_BILL.DELETE_USER_NAME, BUS_WEIGHING_BILL.ORDER_CODE, BUS_WEIGHING_BILL.ATTRIBUTE1, 
+     BUS_WEIGHING_BILL.ATTRIBUTE2, BUS_WEIGHING_BILL.ATTRIBUTE3, BUS_WEIGHING_BILL.ATTRIBUTE4, BUS_WEIGHING_BILL.ATTRIBUTE5, 
+     BUS_WEIGHING_BILL.ID as id,	
+     BUS_WEIGHING_BILL.LADING_BILL_ID as ladingBillId,	
+     BUS_WEIGHING_BILL.LADING_BILL_CODE as ladingBillCode,	
+     BUS_WEIGHING_BILL.TRUCK_NO as truckNo,	
+     BUS_WEIGHING_BILL.PHONE_NUMBER as phoneNumber,	
+     BUS_WEIGHING_BILL.PRODUCT_ID as productId,	
+     BUS_WEIGHING_BILL.PRODUCT_NAME as productName,	
+     BUS_WEIGHING_BILL.PRODUCT_MODEL_NUMBER as productModelNumber,	
+     BUS_WEIGHING_BILL.TARE as tare,	
+     BUS_WEIGHING_BILL.GROSS_WEIGHT as grossWeight,	
+     BUS_WEIGHING_BILL.NET_WEIGHT as netWeight,	
+     BUS_WEIGHING_BILL.FIRST_WEIGHING_TIME as firstWeighingTime,	
+     BUS_WEIGHING_BILL.TWO_WEIGHING_TIME as twoWeighingTime,	
+     BUS_WEIGHING_BILL.WEIGHMAN_ID as weighmanId,	
+     BUS_WEIGHING_BILL.WEIGHMAN as weighman,	
+     BUS_WEIGHING_BILL.WEIGHMAN_ID2 as weighmanId2,	
+     BUS_WEIGHING_BILL.WEIGHMAN2 as weighman2,	
+     BUS_WEIGHING_BILL.SHIPPER_CODE as shipperCode,	
+     BUS_WEIGHING_BILL.SHIPPER as shipper,	
+     BUS_WEIGHING_BILL.RECEIVING_UNIT as receivingUnit,	
+     BUS_WEIGHING_BILL.TRANSPORT_UNIT as transportUnit,	
+     BUS_WEIGHING_BILL.TIME_TO_GO_OUT as timeToGoOut,	
+     BUS_WEIGHING_BILL.PRINT_DATE as printDate,	
+     BUS_WEIGHING_BILL.STORAGE_TRANSPORTATION_MAN as storageTransportationMan,	
+     BUS_WEIGHING_BILL.STATUS as status,	
+     BUS_WEIGHING_BILL.STORAGE_TRANSPORTATION_ID as storageTransportationId	
+    from BUS_WEIGHING_BILL
+    <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+
+  <select id="search" parameterType="map" resultType="com.dfhc.bus.weighingbill.vo.WeighingBillVo">
+    select 
+      BUS_WEIGHING_BILL.USABLE_STATUS, BUS_WEIGHING_BILL.CREATE_TIME, BUS_WEIGHING_BILL.CREATE_IP, BUS_WEIGHING_BILL.CREATE_USER_ID, 
+      BUS_WEIGHING_BILL.CREATE_USER_NAME, BUS_WEIGHING_BILL.MODIFY_TIME, BUS_WEIGHING_BILL.MODIFY_IP, BUS_WEIGHING_BILL.MODIFY_USER_ID, 
+      BUS_WEIGHING_BILL.MODIFY_USER_NAME, BUS_WEIGHING_BILL.DELETE_TIME, BUS_WEIGHING_BILL.DELETE_IP, BUS_WEIGHING_BILL.DELETE_FLAG, 
+      BUS_WEIGHING_BILL.DELETE_USER_ID, BUS_WEIGHING_BILL.DELETE_USER_NAME, BUS_WEIGHING_BILL.ORDER_CODE, BUS_WEIGHING_BILL.ATTRIBUTE1, 
+      BUS_WEIGHING_BILL.ATTRIBUTE2, BUS_WEIGHING_BILL.ATTRIBUTE3, BUS_WEIGHING_BILL.ATTRIBUTE4, BUS_WEIGHING_BILL.ATTRIBUTE5, 
+     BUS_WEIGHING_BILL.ID as id,	
+     BUS_WEIGHING_BILL.LADING_BILL_ID as ladingBillId,	
+     BUS_WEIGHING_BILL.LADING_BILL_CODE as ladingBillCode,	
+     BUS_WEIGHING_BILL.TRUCK_NO as truckNo,	
+     BUS_WEIGHING_BILL.PHONE_NUMBER as phoneNumber,	
+     BUS_WEIGHING_BILL.PRODUCT_ID as productId,	
+     BUS_WEIGHING_BILL.PRODUCT_NAME as productName,	
+     BUS_WEIGHING_BILL.PRODUCT_MODEL_NUMBER as productModelNumber,	
+     BUS_WEIGHING_BILL.TARE as tare,	
+     BUS_WEIGHING_BILL.GROSS_WEIGHT as grossWeight,	
+     BUS_WEIGHING_BILL.NET_WEIGHT as netWeight,	
+     BUS_WEIGHING_BILL.FIRST_WEIGHING_TIME as firstWeighingTime,	
+     BUS_WEIGHING_BILL.TWO_WEIGHING_TIME as twoWeighingTime,	
+     BUS_WEIGHING_BILL.WEIGHMAN_ID as weighmanId,	
+     BUS_WEIGHING_BILL.WEIGHMAN as weighman,	
+     BUS_WEIGHING_BILL.WEIGHMAN_ID2 as weighmanId2,	
+     BUS_WEIGHING_BILL.WEIGHMAN2 as weighman2,	
+     BUS_WEIGHING_BILL.SHIPPER_CODE as shipperCode,	
+     BUS_WEIGHING_BILL.SHIPPER as shipper,	
+     BUS_WEIGHING_BILL.RECEIVING_UNIT as receivingUnit,	
+     BUS_WEIGHING_BILL.TRANSPORT_UNIT as transportUnit,	
+     BUS_WEIGHING_BILL.TIME_TO_GO_OUT as timeToGoOut,	
+     BUS_WEIGHING_BILL.PRINT_DATE as printDate,	
+     BUS_WEIGHING_BILL.STORAGE_TRANSPORTATION_MAN as storageTransportationMan,	
+     BUS_WEIGHING_BILL.STATUS as status,	
+     BUS_WEIGHING_BILL.STORAGE_TRANSPORTATION_ID as storageTransportationId	
+    from BUS_WEIGHING_BILL
+     <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+ <!-- 批量更新 -->
+  <update id="updateBatch" parameterType="ArrayList">
+     begin
+     <foreach collection="list" item="item" index="index" separator=";" > 
+     update BUS_WEIGHING_BILL 
+    <set>  
+		<if test="item.usable_status != null and item.usable_status != ''">
+		     USABLE_STATUS=#{item.usable_status,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_time != null and item.create_time != ''">
+		 CREATE_TIME=#{item.create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.create_ip != null and item.create_ip != ''">
+		 CREATE_IP=#{item.create_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_user_id != null and item.create_user_id != ''">
+		 CREATE_USER_ID=#{item.create_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_user_name != null and item.create_user_name != ''">
+		   CREATE_USER_NAME=#{item.create_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_time != null and item.modify_time != ''">
+		 MODIFY_TIME=#{item.modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.modify_ip != null and item.modify_ip != ''">
+		 MODIFY_IP=#{item.modify_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_user_id != null and item.modify_user_id != ''">
+		 MODIFY_USER_ID=#{item.modify_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_user_name != null and item.modify_user_name != ''">
+		   MODIFY_USER_NAME=#{item.modify_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_time != null and item.delete_time != ''">
+		 DELETE_TIME=#{item.delete_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.delete_ip != null and item.delete_ip != ''">
+		 DELETE_IP=#{item.delete_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_flag != null and item.delete_flag != ''">
+		 DELETE_FLAG=#{item.delete_flag,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_user_id != null and item.delete_user_id != ''">
+		   DELETE_USER_ID=#{item.delete_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_user_name != null and item.delete_user_name != ''">
+		 DELETE_USER_NAME=#{item.delete_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.order_code != null and item.order_code != ''">
+		 ORDER_CODE=#{item.order_code,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute1 != null and item.attribute1 != ''">
+		 ATTRIBUTE1=#{item.attribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute2 != null and item.attribute2 != ''">
+		 ATTRIBUTE2=#{item.attribute2,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute3 != null and item.attribute3 != ''">
+		 ATTRIBUTE3=#{item.attribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute4 != null and item.attribute4 != ''">
+		 ATTRIBUTE4=#{item.attribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute5 != null and item.attribute5 != ''">
+		 ATTRIBUTE5=#{item.attribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="item.id!=null and item.id!= ''">
+		ID=#{item.id,jdbcType=CHAR},
+		</if>
+		<if test="item.ladingBillId!=null and item.ladingBillId!= ''">
+		LADING_BILL_ID=#{item.ladingBillId,jdbcType=CHAR},
+		</if>
+		<if test="item.ladingBillCode!=null and item.ladingBillCode!= ''">
+		LADING_BILL_CODE=#{item.ladingBillCode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.truckNo!=null and item.truckNo!= ''">
+		TRUCK_NO=#{item.truckNo,jdbcType=VARCHAR},
+		</if>
+		<if test="item.phoneNumber!=null and item.phoneNumber!= ''">
+		PHONE_NUMBER=#{item.phoneNumber,jdbcType=VARCHAR},
+		</if>
+		<if test="item.productId!=null and item.productId!= ''">
+		PRODUCT_ID=#{item.productId,jdbcType=CHAR},
+		</if>
+		<if test="item.productName!=null and item.productName!= ''">
+		PRODUCT_NAME=#{item.productName,jdbcType=VARCHAR},
+		</if>
+		<if test="item.productModelNumber!=null and item.productModelNumber!= ''">
+		PRODUCT_MODEL_NUMBER=#{item.productModelNumber,jdbcType=VARCHAR},
+		</if>
+		<if test="item.tare!=null and item.tare!= ''">
+		TARE=#{item.tare,jdbcType=DECIMAL},
+		</if>
+		<if test="item.grossWeight!=null and item.grossWeight!= ''">
+		GROSS_WEIGHT=#{item.grossWeight,jdbcType=DECIMAL},
+		</if>
+		<if test="item.netWeight!=null and item.netWeight!= ''">
+		NET_WEIGHT=#{item.netWeight,jdbcType=DECIMAL},
+		</if>
+		<if test="item.firstWeighingTime!=null and item.firstWeighingTime!= ''">
+		FIRST_WEIGHING_TIME=#{item.firstWeighingTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.twoWeighingTime!=null and item.twoWeighingTime!= ''">
+		TWO_WEIGHING_TIME=#{item.twoWeighingTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.weighmanId!=null and item.weighmanId!= ''">
+		WEIGHMAN_ID=#{item.weighmanId,jdbcType=CHAR},
+		</if>
+		<if test="item.weighman!=null and item.weighman!= ''">
+		WEIGHMAN=#{item.weighman,jdbcType=VARCHAR},
+		</if>
+		<if test="item.weighmanId2!=null and item.weighmanId2!= ''">
+		WEIGHMAN_ID2=#{item.weighmanId2,jdbcType=CHAR},
+		</if>
+		<if test="item.weighman2!=null and item.weighman2!= ''">
+		WEIGHMAN2=#{item.weighman2,jdbcType=VARCHAR},
+		</if>
+		<if test="item.shipperCode!=null and item.shipperCode!= ''">
+		SHIPPER_CODE=#{item.shipperCode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.shipper!=null and item.shipper!= ''">
+		SHIPPER=#{item.shipper,jdbcType=VARCHAR},
+		</if>
+		<if test="item.receivingUnit!=null and item.receivingUnit!= ''">
+		RECEIVING_UNIT=#{item.receivingUnit,jdbcType=VARCHAR},
+		</if>
+		<if test="item.transportUnit!=null and item.transportUnit!= ''">
+		TRANSPORT_UNIT=#{item.transportUnit,jdbcType=VARCHAR},
+		</if>
+		<if test="item.timeToGoOut!=null and item.timeToGoOut!= ''">
+		TIME_TO_GO_OUT=#{item.timeToGoOut,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.printDate!=null and item.printDate!= ''">
+		PRINT_DATE=#{item.printDate,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.storageTransportationMan!=null and item.storageTransportationMan!= ''">
+		STORAGE_TRANSPORTATION_MAN=#{item.storageTransportationMan,jdbcType=VARCHAR},
+		</if>
+		<if test="item.status!=null and item.status!= ''">
+		STATUS=#{item.status,jdbcType=CHAR},
+		</if>
+		<if test="item.storageTransportationId!=null and item.storageTransportationId!= ''">
+		STORAGE_TRANSPORTATION_ID=#{item.storageTransportationId,jdbcType=NUMERIC},
+		</if>
+     </set> 
+    where ID=#{item.id}
+   </foreach>
+   ;end;
+   </update>
+   <!--批量插入-->
+ <insert id="insertBatch" parameterType="ArrayList">
+     insert into BUS_WEIGHING_BILL (
+      USABLE_STATUS, CREATE_TIME, CREATE_IP, CREATE_USER_ID, 
+      CREATE_USER_NAME, MODIFY_TIME, MODIFY_IP, MODIFY_USER_ID, 
+      MODIFY_USER_NAME, DELETE_TIME, DELETE_IP, DELETE_FLAG, 
+      DELETE_USER_ID, DELETE_USER_NAME, ORDER_CODE, ATTRIBUTE1, 
+      ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, 
+      ID ,
+      LADING_BILL_ID ,
+      LADING_BILL_CODE ,
+      TRUCK_NO ,
+      PHONE_NUMBER ,
+      PRODUCT_ID ,
+      PRODUCT_NAME ,
+      PRODUCT_MODEL_NUMBER ,
+      TARE ,
+      GROSS_WEIGHT ,
+      NET_WEIGHT ,
+      FIRST_WEIGHING_TIME ,
+      TWO_WEIGHING_TIME ,
+      WEIGHMAN_ID ,
+      WEIGHMAN ,
+      WEIGHMAN_ID2 ,
+      WEIGHMAN2 ,
+      SHIPPER_CODE ,
+      SHIPPER ,
+      RECEIVING_UNIT ,
+      TRANSPORT_UNIT ,
+      TIME_TO_GO_OUT ,
+      PRINT_DATE ,
+      STORAGE_TRANSPORTATION_MAN ,
+      STATUS ,
+      STORAGE_TRANSPORTATION_ID 
+      )    
+    <foreach collection="list" item="item" index="index" separator="union all" > 
+    select  
+   #{item.usable_status,jdbcType=VARCHAR},#{item.create_time,jdbcType=TIMESTAMP},#{item.create_ip,jdbcType=VARCHAR},#{item.create_user_id,jdbcType=VARCHAR},#{item.create_user_name,jdbcType=VARCHAR},#{item.modify_time,jdbcType=TIMESTAMP},#{item.modify_ip,jdbcType=VARCHAR},#{item.modify_user_id,jdbcType=VARCHAR},#{item.modify_user_name,jdbcType=VARCHAR},#{item.delete_time,jdbcType=TIMESTAMP},#{item.delete_ip,jdbcType=VARCHAR},#{item.delete_flag,jdbcType=VARCHAR},#{item.delete_user_id,jdbcType=VARCHAR},#{item.delete_user_name,jdbcType=VARCHAR},#{item.order_code,jdbcType=VARCHAR},#{item.attribute1,jdbcType=VARCHAR},#{item.attribute2,jdbcType=VARCHAR},#{item.attribute3,jdbcType=VARCHAR},#{item.attribute4,jdbcType=VARCHAR},#{item.attribute5,jdbcType=VARCHAR},
+	#{item.id,jdbcType=CHAR},
+	#{item.ladingBillId,jdbcType=CHAR},
+	#{item.ladingBillCode,jdbcType=VARCHAR},
+	#{item.truckNo,jdbcType=VARCHAR},
+	#{item.phoneNumber,jdbcType=VARCHAR},
+	#{item.productId,jdbcType=CHAR},
+	#{item.productName,jdbcType=VARCHAR},
+	#{item.productModelNumber,jdbcType=VARCHAR},
+	#{item.tare,jdbcType=DECIMAL},
+	#{item.grossWeight,jdbcType=DECIMAL},
+	#{item.netWeight,jdbcType=DECIMAL},
+	#{item.firstWeighingTime,jdbcType=TIMESTAMP},
+	#{item.twoWeighingTime,jdbcType=TIMESTAMP},
+	#{item.weighmanId,jdbcType=CHAR},
+	#{item.weighman,jdbcType=VARCHAR},
+	#{item.weighmanId2,jdbcType=CHAR},
+	#{item.weighman2,jdbcType=VARCHAR},
+	#{item.shipperCode,jdbcType=VARCHAR},
+	#{item.shipper,jdbcType=VARCHAR},
+	#{item.receivingUnit,jdbcType=VARCHAR},
+	#{item.transportUnit,jdbcType=VARCHAR},
+	#{item.timeToGoOut,jdbcType=TIMESTAMP},
+	#{item.printDate,jdbcType=TIMESTAMP},
+	#{item.storageTransportationMan,jdbcType=VARCHAR},
+	#{item.status,jdbcType=CHAR},
+	#{item.storageTransportationId,jdbcType=NUMERIC}
+     from dual
+    </foreach>
+  </insert>	
+</mapper>

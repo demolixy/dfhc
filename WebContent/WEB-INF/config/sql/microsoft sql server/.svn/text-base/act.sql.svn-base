@@ -1,0 +1,1 @@
+INSERT INTO ACT_ID_USER (ID_, REV_, FIRST_, LAST_, EMAIL_, PWD_, PICTURE_ID_) VALUES ('1000201100000000001', null, null, null, null, null, null);

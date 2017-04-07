@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dfhc.base.car.dao.CarDao">
+  <!-- 共享的where语句，如有冲突或特殊情况，请另写 -->
+  <sql id="where">
+   <trim prefix="where" prefixOverrides="and|or">  
+      <if test="id != null and id != ''">
+        and BASE_CAR.ID = #{id}
+      </if>
+      <if test="truckNo != null and truckNo != ''">
+        and BASE_CAR.TRUCK_NO = #{truckNo}
+      </if>
+      <if test="grand != null and grand != ''">
+        and BASE_CAR.GRAND = #{grand}
+      </if>
+      <if test="model != null and model != ''">
+        and BASE_CAR.MODEL = #{model}
+      </if>
+      <if test="color != null and color != ''">
+        and BASE_CAR.COLOR = #{color}
+      </if>
+      <if test="modelSerial != null and modelSerial != ''">
+        and BASE_CAR.MODEL_SERIAL = #{modelSerial}
+      </if>
+      <if test="engineNo != null and engineNo != ''">
+        and BASE_CAR.ENGINE_NO = #{engineNo}
+      </if>
+      <if test="certDept != null and certDept != ''">
+        and BASE_CAR.CERT_DEPT = #{certDept}
+      </if>
+      <if test="emptyWeight != null and emptyWeight != ''">
+        and BASE_CAR.EMPTY_WEIGHT = #{emptyWeight}
+      </if>
+      <if test="owner != null and owner != ''">
+        and BASE_CAR.OWNER = #{owner}
+      </if>
+      <if test="driveNo != null and driveNo != ''">
+        and BASE_CAR.DRIVE_NO = #{driveNo}
+      </if>
+      <if test="driveType != null and driveType != ''">
+        and BASE_CAR.DRIVE_TYPE = #{driveType}
+      </if>
+      <if test="contact != null and contact != ''">
+        and BASE_CAR.CONTACT = #{contact}
+      </if>
+      <if test="gender != null and gender != ''">
+        and BASE_CAR.GENDER = #{gender}
+      </if>
+      <if test="idNo != null and idNo != ''">
+        and BASE_CAR.ID_NO = #{idNo}
+      </if>
+      <if test="axleNum != null and axleNum != ''">
+        and BASE_CAR.AXLE_NUM = #{axleNum}
+      </if>
+      <if test="picFront != null and picFront != ''">
+        and BASE_CAR.PIC_FRONT = #{picFront}
+      </if>
+      <if test="picBack != null and picBack != ''">
+        and BASE_CAR.PIC_BACK = #{picBack}
+      </if>
+      <if test="delete_flag != null and delete_flag != ''">
+        and nvl(BASE_CAR.DELETE_FLAG,'0') = #{delete_flag}
+      </if>
+      </trim>
+  </sql>
+
+  <insert id="insert" parameterType="com.dfhc.base.car.vo.CarVo">
+    insert into BASE_CAR (
+      USABLE_STATUS, CREATE_TIME, CREATE_IP, CREATE_USER_ID, 
+      CREATE_USER_NAME, MODIFY_TIME, MODIFY_IP, MODIFY_USER_ID, 
+      MODIFY_USER_NAME, DELETE_TIME, DELETE_IP, DELETE_FLAG, 
+      DELETE_USER_ID, DELETE_USER_NAME, ORDER_CODE, ATTRIBUTE1, 
+      ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, 
+      ID ,
+      TRUCK_NO ,
+      GRAND ,
+      MODEL ,
+      COLOR ,
+      MODEL_SERIAL ,
+      ENGINE_NO ,
+      CERT_DEPT ,
+      EMPTY_WEIGHT ,
+      OWNER ,
+      DRIVE_NO ,
+      DRIVE_TYPE ,
+      CONTACT ,
+      GENDER ,
+      ID_NO ,
+      AXLE_NUM ,
+      PIC_FRONT ,
+      PIC_BACK 
+      )
+    values ( 
+     #{usable_status,jdbcType=VARCHAR},#{create_time,jdbcType=TIMESTAMP},#{create_ip,jdbcType=VARCHAR},#{create_user_id,jdbcType=VARCHAR},#{create_user_name,jdbcType=VARCHAR},#{modify_time,jdbcType=TIMESTAMP},#{modify_ip,jdbcType=VARCHAR},#{modify_user_id,jdbcType=VARCHAR},#{modify_user_name,jdbcType=VARCHAR},#{delete_time,jdbcType=TIMESTAMP},#{delete_ip,jdbcType=VARCHAR},#{delete_flag,jdbcType=VARCHAR},#{delete_user_id,jdbcType=VARCHAR},#{delete_user_name,jdbcType=VARCHAR},#{order_code,jdbcType=VARCHAR},#{attribute1,jdbcType=VARCHAR},#{attribute2,jdbcType=VARCHAR},#{attribute3,jdbcType=VARCHAR},#{attribute4,jdbcType=VARCHAR},#{attribute5,jdbcType=VARCHAR},
+	#{id,jdbcType=CHAR},
+	#{truckNo,jdbcType=VARCHAR},
+	#{grand,jdbcType=VARCHAR},
+	#{model,jdbcType=VARCHAR},
+	#{color,jdbcType=VARCHAR},
+	#{modelSerial,jdbcType=VARCHAR},
+	#{engineNo,jdbcType=VARCHAR},
+	#{certDept,jdbcType=VARCHAR},
+	#{emptyWeight,jdbcType=DECIMAL},
+	#{owner,jdbcType=VARCHAR},
+	#{driveNo,jdbcType=VARCHAR},
+	#{driveType,jdbcType=VARCHAR},
+	#{contact,jdbcType=VARCHAR},
+	#{gender,jdbcType=VARCHAR},
+	#{idNo,jdbcType=VARCHAR},
+	#{axleNum,jdbcType=NUMERIC},
+	#{picFront,jdbcType=VARCHAR},
+	#{picBack,jdbcType=VARCHAR}
+      )
+  </insert>
+    
+  <delete id="delete" parameterType="int">
+    delete from BASE_CAR where ID=#{id}
+  </delete>
+  
+  <delete id="deleteMulti" parameterType="int">
+    delete from BASE_CAR where ID in 
+    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">  
+      #{item}   
+    </foreach>
+  </delete>
+
+  <update id="update" parameterType="com.dfhc.base.car.vo.CarVo">
+    update BASE_CAR 
+    <trim prefix="SET" suffixOverrides=",">  
+		<if test="usable_status != null and usable_status != ''">
+		     USABLE_STATUS=#{usable_status,jdbcType=VARCHAR},
+		</if>
+		<if test="create_time != null and create_time != ''">
+		 CREATE_TIME=#{create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="create_ip != null and create_ip != ''">
+		 CREATE_IP=#{create_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="create_user_id != null and create_user_id != ''">
+		 CREATE_USER_ID=#{create_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="create_user_name != null and create_user_name != ''">
+		   CREATE_USER_NAME=#{create_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_time != null and modify_time != ''">
+		 MODIFY_TIME=#{modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="modify_ip != null and modify_ip != ''">
+		 MODIFY_IP=#{modify_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_user_id != null and modify_user_id != ''">
+		 MODIFY_USER_ID=#{modify_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_user_name != null and modify_user_name != ''">
+		   MODIFY_USER_NAME=#{modify_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_time != null and delete_time != ''">
+		 DELETE_TIME=#{delete_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="delete_ip != null and delete_ip != ''">
+		 DELETE_IP=#{delete_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_flag != null and delete_flag != ''">
+		 DELETE_FLAG=#{delete_flag,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_user_id != null and delete_user_id != ''">
+		   DELETE_USER_ID=#{delete_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_user_name != null and delete_user_name != ''">
+		 DELETE_USER_NAME=#{delete_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="order_code != null and order_code != ''">
+		 ORDER_CODE=#{order_code,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute1 != null and attribute1 != ''">
+		 ATTRIBUTE1=#{attribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute2 != null and attribute2 != ''">
+		 ATTRIBUTE2=#{attribute2,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute3 != null and attribute3 != ''">
+		 ATTRIBUTE3=#{attribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute4 != null and attribute4 != ''">
+		 ATTRIBUTE4=#{attribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute5 != null and attribute5 != ''">
+		 ATTRIBUTE5=#{attribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="id!=null and id!= ''">
+		ID=#{id,jdbcType=CHAR},
+		</if>
+		<if test="truckNo!=null and truckNo!= ''">
+		TRUCK_NO=#{truckNo,jdbcType=VARCHAR},
+		</if>
+		<if test="grand!=null and grand!= ''">
+		GRAND=#{grand,jdbcType=VARCHAR},
+		</if>
+		<if test="model!=null and model!= ''">
+		MODEL=#{model,jdbcType=VARCHAR},
+		</if>
+		<if test="color!=null and color!= ''">
+		COLOR=#{color,jdbcType=VARCHAR},
+		</if>
+		<if test="modelSerial!=null and modelSerial!= ''">
+		MODEL_SERIAL=#{modelSerial,jdbcType=VARCHAR},
+		</if>
+		<if test="engineNo!=null and engineNo!= ''">
+		ENGINE_NO=#{engineNo,jdbcType=VARCHAR},
+		</if>
+		<if test="certDept!=null and certDept!= ''">
+		CERT_DEPT=#{certDept,jdbcType=VARCHAR},
+		</if>
+		<if test="emptyWeight!=null and emptyWeight!= ''">
+		EMPTY_WEIGHT=#{emptyWeight,jdbcType=DECIMAL},
+		</if>
+		<if test="owner!=null and owner!= ''">
+		OWNER=#{owner,jdbcType=VARCHAR},
+		</if>
+		<if test="driveNo!=null and driveNo!= ''">
+		DRIVE_NO=#{driveNo,jdbcType=VARCHAR},
+		</if>
+		<if test="driveType!=null and driveType!= ''">
+		DRIVE_TYPE=#{driveType,jdbcType=VARCHAR},
+		</if>
+		<if test="contact!=null and contact!= ''">
+		CONTACT=#{contact,jdbcType=VARCHAR},
+		</if>
+		<if test="gender!=null and gender!= ''">
+		GENDER=#{gender,jdbcType=VARCHAR},
+		</if>
+		<if test="idNo!=null and idNo!= ''">
+		ID_NO=#{idNo,jdbcType=VARCHAR},
+		</if>
+		<if test="axleNum!=null and axleNum!= ''">
+		AXLE_NUM=#{axleNum,jdbcType=NUMERIC},
+		</if>
+		<if test="picFront!=null and picFront!= ''">
+		PIC_FRONT=#{picFront,jdbcType=VARCHAR},
+		</if>
+		<if test="picBack!=null and picBack!= ''">
+		PIC_BACK=#{picBack,jdbcType=VARCHAR},
+		</if>
+     </trim> 
+    where ID=#{id}
+  </update>
+
+  <select id="get" parameterType="string" resultType="com.dfhc.base.car.vo.CarVo">
+    select  
+      BASE_CAR.USABLE_STATUS, BASE_CAR.CREATE_TIME, BASE_CAR.CREATE_IP, BASE_CAR.CREATE_USER_ID, 
+      BASE_CAR.CREATE_USER_NAME, BASE_CAR.MODIFY_TIME, BASE_CAR.MODIFY_IP, BASE_CAR.MODIFY_USER_ID, 
+      BASE_CAR.MODIFY_USER_NAME, BASE_CAR.DELETE_TIME, BASE_CAR.DELETE_IP, BASE_CAR.DELETE_FLAG, 
+      BASE_CAR.DELETE_USER_ID, BASE_CAR.DELETE_USER_NAME, BASE_CAR.ORDER_CODE, BASE_CAR.ATTRIBUTE1, 
+      BASE_CAR.ATTRIBUTE2, BASE_CAR.ATTRIBUTE3, BASE_CAR.ATTRIBUTE4, BASE_CAR.ATTRIBUTE5, 
+      BASE_CAR.ID as id,	
+      BASE_CAR.TRUCK_NO as truckNo,	
+      BASE_CAR.GRAND as grand,	
+      BASE_CAR.MODEL as model,	
+      BASE_CAR.COLOR as color,	
+      BASE_CAR.MODEL_SERIAL as modelSerial,	
+      BASE_CAR.ENGINE_NO as engineNo,	
+      BASE_CAR.CERT_DEPT as certDept,	
+      BASE_CAR.EMPTY_WEIGHT as emptyWeight,	
+      BASE_CAR.OWNER as owner,	
+      BASE_CAR.DRIVE_NO as driveNo,	
+      BASE_CAR.DRIVE_TYPE as driveType,	
+      BASE_CAR.CONTACT as contact,	
+      BASE_CAR.GENDER as gender,	
+      BASE_CAR.ID_NO as idNo,	
+      BASE_CAR.AXLE_NUM as axleNum,	
+      BASE_CAR.PIC_FRONT as picFront,	
+      BASE_CAR.PIC_BACK as picBack	
+    from BASE_CAR 
+    where BASE_CAR.ID=#{id}
+  </select>
+
+  <select id="getCount" parameterType="map" resultType="int" useCache="true">
+    select count(BASE_CAR.ID) from BASE_CAR
+    <include refid="where"/>    
+  </select>
+  
+  <select id="list" parameterType="map" resultType="com.dfhc.base.car.vo.CarVo">
+    select 
+     BASE_CAR.ID as id,	
+     BASE_CAR.TRUCK_NO as truckNo,	
+     BASE_CAR.GRAND as grand,	
+     BASE_CAR.MODEL as model,	
+     BASE_CAR.COLOR as color,	
+     BASE_CAR.MODEL_SERIAL as modelSerial,	
+     BASE_CAR.ENGINE_NO as engineNo,	
+     BASE_CAR.CERT_DEPT as certDept,	
+     BASE_CAR.EMPTY_WEIGHT as emptyWeight,	
+     BASE_CAR.OWNER as owner,	
+     BASE_CAR.DRIVE_NO as driveNo,	
+     BASE_CAR.DRIVE_TYPE as driveType,	
+     BASE_CAR.CONTACT as contact,	
+     BASE_CAR.GENDER as gender,	
+     BASE_CAR.ID_NO as idNo,	
+     BASE_CAR.AXLE_NUM as axleNum,	
+     BASE_CAR.PIC_FRONT as picFront,	
+     BASE_CAR.PIC_BACK as picBack	
+    from BASE_CAR
+    <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+  
+  <select id="listAllColumn" parameterType="map" resultType="com.dfhc.base.car.vo.CarVo">
+    select 
+      BASE_CAR.USABLE_STATUS, BASE_CAR.CREATE_TIME, BASE_CAR.CREATE_IP, BASE_CAR.CREATE_USER_ID, 
+      BASE_CAR.CREATE_USER_NAME, BASE_CAR.MODIFY_TIME, BASE_CAR.MODIFY_IP, BASE_CAR.MODIFY_USER_ID, 
+      BASE_CAR.MODIFY_USER_NAME, BASE_CAR.DELETE_TIME, BASE_CAR.DELETE_IP, BASE_CAR.DELETE_FLAG, 
+      BASE_CAR.DELETE_USER_ID, BASE_CAR.DELETE_USER_NAME, BASE_CAR.ORDER_CODE, BASE_CAR.ATTRIBUTE1, 
+     BASE_CAR.ATTRIBUTE2, BASE_CAR.ATTRIBUTE3, BASE_CAR.ATTRIBUTE4, BASE_CAR.ATTRIBUTE5, 
+     BASE_CAR.ID as id,	
+     BASE_CAR.TRUCK_NO as truckNo,	
+     BASE_CAR.GRAND as grand,	
+     BASE_CAR.MODEL as model,	
+     BASE_CAR.COLOR as color,	
+     BASE_CAR.MODEL_SERIAL as modelSerial,	
+     BASE_CAR.ENGINE_NO as engineNo,	
+     BASE_CAR.CERT_DEPT as certDept,	
+     BASE_CAR.EMPTY_WEIGHT as emptyWeight,	
+     BASE_CAR.OWNER as owner,	
+     BASE_CAR.DRIVE_NO as driveNo,	
+     BASE_CAR.DRIVE_TYPE as driveType,	
+     BASE_CAR.CONTACT as contact,	
+     BASE_CAR.GENDER as gender,	
+     BASE_CAR.ID_NO as idNo,	
+     BASE_CAR.AXLE_NUM as axleNum,	
+     BASE_CAR.PIC_FRONT as picFront,	
+     BASE_CAR.PIC_BACK as picBack	
+    from BASE_CAR
+    <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+
+  <select id="search" parameterType="map" resultType="com.dfhc.base.car.vo.CarVo">
+    select 
+      BASE_CAR.USABLE_STATUS, BASE_CAR.CREATE_TIME, BASE_CAR.CREATE_IP, BASE_CAR.CREATE_USER_ID, 
+      BASE_CAR.CREATE_USER_NAME, BASE_CAR.MODIFY_TIME, BASE_CAR.MODIFY_IP, BASE_CAR.MODIFY_USER_ID, 
+      BASE_CAR.MODIFY_USER_NAME, BASE_CAR.DELETE_TIME, BASE_CAR.DELETE_IP, BASE_CAR.DELETE_FLAG, 
+      BASE_CAR.DELETE_USER_ID, BASE_CAR.DELETE_USER_NAME, BASE_CAR.ORDER_CODE, BASE_CAR.ATTRIBUTE1, 
+      BASE_CAR.ATTRIBUTE2, BASE_CAR.ATTRIBUTE3, BASE_CAR.ATTRIBUTE4, BASE_CAR.ATTRIBUTE5, 
+     BASE_CAR.ID as id,	
+     BASE_CAR.TRUCK_NO as truckNo,	
+     BASE_CAR.GRAND as grand,	
+     BASE_CAR.MODEL as model,	
+     BASE_CAR.COLOR as color,	
+     BASE_CAR.MODEL_SERIAL as modelSerial,	
+     BASE_CAR.ENGINE_NO as engineNo,	
+     BASE_CAR.CERT_DEPT as certDept,	
+     BASE_CAR.EMPTY_WEIGHT as emptyWeight,	
+     BASE_CAR.OWNER as owner,	
+     BASE_CAR.DRIVE_NO as driveNo,	
+     BASE_CAR.DRIVE_TYPE as driveType,	
+     BASE_CAR.CONTACT as contact,	
+     BASE_CAR.GENDER as gender,	
+     BASE_CAR.ID_NO as idNo,	
+     BASE_CAR.AXLE_NUM as axleNum,	
+     BASE_CAR.PIC_FRONT as picFront,	
+     BASE_CAR.PIC_BACK as picBack	
+    from BASE_CAR
+     <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+ <!-- 批量更新 -->
+  <update id="updateBatch" parameterType="ArrayList">
+     begin
+     <foreach collection="list" item="item" index="index" separator=";" > 
+     update BASE_CAR 
+    <set>  
+		<if test="item.usable_status != null and item.usable_status != ''">
+		     USABLE_STATUS=#{item.usable_status,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_time != null and item.create_time != ''">
+		 CREATE_TIME=#{item.create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.create_ip != null and item.create_ip != ''">
+		 CREATE_IP=#{item.create_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_user_id != null and item.create_user_id != ''">
+		 CREATE_USER_ID=#{item.create_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_user_name != null and item.create_user_name != ''">
+		   CREATE_USER_NAME=#{item.create_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_time != null and item.modify_time != ''">
+		 MODIFY_TIME=#{item.modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.modify_ip != null and item.modify_ip != ''">
+		 MODIFY_IP=#{item.modify_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_user_id != null and item.modify_user_id != ''">
+		 MODIFY_USER_ID=#{item.modify_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_user_name != null and item.modify_user_name != ''">
+		   MODIFY_USER_NAME=#{item.modify_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_time != null and item.delete_time != ''">
+		 DELETE_TIME=#{item.delete_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.delete_ip != null and item.delete_ip != ''">
+		 DELETE_IP=#{item.delete_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_flag != null and item.delete_flag != ''">
+		 DELETE_FLAG=#{item.delete_flag,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_user_id != null and item.delete_user_id != ''">
+		   DELETE_USER_ID=#{item.delete_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_user_name != null and item.delete_user_name != ''">
+		 DELETE_USER_NAME=#{item.delete_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.order_code != null and item.order_code != ''">
+		 ORDER_CODE=#{item.order_code,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute1 != null and item.attribute1 != ''">
+		 ATTRIBUTE1=#{item.attribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute2 != null and item.attribute2 != ''">
+		 ATTRIBUTE2=#{item.attribute2,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute3 != null and item.attribute3 != ''">
+		 ATTRIBUTE3=#{item.attribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute4 != null and item.attribute4 != ''">
+		 ATTRIBUTE4=#{item.attribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute5 != null and item.attribute5 != ''">
+		 ATTRIBUTE5=#{item.attribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="item.id!=null and item.id!= ''">
+		ID=#{item.id,jdbcType=CHAR},
+		</if>
+		<if test="item.truckNo!=null and item.truckNo!= ''">
+		TRUCK_NO=#{item.truckNo,jdbcType=VARCHAR},
+		</if>
+		<if test="item.grand!=null and item.grand!= ''">
+		GRAND=#{item.grand,jdbcType=VARCHAR},
+		</if>
+		<if test="item.model!=null and item.model!= ''">
+		MODEL=#{item.model,jdbcType=VARCHAR},
+		</if>
+		<if test="item.color!=null and item.color!= ''">
+		COLOR=#{item.color,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modelSerial!=null and item.modelSerial!= ''">
+		MODEL_SERIAL=#{item.modelSerial,jdbcType=VARCHAR},
+		</if>
+		<if test="item.engineNo!=null and item.engineNo!= ''">
+		ENGINE_NO=#{item.engineNo,jdbcType=VARCHAR},
+		</if>
+		<if test="item.certDept!=null and item.certDept!= ''">
+		CERT_DEPT=#{item.certDept,jdbcType=VARCHAR},
+		</if>
+		<if test="item.emptyWeight!=null and item.emptyWeight!= ''">
+		EMPTY_WEIGHT=#{item.emptyWeight,jdbcType=DECIMAL},
+		</if>
+		<if test="item.owner!=null and item.owner!= ''">
+		OWNER=#{item.owner,jdbcType=VARCHAR},
+		</if>
+		<if test="item.driveNo!=null and item.driveNo!= ''">
+		DRIVE_NO=#{item.driveNo,jdbcType=VARCHAR},
+		</if>
+		<if test="item.driveType!=null and item.driveType!= ''">
+		DRIVE_TYPE=#{item.driveType,jdbcType=VARCHAR},
+		</if>
+		<if test="item.contact!=null and item.contact!= ''">
+		CONTACT=#{item.contact,jdbcType=VARCHAR},
+		</if>
+		<if test="item.gender!=null and item.gender!= ''">
+		GENDER=#{item.gender,jdbcType=VARCHAR},
+		</if>
+		<if test="item.idNo!=null and item.idNo!= ''">
+		ID_NO=#{item.idNo,jdbcType=VARCHAR},
+		</if>
+		<if test="item.axleNum!=null and item.axleNum!= ''">
+		AXLE_NUM=#{item.axleNum,jdbcType=NUMERIC},
+		</if>
+		<if test="item.picFront!=null and item.picFront!= ''">
+		PIC_FRONT=#{item.picFront,jdbcType=VARCHAR},
+		</if>
+		<if test="item.picBack!=null and item.picBack!= ''">
+		PIC_BACK=#{item.picBack,jdbcType=VARCHAR},
+		</if>
+     </set> 
+    where ID=#{item.id}
+   </foreach>
+   ;end;
+   </update>
+   <!--批量插入-->
+ <insert id="insertBatch" parameterType="ArrayList">
+     insert into BASE_CAR (
+      USABLE_STATUS, CREATE_TIME, CREATE_IP, CREATE_USER_ID, 
+      CREATE_USER_NAME, MODIFY_TIME, MODIFY_IP, MODIFY_USER_ID, 
+      MODIFY_USER_NAME, DELETE_TIME, DELETE_IP, DELETE_FLAG, 
+      DELETE_USER_ID, DELETE_USER_NAME, ORDER_CODE, ATTRIBUTE1, 
+      ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, 
+      ID ,
+      TRUCK_NO ,
+      GRAND ,
+      MODEL ,
+      COLOR ,
+      MODEL_SERIAL ,
+      ENGINE_NO ,
+      CERT_DEPT ,
+      EMPTY_WEIGHT ,
+      OWNER ,
+      DRIVE_NO ,
+      DRIVE_TYPE ,
+      CONTACT ,
+      GENDER ,
+      ID_NO ,
+      AXLE_NUM ,
+      PIC_FRONT ,
+      PIC_BACK 
+      )    
+    <foreach collection="list" item="item" index="index" separator="union all" > 
+    select  
+   #{item.usable_status,jdbcType=VARCHAR},#{item.create_time,jdbcType=TIMESTAMP},#{item.create_ip,jdbcType=VARCHAR},#{item.create_user_id,jdbcType=VARCHAR},#{item.create_user_name,jdbcType=VARCHAR},#{item.modify_time,jdbcType=TIMESTAMP},#{item.modify_ip,jdbcType=VARCHAR},#{item.modify_user_id,jdbcType=VARCHAR},#{item.modify_user_name,jdbcType=VARCHAR},#{item.delete_time,jdbcType=TIMESTAMP},#{item.delete_ip,jdbcType=VARCHAR},#{item.delete_flag,jdbcType=VARCHAR},#{item.delete_user_id,jdbcType=VARCHAR},#{item.delete_user_name,jdbcType=VARCHAR},#{item.order_code,jdbcType=VARCHAR},#{item.attribute1,jdbcType=VARCHAR},#{item.attribute2,jdbcType=VARCHAR},#{item.attribute3,jdbcType=VARCHAR},#{item.attribute4,jdbcType=VARCHAR},#{item.attribute5,jdbcType=VARCHAR},
+	#{item.id,jdbcType=CHAR},
+	#{item.truckNo,jdbcType=VARCHAR},
+	#{item.grand,jdbcType=VARCHAR},
+	#{item.model,jdbcType=VARCHAR},
+	#{item.color,jdbcType=VARCHAR},
+	#{item.modelSerial,jdbcType=VARCHAR},
+	#{item.engineNo,jdbcType=VARCHAR},
+	#{item.certDept,jdbcType=VARCHAR},
+	#{item.emptyWeight,jdbcType=DECIMAL},
+	#{item.owner,jdbcType=VARCHAR},
+	#{item.driveNo,jdbcType=VARCHAR},
+	#{item.driveType,jdbcType=VARCHAR},
+	#{item.contact,jdbcType=VARCHAR},
+	#{item.gender,jdbcType=VARCHAR},
+	#{item.idNo,jdbcType=VARCHAR},
+	#{item.axleNum,jdbcType=NUMERIC},
+	#{item.picFront,jdbcType=VARCHAR},
+	#{item.picBack,jdbcType=VARCHAR}
+     from dual
+    </foreach>
+  </insert>	
+</mapper>

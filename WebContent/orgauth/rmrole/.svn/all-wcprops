@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/orgauth/rmrole
+END
+insertRmRole.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/orgauth/rmrole/insertRmRole.jsp
+END
+exportRmRole_custom.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/orgauth/rmrole/exportRmRole_custom.jsp
+END
+exportRmRole_excel.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/orgauth/rmrole/exportRmRole_excel.jsp
+END
+listRmRole.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/orgauth/rmrole/listRmRole.jsp
+END
+detailRmRole.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/orgauth/rmrole/detailRmRole.jsp
+END
+role_moudle.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/orgauth/rmrole/role_moudle.jsp
+END
+set_role.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/orgauth/rmrole/set_role.jsp
+END
+importRmRole.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/orgauth/rmrole/importRmRole.jsp
+END

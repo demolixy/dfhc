@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/org/logicalcobwebs/proxool
+END
+ConnectionPool.java
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/org/logicalcobwebs/proxool/ConnectionPool.java
+END
+WrappedConnection.java
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/org/logicalcobwebs/proxool/WrappedConnection.java
+END
+AbstractProxyStatement.java
+K 25
+svn:wc:ra_dav:version-url
+V 171
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/org/logicalcobwebs/proxool/AbstractProxyStatement.java
+END
+ProxyStatement.java
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/src/main/java/org/logicalcobwebs/proxool/ProxyStatement.java
+END

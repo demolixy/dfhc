@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/sql/mysql
+END
+act.sql
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/sql/mysql/act.sql
+END
+rm_message.sql
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/sql/mysql/rm_message.sql
+END
+rm_quartz.mysql.sql
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/sql/mysql/rm_quartz.mysql.sql
+END
+rm_system.mysql.sql
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/sql/mysql/rm_system.mysql.sql
+END
+rm_base.mysql.sql
+K 25
+svn:wc:ra_dav:version-url
+V 156
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/sql/mysql/rm_base.mysql.sql
+END
+rm_orgauth.mysql.sql
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/sql/mysql/rm_orgauth.mysql.sql
+END
+quartz_mysql.sql
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/sql/mysql/quartz_mysql.sql
+END

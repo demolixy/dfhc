@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/svn/dfhc2016/!svn/ver/2316/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/system
+END
+socketMonitor.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 165
+/svn/dfhc2016/!svn/ver/2286/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/system/socketMonitor.jsp
+END
+listOnlineUser.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/svn/dfhc2016/!svn/ver/1010/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/system/listOnlineUser.jsp
+END
+toSetRole.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/svn/dfhc2016/!svn/ver/1125/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/system/toSetRole.jsp
+END
+updateRole.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/svn/dfhc2016/!svn/ver/1059/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/system/updateRole.jsp
+END
+toInsertUser.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 164
+/svn/dfhc2016/!svn/ver/1122/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/system/toInsertUser.jsp
+END
+listUserMana.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 164
+/svn/dfhc2016/!svn/ver/1746/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/system/listUserMana.jsp
+END
+toAuth.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svn/dfhc2016/!svn/ver/1076/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/system/toAuth.jsp
+END
+listPartyReference.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/dfhc2016/!svn/ver/1167/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/system/listPartyReference.jsp
+END
+pushData.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svn/dfhc2016/!svn/ver/2316/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/system/pushData.jsp
+END
+listRole.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svn/dfhc2016/!svn/ver/1076/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/system/listRole.jsp
+END
+managePartyTab.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/svn/dfhc2016/!svn/ver/1170/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/jsp/yulinchemical/system/managePartyTab.jsp
+END

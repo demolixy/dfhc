@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svn/dfhc2016/!svn/ver/1063/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/spring
+END
+spring-mvc-rest.xml
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/spring/spring-mvc-rest.xml
+END
+rm.project.applicationContext.xml
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/spring/rm.project.applicationContext.xml
+END
+beans-activiti.xml
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/svn/dfhc2016/!svn/ver/1063/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/spring/beans-activiti.xml
+END
+rm.modules.applicationContext.xml
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/spring/rm.modules.applicationContext.xml
+END
+rm.webService.server.xml
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/spring/rm.webService.server.xml
+END
+activiti-login-context.xml
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/spring/activiti-login-context.xml
+END
+rm.public.applicationContext.xml
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/spring/rm.public.applicationContext.xml
+END
+rm.applicationContext.xml
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/spring/rm.applicationContext.xml
+END
+spring-mvc-modeler.xml
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/spring/spring-mvc-modeler.xml
+END
+activiti-ui-context.xml
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/spring/activiti-ui-context.xml
+END
+rm.orgauth.applicationContext.xml
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/spring/rm.orgauth.applicationContext.xml
+END
+rm.scheduler.applicationContext.xml
+K 25
+svn:wc:ra_dav:version-url
+V 171
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/spring/rm.scheduler.applicationContext.xml
+END
+rm.webService.client.xml
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/WEB-INF/config/spring/rm.webService.client.xml
+END

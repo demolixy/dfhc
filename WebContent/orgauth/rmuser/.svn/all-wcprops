@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/dfhc2016/!svn/ver/992/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/orgauth/rmuser
+END
+detailRmUser.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/orgauth/rmuser/detailRmUser.jsp
+END
+importRmUser.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/orgauth/rmuser/importRmUser.jsp
+END
+listRmUser_online.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/orgauth/rmuser/listRmUser_online.jsp
+END
+insertRmUser.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/dfhc2016/!svn/ver/992/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/orgauth/rmuser/insertRmUser.jsp
+END
+exportRmUser_excel.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/orgauth/rmuser/exportRmUser_excel.jsp
+END
+listRmUser.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/orgauth/rmuser/listRmUser.jsp
+END
+exportRmUser_custom.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svn/dfhc2016/!svn/ver/869/%E9%99%95%E8%A5%BF%E6%A6%86%E6%9E%97%E5%8C%96%E5%B7%A5/03code/yulinchemical/WebContent/orgauth/rmuser/exportRmUser_custom.jsp
+END

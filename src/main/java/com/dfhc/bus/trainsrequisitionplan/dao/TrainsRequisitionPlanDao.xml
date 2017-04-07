@@ -1,0 +1,870 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dfhc.bus.trainsrequisitionplan.dao.TrainsRequisitionPlanDao">
+  <!-- 共享的where语句，如有冲突或特殊情况，请另写 -->
+  <sql id="where">
+   <trim prefix="where" prefixOverrides="and|or">  
+      <if test="id != null and id != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.ID = #{id}
+      </if>
+      <if test="planCode != null and planCode != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.PLAN_CODE = #{planCode}
+      </if>
+      <if test="makeDate != null and makeDate != ''">
+        and to_char(BUS_TRAINS_REQUISITION_PLAN.MAKE_DATE,'YYYY-MM-DD') = #{makeDate}
+      </if>
+      <if test="logisticsCompany != null and logisticsCompany != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.LOGISTICS_COMPANY = #{logisticsCompany}
+      </if>
+      <if test="logisticsCompanyId != null and logisticsCompanyId != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.LOGISTICS_COMPANY_ID = #{logisticsCompanyId}
+      </if>
+      <if test="goodsName != null and goodsName != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.GOODS_NAME = #{goodsName}
+      </if>
+      <if test="productId != null and productId != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.PRODUCT_ID = #{productId}
+      </if>
+      <if test="requisitionWarehouse != null and requisitionWarehouse != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.REQUISITION_WAREHOUSE = #{requisitionWarehouse}
+      </if>
+      <if test="requisitionWarehouseId != null and requisitionWarehouseId != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.REQUISITION_WAREHOUSE_ID = #{requisitionWarehouseId}
+      </if>
+      <if test="shippingAddress != null and shippingAddress != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.SHIPPING_ADDRESS = #{shippingAddress}
+      </if>
+      <if test="num != null and num != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.NUM = #{num}
+      </if>
+      <if test="planCarNum != null and planCarNum != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.PLAN_CAR_NUM = #{planCarNum}
+      </if>
+      <if test="plannedMileage != null and plannedMileage != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.PLANNED_MILEAGE = #{plannedMileage}
+      </if>
+      <if test="factMileage != null and factMileage != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.FACT_MILEAGE = #{factMileage}
+      </if>
+      <if test="valuationMileage != null and valuationMileage != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.VALUATION_MILEAGE = #{valuationMileage}
+      </if>
+      <if test="factValuationMileage != null and factValuationMileage != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.FACT_VALUATION_MILEAGE = #{factValuationMileage}
+      </if>
+      <if test="yuanTon != null and yuanTon != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.YUAN_TON = #{yuanTon}
+      </if>
+      <if test="freightYuanTon != null and freightYuanTon != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.FREIGHT_YUAN_TON = #{freightYuanTon}
+      </if>
+      <if test="unitPrice != null and unitPrice != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.UNIT_PRICE = #{unitPrice}
+      </if>
+      <if test="remark != null and remark != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.REMARK = #{remark}
+      </if>
+      <if test="sendCarPlanImage != null and sendCarPlanImage != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.SEND_CAR_PLAN_IMAGE = #{sendCarPlanImage}
+      </if>
+      <if test="remainderNum != null and remainderNum != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.REMAINDER_NUM = #{remainderNum}
+      </if>
+      <if test="remainderCarNum != null and remainderCarNum != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.REMAINDER_CAR_NUM = #{remainderCarNum}
+      </if>
+      <if test="remainderCarNumIsNotZero != null and remainderCarNumIsNotZero != ''">
+        and (BUS_TRAINS_REQUISITION_PLAN.REMAINDER_CAR_NUM !=0  or (BUS_TRAINS_REQUISITION_PLAN.REMAINDER_CAR_NUM =0 and BUS_LADING_BILL.LADING_BILL_STATUS  in (${remainderCarNumIsNotZero})))
+      </if>
+      <if test="invalidCarNumber != null and invalidCarNumber != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.INVALID_CAR_NUMBER = #{invalidCarNumber}
+      </if>
+      <if test="invalidNumber != null and invalidNumber != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.INVALID_NUMBER = #{invalidNumber}
+      </if>
+      <if test="shippingVehiclesNumber != null and shippingVehiclesNumber != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.SHIPPING_VEHICLES_NUMBER = #{shippingVehiclesNumber}
+      </if>
+      <if test="shippingNumber != null and shippingNumber != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.SHIPPING_NUMBER = #{shippingNumber}
+      </if>
+      <if test="shipperCode != null and shipperCode != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.SHIPPER_CODE = #{shipperCode}
+      </if>
+      <if test="flowToId != null and flowToId != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.FLOW_TO_ID = #{flowToId}
+      </if>
+      <if test="notStatus != null and notStatus != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.STATUS != #{notStatus}
+      </if>
+      <if test="status != null and status != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.STATUS = #{status}
+      </if>
+      <if test="receivingParty != null and receivingParty != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.RECEIVING_PARTY = #{receivingParty}
+      </if>
+      <if test="sendCarDate != null and sendCarDate != ''">
+        and to_char(BUS_TRAINS_REQUISITION_PLAN.SEND_CAR_DATE,'YYYY-MM-DD') = #{sendCarDate}
+      </if>
+      <if test="arriveAtStation != null and arriveAtStation != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.ARRIVE_AT_STATION = #{arriveAtStation}
+      </if>
+      <if test="stationId != null and stationId != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.STATION_ID = #{stationId}
+      </if>
+     <if test="delete_flag != null and delete_flag != ''">
+        and nvl(BUS_TRAINS_REQUISITION_PLAN.DELETE_FLAG,'0') = #{delete_flag}
+      </if>
+      <if test="shipMode != null and shipMode != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.SHIP_MODE = #{shipMode}
+      </if>
+      <if test="shipModeCode != null and shipModeCode != ''">
+        and BUS_TRAINS_REQUISITION_PLAN.SHIP_MODE_CODE = #{shipModeCode}
+      </if>
+       </trim>
+  </sql>
+
+  <insert id="insert" parameterType="com.dfhc.bus.trainsrequisitionplan.vo.TrainsRequisitionPlanVo">
+    insert into BUS_TRAINS_REQUISITION_PLAN (
+      USABLE_STATUS, CREATE_TIME, CREATE_IP, CREATE_USER_ID, 
+      CREATE_USER_NAME, MODIFY_TIME, MODIFY_IP, MODIFY_USER_ID, 
+      MODIFY_USER_NAME, DELETE_TIME, DELETE_IP, DELETE_FLAG, 
+      DELETE_USER_ID, DELETE_USER_NAME, ORDER_CODE, ATTRIBUTE1, 
+      ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, 
+      ID ,
+      PLAN_CODE ,
+      MAKE_DATE ,
+      LOGISTICS_COMPANY ,
+      LOGISTICS_COMPANY_ID ,
+      GOODS_NAME ,
+      PRODUCT_ID ,
+      REQUISITION_WAREHOUSE ,
+      REQUISITION_WAREHOUSE_ID ,
+      SHIPPING_ADDRESS ,
+      NUM ,
+      PLAN_CAR_NUM ,
+      PLANNED_MILEAGE ,
+      FACT_MILEAGE ,
+      VALUATION_MILEAGE ,
+      FACT_VALUATION_MILEAGE,
+      YUAN_TON ,
+      FREIGHT_YUAN_TON ,
+      UNIT_PRICE ,
+      REMARK ,
+      SEND_CAR_PLAN_IMAGE ,
+      REMAINDER_NUM ,
+      REMAINDER_CAR_NUM ,
+      INVALID_CAR_NUMBER ,
+      INVALID_NUMBER ,
+      SHIPPING_VEHICLES_NUMBER ,
+      SHIPPING_NUMBER ,
+      SHIPPER_CODE ,
+      FLOW_TO_ID ,
+      STATUS ,
+      RECEIVING_PARTY,
+       SEND_CAR_DATE,
+       ARRIVE_AT_STATION,
+      SHIP_MODE,
+      SHIP_MODE_CODE,
+       STATION_ID
+      )
+    values ( 
+     #{usable_status,jdbcType=VARCHAR},#{create_time,jdbcType=TIMESTAMP},#{create_ip,jdbcType=VARCHAR},#{create_user_id,jdbcType=VARCHAR},#{create_user_name,jdbcType=VARCHAR},#{modify_time,jdbcType=TIMESTAMP},#{modify_ip,jdbcType=VARCHAR},#{modify_user_id,jdbcType=VARCHAR},#{modify_user_name,jdbcType=VARCHAR},#{delete_time,jdbcType=TIMESTAMP},#{delete_ip,jdbcType=VARCHAR},#{delete_flag,jdbcType=VARCHAR},#{delete_user_id,jdbcType=VARCHAR},#{delete_user_name,jdbcType=VARCHAR},#{order_code,jdbcType=VARCHAR},#{attribute1,jdbcType=VARCHAR},#{attribute2,jdbcType=VARCHAR},#{attribute3,jdbcType=VARCHAR},#{attribute4,jdbcType=VARCHAR},#{attribute5,jdbcType=VARCHAR},
+	#{id,jdbcType=CHAR},
+	#{planCode,jdbcType=VARCHAR},
+	#{makeDate,jdbcType=TIMESTAMP},
+	#{logisticsCompany,jdbcType=VARCHAR},
+	#{logisticsCompanyId,jdbcType=CHAR},
+	#{goodsName,jdbcType=VARCHAR},
+	#{productId,jdbcType=CHAR},
+	#{requisitionWarehouse,jdbcType=VARCHAR},
+	#{requisitionWarehouseId,jdbcType=CHAR},
+	#{shippingAddress,jdbcType=VARCHAR},
+	#{num,jdbcType=NUMERIC},
+	#{planCarNum,jdbcType=NUMERIC},
+	#{plannedMileage,jdbcType=DECIMAL},
+	#{factMileage,jdbcType=DECIMAL},
+	#{valuationMileage,jdbcType=DECIMAL},
+	#{factValuationMileage,jdbcType=DECIMAL},
+	#{yuanTon,jdbcType=DECIMAL},
+	#{freightYuanTon,jdbcType=DECIMAL},
+	#{unitPrice,jdbcType=DECIMAL},
+	#{remark,jdbcType=VARCHAR},
+	#{sendCarPlanImage,jdbcType=VARCHAR},
+	#{remainderNum,jdbcType=NUMERIC},
+	#{remainderCarNum,jdbcType=NUMERIC},
+	#{invalidCarNumber,jdbcType=NUMERIC},
+	#{invalidNumber,jdbcType=NUMERIC},
+	#{shippingVehiclesNumber,jdbcType=NUMERIC},
+	#{shippingNumber,jdbcType=NUMERIC},
+	#{shipperCode,jdbcType=VARCHAR},
+	#{flowToId,jdbcType=CHAR},
+	#{status,jdbcType=CHAR},
+	#{receivingParty,jdbcType=VARCHAR},
+	#{sendCarDate,jdbcType=TIMESTAMP},
+	#{arriveAtStation,jdbcType=VARCHAR},
+	#{shipMode,jdbcType=VARCHAR},
+	#{shipModeCode,jdbcType=VARCHAR},
+	#{stationId,jdbcType=VARCHAR}
+      )
+  </insert>
+    
+  <delete id="delete" parameterType="int">
+    delete from BUS_TRAINS_REQUISITION_PLAN where ID=#{id}
+  </delete>
+  
+  <delete id="deleteMulti" parameterType="int">
+    delete from BUS_TRAINS_REQUISITION_PLAN where ID in 
+    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">  
+      #{item}   
+    </foreach>
+  </delete>
+
+  <update id="update" parameterType="com.dfhc.bus.trainsrequisitionplan.vo.TrainsRequisitionPlanVo">
+    update BUS_TRAINS_REQUISITION_PLAN 
+    <trim prefix="SET" suffixOverrides=",">  
+		<if test="usable_status != null and usable_status != ''">
+		     USABLE_STATUS=#{usable_status,jdbcType=VARCHAR},
+		</if>
+		<if test="create_time != null and create_time != ''">
+		 CREATE_TIME=#{create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="create_ip != null and create_ip != ''">
+		 CREATE_IP=#{create_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="create_user_id != null and create_user_id != ''">
+		 CREATE_USER_ID=#{create_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="create_user_name != null and create_user_name != ''">
+		   CREATE_USER_NAME=#{create_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_time != null and modify_time != ''">
+		 MODIFY_TIME=#{modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="modify_ip != null and modify_ip != ''">
+		 MODIFY_IP=#{modify_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_user_id != null and modify_user_id != ''">
+		 MODIFY_USER_ID=#{modify_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_user_name != null and modify_user_name != ''">
+		   MODIFY_USER_NAME=#{modify_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_time != null and delete_time != ''">
+		 DELETE_TIME=#{delete_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="delete_ip != null and delete_ip != ''">
+		 DELETE_IP=#{delete_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_flag != null and delete_flag != ''">
+		 DELETE_FLAG=#{delete_flag,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_user_id != null and delete_user_id != ''">
+		   DELETE_USER_ID=#{delete_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_user_name != null and delete_user_name != ''">
+		 DELETE_USER_NAME=#{delete_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="order_code != null and order_code != ''">
+		 ORDER_CODE=#{order_code,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute1 != null and attribute1 != ''">
+		 ATTRIBUTE1=#{attribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute2 != null and attribute2 != ''">
+		 ATTRIBUTE2=#{attribute2,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute3 != null and attribute3 != ''">
+		 ATTRIBUTE3=#{attribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute4 != null and attribute4 != ''">
+		 ATTRIBUTE4=#{attribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute5 != null and attribute5 != ''">
+		 ATTRIBUTE5=#{attribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="id!=null and id!= ''">
+		ID=#{id,jdbcType=CHAR},
+		</if>
+		<if test="planCode!=null and planCode!= ''">
+		PLAN_CODE=#{planCode,jdbcType=VARCHAR},
+		</if>
+		<if test="makeDate!=null and makeDate!= ''">
+		MAKE_DATE=#{makeDate,jdbcType=TIMESTAMP},
+		</if>
+		<if test="logisticsCompany!=null and logisticsCompany!= ''">
+		LOGISTICS_COMPANY=#{logisticsCompany,jdbcType=VARCHAR},
+		</if>
+		<if test="logisticsCompanyId!=null and logisticsCompanyId!= ''">
+		LOGISTICS_COMPANY_ID=#{logisticsCompanyId,jdbcType=CHAR},
+		</if>
+		<if test="goodsName!=null and goodsName!= ''">
+		GOODS_NAME=#{goodsName,jdbcType=VARCHAR},
+		</if>
+		<if test="productId!=null and productId!= ''">
+		PRODUCT_ID=#{productId,jdbcType=CHAR},
+		</if>
+		<if test="requisitionWarehouse!=null and requisitionWarehouse!= ''">
+		REQUISITION_WAREHOUSE=#{requisitionWarehouse,jdbcType=VARCHAR},
+		</if>
+		<if test="requisitionWarehouseId!=null and requisitionWarehouseId!= ''">
+		REQUISITION_WAREHOUSE_ID=#{requisitionWarehouseId,jdbcType=CHAR},
+		</if>
+		<if test="shippingAddress!=null and shippingAddress!= ''">
+		SHIPPING_ADDRESS=#{shippingAddress,jdbcType=VARCHAR},
+		</if>
+		<if test="num!=null and num!= ''">
+		NUM=#{num,jdbcType=NUMERIC},
+		</if>
+		<if test="planCarNum!=null and planCarNum!= ''">
+		PLAN_CAR_NUM=#{planCarNum,jdbcType=NUMERIC},
+		</if>
+		<if test="plannedMileage!=null and plannedMileage!= ''">
+		PLANNED_MILEAGE=#{plannedMileage,jdbcType=DECIMAL},
+		</if>
+		<if test="factMileage!=null and factMileage!= ''">
+		FACT_MILEAGE=#{factMileage,jdbcType=DECIMAL},
+		</if>
+		<if test="valuationMileage!=null and valuationMileage!= ''">
+		VALUATION_MILEAGE=#{valuationMileage,jdbcType=DECIMAL},
+		</if>
+		<if test="factValuationMileage!=null and factValuationMileage!= ''">
+		FACT_VALUATION_MILEAGE=#{factValuationMileage,jdbcType=DECIMAL},
+		</if>
+		<if test="yuanTon!=null and yuanTon!= ''">
+		YUAN_TON=#{yuanTon,jdbcType=DECIMAL},
+		</if>
+		<if test="freightYuanTon!=null and freightYuanTon!= ''">
+		FREIGHT_YUAN_TON=#{freightYuanTon,jdbcType=DECIMAL},
+		</if>
+		<if test="unitPrice!=null and unitPrice!= ''">
+		UNIT_PRICE=#{unitPrice,jdbcType=DECIMAL},
+		</if>
+		<if test="remark!=null and remark!= ''">
+		REMARK=#{remark,jdbcType=VARCHAR},
+		</if>
+		<if test="sendCarPlanImage!=null and sendCarPlanImage!= ''">
+		SEND_CAR_PLAN_IMAGE=#{sendCarPlanImage,jdbcType=VARCHAR},
+		</if>
+		<if test="remainderNum!=null and remainderNum!= ''">
+		REMAINDER_NUM=#{remainderNum,jdbcType=NUMERIC},
+		</if>
+		<if test="remainderCarNum!=null">
+		REMAINDER_CAR_NUM=#{remainderCarNum,jdbcType=NUMERIC},
+		</if>
+		<if test="invalidCarNumber!=null and invalidCarNumber!= ''">
+		INVALID_CAR_NUMBER=#{invalidCarNumber,jdbcType=NUMERIC},
+		</if>
+		<if test="invalidNumber!=null and invalidNumber!= ''">
+		INVALID_NUMBER=#{invalidNumber,jdbcType=NUMERIC},
+		</if>
+		<if test="shippingVehiclesNumber!=null and shippingVehiclesNumber!= ''">
+		SHIPPING_VEHICLES_NUMBER=#{shippingVehiclesNumber,jdbcType=NUMERIC},
+		</if>
+		<if test="shippingNumber!=null and shippingNumber!= ''">
+		SHIPPING_NUMBER=#{shippingNumber,jdbcType=NUMERIC},
+		</if>
+		<if test="shipperCode!=null and shipperCode!= ''">
+		SHIPPER_CODE=#{shipperCode,jdbcType=VARCHAR},
+		</if>
+		<if test="flowToId!=null and flowToId!= ''">
+		FLOW_TO_ID=#{flowToId,jdbcType=CHAR},
+		</if>
+		<if test="status!=null and status!= ''">
+		STATUS=#{status,jdbcType=CHAR},
+		</if>
+		<if test="receivingParty!=null and receivingParty!= ''">
+		RECEIVING_PARTY=#{receivingParty,jdbcType=VARCHAR},
+		</if>
+		<if test="sendCarDate!=null and sendCarDate!= ''">
+		SEND_CAR_DATE=#{sendCarDate,jdbcType=TIMESTAMP},
+		</if>
+		<if test="arriveAtStation!=null and arriveAtStation!= ''">
+		ARRIVE_AT_STATION=#{arriveAtStation,jdbcType=VARCHAR},
+		</if>
+		<if test="stationId!=null and stationId!= ''">
+		STATION_ID=#{stationId,jdbcType=VARCHAR},
+		</if>
+		<if test="shipMode!=null and shipMode!= ''">
+		SHIP_MODE=#{shipMode,jdbcType=VARCHAR},
+		</if>
+		<if test="shipModeCode!=null and shipModeCode!= ''">
+		SHIP_MODE_CODE=#{shipModeCode,jdbcType=VARCHAR},
+		</if>
+     </trim> 
+    where ID=#{id}
+  </update>
+
+  <select id="get" parameterType="string" resultType="com.dfhc.bus.trainsrequisitionplan.vo.TrainsRequisitionPlanVo">
+    select  
+      BUS_TRAINS_REQUISITION_PLAN.USABLE_STATUS, BUS_TRAINS_REQUISITION_PLAN.CREATE_TIME, BUS_TRAINS_REQUISITION_PLAN.CREATE_IP, BUS_TRAINS_REQUISITION_PLAN.CREATE_USER_ID, 
+      BUS_TRAINS_REQUISITION_PLAN.CREATE_USER_NAME, BUS_TRAINS_REQUISITION_PLAN.MODIFY_TIME, BUS_TRAINS_REQUISITION_PLAN.MODIFY_IP, BUS_TRAINS_REQUISITION_PLAN.MODIFY_USER_ID, 
+      BUS_TRAINS_REQUISITION_PLAN.MODIFY_USER_NAME, BUS_TRAINS_REQUISITION_PLAN.DELETE_TIME, BUS_TRAINS_REQUISITION_PLAN.DELETE_IP, BUS_TRAINS_REQUISITION_PLAN.DELETE_FLAG, 
+      BUS_TRAINS_REQUISITION_PLAN.DELETE_USER_ID, BUS_TRAINS_REQUISITION_PLAN.DELETE_USER_NAME, BUS_TRAINS_REQUISITION_PLAN.ORDER_CODE, BUS_TRAINS_REQUISITION_PLAN.ATTRIBUTE1, 
+      BUS_TRAINS_REQUISITION_PLAN.ATTRIBUTE2, BUS_TRAINS_REQUISITION_PLAN.ATTRIBUTE3, BUS_TRAINS_REQUISITION_PLAN.ATTRIBUTE4, BUS_TRAINS_REQUISITION_PLAN.ATTRIBUTE5, 
+      BUS_TRAINS_REQUISITION_PLAN.ID as id,	
+      BUS_TRAINS_REQUISITION_PLAN.PLAN_CODE as planCode,	
+      BUS_TRAINS_REQUISITION_PLAN.MAKE_DATE as makeDate,	
+      BUS_TRAINS_REQUISITION_PLAN.LOGISTICS_COMPANY as logisticsCompany,	
+      BUS_TRAINS_REQUISITION_PLAN.LOGISTICS_COMPANY_ID as logisticsCompanyId,	
+      BUS_TRAINS_REQUISITION_PLAN.GOODS_NAME as goodsName,	
+      BUS_TRAINS_REQUISITION_PLAN.PRODUCT_ID as productId,	
+      BUS_TRAINS_REQUISITION_PLAN.REQUISITION_WAREHOUSE as requisitionWarehouse,	
+      BUS_TRAINS_REQUISITION_PLAN.REQUISITION_WAREHOUSE_ID as requisitionWarehouseId,	
+      BUS_TRAINS_REQUISITION_PLAN.SHIPPING_ADDRESS as shippingAddress,	
+      BUS_TRAINS_REQUISITION_PLAN.NUM as num,	
+      BUS_TRAINS_REQUISITION_PLAN.SEND_CAR_DATE as sendCarDate,	
+      BUS_TRAINS_REQUISITION_PLAN.ARRIVE_AT_STATION as arriveAtStation,	
+      BUS_TRAINS_REQUISITION_PLAN.STATION_ID as stationId,	
+      BUS_TRAINS_REQUISITION_PLAN.PLAN_CAR_NUM as planCarNum,	
+      BUS_TRAINS_REQUISITION_PLAN.SHIP_MODE_CODE as shipModeCode,	
+      BUS_TRAINS_REQUISITION_PLAN.SHIP_MODE as shipMode,	
+      BUS_TRAINS_REQUISITION_PLAN.PLANNED_MILEAGE as plannedMileage,	
+      BUS_TRAINS_REQUISITION_PLAN.FACT_MILEAGE as factMileage,	
+      BUS_TRAINS_REQUISITION_PLAN.VALUATION_MILEAGE as valuationMileage,	
+      BUS_TRAINS_REQUISITION_PLAN.FACT_VALUATION_MILEAGE as factValuationMileage,	
+      BUS_TRAINS_REQUISITION_PLAN.YUAN_TON as yuanTon,	
+      BUS_TRAINS_REQUISITION_PLAN.FREIGHT_YUAN_TON as freightYuanTon,	
+      BUS_TRAINS_REQUISITION_PLAN.UNIT_PRICE as unitPrice,	
+      BUS_TRAINS_REQUISITION_PLAN.REMARK as remark,	
+      BUS_TRAINS_REQUISITION_PLAN.SEND_CAR_PLAN_IMAGE as sendCarPlanImage,	
+      BUS_TRAINS_REQUISITION_PLAN.REMAINDER_NUM as remainderNum,	
+      BUS_TRAINS_REQUISITION_PLAN.REMAINDER_CAR_NUM as remainderCarNum,	
+      BUS_TRAINS_REQUISITION_PLAN.INVALID_CAR_NUMBER as invalidCarNumber,	
+      BUS_TRAINS_REQUISITION_PLAN.INVALID_NUMBER as invalidNumber,	
+      BUS_TRAINS_REQUISITION_PLAN.SHIPPING_VEHICLES_NUMBER as shippingVehiclesNumber,	
+      BUS_TRAINS_REQUISITION_PLAN.SHIPPING_NUMBER as shippingNumber,	
+      BUS_TRAINS_REQUISITION_PLAN.SHIPPER_CODE as shipperCode,	
+      BUS_TRAINS_REQUISITION_PLAN.FLOW_TO_ID as flowToId,	
+      BUS_TRAINS_REQUISITION_PLAN.STATUS as status,	
+      BUS_TRAINS_REQUISITION_PLAN.RECEIVING_PARTY as receivingParty	
+    from BUS_TRAINS_REQUISITION_PLAN 
+    where BUS_TRAINS_REQUISITION_PLAN.ID=#{id}
+  </select>
+
+  <select id="getCount" parameterType="map" resultType="int" useCache="true">
+    select count(distinct BUS_TRAINS_REQUISITION_PLAN.ID) from BUS_TRAINS_REQUISITION_PLAN
+          <if test="remainderCarNumIsNotZero != null and remainderCarNumIsNotZero != ''">
+          left join BUS_LADING_BILL  on BUS_LADING_BILL.ORDER_PLAN_ID=BUS_TRAINS_REQUISITION_PLAN.ID
+    	  </if>
+    <include refid="where"/>    
+  </select>
+  
+  <select id="list" parameterType="map" resultType="com.dfhc.bus.trainsrequisitionplan.vo.TrainsRequisitionPlanVo">
+    select 
+          <if test="remainderCarNumIsNotZero != null and remainderCarNumIsNotZero != ''">
+				distinct
+    	  </if>
+     BUS_TRAINS_REQUISITION_PLAN.ID as id,	
+     BUS_TRAINS_REQUISITION_PLAN.PLAN_CODE as planCode,	
+     BUS_TRAINS_REQUISITION_PLAN.MAKE_DATE as makeDate,	
+     BUS_TRAINS_REQUISITION_PLAN.LOGISTICS_COMPANY as logisticsCompany,	
+     BUS_TRAINS_REQUISITION_PLAN.LOGISTICS_COMPANY_ID as logisticsCompanyId,	
+     BUS_TRAINS_REQUISITION_PLAN.GOODS_NAME as goodsName,	
+     BUS_TRAINS_REQUISITION_PLAN.PRODUCT_ID as productId,	
+     BUS_TRAINS_REQUISITION_PLAN.REQUISITION_WAREHOUSE as requisitionWarehouse,	
+     BUS_TRAINS_REQUISITION_PLAN.REQUISITION_WAREHOUSE_ID as requisitionWarehouseId,	
+     BUS_TRAINS_REQUISITION_PLAN.SHIPPING_ADDRESS as shippingAddress,	
+     BUS_TRAINS_REQUISITION_PLAN.NUM as num,	
+      BUS_TRAINS_REQUISITION_PLAN.SHIP_MODE_CODE as shipModeCode,	
+      BUS_TRAINS_REQUISITION_PLAN.SHIP_MODE as shipMode,	
+     BUS_TRAINS_REQUISITION_PLAN.PLAN_CAR_NUM as planCarNum,	
+     BUS_TRAINS_REQUISITION_PLAN.PLANNED_MILEAGE as plannedMileage,	
+     BUS_TRAINS_REQUISITION_PLAN.FACT_MILEAGE as factMileage,	
+     BUS_TRAINS_REQUISITION_PLAN.VALUATION_MILEAGE as valuationMileage,	
+      BUS_TRAINS_REQUISITION_PLAN.FACT_VALUATION_MILEAGE as factValuationMileage,	
+     BUS_TRAINS_REQUISITION_PLAN.YUAN_TON as yuanTon,	
+     BUS_TRAINS_REQUISITION_PLAN.FREIGHT_YUAN_TON as freightYuanTon,	
+     BUS_TRAINS_REQUISITION_PLAN.UNIT_PRICE as unitPrice,	
+     BUS_TRAINS_REQUISITION_PLAN.REMARK as remark,	
+      BUS_TRAINS_REQUISITION_PLAN.SEND_CAR_DATE as sendCarDate,	
+      BUS_TRAINS_REQUISITION_PLAN.ARRIVE_AT_STATION as arriveAtStation,	
+      BUS_TRAINS_REQUISITION_PLAN.STATION_ID as stationId,	
+     BUS_TRAINS_REQUISITION_PLAN.SEND_CAR_PLAN_IMAGE as sendCarPlanImage,	
+     BUS_TRAINS_REQUISITION_PLAN.REMAINDER_NUM as remainderNum,	
+     BUS_TRAINS_REQUISITION_PLAN.REMAINDER_CAR_NUM as remainderCarNum,	
+     BUS_TRAINS_REQUISITION_PLAN.INVALID_CAR_NUMBER as invalidCarNumber,	
+     BUS_TRAINS_REQUISITION_PLAN.INVALID_NUMBER as invalidNumber,	
+     BUS_TRAINS_REQUISITION_PLAN.SHIPPING_VEHICLES_NUMBER as shippingVehiclesNumber,	
+     BUS_TRAINS_REQUISITION_PLAN.SHIPPING_NUMBER as shippingNumber,	
+     BUS_TRAINS_REQUISITION_PLAN.SHIPPER_CODE as shipperCode,	
+     BUS_TRAINS_REQUISITION_PLAN.FLOW_TO_ID as flowToId,	
+     BUS_TRAINS_REQUISITION_PLAN.STATUS as status,	
+     BUS_TRAINS_REQUISITION_PLAN.RECEIVING_PARTY as receivingParty	
+    from BUS_TRAINS_REQUISITION_PLAN
+          <if test="remainderCarNumIsNotZero != null and remainderCarNumIsNotZero != ''">
+          left join BUS_LADING_BILL  on BUS_LADING_BILL.ORDER_PLAN_ID=BUS_TRAINS_REQUISITION_PLAN.ID
+    	  </if>
+     <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+  
+  <select id="listAllColumn" parameterType="map" resultType="com.dfhc.bus.trainsrequisitionplan.vo.TrainsRequisitionPlanVo">
+    select 
+      BUS_TRAINS_REQUISITION_PLAN.USABLE_STATUS, BUS_TRAINS_REQUISITION_PLAN.CREATE_TIME, BUS_TRAINS_REQUISITION_PLAN.CREATE_IP, BUS_TRAINS_REQUISITION_PLAN.CREATE_USER_ID, 
+      BUS_TRAINS_REQUISITION_PLAN.CREATE_USER_NAME, BUS_TRAINS_REQUISITION_PLAN.MODIFY_TIME, BUS_TRAINS_REQUISITION_PLAN.MODIFY_IP, BUS_TRAINS_REQUISITION_PLAN.MODIFY_USER_ID, 
+      BUS_TRAINS_REQUISITION_PLAN.MODIFY_USER_NAME, BUS_TRAINS_REQUISITION_PLAN.DELETE_TIME, BUS_TRAINS_REQUISITION_PLAN.DELETE_IP, BUS_TRAINS_REQUISITION_PLAN.DELETE_FLAG, 
+      BUS_TRAINS_REQUISITION_PLAN.DELETE_USER_ID, BUS_TRAINS_REQUISITION_PLAN.DELETE_USER_NAME, BUS_TRAINS_REQUISITION_PLAN.ORDER_CODE, BUS_TRAINS_REQUISITION_PLAN.ATTRIBUTE1, 
+     BUS_TRAINS_REQUISITION_PLAN.ATTRIBUTE2, BUS_TRAINS_REQUISITION_PLAN.ATTRIBUTE3, BUS_TRAINS_REQUISITION_PLAN.ATTRIBUTE4, BUS_TRAINS_REQUISITION_PLAN.ATTRIBUTE5, 
+     BUS_TRAINS_REQUISITION_PLAN.ID as id,	
+     BUS_TRAINS_REQUISITION_PLAN.PLAN_CODE as planCode,	
+     BUS_TRAINS_REQUISITION_PLAN.MAKE_DATE as makeDate,	
+     BUS_TRAINS_REQUISITION_PLAN.LOGISTICS_COMPANY as logisticsCompany,	
+     BUS_TRAINS_REQUISITION_PLAN.LOGISTICS_COMPANY_ID as logisticsCompanyId,	
+     BUS_TRAINS_REQUISITION_PLAN.GOODS_NAME as goodsName,	
+     BUS_TRAINS_REQUISITION_PLAN.PRODUCT_ID as productId,	
+     BUS_TRAINS_REQUISITION_PLAN.REQUISITION_WAREHOUSE as requisitionWarehouse,	
+     BUS_TRAINS_REQUISITION_PLAN.REQUISITION_WAREHOUSE_ID as requisitionWarehouseId,	
+     BUS_TRAINS_REQUISITION_PLAN.SHIPPING_ADDRESS as shippingAddress,	
+     BUS_TRAINS_REQUISITION_PLAN.NUM as num,	
+     BUS_TRAINS_REQUISITION_PLAN.PLAN_CAR_NUM as planCarNum,	
+     BUS_TRAINS_REQUISITION_PLAN.PLANNED_MILEAGE as plannedMileage,	
+     BUS_TRAINS_REQUISITION_PLAN.FACT_MILEAGE as factMileage,	
+     BUS_TRAINS_REQUISITION_PLAN.VALUATION_MILEAGE as valuationMileage,	
+      BUS_TRAINS_REQUISITION_PLAN.FACT_VALUATION_MILEAGE as factValuationMileage,	
+     BUS_TRAINS_REQUISITION_PLAN.YUAN_TON as yuanTon,	
+      BUS_TRAINS_REQUISITION_PLAN.SEND_CAR_DATE as sendCarDate,	
+      BUS_TRAINS_REQUISITION_PLAN.ARRIVE_AT_STATION as arriveAtStation,	
+      BUS_TRAINS_REQUISITION_PLAN.STATION_ID as stationId,	
+      BUS_TRAINS_REQUISITION_PLAN.SHIP_MODE_CODE as shipModeCode,	
+      BUS_TRAINS_REQUISITION_PLAN.SHIP_MODE as shipMode,	
+     BUS_TRAINS_REQUISITION_PLAN.FREIGHT_YUAN_TON as freightYuanTon,	
+     BUS_TRAINS_REQUISITION_PLAN.UNIT_PRICE as unitPrice,	
+     BUS_TRAINS_REQUISITION_PLAN.REMARK as remark,	
+     BUS_TRAINS_REQUISITION_PLAN.SEND_CAR_PLAN_IMAGE as sendCarPlanImage,	
+     BUS_TRAINS_REQUISITION_PLAN.REMAINDER_NUM as remainderNum,	
+     BUS_TRAINS_REQUISITION_PLAN.REMAINDER_CAR_NUM as remainderCarNum,	
+     BUS_TRAINS_REQUISITION_PLAN.INVALID_CAR_NUMBER as invalidCarNumber,	
+     BUS_TRAINS_REQUISITION_PLAN.INVALID_NUMBER as invalidNumber,	
+     BUS_TRAINS_REQUISITION_PLAN.SHIPPING_VEHICLES_NUMBER as shippingVehiclesNumber,	
+     BUS_TRAINS_REQUISITION_PLAN.SHIPPING_NUMBER as shippingNumber,	
+     BUS_TRAINS_REQUISITION_PLAN.SHIPPER_CODE as shipperCode,	
+     BUS_TRAINS_REQUISITION_PLAN.FLOW_TO_ID as flowToId,	
+     BUS_TRAINS_REQUISITION_PLAN.STATUS as status,	
+     BUS_TRAINS_REQUISITION_PLAN.RECEIVING_PARTY as receivingParty	
+    from BUS_TRAINS_REQUISITION_PLAN
+    <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+
+  <select id="search" parameterType="map" resultType="com.dfhc.bus.trainsrequisitionplan.vo.TrainsRequisitionPlanVo">
+    select 
+      BUS_TRAINS_REQUISITION_PLAN.USABLE_STATUS, BUS_TRAINS_REQUISITION_PLAN.CREATE_TIME, BUS_TRAINS_REQUISITION_PLAN.CREATE_IP, BUS_TRAINS_REQUISITION_PLAN.CREATE_USER_ID, 
+      BUS_TRAINS_REQUISITION_PLAN.CREATE_USER_NAME, BUS_TRAINS_REQUISITION_PLAN.MODIFY_TIME, BUS_TRAINS_REQUISITION_PLAN.MODIFY_IP, BUS_TRAINS_REQUISITION_PLAN.MODIFY_USER_ID, 
+      BUS_TRAINS_REQUISITION_PLAN.MODIFY_USER_NAME, BUS_TRAINS_REQUISITION_PLAN.DELETE_TIME, BUS_TRAINS_REQUISITION_PLAN.DELETE_IP, BUS_TRAINS_REQUISITION_PLAN.DELETE_FLAG, 
+      BUS_TRAINS_REQUISITION_PLAN.DELETE_USER_ID, BUS_TRAINS_REQUISITION_PLAN.DELETE_USER_NAME, BUS_TRAINS_REQUISITION_PLAN.ORDER_CODE, BUS_TRAINS_REQUISITION_PLAN.ATTRIBUTE1, 
+      BUS_TRAINS_REQUISITION_PLAN.ATTRIBUTE2, BUS_TRAINS_REQUISITION_PLAN.ATTRIBUTE3, BUS_TRAINS_REQUISITION_PLAN.ATTRIBUTE4, BUS_TRAINS_REQUISITION_PLAN.ATTRIBUTE5, 
+     BUS_TRAINS_REQUISITION_PLAN.ID as id,	
+     BUS_TRAINS_REQUISITION_PLAN.PLAN_CODE as planCode,	
+     BUS_TRAINS_REQUISITION_PLAN.MAKE_DATE as makeDate,	
+     BUS_TRAINS_REQUISITION_PLAN.LOGISTICS_COMPANY as logisticsCompany,	
+     BUS_TRAINS_REQUISITION_PLAN.LOGISTICS_COMPANY_ID as logisticsCompanyId,	
+     BUS_TRAINS_REQUISITION_PLAN.GOODS_NAME as goodsName,	
+     BUS_TRAINS_REQUISITION_PLAN.PRODUCT_ID as productId,	
+     BUS_TRAINS_REQUISITION_PLAN.REQUISITION_WAREHOUSE as requisitionWarehouse,	
+     BUS_TRAINS_REQUISITION_PLAN.REQUISITION_WAREHOUSE_ID as requisitionWarehouseId,	
+      BUS_TRAINS_REQUISITION_PLAN.SEND_CAR_DATE as sendCarDate,	
+      BUS_TRAINS_REQUISITION_PLAN.ARRIVE_AT_STATION as arriveAtStation,	
+      BUS_TRAINS_REQUISITION_PLAN.STATION_ID as stationId,	
+      BUS_TRAINS_REQUISITION_PLAN.SHIP_MODE_CODE as shipModeCode,	
+      BUS_TRAINS_REQUISITION_PLAN.SHIP_MODE as shipMode,	
+     BUS_TRAINS_REQUISITION_PLAN.SHIPPING_ADDRESS as shippingAddress,	
+     BUS_TRAINS_REQUISITION_PLAN.NUM as num,	
+     BUS_TRAINS_REQUISITION_PLAN.PLAN_CAR_NUM as planCarNum,	
+     BUS_TRAINS_REQUISITION_PLAN.PLANNED_MILEAGE as plannedMileage,	
+     BUS_TRAINS_REQUISITION_PLAN.FACT_MILEAGE as factMileage,	
+     BUS_TRAINS_REQUISITION_PLAN.VALUATION_MILEAGE as valuationMileage,	
+       BUS_TRAINS_REQUISITION_PLAN.FACT_VALUATION_MILEAGE as factValuationMileage,	
+     BUS_TRAINS_REQUISITION_PLAN.YUAN_TON as yuanTon,	
+     BUS_TRAINS_REQUISITION_PLAN.FREIGHT_YUAN_TON as freightYuanTon,	
+     BUS_TRAINS_REQUISITION_PLAN.UNIT_PRICE as unitPrice,	
+     BUS_TRAINS_REQUISITION_PLAN.REMARK as remark,	
+     BUS_TRAINS_REQUISITION_PLAN.SEND_CAR_PLAN_IMAGE as sendCarPlanImage,	
+     BUS_TRAINS_REQUISITION_PLAN.REMAINDER_NUM as remainderNum,	
+     BUS_TRAINS_REQUISITION_PLAN.REMAINDER_CAR_NUM as remainderCarNum,	
+     BUS_TRAINS_REQUISITION_PLAN.INVALID_CAR_NUMBER as invalidCarNumber,	
+     BUS_TRAINS_REQUISITION_PLAN.INVALID_NUMBER as invalidNumber,	
+     BUS_TRAINS_REQUISITION_PLAN.SHIPPING_VEHICLES_NUMBER as shippingVehiclesNumber,	
+     BUS_TRAINS_REQUISITION_PLAN.SHIPPING_NUMBER as shippingNumber,	
+     BUS_TRAINS_REQUISITION_PLAN.SHIPPER_CODE as shipperCode,	
+     BUS_TRAINS_REQUISITION_PLAN.FLOW_TO_ID as flowToId,	
+     BUS_TRAINS_REQUISITION_PLAN.STATUS as status,	
+     BUS_TRAINS_REQUISITION_PLAN.RECEIVING_PARTY as receivingParty	
+    from BUS_TRAINS_REQUISITION_PLAN
+     <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+ <!-- 批量更新 -->
+  <update id="updateBatch" parameterType="ArrayList">
+     begin
+     <foreach collection="list" item="item" index="index" separator=";" > 
+     update BUS_TRAINS_REQUISITION_PLAN 
+    <set>  
+		<if test="item.usable_status != null and item.usable_status != ''">
+		     USABLE_STATUS=#{item.usable_status,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_time != null and item.create_time != ''">
+		 CREATE_TIME=#{item.create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.create_ip != null and item.create_ip != ''">
+		 CREATE_IP=#{item.create_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_user_id != null and item.create_user_id != ''">
+		 CREATE_USER_ID=#{item.create_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_user_name != null and item.create_user_name != ''">
+		   CREATE_USER_NAME=#{item.create_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_time != null and item.modify_time != ''">
+		 MODIFY_TIME=#{item.modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.modify_ip != null and item.modify_ip != ''">
+		 MODIFY_IP=#{item.modify_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_user_id != null and item.modify_user_id != ''">
+		 MODIFY_USER_ID=#{item.modify_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_user_name != null and item.modify_user_name != ''">
+		   MODIFY_USER_NAME=#{item.modify_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_time != null and item.delete_time != ''">
+		 DELETE_TIME=#{item.delete_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.delete_ip != null and item.delete_ip != ''">
+		 DELETE_IP=#{item.delete_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_flag != null and item.delete_flag != ''">
+		 DELETE_FLAG=#{item.delete_flag,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_user_id != null and item.delete_user_id != ''">
+		   DELETE_USER_ID=#{item.delete_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_user_name != null and item.delete_user_name != ''">
+		 DELETE_USER_NAME=#{item.delete_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.order_code != null and item.order_code != ''">
+		 ORDER_CODE=#{item.order_code,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute1 != null and item.attribute1 != ''">
+		 ATTRIBUTE1=#{item.attribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute2 != null and item.attribute2 != ''">
+		 ATTRIBUTE2=#{item.attribute2,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute3 != null and item.attribute3 != ''">
+		 ATTRIBUTE3=#{item.attribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute4 != null and item.attribute4 != ''">
+		 ATTRIBUTE4=#{item.attribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute5 != null and item.attribute5 != ''">
+		 ATTRIBUTE5=#{item.attribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="item.id!=null and item.id!= ''">
+		ID=#{item.id,jdbcType=CHAR},
+		</if>
+		<if test="item.planCode!=null and item.planCode!= ''">
+		PLAN_CODE=#{item.planCode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.makeDate!=null and item.makeDate!= ''">
+		MAKE_DATE=#{item.makeDate,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.logisticsCompany!=null and item.logisticsCompany!= ''">
+		LOGISTICS_COMPANY=#{item.logisticsCompany,jdbcType=VARCHAR},
+		</if>
+		<if test="item.logisticsCompanyId!=null and item.logisticsCompanyId!= ''">
+		LOGISTICS_COMPANY_ID=#{item.logisticsCompanyId,jdbcType=CHAR},
+		</if>
+		<if test="item.goodsName!=null and item.goodsName!= ''">
+		GOODS_NAME=#{item.goodsName,jdbcType=VARCHAR},
+		</if>
+		<if test="item.productId!=null and item.productId!= ''">
+		PRODUCT_ID=#{item.productId,jdbcType=CHAR},
+		</if>
+		<if test="item.requisitionWarehouse!=null and item.requisitionWarehouse!= ''">
+		REQUISITION_WAREHOUSE=#{item.requisitionWarehouse,jdbcType=VARCHAR},
+		</if>
+		<if test="item.requisitionWarehouseId!=null and item.requisitionWarehouseId!= ''">
+		REQUISITION_WAREHOUSE_ID=#{item.requisitionWarehouseId,jdbcType=CHAR},
+		</if>
+		<if test="item.shippingAddress!=null and item.shippingAddress!= ''">
+		SHIPPING_ADDRESS=#{item.shippingAddress,jdbcType=VARCHAR},
+		</if>
+		<if test="item.num!=null and item.num!= ''">
+		NUM=#{item.num,jdbcType=NUMERIC},
+		</if>
+		<if test="item.planCarNum!=null and item.planCarNum!= ''">
+		PLAN_CAR_NUM=#{item.planCarNum,jdbcType=NUMERIC},
+		</if>
+		<if test="item.plannedMileage!=null and item.plannedMileage!= ''">
+		PLANNED_MILEAGE=#{item.plannedMileage,jdbcType=DECIMAL},
+		</if>
+		<if test="item.factMileage!=null and item.factMileage!= ''">
+		FACT_MILEAGE=#{item.factMileage,jdbcType=DECIMAL},
+		</if>
+		<if test="item.valuationMileage!=null and item.valuationMileage!= ''">
+		VALUATION_MILEAGE=#{item.valuationMileage,jdbcType=DECIMAL},
+		</if>
+		<if test="item.factValuationMileage!=null and item.factValuationMileage!= ''">
+		FACT_VALUATION_MILEAGE=#{item.factValuationMileage,jdbcType=DECIMAL},
+		</if>
+		<if test="item.yuanTon!=null and item.yuanTon!= ''">
+		YUAN_TON=#{item.yuanTon,jdbcType=DECIMAL},
+		</if>
+		<if test="item.freightYuanTon!=null and item.freightYuanTon!= ''">
+		FREIGHT_YUAN_TON=#{item.freightYuanTon,jdbcType=DECIMAL},
+		</if>
+		<if test="item.unitPrice!=null and item.unitPrice!= ''">
+		UNIT_PRICE=#{item.unitPrice,jdbcType=DECIMAL},
+		</if>
+		<if test="item.remark!=null and item.remark!= ''">
+		REMARK=#{item.remark,jdbcType=VARCHAR},
+		</if>
+		<if test="item.sendCarPlanImage!=null and item.sendCarPlanImage!= ''">
+		SEND_CAR_PLAN_IMAGE=#{item.sendCarPlanImage,jdbcType=VARCHAR},
+		</if>
+		<if test="item.remainderNum!=null and item.remainderNum!= ''">
+		REMAINDER_NUM=#{item.remainderNum,jdbcType=NUMERIC},
+		</if>
+		<if test="item.remainderCarNum!=null and item.remainderCarNum!= ''">
+		REMAINDER_CAR_NUM=#{item.remainderCarNum,jdbcType=NUMERIC},
+		</if>
+		<if test="item.invalidCarNumber!=null and item.invalidCarNumber!= ''">
+		INVALID_CAR_NUMBER=#{item.invalidCarNumber,jdbcType=NUMERIC},
+		</if>
+		<if test="item.invalidNumber!=null and item.invalidNumber!= ''">
+		INVALID_NUMBER=#{item.invalidNumber,jdbcType=NUMERIC},
+		</if>
+		<if test="item.shippingVehiclesNumber!=null and item.shippingVehiclesNumber!= ''">
+		SHIPPING_VEHICLES_NUMBER=#{item.shippingVehiclesNumber,jdbcType=NUMERIC},
+		</if>
+		<if test="item.shippingNumber!=null and item.shippingNumber!= ''">
+		SHIPPING_NUMBER=#{item.shippingNumber,jdbcType=NUMERIC},
+		</if>
+		<if test="item.shipperCode!=null and item.shipperCode!= ''">
+		SHIPPER_CODE=#{item.shipperCode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.flowToId!=null and item.flowToId!= ''">
+		FLOW_TO_ID=#{item.flowToId,jdbcType=CHAR},
+		</if>
+		<if test="item.status!=null and item.status!= ''">
+		STATUS=#{item.status,jdbcType=CHAR},
+		</if>
+		<if test="item.receivingParty!=null and item.receivingParty!= ''">
+		RECEIVING_PARTY=#{item.receivingParty,jdbcType=VARCHAR},
+		</if>
+		<if test="item.sendCarDate!=null and item.sendCarDate!= ''">
+		SEND_CAR_DATE=#{item.sendCarDate,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.arriveAtStation!=null and item.arriveAtStation!= ''">
+		ARRIVE_AT_STATION=#{item.arriveAtStation,jdbcType=VARCHAR},
+		</if>
+		<if test="item.shipModeCode!=null and item.shipModeCode!= ''">
+		SHIP_MODE_CODE=#{item.shipModeCode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.shipMode!=null and item.shipMode!= ''">
+		SHIP_MODE=#{item.shipMode,jdbcType=VARCHAR},
+		</if>
+		<if test="item.stationId!=null and item.stationId!= ''">
+		STATION_ID=#{item.stationId,jdbcType=VARCHAR},
+		</if>
+     </set> 
+    where ID=#{item.id}
+   </foreach>
+   ;end;
+   </update>
+   <!--批量插入-->
+ <insert id="insertBatch" parameterType="ArrayList">
+     insert into BUS_TRAINS_REQUISITION_PLAN (
+      USABLE_STATUS, CREATE_TIME, CREATE_IP, CREATE_USER_ID, 
+      CREATE_USER_NAME, MODIFY_TIME, MODIFY_IP, MODIFY_USER_ID, 
+      MODIFY_USER_NAME, DELETE_TIME, DELETE_IP, DELETE_FLAG, 
+      DELETE_USER_ID, DELETE_USER_NAME, ORDER_CODE, ATTRIBUTE1, 
+      ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, 
+      ID ,
+      PLAN_CODE ,
+      MAKE_DATE ,
+      LOGISTICS_COMPANY ,
+      LOGISTICS_COMPANY_ID ,
+      GOODS_NAME ,
+      PRODUCT_ID ,
+      REQUISITION_WAREHOUSE ,
+      REQUISITION_WAREHOUSE_ID ,
+      SHIPPING_ADDRESS ,
+      NUM ,
+      PLAN_CAR_NUM ,
+      PLANNED_MILEAGE ,
+      FACT_MILEAGE ,
+      VALUATION_MILEAGE ,
+      FACT_VALUATION_MILEAGE,
+      YUAN_TON ,
+      FREIGHT_YUAN_TON ,
+      UNIT_PRICE ,
+      REMARK ,
+      SEND_CAR_PLAN_IMAGE ,
+      REMAINDER_NUM ,
+      REMAINDER_CAR_NUM ,
+      INVALID_CAR_NUMBER ,
+      INVALID_NUMBER ,
+      SHIPPING_VEHICLES_NUMBER ,
+      SHIPPING_NUMBER ,
+      SHIPPER_CODE ,
+      FLOW_TO_ID ,
+      STATUS ,
+      RECEIVING_PARTY ,
+      SEND_CAR_DATE,
+      ARRIVE_AT_STATION,
+      SHIP_MODE,
+      SHIP_MODE_CODE,
+      STATION_ID
+      )    
+    <foreach collection="list" item="item" index="index" separator="union all" > 
+    select  
+   #{item.usable_status,jdbcType=VARCHAR},#{item.create_time,jdbcType=TIMESTAMP},#{item.create_ip,jdbcType=VARCHAR},#{item.create_user_id,jdbcType=VARCHAR},#{item.create_user_name,jdbcType=VARCHAR},#{item.modify_time,jdbcType=TIMESTAMP},#{item.modify_ip,jdbcType=VARCHAR},#{item.modify_user_id,jdbcType=VARCHAR},#{item.modify_user_name,jdbcType=VARCHAR},#{item.delete_time,jdbcType=TIMESTAMP},#{item.delete_ip,jdbcType=VARCHAR},#{item.delete_flag,jdbcType=VARCHAR},#{item.delete_user_id,jdbcType=VARCHAR},#{item.delete_user_name,jdbcType=VARCHAR},#{item.order_code,jdbcType=VARCHAR},#{item.attribute1,jdbcType=VARCHAR},#{item.attribute2,jdbcType=VARCHAR},#{item.attribute3,jdbcType=VARCHAR},#{item.attribute4,jdbcType=VARCHAR},#{item.attribute5,jdbcType=VARCHAR},
+	#{item.id,jdbcType=CHAR},
+	#{item.planCode,jdbcType=VARCHAR},
+	#{item.makeDate,jdbcType=TIMESTAMP},
+	#{item.logisticsCompany,jdbcType=VARCHAR},
+	#{item.logisticsCompanyId,jdbcType=CHAR},
+	#{item.goodsName,jdbcType=VARCHAR},
+	#{item.productId,jdbcType=CHAR},
+	#{item.requisitionWarehouse,jdbcType=VARCHAR},
+	#{item.requisitionWarehouseId,jdbcType=CHAR},
+	#{item.shippingAddress,jdbcType=VARCHAR},
+	#{item.num,jdbcType=NUMERIC},
+	#{item.planCarNum,jdbcType=NUMERIC},
+	#{item.plannedMileage,jdbcType=DECIMAL},
+	#{item.factMileage,jdbcType=DECIMAL},
+	#{item.valuationMileage,jdbcType=DECIMAL},
+	#{item.factValuationMileage,jdbcType=DECIMAL},
+	#{item.yuanTon,jdbcType=DECIMAL},
+	#{item.freightYuanTon,jdbcType=DECIMAL},
+	#{item.unitPrice,jdbcType=DECIMAL},
+	#{item.remark,jdbcType=VARCHAR},
+	#{item.sendCarPlanImage,jdbcType=VARCHAR},
+	#{item.remainderNum,jdbcType=NUMERIC},
+	#{item.remainderCarNum,jdbcType=NUMERIC},
+	#{item.invalidCarNumber,jdbcType=NUMERIC},
+	#{item.invalidNumber,jdbcType=NUMERIC},
+	#{item.shippingVehiclesNumber,jdbcType=NUMERIC},
+	#{item.shippingNumber,jdbcType=NUMERIC},
+	#{item.shipperCode,jdbcType=VARCHAR},
+	#{item.flowToId,jdbcType=CHAR},
+	#{item.status,jdbcType=CHAR},
+	#{item.receivingParty,jdbcType=VARCHAR},
+	#{item.sendCarDate,jdbcType=TIMESTAMP},
+	#{item.arriveAtStation,jdbcType=VARCHAR},
+	#{item.shipMode,jdbcType=VARCHAR},
+	#{item.shipModeCode,jdbcType=VARCHAR},
+	#{item.stationId,jdbcType=VARCHAR}
+     from dual
+    </foreach>
+  </insert>	
+</mapper>

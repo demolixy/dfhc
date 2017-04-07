@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dfhc.quota.dao.QuotaDao">
+  <!-- 共享的where语句，如有冲突或特殊情况，请另写 -->
+  <sql id="where">
+   <trim prefix="where" prefixOverrides="and|or">  
+      <if test="id != null and id != ''">
+        and ACCOUNT_QUOTA.ID = #{id}
+      </if>
+      <if test="userId != null and userId != ''">
+        and ACCOUNT_QUOTA.USER_ID = #{userId}
+      </if>
+      <if test="accountHolderName != null and accountHolderName != ''">
+        and ACCOUNT_QUOTA.ACCOUNT_HOLDER_NAME = #{accountHolderName}
+      </if>
+      <if test="creditQuota != null and creditQuota != ''">
+        and ACCOUNT_QUOTA.CREDIT_QUOTA = #{creditQuota}
+      </if>
+      <if test="rechargeQuota != null and rechargeQuota != ''">
+        and ACCOUNT_QUOTA.RECHARGE_QUOTA = #{rechargeQuota}
+      </if>
+      <if test="freezeQuota != null and freezeQuota != ''">
+        and ACCOUNT_QUOTA.FREEZE_QUOTA = #{freezeQuota}
+      </if>
+      <if test="availableQuota != null and availableQuota != ''">
+        and ACCOUNT_QUOTA.AVAILABLE_QUOTA = #{availableQuota}
+      </if>
+      <if test="temporaryQuota != null and temporaryQuota != ''">
+        and ACCOUNT_QUOTA.TEMPORARY_QUOTA = #{temporaryQuota}
+      </if>
+      <if test="quotaAmount != null and quotaAmount != ''">
+        and ACCOUNT_QUOTA.QUOTA_AMOUNT = #{quotaAmount}
+      </if>
+      <if test="signature != null and signature != ''">
+        and ACCOUNT_QUOTA.SIGNATURE = #{signature}
+      </if>
+      <if test="delete_flag != null and delete_flag != ''">
+        and ifnull(ACCOUNT_QUOTA.DELETE_FLAG,'0') = #{delete_flag}
+      </if>
+      </trim>
+  </sql>
+
+  <insert id="insert" parameterType="com.dfhc.quota.vo.QuotaVo">
+    insert into ACCOUNT_QUOTA (
+      USABLE_STATUS, CREATE_TIME, CREATE_IP, CREATE_USER_ID, 
+      CREATE_USER_NAME, MODIFY_TIME, MODIFY_IP, MODIFY_USER_ID, 
+      MODIFY_USER_NAME, DELETE_TIME, DELETE_IP, DELETE_FLAG, 
+      DELETE_USER_ID, DELETE_USER_NAME, ORDER_CODE, ATTRIBUTE1, 
+      ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, 
+      ID ,
+      USER_ID ,
+      ACCOUNT_HOLDER_NAME ,
+      CREDIT_QUOTA ,
+      RECHARGE_QUOTA ,
+      FREEZE_QUOTA ,
+      AVAILABLE_QUOTA ,
+      TEMPORARY_QUOTA ,
+      QUOTA_AMOUNT ,
+      SIGNATURE 
+      )
+    values ( 
+     #{usable_status,jdbcType=VARCHAR},#{create_time,jdbcType=TIMESTAMP},#{create_ip,jdbcType=VARCHAR},#{create_user_id,jdbcType=VARCHAR},#{create_user_name,jdbcType=VARCHAR},#{modify_time,jdbcType=TIMESTAMP},#{modify_ip,jdbcType=VARCHAR},#{modify_user_id,jdbcType=VARCHAR},#{modify_user_name,jdbcType=VARCHAR},#{delete_time,jdbcType=TIMESTAMP},#{delete_ip,jdbcType=VARCHAR},#{delete_flag,jdbcType=VARCHAR},#{delete_user_id,jdbcType=VARCHAR},#{delete_user_name,jdbcType=VARCHAR},#{order_code,jdbcType=VARCHAR},#{attribute1,jdbcType=VARCHAR},#{attribute2,jdbcType=VARCHAR},#{attribute3,jdbcType=VARCHAR},#{attribute4,jdbcType=VARCHAR},#{attribute5,jdbcType=VARCHAR},
+	#{id,jdbcType=CHAR},
+	#{userId,jdbcType=BIGINT},
+	#{accountHolderName,jdbcType=VARCHAR},
+	#{creditQuota,jdbcType=INTEGER},
+	#{rechargeQuota,jdbcType=INTEGER},
+	#{freezeQuota,jdbcType=INTEGER},
+	#{availableQuota,jdbcType=INTEGER},
+	#{temporaryQuota,jdbcType=INTEGER},
+	#{quotaAmount,jdbcType=DECIMAL},
+	#{signature,jdbcType=CHAR}
+      )
+  </insert>
+    
+  <delete id="delete" parameterType="int">
+    delete from ACCOUNT_QUOTA where ID=#{id}
+  </delete>
+  
+  <delete id="deleteMulti" parameterType="int">
+    delete from ACCOUNT_QUOTA where ID in 
+    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">  
+      #{item}   
+    </foreach>
+  </delete>
+
+  <update id="update" parameterType="com.dfhc.quota.vo.QuotaVo">
+    update ACCOUNT_QUOTA 
+    <trim prefix="SET" suffixOverrides=",">  
+		<if test="usable_status != null and usable_status != ''">
+		     USABLE_STATUS=#{usable_status,jdbcType=VARCHAR},
+		</if>
+		<if test="create_time != null and create_time != ''">
+		 CREATE_TIME=#{create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="create_ip != null and create_ip != ''">
+		 CREATE_IP=#{create_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="create_user_id != null and create_user_id != ''">
+		 CREATE_USER_ID=#{create_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="create_user_name != null and create_user_name != ''">
+		   CREATE_USER_NAME=#{create_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_time != null and modify_time != ''">
+		 MODIFY_TIME=#{modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="modify_ip != null and modify_ip != ''">
+		 MODIFY_IP=#{modify_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_user_id != null and modify_user_id != ''">
+		 MODIFY_USER_ID=#{modify_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="modify_user_name != null and modify_user_name != ''">
+		   MODIFY_USER_NAME=#{modify_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_time != null and delete_time != ''">
+		 DELETE_TIME=#{delete_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="delete_ip != null and delete_ip != ''">
+		 DELETE_IP=#{delete_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_flag != null and delete_flag != ''">
+		 DELETE_FLAG=#{delete_flag,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_user_id != null and delete_user_id != ''">
+		   DELETE_USER_ID=#{delete_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="delete_user_name != null and delete_user_name != ''">
+		 DELETE_USER_NAME=#{delete_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="order_code != null and order_code != ''">
+		 ORDER_CODE=#{order_code,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute1 != null and attribute1 != ''">
+		 ATTRIBUTE1=#{attribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute2 != null and attribute2 != ''">
+		 ATTRIBUTE2=#{attribute2,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute3 != null and attribute3 != ''">
+		 ATTRIBUTE3=#{attribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute4 != null and attribute4 != ''">
+		 ATTRIBUTE4=#{attribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="attribute5 != null and attribute5 != ''">
+		 ATTRIBUTE5=#{attribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="id!=null and id!= ''">
+		ID=#{id,jdbcType=CHAR},
+		</if>
+		<if test="userId!=null and userId!= ''">
+		USER_ID=#{userId,jdbcType=BIGINT},
+		</if>
+		<if test="accountHolderName!=null and accountHolderName!= ''">
+		ACCOUNT_HOLDER_NAME=#{accountHolderName,jdbcType=VARCHAR},
+		</if>
+		<if test="creditQuota!=null and creditQuota!= ''">
+		CREDIT_QUOTA=#{creditQuota,jdbcType=INTEGER},
+		</if>
+		<if test="rechargeQuota!=null and rechargeQuota!= ''">
+		RECHARGE_QUOTA=#{rechargeQuota,jdbcType=INTEGER},
+		</if>
+		<if test="freezeQuota!=null and freezeQuota!= ''">
+		FREEZE_QUOTA=#{freezeQuota,jdbcType=INTEGER},
+		</if>
+		<if test="availableQuota!=null and availableQuota!= ''">
+		AVAILABLE_QUOTA=#{availableQuota,jdbcType=INTEGER},
+		</if>
+		<if test="temporaryQuota!=null and temporaryQuota!= ''">
+		TEMPORARY_QUOTA=#{temporaryQuota,jdbcType=INTEGER},
+		</if>
+		<if test="quotaAmount!=null and quotaAmount!= ''">
+		QUOTA_AMOUNT=#{quotaAmount,jdbcType=DECIMAL},
+		</if>
+		<if test="signature!=null and signature!= ''">
+		SIGNATURE=#{signature,jdbcType=CHAR},
+		</if>
+     </trim> 
+    where ID=#{id}
+  </update>
+
+  <select id="get" parameterType="string" resultType="com.dfhc.quota.vo.QuotaVo">
+    select  
+      ACCOUNT_QUOTA.USABLE_STATUS, ACCOUNT_QUOTA.CREATE_TIME, ACCOUNT_QUOTA.CREATE_IP, ACCOUNT_QUOTA.CREATE_USER_ID, 
+      ACCOUNT_QUOTA.CREATE_USER_NAME, ACCOUNT_QUOTA.MODIFY_TIME, ACCOUNT_QUOTA.MODIFY_IP, ACCOUNT_QUOTA.MODIFY_USER_ID, 
+      ACCOUNT_QUOTA.MODIFY_USER_NAME, ACCOUNT_QUOTA.DELETE_TIME, ACCOUNT_QUOTA.DELETE_IP, ACCOUNT_QUOTA.DELETE_FLAG, 
+      ACCOUNT_QUOTA.DELETE_USER_ID, ACCOUNT_QUOTA.DELETE_USER_NAME, ACCOUNT_QUOTA.ORDER_CODE, ACCOUNT_QUOTA.ATTRIBUTE1, 
+      ACCOUNT_QUOTA.ATTRIBUTE2, ACCOUNT_QUOTA.ATTRIBUTE3, ACCOUNT_QUOTA.ATTRIBUTE4, ACCOUNT_QUOTA.ATTRIBUTE5, 
+      ACCOUNT_QUOTA.ID as id,	
+      ACCOUNT_QUOTA.USER_ID as userId,	
+      ACCOUNT_QUOTA.ACCOUNT_HOLDER_NAME as accountHolderName,	
+      ACCOUNT_QUOTA.CREDIT_QUOTA as creditQuota,	
+      ACCOUNT_QUOTA.RECHARGE_QUOTA as rechargeQuota,	
+      ACCOUNT_QUOTA.FREEZE_QUOTA as freezeQuota,	
+      ACCOUNT_QUOTA.AVAILABLE_QUOTA as availableQuota,	
+      ACCOUNT_QUOTA.TEMPORARY_QUOTA as temporaryQuota,	
+      ACCOUNT_QUOTA.QUOTA_AMOUNT as quotaAmount,	
+      ACCOUNT_QUOTA.SIGNATURE as signature	
+    from ACCOUNT_QUOTA 
+    where ACCOUNT_QUOTA.ID=#{id}
+  </select>
+
+  <select id="getCount" parameterType="map" resultType="int" useCache="true">
+    select count(ACCOUNT_QUOTA.ID) from ACCOUNT_QUOTA
+    <include refid="where"/>    
+  </select>
+  
+  <select id="list" parameterType="map" resultType="com.dfhc.quota.vo.QuotaVo">
+    select 
+     ACCOUNT_QUOTA.ID as id,	
+     ACCOUNT_QUOTA.USER_ID as userId,	
+     ACCOUNT_QUOTA.ACCOUNT_HOLDER_NAME as accountHolderName,	
+     ACCOUNT_QUOTA.CREDIT_QUOTA as creditQuota,	
+     ACCOUNT_QUOTA.RECHARGE_QUOTA as rechargeQuota,	
+     ACCOUNT_QUOTA.FREEZE_QUOTA as freezeQuota,	
+     ACCOUNT_QUOTA.AVAILABLE_QUOTA as availableQuota,	
+     ACCOUNT_QUOTA.TEMPORARY_QUOTA as temporaryQuota,	
+     ACCOUNT_QUOTA.QUOTA_AMOUNT as quotaAmount,	
+     ACCOUNT_QUOTA.SIGNATURE as signature	
+    from ACCOUNT_QUOTA
+    <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+  
+  <select id="listAllColumn" parameterType="map" resultType="com.dfhc.quota.vo.QuotaVo">
+    select 
+      ACCOUNT_QUOTA.USABLE_STATUS, ACCOUNT_QUOTA.CREATE_TIME, ACCOUNT_QUOTA.CREATE_IP, ACCOUNT_QUOTA.CREATE_USER_ID, 
+      ACCOUNT_QUOTA.CREATE_USER_NAME, ACCOUNT_QUOTA.MODIFY_TIME, ACCOUNT_QUOTA.MODIFY_IP, ACCOUNT_QUOTA.MODIFY_USER_ID, 
+      ACCOUNT_QUOTA.MODIFY_USER_NAME, ACCOUNT_QUOTA.DELETE_TIME, ACCOUNT_QUOTA.DELETE_IP, ACCOUNT_QUOTA.DELETE_FLAG, 
+      ACCOUNT_QUOTA.DELETE_USER_ID, ACCOUNT_QUOTA.DELETE_USER_NAME, ACCOUNT_QUOTA.ORDER_CODE, ACCOUNT_QUOTA.ATTRIBUTE1, 
+     ACCOUNT_QUOTA.ATTRIBUTE2, ACCOUNT_QUOTA.ATTRIBUTE3, ACCOUNT_QUOTA.ATTRIBUTE4, ACCOUNT_QUOTA.ATTRIBUTE5, 
+     ACCOUNT_QUOTA.ID as id,	
+     ACCOUNT_QUOTA.USER_ID as userId,	
+     ACCOUNT_QUOTA.ACCOUNT_HOLDER_NAME as accountHolderName,	
+     ACCOUNT_QUOTA.CREDIT_QUOTA as creditQuota,	
+     ACCOUNT_QUOTA.RECHARGE_QUOTA as rechargeQuota,	
+     ACCOUNT_QUOTA.FREEZE_QUOTA as freezeQuota,	
+     ACCOUNT_QUOTA.AVAILABLE_QUOTA as availableQuota,	
+     ACCOUNT_QUOTA.TEMPORARY_QUOTA as temporaryQuota,	
+     ACCOUNT_QUOTA.QUOTA_AMOUNT as quotaAmount,	
+     ACCOUNT_QUOTA.SIGNATURE as signature	
+    from ACCOUNT_QUOTA
+    <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+
+  <select id="search" parameterType="map" resultType="com.dfhc.quota.vo.QuotaVo">
+    select 
+      ACCOUNT_QUOTA.USABLE_STATUS, ACCOUNT_QUOTA.CREATE_TIME, ACCOUNT_QUOTA.CREATE_IP, ACCOUNT_QUOTA.CREATE_USER_ID, 
+      ACCOUNT_QUOTA.CREATE_USER_NAME, ACCOUNT_QUOTA.MODIFY_TIME, ACCOUNT_QUOTA.MODIFY_IP, ACCOUNT_QUOTA.MODIFY_USER_ID, 
+      ACCOUNT_QUOTA.MODIFY_USER_NAME, ACCOUNT_QUOTA.DELETE_TIME, ACCOUNT_QUOTA.DELETE_IP, ACCOUNT_QUOTA.DELETE_FLAG, 
+      ACCOUNT_QUOTA.DELETE_USER_ID, ACCOUNT_QUOTA.DELETE_USER_NAME, ACCOUNT_QUOTA.ORDER_CODE, ACCOUNT_QUOTA.ATTRIBUTE1, 
+      ACCOUNT_QUOTA.ATTRIBUTE2, ACCOUNT_QUOTA.ATTRIBUTE3, ACCOUNT_QUOTA.ATTRIBUTE4, ACCOUNT_QUOTA.ATTRIBUTE5, 
+     ACCOUNT_QUOTA.ID as id,	
+     ACCOUNT_QUOTA.USER_ID as userId,	
+     ACCOUNT_QUOTA.ACCOUNT_HOLDER_NAME as accountHolderName,	
+     ACCOUNT_QUOTA.CREDIT_QUOTA as creditQuota,	
+     ACCOUNT_QUOTA.RECHARGE_QUOTA as rechargeQuota,	
+     ACCOUNT_QUOTA.FREEZE_QUOTA as freezeQuota,	
+     ACCOUNT_QUOTA.AVAILABLE_QUOTA as availableQuota,	
+     ACCOUNT_QUOTA.TEMPORARY_QUOTA as temporaryQuota,	
+     ACCOUNT_QUOTA.QUOTA_AMOUNT as quotaAmount,	
+     ACCOUNT_QUOTA.SIGNATURE as signature	
+    from ACCOUNT_QUOTA
+     <include refid="where"/>
+    <if test="orderStr != null and orderStr != ''">
+        order by ${orderStr}
+    </if>
+  </select>
+ <!-- 批量更新 -->
+  <update id="updateBatch" parameterType="ArrayList">
+     <foreach collection="list" item="item" index="index" separator=";" > 
+     update ACCOUNT_QUOTA 
+    <set>  
+		<if test="item.usable_status != null and item.usable_status != ''">
+		     USABLE_STATUS=#{item.usable_status,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_time != null and item.create_time != ''">
+		 CREATE_TIME=#{item.create_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.create_ip != null and item.create_ip != ''">
+		 CREATE_IP=#{item.create_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_user_id != null and item.create_user_id != ''">
+		 CREATE_USER_ID=#{item.create_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.create_user_name != null and item.create_user_name != ''">
+		   CREATE_USER_NAME=#{item.create_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_time != null and item.modify_time != ''">
+		 MODIFY_TIME=#{item.modify_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.modify_ip != null and item.modify_ip != ''">
+		 MODIFY_IP=#{item.modify_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_user_id != null and item.modify_user_id != ''">
+		 MODIFY_USER_ID=#{item.modify_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.modify_user_name != null and item.modify_user_name != ''">
+		   MODIFY_USER_NAME=#{item.modify_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_time != null and item.delete_time != ''">
+		 DELETE_TIME=#{item.delete_time,jdbcType=TIMESTAMP},
+		</if>
+		<if test="item.delete_ip != null and item.delete_ip != ''">
+		 DELETE_IP=#{item.delete_ip,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_flag != null and item.delete_flag != ''">
+		 DELETE_FLAG=#{item.delete_flag,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_user_id != null and item.delete_user_id != ''">
+		   DELETE_USER_ID=#{item.delete_user_id,jdbcType=VARCHAR},
+		</if>
+		<if test="item.delete_user_name != null and item.delete_user_name != ''">
+		 DELETE_USER_NAME=#{item.delete_user_name,jdbcType=VARCHAR},
+		</if>
+		<if test="item.order_code != null and item.order_code != ''">
+		 ORDER_CODE=#{item.order_code,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute1 != null and item.attribute1 != ''">
+		 ATTRIBUTE1=#{item.attribute1,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute2 != null and item.attribute2 != ''">
+		 ATTRIBUTE2=#{item.attribute2,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute3 != null and item.attribute3 != ''">
+		 ATTRIBUTE3=#{item.attribute3,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute4 != null and item.attribute4 != ''">
+		 ATTRIBUTE4=#{item.attribute4,jdbcType=VARCHAR},
+		</if>
+		<if test="item.attribute5 != null and item.attribute5 != ''">
+		 ATTRIBUTE5=#{item.attribute5,jdbcType=VARCHAR},
+		</if>
+		<if test="item.id!=null and item.id!= ''">
+		ID=#{item.id,jdbcType=CHAR},
+		</if>
+		<if test="item.userId!=null and item.userId!= ''">
+		USER_ID=#{item.userId,jdbcType=BIGINT},
+		</if>
+		<if test="item.accountHolderName!=null and item.accountHolderName!= ''">
+		ACCOUNT_HOLDER_NAME=#{item.accountHolderName,jdbcType=VARCHAR},
+		</if>
+		<if test="item.creditQuota!=null and item.creditQuota!= ''">
+		CREDIT_QUOTA=#{item.creditQuota,jdbcType=INTEGER},
+		</if>
+		<if test="item.rechargeQuota!=null and item.rechargeQuota!= ''">
+		RECHARGE_QUOTA=#{item.rechargeQuota,jdbcType=INTEGER},
+		</if>
+		<if test="item.freezeQuota!=null and item.freezeQuota!= ''">
+		FREEZE_QUOTA=#{item.freezeQuota,jdbcType=INTEGER},
+		</if>
+		<if test="item.availableQuota!=null and item.availableQuota!= ''">
+		AVAILABLE_QUOTA=#{item.availableQuota,jdbcType=INTEGER},
+		</if>
+		<if test="item.temporaryQuota!=null and item.temporaryQuota!= ''">
+		TEMPORARY_QUOTA=#{item.temporaryQuota,jdbcType=INTEGER},
+		</if>
+		<if test="item.quotaAmount!=null and item.quotaAmount!= ''">
+		QUOTA_AMOUNT=#{item.quotaAmount,jdbcType=DECIMAL},
+		</if>
+		<if test="item.signature!=null and item.signature!= ''">
+		SIGNATURE=#{item.signature,jdbcType=CHAR},
+		</if>
+     </set> 
+    where ID=#{item.id}
+   </foreach>
+   ;
+   </update>
+   <!--批量插入-->
+ <update id="insertBatch" parameterType="ArrayList">
+     insert into ACCOUNT_QUOTA (
+      USABLE_STATUS, CREATE_TIME, CREATE_IP, CREATE_USER_ID, 
+      CREATE_USER_NAME, MODIFY_TIME, MODIFY_IP, MODIFY_USER_ID, 
+      MODIFY_USER_NAME, DELETE_TIME, DELETE_IP, DELETE_FLAG, 
+      DELETE_USER_ID, DELETE_USER_NAME, ORDER_CODE, ATTRIBUTE1, 
+      ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, 
+      ID ,
+      USER_ID ,
+      ACCOUNT_HOLDER_NAME ,
+      CREDIT_QUOTA ,
+      RECHARGE_QUOTA ,
+      FREEZE_QUOTA ,
+      AVAILABLE_QUOTA ,
+      TEMPORARY_QUOTA ,
+      QUOTA_AMOUNT ,
+      SIGNATURE 
+      )
+    values 
+    <foreach collection="list" item="item" index="index" separator="," > 
+    ( 
+   #{item.usable_status,jdbcType=VARCHAR},#{item.create_time,jdbcType=TIMESTAMP},#{item.create_ip,jdbcType=VARCHAR},#{item.create_user_id,jdbcType=VARCHAR},#{item.create_user_name,jdbcType=VARCHAR},#{item.modify_time,jdbcType=TIMESTAMP},#{item.modify_ip,jdbcType=VARCHAR},#{item.modify_user_id,jdbcType=VARCHAR},#{item.modify_user_name,jdbcType=VARCHAR},#{item.delete_time,jdbcType=TIMESTAMP},#{item.delete_ip,jdbcType=VARCHAR},#{item.delete_flag,jdbcType=VARCHAR},#{item.delete_user_id,jdbcType=VARCHAR},#{item.delete_user_name,jdbcType=VARCHAR},#{item.order_code,jdbcType=VARCHAR},#{item.attribute1,jdbcType=VARCHAR},#{item.attribute2,jdbcType=VARCHAR},#{item.attribute3,jdbcType=VARCHAR},#{item.attribute4,jdbcType=VARCHAR},#{item.attribute5,jdbcType=VARCHAR},
+	#{item.id,jdbcType=CHAR},
+	#{item.userId,jdbcType=BIGINT},
+	#{item.accountHolderName,jdbcType=VARCHAR},
+	#{item.creditQuota,jdbcType=INTEGER},
+	#{item.rechargeQuota,jdbcType=INTEGER},
+	#{item.freezeQuota,jdbcType=INTEGER},
+	#{item.availableQuota,jdbcType=INTEGER},
+	#{item.temporaryQuota,jdbcType=INTEGER},
+	#{item.quotaAmount,jdbcType=DECIMAL},
+	#{item.signature,jdbcType=CHAR}
+    ) 
+    </foreach>
+   ;
+  </update>	
+</mapper>

@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>文本框</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+    <meta name="generator" content="www.leipi.org" />
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <!--[if lte IE 6]>
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-ie6.css">
+    <![endif]-->
+    <!--[if lte IE 7]>
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/ie.css">
+    <![endif]-->
+    <link rel="stylesheet" href="leipi.style.css">
+    <script type="text/javascript" src="../dialogs/internal.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../jquery-1.7.2.min.js?2023"></script>
+
+<script type="text/javascript" charset="utf-8" src="../ueditor.config.js?2023"></script>
+<script type="text/javascript" charset="utf-8" src="../ueditor.all.js?2023"> </script>
+<script type="text/javascript" charset="utf-8" src="../lang/zh-cn/zh-cn.js?2023"></script>
+<script type="text/javascript" charset="utf-8" src="../formdesign/leipi.formdesign.v4.js"></script>
+</head>
+<body>
+<form action="" enctype="application/x-www-form-urlencoded"></form>
+<div class="content">
+    <table class="table table-bordered table-striped table-hover">
+     <tr>
+        <th><span>action</span><span class="label label-important">*</span></th>
+        <th><span>method</span> </th>
+    </tr>
+    <tr>
+        <td><input type="text" id="action" placeholder="无则不填"></td>
+        <td>
+        	<select name="method" id="method">
+        		<option selected="selected" value="get">get</option>
+        		<option value="post">post</option>
+        	</select>
+        
+        </td>
+    </tr>
+    <tr>
+        <th><span>id</span> </th>
+        <th><span>name</span> </th>
+    </tr>
+    <tr>
+        <td>
+             <input type="text" id="id" placeholder="无则不填">
+        </td>
+        <td>
+            <input type="text" id="name" placeholder="无则不填">
+        </td>
+    </tr>
+    <tr>
+    
+        <th><span>enctype</span> </th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+           <select name="enctype" id="enctype">
+           	<option selected="selected" value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+           	<option value="multipart/form-data">multipart/form-data</option>
+           	<option value="text/plain">text/plain</option>
+           </select>
+        </td>
+        <td>
+            
+        </td>
+    </tr>
+
+    </table>
+</div>
+
+<script type="text/javascript">
+
+dialog.onok = function (){
+    var actionValue = document.getElementById("action").value;
+    var methodValue = document.getElementById("method").value;
+    var idValue = document.getElementById("id").value;
+    var nameValue = document.getElementById("name").value;
+    var enctypeValue = document.getElementById("enctype").value;
+    var formHtml = "<form ";
+    formHtml += "method='" + methodValue + "'";
+    if(actionValue && actionValue.length>0){
+    	formHtml += "action='" + actionValue + "'";
+    }	
+    if(idValue && idValue.length>0){
+    	formHtml += "id='" + idValue + "'";
+    }	
+    if(nameValue && nameValue.length>0){
+    	formHtml += "name='" + nameValue + "'";
+    }	
+   	formHtml += "enctype='" + enctypeValue + "'";
+   	formHtml += ">";
+   	
+  //获取表单设计器里的内容
+  	
+    var parse_form = window.parent.getHtml();
+    
+    var templateHtml = getContextHtml(parse_form);
+    formHtml += templateHtml;
+    formHtml += "</form>";
+    parse_form = parse_form.replace(templateHtml, formHtml);
+    //window.parent.document.getElementById("myFormDesign").innerHTML = parse_form;
+    editor.execCommand('cleardoc');
+    editor.execCommand('insertHtml',parse_form);
+};
+function getContextHtml(parse_form){
+	var template = parse_form;
+	var cssReg = /<link.*?>/;
+	var jsReg = /<script.*?><\/script>|<script.*?\/>/;
+	var cssHtml = parse_form.match(cssReg);
+	var jsHtml = parse_form.match(jsReg);
+	
+	if(cssHtml){
+		for(var i = 0; i < cssHtml.length; i++){
+			template = template.replace(cssHtml[i], '');
+		}
+	}	
+	if(jsHtml){
+		for(var i = 0; i < jsHtml.length; i++){
+			template = template.replace(jsHtml[i], '');
+		}
+	}
+	return template;
+}
+</script>
+</body>
+</html>
