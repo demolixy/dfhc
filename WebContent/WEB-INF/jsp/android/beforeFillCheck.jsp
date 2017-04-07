@@ -23,7 +23,7 @@
 		$("body").css({
 			"min-height" : screenHeight + "px"
 		});
-	})
+	});
 </script>
 </head>
 
@@ -35,12 +35,16 @@
 		<%@ include file="/jsp/android/header.jsp"%>
 
 		<div class="dj_title">
-
-			<span>充装前检查</span>
-
+			<c:if test="${checkType=='01'}">
+				<span>充装前检查</span>
+			</c:if>
+			<c:if test="${checkType=='02'}">
+				<span>充装中检查</span>
+			</c:if>
+			<c:if test="${checkType=='03'}">
+				<span>充装后检查</span>
+			</c:if>
 		</div>
-
-
 	</div>
 	<!--end 头-->
 
@@ -65,7 +69,8 @@
 							readonly="readonly" />
 					</div>
 				</div>
-				<input name="checkType" type="hidden" value="${checkType}"/>
+				<input name="checkType" type="hidden" value="${checkType}" />
+				
 				<c:forEach var="list" items="${securityIndexs}">
 					<div class="dj_item">
 						<div class="item_title">
@@ -79,30 +84,37 @@
 										value="" />
 								</c:when>
 								<c:when test="${list.checkResultCtrlType=='02' }">
-									 <div class="checkboxThree"> 
-										<input type="checkbox"  value=0
+									<div class="checkboxThree">
+										<input type="checkbox"  value="0"  id="checkboxThreeInput"
 											name='<c:out value="${list.checkResultCtrlName }" ></c:out>' />
-									  <label class=""></label>
-									</div> 
+										<label class=""></label>
+									</div>
 								</c:when>
 							</c:choose>
 						</div>
 					</div>
 				</c:forEach>
 
+				<div class="dj_item">
+					<div class="item_title">是否通过：</div>
+					<div class="item_text">
+						<div class="checkboxThree">
+							<input type="checkbox" value="0" id="checkboxThreeInput"
+								name="status" /> <label class=""></label>
+						</div>
+					</div>
+				</div>
+			</div>	
 				<div class="big_btn_div">
 					<a href="javascript:void();" class="big_btn">提交</a>
 				</div>
-
 			</div>
 	</form>
 	<!--end 表单内容-->
 	<script type="text/javascript">
 		$(function() {
 			$(document).delegate(".checkboxThree", "click", function() {
-
 				var inputChecked = $(this).find("input");
-
 				if ($(inputChecked).val() == 0) {
 					$(inputChecked).prop("checked", "checked");
 					$(inputChecked).next().addClass("inpChecked");
@@ -122,15 +134,11 @@
 								+ "】请确认安检完成。";
 						zfconfirm('系统确认框', info, function(r) {
 							if (r) {
-
 								form.submit();
 							}
 						});
-
 					});
 		});
 	</script>
-
-
 </body>
 </html>

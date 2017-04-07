@@ -1285,6 +1285,9 @@ public interface ISystemConstant {
 	public static final String DICTIONARY_SECURITY_CHECK_TYPE_02="11";
 	//充装后检查
 	public static final String DICTIONARY_SECURITY_CHECK_TYPE_03="12";
+	//检查结果
+	public static final String DICTIONARY_SECURITY_CHECK_RESULT="13";
+
 	/**
 	 * 检查结果控件类型
 	 */
